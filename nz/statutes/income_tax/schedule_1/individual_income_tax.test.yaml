@@ -1,0 +1,60 @@
+- name: first_bracket_upper_bound
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.taxable_income: 15600
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.bracket: 1
+  output:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_thresholds: 15600
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_rates: 0.105
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_before_credits: 1638
+
+- name: second_bracket_upper_bound
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.taxable_income: 53500
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.bracket: 2
+  output:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_thresholds: 53500
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_rates: 0.175
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_before_credits: 8270.5
+
+- name: fourth_bracket_upper_bound
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.taxable_income: 180000
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.bracket: 4
+  output:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_thresholds: 180000
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_rates: 0.330
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_before_credits: 49277.5
+
+- name: top_bracket_income
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.taxable_income: 200000
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.bracket: 5
+  output:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_bracket_rates: 0.390
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_before_credits: 57077.5
+
+- name: nonpositive_taxable_income
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.taxable_income: -100
+  output:
+    nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_before_credits: 0
