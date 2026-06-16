@@ -34,7 +34,15 @@ This is not a pilot repo. The target is full NZ coverage. The work should procee
 4. RuleSpec encoding: source-grounded modules under `nz/statutes`, `nz/regulations`, and `nz/policies`.
 5. Parity: compare Axiom outputs against oracle cases, then mark divergences as either Axiom bugs, oracle bugs, or legally meaningful interpretation questions.
 
-The first source-first ingestion lane is the NZ Legislation PCO XML adapter in `axiom-corpus`:
+The first source-first ingestion lane is the NZ Legislation PCO XML adapter in `axiom-corpus`. With an official API key available in `NZ_LEGISLATION_API_KEY`, acquire XML sources first:
+
+```bash
+uv run axiom-corpus download-nz-legislation-api \
+  --output-dir <path-to-pco-xml> \
+  --manifest-path data/corpus/inventory/nz/api-downloads/<run-id>.json
+```
+
+Then normalize the local XML directory:
 
 ```bash
 uv run axiom-corpus extract-nz-legislation \
@@ -45,7 +53,7 @@ uv run axiom-corpus extract-nz-legislation \
   --expression-date <YYYY-MM-DD>
 ```
 
-Use the official data.govt.nz bulk XML directory for Acts, regulations, Bills, and Supplementary Order Papers. Do not commit the full raw XML tree here; promote the versioned corpus artifacts and cite their `citation_path` values from RuleSpec modules.
+Use the official API or data.govt.nz bulk XML directory for Acts, regulations, Bills, and Supplementary Order Papers. Do not commit the full raw XML tree here; promote the versioned corpus artifacts and cite their `citation_path` values from RuleSpec modules.
 
 ## Conventions
 

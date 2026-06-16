@@ -16,7 +16,18 @@
     "cli": "extract-nz-legislation",
     "minimum_ref": "codex/nz-legislation-ingestion-20260616"
   },
-  "command_template": "uv run axiom-corpus extract-nz-legislation --base data/corpus --version <run-id> --source-dir <path-to-pco-xml> --as-of <YYYY-MM-DD> --expression-date <YYYY-MM-DD>",
+  "source_acquisition": {
+    "api_docs_url": "https://api.legislation.govt.nz/docs/",
+    "api_key_env": "NZ_LEGISLATION_API_KEY",
+    "command_template": "uv run axiom-corpus download-nz-legislation-api --output-dir <path-to-pco-xml> --manifest-path data/corpus/inventory/nz/api-downloads/<run-id>.json --limit <optional-smoke-limit>",
+    "status": "blocked_until_api_key_available",
+    "blockers_observed_on_2026_06_16": [
+      "api.legislation.govt.nz/v0/works returns 401 without an API key",
+      "www.legislation.govt.nz/developer-api presents a human-verification challenge",
+      "www.legislation.govt.nz XML format URLs return CloudFront WAF challenges to curl from this environment"
+    ]
+  },
+  "extraction_command_template": "uv run axiom-corpus extract-nz-legislation --base data/corpus --version <run-id> --source-dir <path-to-pco-xml> --as-of <YYYY-MM-DD> --expression-date <YYYY-MM-DD>",
   "output_paths": {
     "source_snapshots": "data/corpus/sources/nz/<document_class>/<run-id>/...",
     "inventory": "data/corpus/inventory/nz/<document_class>/<run-id>.json",
