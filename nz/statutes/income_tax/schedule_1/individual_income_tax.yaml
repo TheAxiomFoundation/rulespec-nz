@@ -11,11 +11,11 @@ module:
       - https://www.ird.govt.nz/income-tax/income-tax-for-individuals/tax-codes-and-tax-rates-for-individuals/tax-rates-for-individuals
     values:
       individual_income_tax_bracket_rates:
-        1: 0.105
-        2: 0.175
-        3: 0.300
-        4: 0.330
-        5: 0.390
+        1: "0.105"
+        2: "0.175"
+        3: "0.300"
+        4: "0.330"
+        5: "0.390"
       individual_income_tax_bracket_thresholds:
         1: 15600
         2: 53500
