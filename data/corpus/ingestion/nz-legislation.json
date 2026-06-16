@@ -14,7 +14,7 @@
     "module": "axiom_corpus.corpus.nz_legislation",
     "function": "extract_nz_legislation",
     "cli": "extract-nz-legislation",
-    "minimum_ref": "2b920c166860387a6e22ffb894830d697cc4032c"
+    "minimum_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd"
   },
   "source_acquisition": {
     "api_docs_url": "https://api.legislation.govt.nz/docs/",
@@ -34,7 +34,22 @@
       "www.legislation.govt.nz XML format URLs return CloudFront WAF challenges to curl from this environment"
     ]
   },
-  "extraction_command_template": "uv run axiom-corpus extract-nz-legislation --base data/corpus --version <run-id> --source-dir <path-to-pco-xml> --as-of <YYYY-MM-DD> --expression-date <YYYY-MM-DD>",
+  "latest_extraction": {
+    "run_id": "2026-06-16-pco-latest",
+    "as_of": "2026-06-16",
+    "expression_date": "2026-06-16",
+    "axiom_corpus_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd",
+    "source_file_count": 20971,
+    "provisions_written": 511632,
+    "by_document_class": {
+      "statute": 230491,
+      "regulation": 127567,
+      "rulemaking": 153574
+    },
+    "local_corpus_path": "/Users/maxghenis/_axiom-worktrees/nz-legislation-api-downloads/2026-06-16-pco-latest/corpus-d7c53d2",
+    "tax_benefit_locator_path": "data/corpus/inventory/nz/tax-benefit-pco-locators.json"
+  },
+  "extraction_command_template": "uv run axiom-corpus extract-nz-legislation --base data/corpus --version <run-id> --source-dir <path-to-pco-xml> --source-pattern '**/*.xml' --as-of <YYYY-MM-DD> --expression-date <YYYY-MM-DD>",
   "output_paths": {
     "source_snapshots": "data/corpus/sources/nz/<document_class>/<run-id>/...",
     "inventory": "data/corpus/inventory/nz/<document_class>/<run-id>.json",
@@ -44,6 +59,7 @@
   "notes": [
     "Use the official data.govt.nz bulk XML directory rather than scraping live legislation pages.",
     "Do not commit the full raw bulk XML tree to rulespec-nz; promote versioned corpus artifacts deliberately.",
-    "Treat corpus citation paths as legal provenance for RuleSpec modules under nz/statutes, nz/regulations, and nz/policies."
+    "Treat corpus citation paths as legal provenance for RuleSpec modules under nz/statutes, nz/regulations, and nz/policies.",
+    "Use the checked-in tax-benefit PCO locator for first-pass RuleSpec source targeting; do not commit the full provision JSONL unless deliberately promoting a corpus snapshot."
   ]
 }
