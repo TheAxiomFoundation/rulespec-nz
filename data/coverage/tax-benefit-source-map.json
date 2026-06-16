@@ -1,0 +1,849 @@
+{
+  "generated_at": "2026-06-16",
+  "jurisdiction": "nz",
+  "scope": "full_tax_benefit_surface",
+  "purpose": "Machine-readable intake map from full-country NZ tax-benefit tracks to official source families, pinned executable oracles, and first RuleSpec encoding batches.",
+  "source_priority": [
+    "Official legislation and delegated instruments from New Zealand Legislation / Parliamentary Counsel Office",
+    "Agency rate tables, manuals, calculator guidance, and operational manuals",
+    "Pinned executable or documentary oracles for parity and regression tests"
+  ],
+  "current_blockers": [
+    {
+      "id": "nz-legislation-api-key",
+      "description": "Bulk PCO XML acquisition needs the official NZ Legislation API key or equivalent bulk XML access.",
+      "blocked_artifacts": [
+        "data/corpus/sources/nz/<document_class>/<run-id>/...",
+        "data/corpus/provisions/nz/<document_class>/<run-id>.jsonl",
+        "corpus_citation_path-backed RuleSpec source locators"
+      ],
+      "unblocked_artifacts": [
+        "oracle fixture extraction",
+        "agency-source URL inventory",
+        "RuleSpec module skeletons marked deferred until corpus_citation_paths exist",
+        "parity harness planning"
+      ]
+    }
+  ],
+  "toolchain_refs": {
+    "axiom_corpus_ref": "8fe63b96c2e5bf16a22d0636a89f581a7902ab9f",
+    "policyengine_nz_ref": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+    "nztaxmicrosim_ref": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+    "openfisca_aotearoa_ref": "c36c40bcf553dc95ddca473be12440d4be9d0560"
+  },
+  "tracks": [
+    {
+      "track_id": "tax-personal-income",
+      "rule_surface": [
+        "individual taxable income",
+        "progressive resident income tax rate scale",
+        "employment, self-employment, and investment income inputs",
+        "independent earner tax credit",
+        "PAYE and withholding tax credit interfaces",
+        "donation tax credit",
+        "PIE and RWT interfaces"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Income Tax Act 2007", "Tax Administration Act 1994"],
+          "target_provisions": [
+            "Income Tax Act 2007 Schedule 1",
+            "Income Tax Act 2007 Parts B-D",
+            "Income Tax Act 2007 Part I",
+            "Income Tax Act 2007 Parts YA-YC",
+            "Tax Administration Act 1994 assessment and filing provisions"
+          ],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "ird",
+          "documents": [
+            "individual income tax rates",
+            "PAYE deduction tables",
+            "independent earner tax credit guidance",
+            "tax credit for donations guidance"
+          ],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "tax-policy-ird",
+          "documents": ["annual tax amendment commentary", "special reports"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "current-year rate and formula smoke oracle",
+          "files": [
+            "policyengine_nz/variables/gov/ird/income_tax/income_tax.py",
+            "policyengine_nz/variables/gov/ird/income_tax/taxable_income.py",
+            "policyengine_nz/parameters/gov/ird/income_tax/rates.yaml",
+            "policyengine_nz/parameters/gov/ird/income_tax/thresholds.yaml",
+            "policyengine_nz/tests/policy/baseline/test_income_tax.yaml",
+            "policyengine_nz/tests/validation/test_against_treasury.py"
+          ]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "historical parameter and calculation oracle",
+          "files": [
+            "src/tax_rules.py",
+            "src/tax_calculator.py",
+            "src/historical_data.py",
+            "src/data/nz_personal_tax_rules.json",
+            "src/data/nz_personal_tax_full.json",
+            "docs/parameter_coverage.md",
+            "docs/personal_tax_history_1970-25_table.md"
+          ]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "legal-structure and gap taxonomy oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/income_tax/individual.py",
+            "openfisca_aotearoa/variables/acts/income_tax/interpretation.py",
+            "openfisca_aotearoa/parameters/taxes/income_tax/individual_income_tax_rate.yaml",
+            "conductor/tracks/codify_income_tax_core_20260615/gap_analysis.md"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "income-tax-rate-scale",
+          "destination": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+          "source_requirements": ["Income Tax Act 2007 Schedule 1", "IRD individual income tax rates"],
+          "oracle_checks": ["policyengine-nz:test_income_tax", "nztaxmicrosim:tax_brackets"]
+        },
+        {
+          "id": "taxable-income-core",
+          "destination": "nz/statutes/income_tax/core/taxable_income.yaml",
+          "source_requirements": ["Income Tax Act 2007 Parts B-D"],
+          "oracle_checks": ["policyengine-nz:taxable_income", "openfisca-aotearoa:individual.py"]
+        },
+        {
+          "id": "individual-tax-credits",
+          "destination": "nz/statutes/income_tax/credits/individual_credits.yaml",
+          "source_requirements": ["Income Tax Act 2007 Part I"],
+          "oracle_checks": ["nztaxmicrosim:ietc", "nztaxmicrosim:donation_credit"]
+        }
+      ]
+    },
+    {
+      "track_id": "levies-acc",
+      "rule_surface": [
+        "ACC earners' levy rate",
+        "maximum liable earnings cap",
+        "liable income definition",
+        "weekly compensation and abatement predicates"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Accident Compensation Act 2001", "Accident Compensation (Earners' Levy) Regulations"],
+          "target_provisions": ["levy regulations", "weekly compensation provisions"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "acc",
+          "documents": ["levy rates", "earners' levy guidance", "weekly compensation guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "ird",
+          "documents": ["PAYE/ACC earner levy guidance"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "current-year ACC levy oracle",
+          "files": [
+            "policyengine_nz/variables/gov/ird/acc/acc_liable_income.py",
+            "policyengine_nz/variables/gov/ird/acc/acc_earners_levy.py",
+            "policyengine_nz/parameters/gov/ird/acc/earners_levy_rate.yaml",
+            "policyengine_nz/parameters/gov/ird/acc/earners_levy_cap.yaml",
+            "policyengine_nz/tests/policy/baseline/test_acc_levy.yaml"
+          ]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "historical ACC levy parameter oracle",
+          "files": ["src/acc_levy.py", "tests/test_acc_levy.py", "docs/parameter_coverage.md"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "OpenFisca variable and regulation track oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/acc/earners_levy.py",
+            "openfisca_aotearoa/parameters/acc/earners_levy.yaml",
+            "conductor/tracks/codify_acc_levy_regs_20260615/spec.md"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "acc-earners-levy",
+          "destination": "nz/regulations/acc/earners_levy.yaml",
+          "source_requirements": ["ACC earners' levy regulations", "IRD/ACC levy rate tables"],
+          "oracle_checks": ["policyengine-nz:test_acc_levy", "nztaxmicrosim:acc_levy", "openfisca-aotearoa:earners_levy"]
+        }
+      ]
+    },
+    {
+      "track_id": "family-assistance-wff",
+      "rule_surface": [
+        "family scheme income",
+        "dependent child and principal caregiver predicates",
+        "Family Tax Credit",
+        "In-Work Tax Credit",
+        "Minimum Family Tax Credit",
+        "Best Start",
+        "legacy parental and child tax credits",
+        "abatement and aggregation"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Income Tax Act 2007", "Tax Administration Act 1994"],
+          "target_provisions": [
+            "Income Tax Act 2007 subparts MA-MJ",
+            "Income Tax Act 2007 Parts YB-YC",
+            "Tax Administration Act 1994 WFF administration"
+          ],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "ird",
+          "documents": ["Working for Families rates", "Working for Families eligibility", "Best Start guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "msd-work-and-income",
+          "documents": ["WFF and MSD interaction guidance"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "current WFF scenario oracle",
+          "files": [
+            "policyengine_nz/variables/gov/ird/working_for_families/family_tax_credit.py",
+            "policyengine_nz/variables/gov/ird/working_for_families/in_work_tax_credit.py",
+            "policyengine_nz/variables/gov/ird/working_for_families/best_start.py",
+            "policyengine_nz/tests/policy/baseline/test_working_for_families.yaml"
+          ]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "broad WFF and historical family assistance oracle",
+          "files": [
+            "src/wff_rules.py",
+            "src/wff_logic.py",
+            "src/tax_credits.py",
+            "src/wff_microsim.py",
+            "tests/test_wff_rules.py",
+            "tests/test_tax_credits.py",
+            "docs/wff_microsim_model_metadata.md"
+          ]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "legal-structure, parameter, and missing-gap oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/income_tax/family_scheme/",
+            "openfisca_aotearoa/parameters/entitlements/income_tax/family_scheme/",
+            "openfisca_aotearoa/tests/income_tax/family_scheme/",
+            "conductor/tracks/codify_income_tax_core_20260615/gap_analysis.md"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "family-scheme-income",
+          "destination": "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml",
+          "source_requirements": ["Income Tax Act 2007 subpart MA"],
+          "oracle_checks": ["openfisca-aotearoa:P0 family_scheme__assessable_income", "nztaxmicrosim:wff"]
+        },
+        {
+          "id": "wff-credit-entitlements",
+          "destination": "nz/statutes/income_tax/family_scheme/tax_credits.yaml",
+          "source_requirements": ["Income Tax Act 2007 subparts MD-MJ"],
+          "oracle_checks": ["policyengine-nz:test_working_for_families", "nztaxmicrosim:ftc/iwtc/mftc/bstc"]
+        }
+      ]
+    },
+    {
+      "track_id": "social-security-main-benefits",
+      "rule_surface": [
+        "Jobseeker Support",
+        "Sole Parent Support",
+        "Supported Living Payment",
+        "Emergency Benefit",
+        "Youth Payment",
+        "Young Parent Payment",
+        "Orphan's Benefit",
+        "Unsupported Child's Benefit",
+        "income tests",
+        "asset tests",
+        "stand-downs",
+        "residence tests"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Social Security Act 2018", "Social Security Regulations 2018"],
+          "target_provisions": ["Part 2", "Part 4", "Schedule 2", "Schedule 4", "Schedule 5"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "msd-work-and-income",
+          "documents": ["benefit rates", "eligibility pages", "income and asset test guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "msd-map",
+          "documents": ["Manuals and Procedures main benefit pages", "income test manuals"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "small current-rate oracle for Jobseeker and related MSD parameters",
+          "files": [
+            "policyengine_nz/variables/gov/msd/jobseeker/jobseeker_support.py",
+            "policyengine_nz/parameters/gov/msd/jobseeker/payment_rates.yaml"
+          ]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "main benefit and historical social policy oracle",
+          "files": ["src/benefit_rules.py", "src/benefits.py", "tests/test_benefit_rules.py", "tests/test_benefits.py"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "section-level Social Security Act coverage oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/social_security/",
+            "openfisca_aotearoa/parameters/social_security/",
+            "openfisca_aotearoa/tests/social_security/",
+            "conductor/tracks/codify_social_security_core_20260615/gap_analysis.md",
+            "conductor/tracks/codify_social_security_core_20260615/gap_report.md"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "main-benefit-common-predicates",
+          "destination": "nz/statutes/social_security/common/predicates.yaml",
+          "source_requirements": ["Social Security Act 2018 Schedule 2", "Social Security Act 2018 ss 15-19"],
+          "oracle_checks": ["openfisca-aotearoa:social_security interpretation", "nztaxmicrosim:benefit_rules"]
+        },
+        {
+          "id": "jobseeker-sole-parent-supported-living",
+          "destination": "nz/statutes/social_security/main_benefits/",
+          "source_requirements": ["Social Security Act 2018 ss 20-42", "Schedule 4", "Schedule 5"],
+          "oracle_checks": ["openfisca-aotearoa:jobseeker/sps/slp tests", "nztaxmicrosim:jss/sps/slp"]
+        }
+      ]
+    },
+    {
+      "track_id": "housing-assistance",
+      "rule_surface": [
+        "Accommodation Supplement entitlement",
+        "area mapping",
+        "housing cost inputs",
+        "cash asset tests",
+        "income cutouts and rebate",
+        "social housing exclusions"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Social Security Act 2018", "Social Security Regulations 2018", "Housing Restructuring and Tenancy Matters Act 1992"],
+          "target_provisions": ["Accommodation Supplement provisions", "area and rate schedules", "social housing eligibility provisions"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "msd-work-and-income",
+          "documents": ["Accommodation Supplement rates", "area tables", "eligibility guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "msd-map",
+          "documents": ["Accommodation Supplement manuals"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "parameter baseline oracle",
+          "files": [
+            "policyengine_nz/parameters/gov/msd/accommodation_supplement/payment_rates.yaml",
+            "policyengine_nz/parameters/gov/msd/accommodation_supplement/income_test.yaml",
+            "policyengine_nz/tests/validation/test_against_treasury.py"
+          ]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "Accommodation Supplement calculation oracle",
+          "files": ["src/benefit_rules.py", "src/benefits.py", "docs/parameter_coverage.md"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "component-level Accommodation Supplement oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/social_security/accommodation_supplement/",
+            "openfisca_aotearoa/parameters/social_security/accommodation_supplement/",
+            "openfisca_aotearoa/tests/social_security/accommodation_supplement/"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "accommodation-supplement",
+          "destination": "nz/statutes/social_security/accommodation_supplement/",
+          "source_requirements": ["Social Security Act 2018 accommodation supplement provisions", "MSD area and rate tables"],
+          "oracle_checks": ["openfisca-aotearoa:accommodation_supplement tests", "policyengine-nz:accommodation_supplement params"]
+        }
+      ]
+    },
+    {
+      "track_id": "superannuation",
+      "rule_surface": [
+        "NZ Super age qualification",
+        "residence qualification",
+        "relationship and living-alone rates",
+        "overseas pension deduction interfaces",
+        "veteran pension surface"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["New Zealand Superannuation and Retirement Income Act 2001", "Veterans' Support Act 2014"],
+          "target_provisions": ["eligibility", "rates", "overseas pension interfaces"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "msd-work-and-income",
+          "documents": ["NZ Super rates", "NZ Super eligibility guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "msd-map",
+          "documents": ["NZ Super manuals"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "NZ Super current-rate oracle",
+          "files": [
+            "policyengine_nz/variables/gov/msd/superannuation/nz_superannuation.py",
+            "policyengine_nz/parameters/gov/msd/superannuation/payment_rates.yaml"
+          ]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "NZ Super interaction oracle",
+          "files": ["src/benefit_rules.py", "docs/parameter_coverage.md"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "superannuation eligibility oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/super/super.py",
+            "openfisca_aotearoa/parameters/entitlements/superannuation/age_qualification.yaml",
+            "openfisca_aotearoa/tests/social_security/super.yaml"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "nz-superannuation",
+          "destination": "nz/statutes/superannuation/nz_superannuation.yaml",
+          "source_requirements": ["New Zealand Superannuation and Retirement Income Act 2001", "MSD NZ Super rates"],
+          "oracle_checks": ["policyengine-nz:nz_superannuation", "openfisca-aotearoa:super"]
+        }
+      ]
+    },
+    {
+      "track_id": "student-support",
+      "rule_surface": [
+        "student allowance eligibility",
+        "basic grant",
+        "parental and partner income tests",
+        "independent circumstances",
+        "student loan repayment threshold",
+        "student loan repayment rate"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Student Allowances Regulations 1998", "Education and Training Act 2020", "Student Loan Scheme Act 2011"],
+          "target_provisions": ["student allowance eligibility", "allowance rates", "student loan repayment obligations"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "studylink",
+          "documents": ["student allowance rates", "eligibility pages", "income test guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "ird",
+          "documents": ["student loan repayment threshold and rate guidance"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "student loan payroll deduction oracle",
+          "files": ["src/payroll_deductions.py", "tests/test_payroll_deductions.py", "docs/parameter_coverage.md"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "student allowance entitlement oracle",
+          "files": [
+            "openfisca_aotearoa/variables/regulation/student_allowance/",
+            "openfisca_aotearoa/tests/student_allowance/basic_grant.yaml"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "student-loan-repayments",
+          "destination": "nz/statutes/student_loan/repayments.yaml",
+          "source_requirements": ["Student Loan Scheme Act 2011", "IRD repayment threshold guidance"],
+          "oracle_checks": ["nztaxmicrosim:student_loan"]
+        },
+        {
+          "id": "student-allowance-basic-grant",
+          "destination": "nz/regulations/student_allowances/basic_grant.yaml",
+          "source_requirements": ["Student Allowances Regulations 1998", "Studylink rates"],
+          "oracle_checks": ["openfisca-aotearoa:student_allowance/basic_grant"]
+        }
+      ]
+    },
+    {
+      "track_id": "childcare-and-disability",
+      "rule_surface": [
+        "Childcare Subsidy",
+        "OSCAR Subsidy",
+        "Child Disability Allowance",
+        "Disability Allowance",
+        "Community Services Card",
+        "home help",
+        "primary care copayment settings"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Social Security Act 2018", "Social Security Regulations 2018", "Pae Ora (Healthy Futures) Act 2022"],
+          "target_provisions": ["childcare assistance", "disability assistance", "community services card", "health service eligibility"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "msd-work-and-income",
+          "documents": ["childcare assistance rates", "disability allowance rates", "community services card guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "education",
+          "documents": ["early childhood education funding interfaces"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "benefit and assistance comparison oracle",
+          "files": ["src/benefit_rules.py", "src/benefits.py", "docs/parameter_coverage.md"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "childcare, disability, and health variables oracle",
+          "files": [
+            "openfisca_aotearoa/variables/regulation/social_security_regulation/childcare_assistance/",
+            "openfisca_aotearoa/variables/acts/social_security/child_disability_allowance/",
+            "openfisca_aotearoa/variables/acts/social_security/disability_allowance/",
+            "openfisca_aotearoa/variables/acts/social_security/community_services_card/",
+            "openfisca_aotearoa/variables/acts/pae_ora/health_services.py"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "childcare-disability-core",
+          "destination": "nz/statutes/social_security/childcare_and_disability/",
+          "source_requirements": ["Social Security Act 2018 childcare and disability provisions", "MSD rate tables"],
+          "oracle_checks": ["openfisca-aotearoa:childcare/disability tests"]
+        }
+      ]
+    },
+    {
+      "track_id": "family-payments-and-leave",
+      "rule_surface": [
+        "paid parental leave eligibility",
+        "paid parental leave rate and duration",
+        "transfer of entitlement",
+        "child support formula",
+        "liable parent and receiving carer predicates"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Parental Leave and Employment Protection Act 1987", "Child Support Act 1991"],
+          "target_provisions": ["paid parental leave", "child support formula"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "ird",
+          "documents": ["child support formula guidance", "paid parental leave payment information"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "paid parental leave and child support parameter oracle",
+          "files": ["docs/parameter_coverage.md", "src/tax_credits.py"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "paid parental leave entitlement oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/parental_leave/parental_leave.py",
+            "openfisca_aotearoa/tests/parental_leave/"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "paid-parental-leave",
+          "destination": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "source_requirements": ["Parental Leave and Employment Protection Act 1987", "agency rate guidance"],
+          "oracle_checks": ["openfisca-aotearoa:parental_leave tests", "nztaxmicrosim:ppl"]
+        },
+        {
+          "id": "child-support-core",
+          "destination": "nz/statutes/child_support/core_formula.yaml",
+          "source_requirements": ["Child Support Act 1991", "IRD child support guidance"],
+          "oracle_checks": ["nztaxmicrosim:child_support"]
+        }
+      ]
+    },
+    {
+      "track_id": "local-government-and-rates",
+      "rule_surface": [
+        "rates rebate maximum allowable",
+        "income threshold",
+        "initial contribution",
+        "additional dependant amount",
+        "local authority interaction"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Rates Rebate Act 1973", "Rates Rebate Regulations"],
+          "target_provisions": ["rebate formula", "eligibility", "amounts"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "dia",
+          "documents": ["rates rebate rates", "eligibility guidance", "local authority administration guidance"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "rates rebate parameter oracle",
+          "files": ["docs/parameter_coverage.md"]
+        },
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "rates rebates rules and tests oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/rates_rebates/rates_rebates.py",
+            "openfisca_aotearoa/parameters/entitlements/rates_rebates/",
+            "openfisca_aotearoa/tests/rates_rebates/"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "rates-rebate",
+          "destination": "nz/statutes/rates_rebates/rates_rebate.yaml",
+          "source_requirements": ["Rates Rebate Act 1973", "DIA rates rebate guidance"],
+          "oracle_checks": ["openfisca-aotearoa:rates_rebates tests", "nztaxmicrosim:rates_rebates"]
+        }
+      ]
+    },
+    {
+      "track_id": "residency-citizenship-immigration",
+      "rule_surface": [
+        "citizenship by grant presence tests",
+        "residence class visa predicates",
+        "indefinite stay predicates",
+        "ordinary residence",
+        "program-specific residence duration tests"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Citizenship Act 1977", "Immigration Act 2009", "program-specific statutes"],
+          "target_provisions": ["citizenship by grant", "residence class visas", "program-specific residence tests"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "dia",
+          "documents": ["citizenship by grant guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "immigration-nz",
+          "documents": ["operational manual residence and visa guidance"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "openfisca-aotearoa",
+          "role": "citizenship and immigration predicate oracle",
+          "files": [
+            "openfisca_aotearoa/variables/acts/citizenship/citizenship.py",
+            "openfisca_aotearoa/variables/acts/immigration/",
+            "openfisca_aotearoa/tests/citizenship/",
+            "openfisca_aotearoa/tests/immigration/"
+          ]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "residence-predicates",
+          "destination": "nz/statutes/common/residence.yaml",
+          "source_requirements": ["Citizenship Act 1977", "Immigration Act 2009", "program-specific residence tests"],
+          "oracle_checks": ["openfisca-aotearoa:citizenship/immigration tests"]
+        }
+      ]
+    },
+    {
+      "track_id": "payroll-savings-deductions",
+      "rule_surface": [
+        "KiwiSaver employee contribution rates",
+        "KiwiSaver employer contribution interfaces",
+        "student loan deductions",
+        "PAYE periodization"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["KiwiSaver Act 2006", "Student Loan Scheme Act 2011", "Income Tax Act 2007"],
+          "target_provisions": ["KiwiSaver contribution rules", "student loan deductions", "PAYE mechanics"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "ird",
+          "documents": ["KiwiSaver deduction guidance", "student loan deduction guidance", "PAYE tables"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "KiwiSaver parameter baseline",
+          "files": ["policyengine_nz/parameters/gov/ird/kiwisaver/contribution_rates.yaml"]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "payroll deduction formula oracle",
+          "files": ["src/payroll_deductions.py", "tests/test_payroll_deductions.py", "docs/parameter_coverage.md"]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "student-loan-and-kiwisaver-payroll",
+          "destination": "nz/statutes/payroll/deductions.yaml",
+          "source_requirements": ["Student Loan Scheme Act 2011", "KiwiSaver Act 2006", "IRD payroll guidance"],
+          "oracle_checks": ["nztaxmicrosim:student_loan", "nztaxmicrosim:kiwisaver", "policyengine-nz:kiwisaver parameters"]
+        }
+      ]
+    },
+    {
+      "track_id": "consumption-and-indirect-tax",
+      "rule_surface": [
+        "GST rate",
+        "GST inclusive and exclusive conversions",
+        "low-value imported goods interface",
+        "customs and excise interfaces"
+      ],
+      "official_source_refs": [
+        {
+          "source_id": "nz-legislation",
+          "works": ["Goods and Services Tax Act 1985", "Customs and Excise Act 2018"],
+          "target_provisions": ["GST rate", "taxable supply definitions", "customs and excise interface provisions"],
+          "status": "awaiting_pco_xml"
+        },
+        {
+          "source_id": "ird",
+          "documents": ["GST rate guidance", "GST taxable supplies guidance"],
+          "status": "ready_for_agency_inventory"
+        },
+        {
+          "source_id": "tax-policy-ird",
+          "documents": ["GST policy commentary and special reports"],
+          "status": "ready_for_agency_inventory"
+        }
+      ],
+      "oracle_surfaces": [
+        {
+          "oracle_id": "policyengine-nz",
+          "role": "GST parameter baseline",
+          "files": ["policyengine_nz/parameters/gov/ird/gst/rate.yaml"]
+        },
+        {
+          "oracle_id": "nztaxmicrosim",
+          "role": "indirect tax interface reference",
+          "files": ["docs/parameter_coverage.md"]
+        }
+      ],
+      "first_rule_batches": [
+        {
+          "id": "gst-rate-and-conversions",
+          "destination": "nz/statutes/gst/rate.yaml",
+          "source_requirements": ["Goods and Services Tax Act 1985", "IRD GST guidance"],
+          "oracle_checks": ["policyengine-nz:gst rate"]
+        }
+      ]
+    }
+  ],
+  "first_parallel_workstreams": [
+    {
+      "id": "oracle-fixture-extraction",
+      "description": "Extract small, reproducible scenario fixtures from PolicyEngine NZ, nztaxmicrosim, and OpenFisca Aotearoa without copying whole upstream repos.",
+      "unblocked_by_api_key": true
+    },
+    {
+      "id": "agency-source-inventory",
+      "description": "Inventory IRD, MSD/Work and Income, MSD MAP, ACC, Studylink, DIA, and Immigration NZ pages needed for rate tables and operational rules.",
+      "unblocked_by_api_key": true
+    },
+    {
+      "id": "pco-corpus-download",
+      "description": "Download and normalize PCO XML for Acts, secondary legislation, Bills, and SOPs using the merged axiom-corpus downloader.",
+      "unblocked_by_api_key": false
+    },
+    {
+      "id": "priority-rulespec-batches",
+      "description": "Begin parameter and derived-rule encodings once source locators exist, starting with income tax rates, ACC levy, WFF, main benefits, and Accommodation Supplement.",
+      "unblocked_by_api_key": false
+    }
+  ]
+}
