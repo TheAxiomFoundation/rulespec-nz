@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-06-16",
+  "jurisdiction": "nz",
+  "purpose": "Initial official source spine for full-country NZ RuleSpec coverage.",
+  "sources": [
+    {
+      "id": "nz-legislation",
+      "name": "New Zealand Legislation",
+      "url": "https://www.legislation.govt.nz/",
+      "bulk_xml_url": "https://catalogue.data.govt.nz/dataset/new-zealand-legislation",
+      "axiom_corpus_adapter": "axiom_corpus.corpus.nz_legislation.extract_nz_legislation",
+      "document_classes": ["act", "regulation", "order", "secondary_legislation", "bill", "sop"],
+      "canonical": true,
+      "target_tracks": ["all_source_grounded_tracks"]
+    },
+    {
+      "id": "ird",
+      "name": "Inland Revenue",
+      "url": "https://www.ird.govt.nz/",
+      "document_classes": ["guidance", "rate_table", "calculator_guidance", "tax_information_bulletin"],
+      "canonical": true,
+      "target_tracks": ["tax-personal-income", "family-assistance-wff", "payroll-savings-deductions", "consumption-and-indirect-tax", "family-payments-and-leave"]
+    },
+    {
+      "id": "tax-policy-ird",
+      "name": "New Zealand Tax Policy",
+      "url": "https://www.taxpolicy.ird.govt.nz/",
+      "document_classes": ["policy_statement", "bill_commentary", "special_report", "regulatory_impact_statement"],
+      "canonical": true,
+      "target_tracks": ["tax-personal-income", "family-assistance-wff", "consumption-and-indirect-tax"]
+    },
+    {
+      "id": "msd-work-and-income",
+      "name": "Work and Income",
+      "url": "https://www.workandincome.govt.nz/",
+      "document_classes": ["guidance", "rate_table", "eligibility_page", "manual"],
+      "canonical": true,
+      "target_tracks": ["social-security-main-benefits", "housing-assistance", "superannuation", "childcare-and-disability"]
+    },
+    {
+      "id": "msd-map",
+      "name": "MSD Manuals and Procedures",
+      "url": "https://www.workandincome.govt.nz/map/",
+      "document_classes": ["manual", "policy_procedure"],
+      "canonical": true,
+      "target_tracks": ["social-security-main-benefits", "housing-assistance", "childcare-and-disability", "superannuation"]
+    },
+    {
+      "id": "acc",
+      "name": "Accident Compensation Corporation",
+      "url": "https://www.acc.co.nz/",
+      "document_classes": ["guidance", "levy_rate", "policy_manual"],
+      "canonical": true,
+      "target_tracks": ["levies-acc"]
+    },
+    {
+      "id": "studylink",
+      "name": "Studylink",
+      "url": "https://www.studylink.govt.nz/",
+      "document_classes": ["guidance", "rate_table", "eligibility_page"],
+      "canonical": true,
+      "target_tracks": ["student-support"]
+    },
+    {
+      "id": "education",
+      "name": "Ministry of Education",
+      "url": "https://www.education.govt.nz/",
+      "document_classes": ["guidance", "policy"],
+      "canonical": true,
+      "target_tracks": ["student-support", "childcare-and-disability"]
+    },
+    {
+      "id": "dia",
+      "name": "Department of Internal Affairs",
+      "url": "https://www.dia.govt.nz/",
+      "document_classes": ["guidance", "rate_table", "eligibility_page"],
+      "canonical": true,
+      "target_tracks": ["local-government-and-rates", "residency-citizenship-immigration"]
+    },
+    {
+      "id": "immigration-nz",
+      "name": "Immigration New Zealand",
+      "url": "https://www.immigration.govt.nz/",
+      "document_classes": ["guidance", "operational_manual"],
+      "canonical": true,
+      "target_tracks": ["residency-citizenship-immigration"]
+    },
+    {
+      "id": "stats-nz",
+      "name": "Stats NZ",
+      "url": "https://www.stats.govt.nz/",
+      "document_classes": ["definition", "classification", "methodology"],
+      "canonical": true,
+      "target_tracks": ["all_entity_and_unit_definitions"]
+    }
+  ]
+}

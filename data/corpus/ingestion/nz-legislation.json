@@ -1,0 +1,31 @@
+{
+  "created_at": "2026-06-16",
+  "jurisdiction": "nz",
+  "source_id": "nz-legislation-bulk-xml",
+  "source": {
+    "name": "New Zealand Legislation bulk XML",
+    "publisher": "New Zealand Parliamentary Counsel Office",
+    "website_url": "https://www.legislation.govt.nz/",
+    "bulk_xml_url": "https://catalogue.data.govt.nz/dataset/new-zealand-legislation",
+    "document_classes": ["act", "regulation", "bill", "sop"]
+  },
+  "adapter": {
+    "repository": "TheAxiomFoundation/axiom-corpus",
+    "module": "axiom_corpus.corpus.nz_legislation",
+    "function": "extract_nz_legislation",
+    "cli": "extract-nz-legislation",
+    "minimum_ref": "codex/nz-legislation-ingestion-20260616"
+  },
+  "command_template": "uv run axiom-corpus extract-nz-legislation --base data/corpus --version <run-id> --source-dir <path-to-pco-xml> --as-of <YYYY-MM-DD> --expression-date <YYYY-MM-DD>",
+  "output_paths": {
+    "source_snapshots": "data/corpus/sources/nz/<document_class>/<run-id>/...",
+    "inventory": "data/corpus/inventory/nz/<document_class>/<run-id>.json",
+    "provisions": "data/corpus/provisions/nz/<document_class>/<run-id>.jsonl",
+    "coverage": "data/corpus/coverage/nz/<document_class>/<run-id>.json"
+  },
+  "notes": [
+    "Use the official data.govt.nz bulk XML directory rather than scraping live legislation pages.",
+    "Do not commit the full raw bulk XML tree to rulespec-nz; promote versioned corpus artifacts deliberately.",
+    "Treat corpus citation paths as legal provenance for RuleSpec modules under nz/statutes, nz/regulations, and nz/policies."
+  ]
+}

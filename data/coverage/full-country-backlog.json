@@ -1,0 +1,261 @@
+{
+  "generated_at": "2026-06-16",
+  "jurisdiction": "nz",
+  "scope": "full_country",
+  "status_terms": {
+    "not_started": "No Axiom corpus or RuleSpec artifact exists yet.",
+    "source_spine": "Official source family identified and ready for corpus ingestion.",
+    "oracle_identified": "At least one executable or documentary oracle is pinned.",
+    "ready_for_ingest": "Official source URLs and target provision families are identified.",
+    "encoded": "RuleSpec exists with companion tests.",
+    "oracle_parity": "Axiom outputs are compared against at least one pinned oracle."
+  },
+  "tracks": [
+    {
+      "id": "tax-personal-income",
+      "title": "Personal income tax",
+      "administered_by": ["Inland Revenue"],
+      "official_source_families": ["Income Tax Act 2007", "Tax Administration Act 1994", "IRD individual income tax rates guidance", "annual tax amendment Acts"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "resident individual tax brackets and rates",
+        "non-resident sourced income treatment",
+        "taxable income composition",
+        "historical brackets and rates",
+        "low-income rebates and independent earner tax credit",
+        "donation tax credit",
+        "resident withholding tax",
+        "portfolio investment entity tax"
+      ],
+      "status": "oracle_identified",
+      "priority": 1
+    },
+    {
+      "id": "levies-acc",
+      "title": "ACC earners' levy and related ACC income supports",
+      "administered_by": ["ACC", "Inland Revenue"],
+      "official_source_families": ["Accident Compensation Act 2001", "ACC levy regulations and rate notices", "IRD PAYE/ACC guidance"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "earners' levy rate",
+        "maximum liable earnings",
+        "liable income",
+        "weekly compensation abatement",
+        "loss of potential earnings",
+        "minimum weekly earnings"
+      ],
+      "status": "oracle_identified",
+      "priority": 1
+    },
+    {
+      "id": "family-assistance-wff",
+      "title": "Working for Families and family scheme tax credits",
+      "administered_by": ["Inland Revenue", "Ministry of Social Development"],
+      "official_source_families": ["Income Tax Act 2007 family scheme provisions", "Working for Families guidance", "Tax credits rate orders"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "Family Tax Credit",
+        "In-Work Tax Credit",
+        "Minimum Family Tax Credit",
+        "Best Start",
+        "parental tax credit legacy rules",
+        "child tax credit legacy rules",
+        "family income test and abatement",
+        "principal caregiver rules",
+        "dependent child and qualifying child rules"
+      ],
+      "status": "oracle_identified",
+      "priority": 1
+    },
+    {
+      "id": "social-security-main-benefits",
+      "title": "Main benefits and income tests",
+      "administered_by": ["Ministry of Social Development", "Work and Income"],
+      "official_source_families": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD benefit rate tables"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "Jobseeker Support",
+        "Sole Parent Support",
+        "Supported Living Payment",
+        "Emergency Benefit",
+        "Youth Payment",
+        "Young Parent Payment",
+        "Orphan's Benefit",
+        "Unsupported Child's Benefit",
+        "income tests",
+        "asset tests",
+        "residence tests",
+        "relationship and dependent child definitions"
+      ],
+      "status": "oracle_identified",
+      "priority": 1
+    },
+    {
+      "id": "housing-assistance",
+      "title": "Housing assistance",
+      "administered_by": ["Ministry of Social Development", "Work and Income", "Kainga Ora"],
+      "official_source_families": ["Social Security Act 2018", "Social Security Regulations 2018", "Accommodation Supplement area and rate schedules", "Housing Restructuring and Tenancy Matters Act 1992"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "Accommodation Supplement",
+        "accommodation areas",
+        "cash asset tests",
+        "income cutouts",
+        "rebate formula",
+        "boarder/lodger rules",
+        "social housing eligibility"
+      ],
+      "status": "oracle_identified",
+      "priority": 1
+    },
+    {
+      "id": "superannuation",
+      "title": "NZ Superannuation and veteran pension surface",
+      "administered_by": ["Ministry of Social Development", "Work and Income", "Veterans' Affairs"],
+      "official_source_families": ["New Zealand Superannuation and Retirement Income Act 2001", "Veterans' Support Act 2014", "MSD rate tables"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "age qualification",
+        "residence qualification",
+        "single living alone rate",
+        "single sharing rate",
+        "couple rates",
+        "overseas pension deduction interfaces",
+        "veteran support definitions"
+      ],
+      "status": "oracle_identified",
+      "priority": 2
+    },
+    {
+      "id": "student-support",
+      "title": "Student support",
+      "administered_by": ["Studylink", "Ministry of Social Development", "Inland Revenue"],
+      "official_source_families": ["Student Allowances Regulations 1998", "Education and Training Act 2020", "Student Loan Scheme Act 2011", "Studylink guidance", "IRD student loan repayment guidance"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "student allowance eligibility",
+        "basic grant",
+        "parental income test",
+        "partner income test",
+        "independent circumstances",
+        "student loan repayment threshold",
+        "student loan repayment rate"
+      ],
+      "status": "oracle_identified",
+      "priority": 2
+    },
+    {
+      "id": "childcare-and-disability",
+      "title": "Childcare, disability, and health-related assistance",
+      "administered_by": ["Ministry of Social Development", "Work and Income", "Ministry of Health", "Health New Zealand"],
+      "official_source_families": ["Social Security Act 2018", "Social Security Regulations 2018", "Pae Ora (Healthy Futures) Act 2022", "MSD assistance guidance"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "Childcare Subsidy",
+        "Out of School Care and Recreation Subsidy",
+        "Child Disability Allowance",
+        "Disability Allowance",
+        "Community Services Card",
+        "home help",
+        "primary care copayment settings"
+      ],
+      "status": "oracle_identified",
+      "priority": 2
+    },
+    {
+      "id": "family-payments-and-leave",
+      "title": "Paid parental leave, child support, and family-related payments",
+      "administered_by": ["Inland Revenue", "Ministry of Business, Innovation and Employment"],
+      "official_source_families": ["Parental Leave and Employment Protection Act 1987", "Child Support Act 1991", "IRD child support guidance"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "paid parental leave eligibility",
+        "paid parental leave rate and duration",
+        "transfer of entitlement",
+        "child support formula",
+        "liable parent and receiving carer tests"
+      ],
+      "status": "oracle_identified",
+      "priority": 3
+    },
+    {
+      "id": "local-government-and-rates",
+      "title": "Rates rebates and local-government-adjacent assistance",
+      "administered_by": ["Department of Internal Affairs", "local authorities"],
+      "official_source_families": ["Rates Rebate Act 1973", "Rates Rebate Regulations", "DIA rates rebate guidance"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
+      "components": [
+        "rates rebate maximum allowable",
+        "income threshold",
+        "initial contribution",
+        "additional dependant amount",
+        "local authority interaction"
+      ],
+      "status": "oracle_identified",
+      "priority": 3
+    },
+    {
+      "id": "residency-citizenship-immigration",
+      "title": "Residency, citizenship, and immigration predicates used by fiscal programs",
+      "administered_by": ["Department of Internal Affairs", "Immigration New Zealand", "Ministry of Social Development", "Inland Revenue"],
+      "official_source_families": ["Citizenship Act 1977", "Immigration Act 2009", "program-specific residence tests"],
+      "oracle_ids": ["openfisca-aotearoa"],
+      "components": [
+        "citizenship by grant presence tests",
+        "residence class visa predicates",
+        "indefinite stay predicates",
+        "ordinary residence",
+        "program-specific residence duration tests"
+      ],
+      "status": "oracle_identified",
+      "priority": 3
+    },
+    {
+      "id": "payroll-savings-deductions",
+      "title": "Payroll deductions and savings interfaces",
+      "administered_by": ["Inland Revenue"],
+      "official_source_families": ["KiwiSaver Act 2006", "Student Loan Scheme Act 2011", "PAYE rules and guidance"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim"],
+      "components": [
+        "KiwiSaver employee contribution rates",
+        "KiwiSaver employer contribution interfaces",
+        "student loan deductions",
+        "PAYE periodization"
+      ],
+      "status": "oracle_identified",
+      "priority": 3
+    },
+    {
+      "id": "consumption-and-indirect-tax",
+      "title": "GST and indirect-tax interfaces",
+      "administered_by": ["Inland Revenue", "New Zealand Customs Service"],
+      "official_source_families": ["Goods and Services Tax Act 1985", "Customs and Excise Act 2018", "IRD GST guidance"],
+      "oracle_ids": ["policyengine-nz", "nztaxmicrosim"],
+      "components": [
+        "GST rate",
+        "GST inclusive/exclusive calculations",
+        "low-value imported goods interfaces",
+        "excise interfaces for future distributional analysis"
+      ],
+      "status": "oracle_identified",
+      "priority": 4
+    },
+    {
+      "id": "dynamic-and-research-extensions",
+      "title": "Dynamic simulation, policy diffusion, and value-of-information extensions",
+      "administered_by": ["Axiom Foundation"],
+      "official_source_families": ["not applicable"],
+      "oracle_ids": ["kairos", "lifecourse", "voiage", "innovate"],
+      "components": [
+        "dynamic microsimulation interfaces",
+        "ABM/DES feasibility",
+        "health economic lifecourse use cases",
+        "value-of-information experiments",
+        "policy diffusion experiments"
+      ],
+      "status": "oracle_identified",
+      "priority": 5
+    }
+  ]
+}
+

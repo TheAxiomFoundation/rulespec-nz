@@ -1,0 +1,143 @@
+{
+  "generated_at": "2026-06-16",
+  "jurisdiction": "nz",
+  "purpose": "Pinned oracle and supporting-source references for full New Zealand Axiom coverage.",
+  "oracles": [
+    {
+      "id": "policyengine-nz",
+      "name": "PolicyEngine NZ",
+      "url": "https://github.com/PolicyEngine/policyengine-nz",
+      "local_path": "/Users/maxghenis/PolicyEngine/policyengine-nz",
+      "commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+      "role": "Current PolicyEngine-style baseline parameters, variables, and tests.",
+      "coverage": [
+        "income_tax",
+        "acc_earners_levy",
+        "gst",
+        "working_for_families",
+        "accommodation_supplement",
+        "jobseeker_support",
+        "nz_superannuation"
+      ],
+      "authority": "oracle"
+    },
+    {
+      "id": "nztaxmicrosim",
+      "name": "NZ Personal Tax Microsimulation Model",
+      "url": "https://github.com/edithatogo/nztaxmicrosim",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/nztaxmicrosim",
+      "commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+      "role": "Broad tax-benefit oracle and historical tax parameter reference.",
+      "coverage": [
+        "income_tax_history",
+        "acc_earners_levy",
+        "independent_earner_tax_credit",
+        "working_for_families",
+        "main_benefits",
+        "accommodation_supplement",
+        "winter_energy_payment",
+        "nz_superannuation",
+        "kiwisaver",
+        "student_loan",
+        "child_support",
+        "paid_parental_leave",
+        "rates_rebates",
+        "donation_credit",
+        "portfolio_investment_entity_tax",
+        "resident_withholding_tax"
+      ],
+      "authority": "oracle"
+    },
+    {
+      "id": "openfisca-aotearoa",
+      "name": "OpenFisca Aotearoa",
+      "url": "https://github.com/edithatogo/openfisca-aotearoa",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/openfisca-aotearoa",
+      "commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+      "role": "OpenFisca rule, parameter, test, entity, and ontology oracle.",
+      "coverage": [
+        "income_tax",
+        "family_scheme",
+        "working_for_families",
+        "social_security",
+        "accommodation_supplement",
+        "childcare_assistance",
+        "disability_allowance",
+        "child_disability_allowance",
+        "jobseeker_support",
+        "sole_parent_support",
+        "supported_living_payment",
+        "student_allowance",
+        "superannuation",
+        "rates_rebates",
+        "citizenship",
+        "immigration",
+        "acc",
+        "minimum_wage",
+        "pae_ora"
+      ],
+      "authority": "oracle"
+    },
+    {
+      "id": "nz-legislation",
+      "name": "NZ Legislation CLI/MCP",
+      "url": "https://github.com/edithatogo/nz-legislation",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/nz-legislation",
+      "commit": "3da8c0273c36cc536b744d528ec69d1a31e786cf",
+      "role": "Supporting source discovery and AU/NZ legislation access tooling.",
+      "coverage": ["legislation_access", "source_inventory", "mcp_tooling"],
+      "authority": "supporting_source_tool"
+    },
+    {
+      "id": "nlp-policy-nz",
+      "name": "NLP Policy NZ",
+      "url": "https://github.com/edithatogo/nlp-policy-nz",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/nlp-policy-nz",
+      "commit": "f2445bbd3f1daaae19fdff73651531253a780991",
+      "role": "Supporting NZ legislation, Hansard, committee, and policy text schemas and NLP pipelines.",
+      "coverage": ["legislation_schema", "hansard_schema", "committee_schema", "policy_nlp"],
+      "authority": "supporting_source_tool"
+    },
+    {
+      "id": "kairos",
+      "name": "Kairos",
+      "url": "https://github.com/edithatogo/kairos",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/kairos",
+      "commit": "fae901558f07b7b717a676adbafbe2cdc78dea1c",
+      "role": "Dynamic microsimulation, ABM, and DES architecture reference.",
+      "coverage": ["dynamic_simulation", "abm", "des", "hpc"],
+      "authority": "research_oracle"
+    },
+    {
+      "id": "lifecourse",
+      "name": "Lifecourse",
+      "url": "https://github.com/edithatogo/lifecourse",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/lifecourse",
+      "commit": "be4e4878a24b8f174c0e15158057d9034eca79ed",
+      "role": "Health economic lifecourse simulation use-case oracle.",
+      "coverage": ["health_economics", "lifecourse", "genomics"],
+      "authority": "research_oracle"
+    },
+    {
+      "id": "voiage",
+      "name": "VOIage",
+      "url": "https://github.com/edithatogo/voiage",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/voiage",
+      "commit": "65c7123baf9c6b66e42826ea3e247e2aec7809c4",
+      "role": "Value-of-information analysis reference for rules-as-code experiments.",
+      "coverage": ["value_of_information", "decision_analysis"],
+      "authority": "research_oracle"
+    },
+    {
+      "id": "innovate",
+      "name": "Innovate",
+      "url": "https://github.com/edithatogo/innovate",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-oracles/innovate",
+      "commit": "6bff0278fcaafb51f08283e1cc063ab950c6eb5a",
+      "role": "Policy diffusion and innovation modeling reference.",
+      "coverage": ["policy_diffusion", "innovation_modeling"],
+      "authority": "research_oracle"
+    }
+  ]
+}
+
