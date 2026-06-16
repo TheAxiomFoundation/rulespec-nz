@@ -1,0 +1,2415 @@
+{
+  "generated_at": "2026-06-16",
+  "jurisdiction": "nz",
+  "run_id": "2026-06-16-pco-latest",
+  "axiom_corpus_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd",
+  "source_map": "data/coverage/tax-benefit-source-map.json",
+  "purpose": "Lightweight locator from NZ tax-benefit source-map works to fixed PCO corpus source documents and citation paths.",
+  "extraction_summary": {
+    "provisions_written": 511632,
+    "by_document_class": {
+      "statute": 230491,
+      "regulation": 127567,
+      "rulemaking": 153574
+    },
+    "source_file_count": 20971,
+    "local_corpus_path": "/Users/maxghenis/_axiom-worktrees/nz-legislation-api-downloads/2026-06-16-pco-latest/corpus-d7c53d2"
+  },
+  "work_locators": [
+    {
+      "requested_work": "Accident Compensation Act 2001",
+      "tracks": [
+        "levies-acc"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Accident Compensation Act 2001",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2001/49"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2001/49/act_public_2001_49_en_2026-03-31.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2001/49/latest/DLM100100.html",
+          "https://www.legislation.govt.nz/act/public/2001/49/latest/DLM100101.html",
+          "https://www.legislation.govt.nz/act/public/2001/49/latest/DLM100102.html"
+        ],
+        "provision_count": 630,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2001/0049/section/1-DLM104544",
+          "nz/statute/act/public/2001/0049/section/1-DLM105480",
+          "nz/statute/act/public/2001/0049/section/1-DLM106145",
+          "nz/statute/act/public/2001/0049/section/1-DLM7211415",
+          "nz/statute/act/public/2001/0049/section/1-DLM99497",
+          "nz/statute/act/public/2001/0049/section/1-LMS473",
+          "nz/statute/act/public/2001/0049/section/1-LMS479",
+          "nz/statute/act/public/2001/0049/section/1-LMS486"
+        ],
+        "sample_headings": [
+          "Corporation's liability to pay or contribute to cost of treatment",
+          "",
+          "Chairperson and deputy chairperson",
+          "Transitional provision relating to risk adjustment of Work Account levies",
+          "Title",
+          "Title",
+          "Title",
+          "Title"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Accident Compensation (Earners' Levy) Regulations",
+      "tracks": [
+        "levies-acc"
+      ],
+      "status": "related_matches",
+      "exact_match": null,
+      "related_matches": [
+        {
+          "title": "Accident Compensation (Earners'  Levy) Regulations 2010",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2010/72"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2010/72/secondary-legislation_pco-drafted_2010_72_en_2011-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/72/latest/DLM2717500.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/72/latest/DLM2717501.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/72/latest/DLM2717502.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2010/0072/regulation/1",
+            "nz/regulation/regulation/public/2010/0072/regulation/10",
+            "nz/regulation/regulation/public/2010/0072/regulation/2",
+            "nz/regulation/regulation/public/2010/0072/regulation/3",
+            "nz/regulation/regulation/public/2010/0072/regulation/4",
+            "nz/regulation/regulation/public/2010/0072/regulation/5",
+            "nz/regulation/regulation/public/2010/0072/regulation/6",
+            "nz/regulation/regulation/public/2010/0072/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person: works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person: purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners' Levy) Regulations 2011",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2011/20"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2011/20/secondary-legislation_pco-drafted_2011_20_en_2012-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2011/20/latest/DLM3560811.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2011/20/latest/DLM3560813.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2011/20/latest/DLM3560816.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2011/0020/regulation/1",
+            "nz/regulation/regulation/public/2011/0020/regulation/10",
+            "nz/regulation/regulation/public/2011/0020/regulation/2",
+            "nz/regulation/regulation/public/2011/0020/regulation/3",
+            "nz/regulation/regulation/public/2011/0020/regulation/4",
+            "nz/regulation/regulation/public/2011/0020/regulation/5",
+            "nz/regulation/regulation/public/2011/0020/regulation/6",
+            "nz/regulation/regulation/public/2011/0020/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person: works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person: purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners' Levy) Regulations 2012",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2012/8"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2012/8/secondary-legislation_pco-drafted_2012_8_en_2013-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2012/8/latest/DLM4282204.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2012/8/latest/DLM4282205.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2012/8/latest/DLM4282206.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2012/0008/regulation/1",
+            "nz/regulation/regulation/public/2012/0008/regulation/10",
+            "nz/regulation/regulation/public/2012/0008/regulation/2",
+            "nz/regulation/regulation/public/2012/0008/regulation/3",
+            "nz/regulation/regulation/public/2012/0008/regulation/4",
+            "nz/regulation/regulation/public/2012/0008/regulation/5",
+            "nz/regulation/regulation/public/2012/0008/regulation/6",
+            "nz/regulation/regulation/public/2012/0008/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person: works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person: purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners' Levy) Regulations 2013",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2013/15"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2013/15/secondary-legislation_pco-drafted_2013_15_en_2014-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/15/latest/DLM5027109.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/15/latest/DLM5027111.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/15/latest/DLM5027115.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2013/0015/regulation/1",
+            "nz/regulation/regulation/public/2013/0015/regulation/10",
+            "nz/regulation/regulation/public/2013/0015/regulation/2",
+            "nz/regulation/regulation/public/2013/0015/regulation/3",
+            "nz/regulation/regulation/public/2013/0015/regulation/4",
+            "nz/regulation/regulation/public/2013/0015/regulation/5",
+            "nz/regulation/regulation/public/2013/0015/regulation/6",
+            "nz/regulation/regulation/public/2013/0015/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person: works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person: purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners' Levy) Regulations 2014",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2014/30"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2014/30/secondary-legislation_pco-drafted_2014_30_en_2015-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/30/latest/DLM5933604.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/30/latest/DLM5933605.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/30/latest/DLM5933606.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2014/0030/regulation/1",
+            "nz/regulation/regulation/public/2014/0030/regulation/10",
+            "nz/regulation/regulation/public/2014/0030/regulation/2",
+            "nz/regulation/regulation/public/2014/0030/regulation/3",
+            "nz/regulation/regulation/public/2014/0030/regulation/4",
+            "nz/regulation/regulation/public/2014/0030/regulation/5",
+            "nz/regulation/regulation/public/2014/0030/regulation/6",
+            "nz/regulation/regulation/public/2014/0030/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person: works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person: purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners' Levy) Regulations 2015",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2015/37"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2015/37/secondary-legislation_pco-drafted_2015_37_en_2016-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/37/latest/DLM6301200.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/37/latest/DLM6301201.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/37/latest/DLM6301216.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2015/0037/regulation/1",
+            "nz/regulation/regulation/public/2015/0037/regulation/10",
+            "nz/regulation/regulation/public/2015/0037/regulation/2",
+            "nz/regulation/regulation/public/2015/0037/regulation/3",
+            "nz/regulation/regulation/public/2015/0037/regulation/4",
+            "nz/regulation/regulation/public/2015/0037/regulation/5",
+            "nz/regulation/regulation/public/2015/0037/regulation/6",
+            "nz/regulation/regulation/public/2015/0037/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person: works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person: purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners' Levy) Regulations 2016",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2016/28"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2016/28/secondary-legislation_pco-drafted_2016_28_en_2017-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/28/latest/DLM6729404.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/28/latest/DLM6729405.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/28/latest/DLM6729406.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2016/0028/regulation/1",
+            "nz/regulation/regulation/public/2016/0028/regulation/10",
+            "nz/regulation/regulation/public/2016/0028/regulation/2",
+            "nz/regulation/regulation/public/2016/0028/regulation/3",
+            "nz/regulation/regulation/public/2016/0028/regulation/4",
+            "nz/regulation/regulation/public/2016/0028/regulation/5",
+            "nz/regulation/regulation/public/2016/0028/regulation/6",
+            "nz/regulation/regulation/public/2016/0028/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners' levy",
+            "Maximum earnings on which earners' levy payable",
+            "Self-employed person who works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person who purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners\u2019 Levy) Regulations 2017",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2017/18"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2017/18/secondary-legislation_pco-drafted_2017_18_en_2019-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2017/18/latest/DLM7106104.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2017/18/latest/DLM7106105.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2017/18/latest/DLM7106106.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2017/0018/regulation/1",
+            "nz/regulation/regulation/public/2017/0018/regulation/10",
+            "nz/regulation/regulation/public/2017/0018/regulation/2",
+            "nz/regulation/regulation/public/2017/0018/regulation/3",
+            "nz/regulation/regulation/public/2017/0018/regulation/4",
+            "nz/regulation/regulation/public/2017/0018/regulation/5",
+            "nz/regulation/regulation/public/2017/0018/regulation/6",
+            "nz/regulation/regulation/public/2017/0018/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners\u2019 levy",
+            "Maximum earnings on which earners\u2019 levy payable",
+            "Self-employed person who works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person who purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners\u2019 Levy) Regulations 2019",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2019/36"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2019/36/secondary-legislation_pco-drafted_2019_36_en_2022-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/36/latest/LMS157681.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/36/latest/LMS157682.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/36/latest/LMS157695.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2019/0036/regulation/1",
+            "nz/regulation/regulation/public/2019/0036/regulation/10",
+            "nz/regulation/regulation/public/2019/0036/regulation/2",
+            "nz/regulation/regulation/public/2019/0036/regulation/3",
+            "nz/regulation/regulation/public/2019/0036/regulation/4",
+            "nz/regulation/regulation/public/2019/0036/regulation/5",
+            "nz/regulation/regulation/public/2019/0036/regulation/6",
+            "nz/regulation/regulation/public/2019/0036/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners\u2019 levy",
+            "Maximum earnings on which earners\u2019 levy payable",
+            "Self-employed person who works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person who purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners\u2019 Levy) Regulations 2022",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2022/30"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2022/30/secondary-legislation_pco-drafted_2022_30_en_2025-04-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2022/30/latest/LMS642095.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2022/30/latest/LMS642096.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2022/30/latest/LMS642107.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2022/0030/regulation/1",
+            "nz/regulation/regulation/public/2022/0030/regulation/10",
+            "nz/regulation/regulation/public/2022/0030/regulation/2",
+            "nz/regulation/regulation/public/2022/0030/regulation/3",
+            "nz/regulation/regulation/public/2022/0030/regulation/4",
+            "nz/regulation/regulation/public/2022/0030/regulation/5",
+            "nz/regulation/regulation/public/2022/0030/regulation/6",
+            "nz/regulation/regulation/public/2022/0030/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and saving",
+            "Commencement",
+            "Interpretation",
+            "Earners\u2019 levy",
+            "Maximum earnings on which earners\u2019 levy payable",
+            "Self-employed person who works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person who purchases weekly compensation"
+          ]
+        },
+        {
+          "title": "Accident Compensation (Earners\u2019 Levy) Regulations 2025",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2025/18"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2025/18/secondary-legislation_pco-drafted_2025_18_en_2025-02-24.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/18/latest/LMS1019180.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/18/latest/LMS1019181.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/18/latest/LMS1019192.html"
+          ],
+          "provision_count": 10,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2025/0018/regulation/1",
+            "nz/regulation/regulation/public/2025/0018/regulation/10",
+            "nz/regulation/regulation/public/2025/0018/regulation/2",
+            "nz/regulation/regulation/public/2025/0018/regulation/3",
+            "nz/regulation/regulation/public/2025/0018/regulation/4",
+            "nz/regulation/regulation/public/2025/0018/regulation/5",
+            "nz/regulation/regulation/public/2025/0018/regulation/6",
+            "nz/regulation/regulation/public/2025/0018/regulation/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Revocation and savings",
+            "Commencement",
+            "Interpretation",
+            "Earners\u2019 levy",
+            "Maximum earnings on which earners\u2019 levy payable",
+            "Self-employed person who works more than 30 hours per week and earns less than specified amount",
+            "Self-employed person who purchases weekly compensation"
+          ]
+        }
+      ]
+    },
+    {
+      "requested_work": "Child Support Act 1991",
+      "tracks": [
+        "family-payments-and-leave"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Child Support Act 1991",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/1991/142"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/1991/142/act_public_1991_142_en_2026-03-31.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/1991/142/latest/DLM2128000.html",
+          "https://www.legislation.govt.nz/act/public/1991/142/latest/DLM2128003.html",
+          "https://www.legislation.govt.nz/act/public/1991/142/latest/DLM2128004.html"
+        ],
+        "provision_count": 508,
+        "sample_citation_paths": [
+          "nz/statute/act/public/1991/0142/section/1-DLM2128000",
+          "nz/statute/act/public/1991/0142/section/1-DLM2128004",
+          "nz/statute/act/public/1991/0142/section/1-DLM2128015",
+          "nz/statute/act/public/1991/0142/section/1-DLM2129954",
+          "nz/statute/act/public/1991/0142/section/1-DLM2129987",
+          "nz/statute/act/public/1991/0142/section/1-DLM2133600",
+          "nz/statute/act/public/1991/0142/section/1-DLM2189303",
+          "nz/statute/act/public/1991/0142/section/1-DLM2189334"
+        ],
+        "sample_headings": [
+          "Short Title and commencement",
+          "Short Title and commencement",
+          "Short Title",
+          "Title",
+          "Title",
+          "Title",
+          "Short Title and commencement",
+          "Title"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Citizenship Act 1977",
+      "tracks": [
+        "residency-citizenship-immigration"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Citizenship Act 1977",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/1977/61"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/1977/61/act_public_1977_61_en_2025-09-18.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/1977/61/latest/DLM4173111.html",
+          "https://www.legislation.govt.nz/act/public/1977/61/latest/DLM4173112.html",
+          "https://www.legislation.govt.nz/act/public/1977/61/latest/DLM4173116.html"
+        ],
+        "provision_count": 46,
+        "sample_citation_paths": [
+          "nz/statute/act/public/1977/0061/section/1-DLM4173111",
+          "nz/statute/act/public/1977/0061/section/1-DLM443688",
+          "nz/statute/act/public/1977/0061/section/1-LMS74127",
+          "nz/statute/act/public/1977/0061/section/10",
+          "nz/statute/act/public/1977/0061/section/11",
+          "nz/statute/act/public/1977/0061/section/12",
+          "nz/statute/act/public/1977/0061/section/13",
+          "nz/statute/act/public/1977/0061/section/14"
+        ],
+        "sample_headings": [
+          "Title",
+          "Short Title and commencement",
+          "Interpretation",
+          "Grant of citizenship as of right in certain cases",
+          "Minister may require oath or affirmation of allegiance to be taken",
+          "Certificate of New Zealand citizenship",
+          "Existing rights of citizenship protected",
+          "Applications made under British Nationality and New Zealand Citizenship Act 1948 may be proceeded with under this Act"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Customs and Excise Act 2018",
+      "tracks": [
+        "consumption-and-indirect-tax"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Customs and Excise Act 2018",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2018/4"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2018/4/act_public_2018_4_en_2025-09-24.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2018/4/latest/DLM7038958.html",
+          "https://www.legislation.govt.nz/act/public/2018/4/latest/DLM7038959.html",
+          "https://www.legislation.govt.nz/act/public/2018/4/latest/DLM7038968.html"
+        ],
+        "provision_count": 692,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2018/0004/section/1-DLM7038958",
+          "nz/statute/act/public/2018/0004/section/1-DLM7039960",
+          "nz/statute/act/public/2018/0004/section/1-DLM7039981",
+          "nz/statute/act/public/2018/0004/section/1-DLM7039988",
+          "nz/statute/act/public/2018/0004/section/1-DLM7040083",
+          "nz/statute/act/public/2018/0004/section/1-DLM7040140",
+          "nz/statute/act/public/2018/0004/section/1-DLM7040152",
+          "nz/statute/act/public/2018/0004/section/1-DLM7040171"
+        ],
+        "sample_headings": [
+          "Title",
+          "Definitions for Part, etc",
+          "Requirements relating to arrival and departure of craft and persons",
+          "Excise duty levied in respect of Part A goods manufactured in New Zealand",
+          "International agreement",
+          "Application for review of seizure",
+          "Application for scheme to be Customs-approved secure exports scheme",
+          "Application for administrative review"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Education and Training Act 2020",
+      "tracks": [
+        "student-support"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Education and Training Act 2020",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2020/38"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2020/38/act_public_2020_38_en_2026-06-03.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2020/38/latest/LMS1535823.html",
+          "https://www.legislation.govt.nz/act/public/2020/38/latest/LMS1535825.html",
+          "https://www.legislation.govt.nz/act/public/2020/38/latest/LMS1535831.html"
+        ],
+        "provision_count": 1389,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2020/0038/section/1-LMS1538589",
+          "nz/statute/act/public/2020/0038/section/1-LMS1538629",
+          "nz/statute/act/public/2020/0038/section/1-LMS1538989",
+          "nz/statute/act/public/2020/0038/section/1-LMS170678",
+          "nz/statute/act/public/2020/0038/section/1-LMS171346",
+          "nz/statute/act/public/2020/0038/section/1-LMS171845",
+          "nz/statute/act/public/2020/0038/section/1-LMS172211",
+          "nz/statute/act/public/2020/0038/section/1-LMS172363"
+        ],
+        "sample_headings": [
+          "Chairperson",
+          "Interpretation",
+          "Industry skills board must identify potential members of levy group",
+          "Title",
+          "Police vetting of non-teaching and unregistered employees at licensed early childhood services",
+          "Applications for registration as teachers",
+          "Term of office",
+          "Statement of intent"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Goods and Services Tax Act 1985",
+      "tracks": [
+        "consumption-and-indirect-tax"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Goods and Services Tax Act 1985",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/1985/141"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/1985/141/act_public_1985_141_en_2026-05-07.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/1985/141/latest/DLM1198226.html",
+          "https://www.legislation.govt.nz/act/public/1985/141/latest/DLM2457234.html",
+          "https://www.legislation.govt.nz/act/public/1985/141/latest/DLM3238203.html"
+        ],
+        "provision_count": 262,
+        "sample_citation_paths": [
+          "nz/statute/act/public/1985/0141/section/1-DLM3913601",
+          "nz/statute/act/public/1985/0141/section/1-DLM3914175",
+          "nz/statute/act/public/1985/0141/section/1-DLM3914806",
+          "nz/statute/act/public/1985/0141/section/1-DLM3934856",
+          "nz/statute/act/public/1985/0141/section/1-DLM3936431",
+          "nz/statute/act/public/1985/0141/section/1-DLM81039",
+          "nz/statute/act/public/1985/0141/section/1-LMS1409115",
+          "nz/statute/act/public/1985/0141/section/1-LMS1428317"
+        ],
+        "sample_headings": [
+          "Title",
+          "Title",
+          "Title",
+          "Short Title, application, and commencement",
+          "Short Title",
+          "Short Title, etc",
+          "General",
+          "General"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Housing Restructuring and Tenancy Matters Act 1992",
+      "tracks": [
+        "housing-assistance"
+      ],
+      "status": "related_matches",
+      "exact_match": null,
+      "related_matches": [
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Appointment of Agency and Regulatory Authority) Order 2013",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2013/476"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2013/476/secondary-legislation_pco-drafted_2013_476_en_2018-10-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/476/latest/DLM5775714.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/476/latest/DLM5775715.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/476/latest/DLM5775716.html"
+          ],
+          "provision_count": 4,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2013/0476/regulation/1",
+            "nz/regulation/regulation/public/2013/0476/regulation/2",
+            "nz/regulation/regulation/public/2013/0476/regulation/3",
+            "nz/regulation/regulation/public/2013/0476/regulation/4"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Ministry of Social Development appointed as social housing agency",
+            "Ministry of Business, Innovation, and Employment appointed as regulatory authority"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Community Housing Provider) Amendment Regulations 2015",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2015/42"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2015/42/secondary-legislation_pco-drafted_2015_42_en_2015-03-02.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/42/latest/DLM6389904.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/42/latest/DLM6389905.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/42/latest/DLM6389906.html"
+          ],
+          "provision_count": 4,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2015/0042/regulation/1",
+            "nz/regulation/regulation/public/2015/0042/regulation/2",
+            "nz/regulation/regulation/public/2015/0042/regulation/3",
+            "nz/regulation/regulation/public/2015/0042/regulation/4"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal regulations",
+            "Regulation 6 amended (Information required in application)"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Information Matching) Amendment Act 2006",
+          "document_class": "statute",
+          "source_document_ids": [
+            "act/public/2006/34"
+          ],
+          "source_paths": [
+            "sources/nz/statute/2026-06-16-pco-latest/act/public/2006/34/act_public_2006_34_en_2007-09-03.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/act/public/2006/34/latest/DLM374675.html",
+            "https://www.legislation.govt.nz/act/public/2006/34/latest/DLM374676.html",
+            "https://www.legislation.govt.nz/act/public/2006/34/latest/DLM374678.html"
+          ],
+          "provision_count": 13,
+          "sample_citation_paths": [
+            "nz/statute/act/public/2006/0034/section/1",
+            "nz/statute/act/public/2006/0034/section/2",
+            "nz/statute/act/public/2006/0034/section/3",
+            "nz/statute/act/public/2006/0034/section/4",
+            "nz/statute/act/public/2006/0034/section/5",
+            "nz/statute/act/public/2006/0034/section/6",
+            "nz/statute/act/public/2006/0034/section/66",
+            "nz/statute/act/public/2006/0034/section/67"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act amended",
+            "Title amended",
+            "Name of principal Act changed",
+            "New Part 6 inserted",
+            "Interpretation",
+            "Purpose of section 68"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Prescribed Elements of Calculation Mechanism) Amendment Regulations 2018",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2018/237"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2018/237/secondary-legislation_pco-drafted_2018_237_en_2018-11-26.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/237/latest/LMS130116.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/237/latest/LMS130117.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/237/latest/LMS130119.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2018/0237/regulation/1",
+            "nz/regulation/regulation/public/2018/0237/regulation/2",
+            "nz/regulation/regulation/public/2018/0237/regulation/3",
+            "nz/regulation/regulation/public/2018/0237/regulation/4",
+            "nz/regulation/regulation/public/2018/0237/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal regulations",
+            "Regulation 3 amended (Interpretation)",
+            "Regulation 14 amended (Certain payments not to be income)"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Social Housing Reform) Amendment Act 2015",
+          "document_class": "statute",
+          "source_document_ids": [
+            "act/public/2015/50"
+          ],
+          "source_paths": [
+            "sources/nz/statute/2026-06-16-pco-latest/act/public/2015/50/act_public_2015_50_en_2015-05-27.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/act/public/2015/50/latest/DLM6481217.html",
+            "https://www.legislation.govt.nz/act/public/2015/50/latest/DLM6481218.html",
+            "https://www.legislation.govt.nz/act/public/2015/50/latest/DLM6481220.html"
+          ],
+          "provision_count": 17,
+          "sample_citation_paths": [
+            "nz/statute/act/public/2015/0050/section/1",
+            "nz/statute/act/public/2015/0050/section/10",
+            "nz/statute/act/public/2015/0050/section/11",
+            "nz/statute/act/public/2015/0050/section/12",
+            "nz/statute/act/public/2015/0050/section/13",
+            "nz/statute/act/public/2015/0050/section/137A",
+            "nz/statute/act/public/2015/0050/section/14",
+            "nz/statute/act/public/2015/0050/section/15"
+          ],
+          "sample_headings": [
+            "Title",
+            "Section 162 amended (Ministerial directions to authority)",
+            "Section 166 amended (Approval of registration)",
+            "Section 169 amended (Suspension of registration)",
+            "Section 171 amended (Procedure for revocation)",
+            "Tailored agreements with social housing providers",
+            "Section 190 amended (Regulations relating to community housing providers)",
+            "Consequential amendment to Housing Corporation Act 1974"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Social Housing Reform) Amendment Act 2016",
+          "document_class": "statute",
+          "source_document_ids": [
+            "act/public/2016/5"
+          ],
+          "source_paths": [
+            "sources/nz/statute/2026-06-16-pco-latest/act/public/2016/5/act_public_2016_5_en_2016-02-24.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/act/public/2016/5/latest/DLM6737600.html",
+            "https://www.legislation.govt.nz/act/public/2016/5/latest/DLM6737601.html",
+            "https://www.legislation.govt.nz/act/public/2016/5/latest/DLM6737606.html"
+          ],
+          "provision_count": 4,
+          "sample_citation_paths": [
+            "nz/statute/act/public/2016/0005/section/1",
+            "nz/statute/act/public/2016/0005/section/2",
+            "nz/statute/act/public/2016/0005/section/3",
+            "nz/statute/act/public/2016/0005/section/4"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 27 amended (Provisions relating to vesting of land)"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Social Housing Reform) Amendment Bill (No 2)",
+          "document_class": "rulemaking",
+          "source_document_ids": [
+            "bill/government/2015/42-C"
+          ],
+          "source_paths": [
+            "sources/nz/rulemaking/2026-06-16-pco-latest/bill/government/2015/42-C/bill_government_2015_42-C_en_2016-02-17.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/bill/government/2015/42-C/latest/DLM6737600.html",
+            "https://www.legislation.govt.nz/bill/government/2015/42-C/latest/DLM6737601.html",
+            "https://www.legislation.govt.nz/bill/government/2015/42-C/latest/DLM6737606.html"
+          ],
+          "provision_count": 4,
+          "sample_citation_paths": [
+            "nz/rulemaking/bill/government/2015/42-C/clause/1",
+            "nz/rulemaking/bill/government/2015/42-C/clause/10",
+            "nz/rulemaking/bill/government/2015/42-C/clause/2",
+            "nz/rulemaking/bill/government/2015/42-C/clause/9"
+          ],
+          "sample_headings": [
+            "Title",
+            "Section 27 amended (Provisions relating to vesting of land)",
+            "Commencement",
+            "Principal Act"
+          ]
+        },
+        {
+          "title": "Housing Restructuring and Tenancy Matters (Transitional) Regulations 2014",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2014/119"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2014/119/secondary-legislation_pco-drafted_2014_119_en_2017-04-15.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/119/latest/DLM6023113.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/119/latest/DLM6023114.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/119/latest/DLM6023115.html"
+          ],
+          "provision_count": 6,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2014/0119/regulation/1",
+            "nz/regulation/regulation/public/2014/0119/regulation/2",
+            "nz/regulation/regulation/public/2014/0119/regulation/3",
+            "nz/regulation/regulation/public/2014/0119/regulation/4",
+            "nz/regulation/regulation/public/2014/0119/regulation/5",
+            "nz/regulation/regulation/public/2014/0119/regulation/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Revocation of these regulations",
+            "Interpretation",
+            "Rent increases where tenant's change of circumstances occurs before 14 April 2014",
+            "Definition of assessable assets"
+          ]
+        },
+        {
+          "title": "Social Housing Reform (Housing Restructuring and Tenancy Matters Amendment) Act 2013",
+          "document_class": "statute",
+          "source_document_ids": [
+            "act/public/2013/97"
+          ],
+          "source_paths": [
+            "sources/nz/statute/2026-06-16-pco-latest/act/public/2013/97/act_public_2013_97_en_2014-04-14.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/act/public/2013/97/latest/DLM5200611.html",
+            "https://www.legislation.govt.nz/act/public/2013/97/latest/DLM5200612.html",
+            "https://www.legislation.govt.nz/act/public/2013/97/latest/DLM5200613.html"
+          ],
+          "provision_count": 205,
+          "sample_citation_paths": [
+            "nz/statute/act/public/2013/0097/section/1-DLM5200611",
+            "nz/statute/act/public/2013/0097/section/1-DLM5720617",
+            "nz/statute/act/public/2013/0097/section/10-DLM5200639",
+            "nz/statute/act/public/2013/0097/section/10-DLM5720638",
+            "nz/statute/act/public/2013/0097/section/100",
+            "nz/statute/act/public/2013/0097/section/101",
+            "nz/statute/act/public/2013/0097/section/102",
+            "nz/statute/act/public/2013/0097/section/103"
+          ],
+          "sample_headings": [
+            "Title",
+            "Interpretation of this Part",
+            "Section 53 amended (Regulations for purposes of calculation mechanism)",
+            "Agency may use Part 9 powers for purpose of recovery of pre-transfer debt not calculated before transfer date",
+            "Social housing agency",
+            "Functions of agency",
+            "Ministerial directions to agency",
+            "Agency to notify social housing providers of eligibility and housing needs"
+          ]
+        },
+        {
+          "title": "Social Housing Reform (Housing Restructuring and Tenancy Matters Amendment) Act 2013 Commencement Order 2013",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2013/480"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2013/480/secondary-legislation_pco-drafted_2013_480_en_2019-10-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/480/latest/DLM5775917.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/480/latest/DLM5775918.html"
+          ],
+          "provision_count": 2,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2013/0480/regulation/1",
+            "nz/regulation/regulation/public/2013/0480/regulation/2"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement of Part 2 of Social Housing Reform (Housing Restructuring and Tenancy Matters Amendment) Act 2013"
+          ]
+        },
+        {
+          "title": "Social Housing Reform (Housing Restructuring and Tenancy Matters Amendment) Bill",
+          "document_class": "rulemaking",
+          "source_document_ids": [
+            "bill/government/2013/116"
+          ],
+          "source_paths": [
+            "sources/nz/rulemaking/2026-06-16-pco-latest/bill/government/2013/116/bill_government_2013_116_en_2013-09-30.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/bill/government/2013/116/latest/DLM5200611.html",
+            "https://www.legislation.govt.nz/bill/government/2013/116/latest/DLM5200612.html",
+            "https://www.legislation.govt.nz/bill/government/2013/116/latest/DLM5200613.html"
+          ],
+          "provision_count": 205,
+          "sample_citation_paths": [
+            "nz/rulemaking/bill/government/2013/0116/clause/1-DLM5200611",
+            "nz/rulemaking/bill/government/2013/0116/clause/1-DLM5200973",
+            "nz/rulemaking/bill/government/2013/0116/clause/10",
+            "nz/rulemaking/bill/government/2013/0116/clause/100",
+            "nz/rulemaking/bill/government/2013/0116/clause/101",
+            "nz/rulemaking/bill/government/2013/0116/clause/102",
+            "nz/rulemaking/bill/government/2013/0116/clause/103",
+            "nz/rulemaking/bill/government/2013/0116/clause/104"
+          ],
+          "sample_headings": [
+            "Title",
+            "Transfer of employees of Corporation to agency",
+            "Cross-heading replaced above section 56 replaced",
+            "Interpretation of Part 9 and Schedules 2 and 3 Interpretation of terms used in this Part",
+            "Social housing agency",
+            "Functions of agency",
+            "Ministerial directions to agency",
+            "Agency to notify social housing providers of income-related rent"
+          ]
+        }
+      ]
+    },
+    {
+      "requested_work": "Immigration Act 2009",
+      "tracks": [
+        "residency-citizenship-immigration"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Immigration Act 2009",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2009/51"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2009/51/act_public_2009_51_en_2026-05-27.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2009/51/latest/DLM1440306.html",
+          "https://www.legislation.govt.nz/act/public/2009/51/latest/DLM1440307.html",
+          "https://www.legislation.govt.nz/act/public/2009/51/latest/DLM1440310.html"
+        ],
+        "provision_count": 604,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2009/0051/section/1-DLM1440306",
+          "nz/statute/act/public/2009/0051/section/1-DLM1441513",
+          "nz/statute/act/public/2009/0051/section/1-LMS347504",
+          "nz/statute/act/public/2009/0051/section/1-LMS845457",
+          "nz/statute/act/public/2009/0051/section/10-DLM1440589",
+          "nz/statute/act/public/2009/0051/section/10-DLM1441524",
+          "nz/statute/act/public/2009/0051/section/10-DLM1441634",
+          "nz/statute/act/public/2009/0051/section/100"
+        ],
+        "sample_headings": [
+          "Title",
+          "Term of office of members",
+          "Special directions",
+          "Modification to section 4 (Interpretation)",
+          "Meaning of deported",
+          "Powers of investigation",
+          "Limited visas under Immigration Act 2009 for certain participants in trials",
+          "Collection of biometric information from proposed arrivals"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Income Tax Act 2007",
+      "tracks": [
+        "family-assistance-wff",
+        "payroll-savings-deductions",
+        "tax-personal-income"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Income Tax Act 2007",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2007/97"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2007/97/act_public_2007_97_en_2026-05-07.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2007/97/latest/DLM1172667.html",
+          "https://www.legislation.govt.nz/act/public/2007/97/latest/DLM1172669.html",
+          "https://www.legislation.govt.nz/act/public/2007/97/latest/DLM1172673.html"
+        ],
+        "provision_count": 4133,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2007/0097/section/1-DLM1523194",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523216",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523234",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523259",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523261",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523265",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523272",
+          "nz/statute/act/public/2007/0097/section/1-DLM1523280"
+        ],
+        "sample_headings": [
+          "Taxable income: general",
+          "Amount of tax for section RD 67 (a)",
+          "M and ME tax codes: payments for weekly pay periods",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "KiwiSaver Act 2006",
+      "tracks": [
+        "payroll-savings-deductions"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "KiwiSaver Act 2006",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2006/40"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2006/40/act_public_2006_40_en_2026-04-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2006/40/latest/DLM1144652.html",
+          "https://www.legislation.govt.nz/act/public/2006/40/latest/DLM1144698.html",
+          "https://www.legislation.govt.nz/act/public/2006/40/latest/DLM1144699.html"
+        ],
+        "provision_count": 372,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2006/0040/section/1-DLM378375",
+          "nz/statute/act/public/2006/0040/section/1-DLM379488",
+          "nz/statute/act/public/2006/0040/section/1-LMS35392",
+          "nz/statute/act/public/2006/0040/section/1-LMS827614",
+          "nz/statute/act/public/2006/0040/section/10-DLM378830",
+          "nz/statute/act/public/2006/0040/section/10-DLM379701",
+          "nz/statute/act/public/2006/0040/section/100",
+          "nz/statute/act/public/2006/0040/section/101"
+        ],
+        "sample_headings": [
+          "Title",
+          "Application",
+          "Title",
+          "Application of amendments relating to civil forfeiture orders under Criminal Proceeds (Recovery) Act 2009",
+          "Who automatic enrolment rules apply to",
+          "Withdrawal in cases of significant financial hardship",
+          "Refunds of employer contribution by Commissioner if employee opts out",
+          "Refunds of employer contribution by provider"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "New Zealand Superannuation and Retirement Income Act 2001",
+      "tracks": [
+        "superannuation"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "New Zealand Superannuation and Retirement Income Act 2001",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2001/84"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2001/84/act_public_2001_84_en_2026-04-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2001/84/latest/DLM113928.html",
+          "https://www.legislation.govt.nz/act/public/2001/84/latest/DLM113930.html",
+          "https://www.legislation.govt.nz/act/public/2001/84/latest/DLM113931.html"
+        ],
+        "provision_count": 178,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2001/0084/section/1-DLM113928",
+          "nz/statute/act/public/2001/0084/section/1-DLM115024",
+          "nz/statute/act/public/2001/0084/section/1-DLM115487",
+          "nz/statute/act/public/2001/0084/section/1-LMS153477",
+          "nz/statute/act/public/2001/0084/section/1-LMS24423",
+          "nz/statute/act/public/2001/0084/section/10-DLM113991",
+          "nz/statute/act/public/2001/0084/section/10-DLM115048",
+          "nz/statute/act/public/2001/0084/section/10-LMS424481"
+        ],
+        "sample_headings": [
+          "Title",
+          "Application",
+          "Superannuation or retiring allowances",
+          "Transitional, savings, and related provisions in body of Act",
+          "Title",
+          "Treatment of periods of absence as missionary",
+          "Removal from office",
+          "When other elections not processed before commencement date take effect"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Pae Ora (Healthy Futures) Act 2022",
+      "tracks": [
+        "childcare-and-disability"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Pae Ora (Healthy Futures) Act 2022",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2022/30"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2022/30/act_public_2022_30_en_2026-01-15.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2022/30/latest/LMS1001701.html",
+          "https://www.legislation.govt.nz/act/public/2022/30/latest/LMS1001703.html",
+          "https://www.legislation.govt.nz/act/public/2022/30/latest/LMS1568351.html"
+        ],
+        "provision_count": 189,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2022/0030/section/1-LMS575407",
+          "nz/statute/act/public/2022/0030/section/1-LMS575648",
+          "nz/statute/act/public/2022/0030/section/1-LMS575982",
+          "nz/statute/act/public/2022/0030/section/1-LMS576010",
+          "nz/statute/act/public/2022/0030/section/1-LMS813365",
+          "nz/statute/act/public/2022/0030/section/10-LMS575488",
+          "nz/statute/act/public/2022/0030/section/10-LMS575660",
+          "nz/statute/act/public/2022/0030/section/10-LMS813402"
+        ],
+        "sample_headings": [
+          "Title",
+          "Defined terms",
+          "Interpretation",
+          "Interpretation",
+          "Interpretation",
+          "Overview of Minister\u2019s role",
+          "Transfers",
+          "Description of Manawat\u016b area"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Parental Leave and Employment Protection Act 1987",
+      "tracks": [
+        "family-payments-and-leave"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Parental Leave and Employment Protection Act 1987",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/1987/129"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/1987/129/act_public_1987_129_en_2025-07-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/1987/129/latest/DLM120112.html",
+          "https://www.legislation.govt.nz/act/public/1987/129/latest/DLM120113.html",
+          "https://www.legislation.govt.nz/act/public/1987/129/latest/DLM120117.html"
+        ],
+        "provision_count": 199,
+        "sample_citation_paths": [
+          "nz/statute/act/public/1987/0129/section/1-DLM120112",
+          "nz/statute/act/public/1987/0129/section/1-DLM121796",
+          "nz/statute/act/public/1987/0129/section/1-DLM6120003",
+          "nz/statute/act/public/1987/0129/section/1-LMS61696",
+          "nz/statute/act/public/1987/0129/section/1-LMS61699",
+          "nz/statute/act/public/1987/0129/section/1-LMS61708",
+          "nz/statute/act/public/1987/0129/section/10",
+          "nz/statute/act/public/1987/0129/section/11"
+        ],
+        "sample_headings": [
+          "Short Title and commencement",
+          "",
+          "Application of sections 6 to 18 of Parental Leave and Employment Protection Amendment Act 2014",
+          "Title",
+          "Title",
+          "Title",
+          "Date of commencement of primary carer leave",
+          "Right of employee to determine date of commencement of primary carer leave"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "program-specific statutes",
+      "tracks": [
+        "residency-citizenship-immigration"
+      ],
+      "status": "not_found",
+      "exact_match": null,
+      "related_matches": []
+    },
+    {
+      "requested_work": "Rates Rebate Act 1973",
+      "tracks": [
+        "local-government-and-rates"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Rates Rebate Act 1973",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/1973/5"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/1973/5/act_public_1973_5_en_2025-08-27.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/1973/5/latest/DLM409600.html",
+          "https://www.legislation.govt.nz/act/public/1973/5/latest/DLM409601.html",
+          "https://www.legislation.govt.nz/act/public/1973/5/latest/DLM409673.html"
+        ],
+        "provision_count": 18,
+        "sample_citation_paths": [
+          "nz/statute/act/public/1973/0005/section/1-DLM409600",
+          "nz/statute/act/public/1973/0005/section/1-LMS1453868",
+          "nz/statute/act/public/1973/0005/section/10",
+          "nz/statute/act/public/1973/0005/section/11",
+          "nz/statute/act/public/1973/0005/section/11A",
+          "nz/statute/act/public/1973/0005/section/12",
+          "nz/statute/act/public/1973/0005/section/13",
+          "nz/statute/act/public/1973/0005/section/14"
+        ],
+        "sample_headings": [
+          "Short Title and commencement",
+          "Saving",
+          "Recovery of overpayments",
+          "Information to be supplied and books and documents to be produced",
+          "Advice of Secretary for Local Government as to applications for rebates or refunds",
+          "Secrecy",
+          "Form of verification",
+          "Offences"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Rates Rebate Regulations",
+      "tracks": [
+        "local-government-and-rates"
+      ],
+      "status": "related_matches",
+      "exact_match": null,
+      "related_matches": [
+        {
+          "title": "Rates Rebate (Retirement Village Residents) Amendment Act 2018",
+          "document_class": "statute",
+          "source_document_ids": [
+            "act/public/2018/1"
+          ],
+          "source_paths": [
+            "sources/nz/statute/2026-06-16-pco-latest/act/public/2018/1/act_public_2018_1_en_2018-02-02.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/act/public/2018/1/latest/DLM6836005.html",
+            "https://www.legislation.govt.nz/act/public/2018/1/latest/DLM6836007.html",
+            "https://www.legislation.govt.nz/act/public/2018/1/latest/DLM6836009.html"
+          ],
+          "provision_count": 8,
+          "sample_citation_paths": [
+            "nz/statute/act/public/2018/0001/section/1",
+            "nz/statute/act/public/2018/0001/section/2",
+            "nz/statute/act/public/2018/0001/section/3",
+            "nz/statute/act/public/2018/0001/section/4",
+            "nz/statute/act/public/2018/0001/section/5",
+            "nz/statute/act/public/2018/0001/section/6",
+            "nz/statute/act/public/2018/0001/section/7",
+            "nz/statute/act/public/2018/0001/section/7A"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 2 amended (Interpretation)",
+            "New section 7A inserted (Refund to resident of retirement village of contribution towards rates)",
+            "Section 9 amended (Refund to territorial authorities of rebates granted)",
+            "Section 10 amended (Recovery of overpayments)",
+            "Refund to resident of retirement village of contribution towards rates"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Retirement Village Residents) Amendment Bill",
+          "document_class": "rulemaking",
+          "source_document_ids": [
+            "bill/members/2016/132"
+          ],
+          "source_paths": [
+            "sources/nz/rulemaking/2026-06-16-pco-latest/bill/members/2016/132/bill_members_2016_132_en_2017-12-18.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/bill/members/2016/132/latest/DLM6836005.html",
+            "https://www.legislation.govt.nz/bill/members/2016/132/latest/DLM6836006.html",
+            "https://www.legislation.govt.nz/bill/members/2016/132/latest/DLM6836007.html"
+          ],
+          "provision_count": 9,
+          "sample_citation_paths": [
+            "nz/rulemaking/bill/members/2016/0132/clause/1",
+            "nz/rulemaking/bill/members/2016/0132/clause/2-DLM6836006",
+            "nz/rulemaking/bill/members/2016/0132/clause/2-DLM7515100",
+            "nz/rulemaking/bill/members/2016/0132/clause/3",
+            "nz/rulemaking/bill/members/2016/0132/clause/4",
+            "nz/rulemaking/bill/members/2016/0132/clause/5",
+            "nz/rulemaking/bill/members/2016/0132/clause/6",
+            "nz/rulemaking/bill/members/2016/0132/clause/7"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Commencement",
+            "Principal Act",
+            "Section 2 amended (Interpretation)",
+            "New section 7A inserted (Refund to resident of retirement village of contribution towards rates)",
+            "Section 9 amended (Refund to territorial authorities of rebates granted)",
+            "Section 10 amended (Recovery of overpayments)"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Amendment Order 2010",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2010/139"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2010/139/secondary-legislation_pco-drafted_2010_139_en_2011-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/139/latest/DLM2997304.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/139/latest/DLM2997305.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/139/latest/DLM2997306.html"
+          ],
+          "provision_count": 4,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2010/0139/regulation/1",
+            "nz/regulation/regulation/public/2010/0139/regulation/2",
+            "nz/regulation/regulation/public/2010/0139/regulation/3",
+            "nz/regulation/regulation/public/2010/0139/regulation/4"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal order amended",
+            "Amounts substituted"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2008",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2008/155"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2008/155/secondary-legislation_pco-drafted_2008_155_en_2009-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2008/155/latest/DLM1338704.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2008/155/latest/DLM1338705.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2008/155/latest/DLM1338706.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2008/0155/regulation/1",
+            "nz/regulation/regulation/public/2008/0155/regulation/2",
+            "nz/regulation/regulation/public/2008/0155/regulation/3",
+            "nz/regulation/regulation/public/2008/0155/regulation/4",
+            "nz/regulation/regulation/public/2008/0155/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Amounts substituted",
+            "Consequential amendments",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2009",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2009/117"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2009/117/secondary-legislation_pco-drafted_2009_117_en_2010-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2009/117/latest/DLM2003304.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2009/117/latest/DLM2003305.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2009/117/latest/DLM2003306.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2009/0117/regulation/1",
+            "nz/regulation/regulation/public/2009/0117/regulation/2",
+            "nz/regulation/regulation/public/2009/0117/regulation/3",
+            "nz/regulation/regulation/public/2009/0117/regulation/4",
+            "nz/regulation/regulation/public/2009/0117/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Amounts substituted",
+            "Revocation",
+            "Savings"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2010",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2010/82"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2010/82/secondary-legislation_pco-drafted_2010_82_en_2011-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/82/latest/DLM2831504.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/82/latest/DLM2831505.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2010/82/latest/DLM2831506.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2010/0082/regulation/1",
+            "nz/regulation/regulation/public/2010/0082/regulation/2",
+            "nz/regulation/regulation/public/2010/0082/regulation/3",
+            "nz/regulation/regulation/public/2010/0082/regulation/4",
+            "nz/regulation/regulation/public/2010/0082/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Amounts substituted",
+            "Revocation",
+            "Savings"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2011",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2011/98"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2011/98/secondary-legislation_pco-drafted_2011_98_en_2012-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2011/98/latest/DLM3637520.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2011/98/latest/DLM3637521.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2011/98/latest/DLM3637522.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2011/0098/regulation/1",
+            "nz/regulation/regulation/public/2011/0098/regulation/2",
+            "nz/regulation/regulation/public/2011/0098/regulation/3",
+            "nz/regulation/regulation/public/2011/0098/regulation/4",
+            "nz/regulation/regulation/public/2011/0098/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Specified amounts substituted",
+            "Revocations",
+            "Savings"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2012",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2012/103"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2012/103/secondary-legislation_pco-drafted_2012_103_en_2013-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2012/103/latest/DLM4476504.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2012/103/latest/DLM4476505.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2012/103/latest/DLM4476506.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2012/0103/regulation/1",
+            "nz/regulation/regulation/public/2012/0103/regulation/2",
+            "nz/regulation/regulation/public/2012/0103/regulation/3",
+            "nz/regulation/regulation/public/2012/0103/regulation/4",
+            "nz/regulation/regulation/public/2012/0103/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Specified amounts replaced",
+            "Revocation",
+            "Savings"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2013",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2013/146"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2013/146/secondary-legislation_pco-drafted_2013_146_en_2014-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/146/latest/DLM5173510.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/146/latest/DLM5173511.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2013/146/latest/DLM5173512.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2013/0146/regulation/1",
+            "nz/regulation/regulation/public/2013/0146/regulation/2",
+            "nz/regulation/regulation/public/2013/0146/regulation/3",
+            "nz/regulation/regulation/public/2013/0146/regulation/4",
+            "nz/regulation/regulation/public/2013/0146/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Specified amounts replaced",
+            "Revocation",
+            "Savings"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2014",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2014/170"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2014/170/secondary-legislation_pco-drafted_2014_170_en_2015-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/170/latest/DLM6107804.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/170/latest/DLM6107805.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2014/170/latest/DLM6107806.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2014/0170/regulation/1",
+            "nz/regulation/regulation/public/2014/0170/regulation/2",
+            "nz/regulation/regulation/public/2014/0170/regulation/3",
+            "nz/regulation/regulation/public/2014/0170/regulation/4",
+            "nz/regulation/regulation/public/2014/0170/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2015",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2015/99"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2015/99/secondary-legislation_pco-drafted_2015_99_en_2016-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/99/latest/DLM6475704.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/99/latest/DLM6475705.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/99/latest/DLM6475706.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2015/0099/regulation/1",
+            "nz/regulation/regulation/public/2015/0099/regulation/2",
+            "nz/regulation/regulation/public/2015/0099/regulation/3",
+            "nz/regulation/regulation/public/2015/0099/regulation/4",
+            "nz/regulation/regulation/public/2015/0099/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2016",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2016/147"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2016/147/secondary-legislation_pco-drafted_2016_147_en_2017-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/147/latest/DLM6870308.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/147/latest/DLM6870309.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/147/latest/DLM6870310.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2016/0147/regulation/1",
+            "nz/regulation/regulation/public/2016/0147/regulation/2",
+            "nz/regulation/regulation/public/2016/0147/regulation/3",
+            "nz/regulation/regulation/public/2016/0147/regulation/4",
+            "nz/regulation/regulation/public/2016/0147/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2017",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2017/110"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2017/110/secondary-legislation_pco-drafted_2017_110_en_2018-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2017/110/latest/DLM7250704.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2017/110/latest/DLM7250705.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2017/110/latest/DLM7250706.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2017/0110/regulation/1",
+            "nz/regulation/regulation/public/2017/0110/regulation/2",
+            "nz/regulation/regulation/public/2017/0110/regulation/3",
+            "nz/regulation/regulation/public/2017/0110/regulation/4",
+            "nz/regulation/regulation/public/2017/0110/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2018",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2018/107"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2018/107/secondary-legislation_pco-drafted_2018_107_en_2019-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/107/latest/LMS38347.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/107/latest/LMS38348.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/107/latest/LMS38349.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2018/0107/regulation/1",
+            "nz/regulation/regulation/public/2018/0107/regulation/2",
+            "nz/regulation/regulation/public/2018/0107/regulation/3",
+            "nz/regulation/regulation/public/2018/0107/regulation/4",
+            "nz/regulation/regulation/public/2018/0107/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2019",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2019/130"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2019/130/secondary-legislation_pco-drafted_2019_130_en_2020-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/130/latest/LMS183667.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/130/latest/LMS183668.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/130/latest/LMS183669.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2019/0130/regulation/1",
+            "nz/regulation/regulation/public/2019/0130/regulation/2",
+            "nz/regulation/regulation/public/2019/0130/regulation/3",
+            "nz/regulation/regulation/public/2019/0130/regulation/4",
+            "nz/regulation/regulation/public/2019/0130/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2020",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2020/127"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2020/127/secondary-legislation_pco-drafted_2020_127_en_2021-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2020/127/latest/LMS353648.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2020/127/latest/LMS353649.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2020/127/latest/LMS353650.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2020/0127/regulation/1",
+            "nz/regulation/regulation/public/2020/0127/regulation/2",
+            "nz/regulation/regulation/public/2020/0127/regulation/3",
+            "nz/regulation/regulation/public/2020/0127/regulation/4",
+            "nz/regulation/regulation/public/2020/0127/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2021",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2021/141"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2021/141/secondary-legislation_pco-drafted_2021_141_en_2022-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2021/141/latest/LMS498196.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2021/141/latest/LMS498197.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2021/141/latest/LMS498198.html"
+          ],
+          "provision_count": 5,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2021/0141/regulation/1",
+            "nz/regulation/regulation/public/2021/0141/regulation/2",
+            "nz/regulation/regulation/public/2021/0141/regulation/3",
+            "nz/regulation/regulation/public/2021/0141/regulation/4",
+            "nz/regulation/regulation/public/2021/0141/regulation/5"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Section 3 of Rates Rebate Act 1973 amended",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2022",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2022/169"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2022/169/secondary-legislation_pco-drafted_2022_169_en_2023-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2022/169/latest/LMS695029.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2022/169/latest/LMS695030.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2022/169/latest/LMS695031.html"
+          ],
+          "provision_count": 6,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2022/0169/regulation/1",
+            "nz/regulation/regulation/public/2022/0169/regulation/2",
+            "nz/regulation/regulation/public/2022/0169/regulation/3",
+            "nz/regulation/regulation/public/2022/0169/regulation/4",
+            "nz/regulation/regulation/public/2022/0169/regulation/5",
+            "nz/regulation/regulation/public/2022/0169/regulation/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 3 amended (Rates rebate)",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2023",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2023/104"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2023/104/secondary-legislation_pco-drafted_2023_104_en_2024-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2023/104/latest/LMS826241.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2023/104/latest/LMS826242.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2023/104/latest/LMS826243.html"
+          ],
+          "provision_count": 6,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2023/0104/regulation/1",
+            "nz/regulation/regulation/public/2023/0104/regulation/2",
+            "nz/regulation/regulation/public/2023/0104/regulation/3",
+            "nz/regulation/regulation/public/2023/0104/regulation/4",
+            "nz/regulation/regulation/public/2023/0104/regulation/5",
+            "nz/regulation/regulation/public/2023/0104/regulation/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 3 amended (Rates rebate)",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2024",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2024/43"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2024/43/secondary-legislation_pco-drafted_2024_43_en_2025-07-01.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2024/43/latest/LMS947630.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2024/43/latest/LMS947631.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2024/43/latest/LMS947632.html"
+          ],
+          "provision_count": 6,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2024/0043/regulation/1",
+            "nz/regulation/regulation/public/2024/0043/regulation/2",
+            "nz/regulation/regulation/public/2024/0043/regulation/3",
+            "nz/regulation/regulation/public/2024/0043/regulation/4",
+            "nz/regulation/regulation/public/2024/0043/regulation/5",
+            "nz/regulation/regulation/public/2024/0043/regulation/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 3 amended (Rates rebate)",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2025",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2025/63"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2025/63/secondary-legislation_pco-drafted_2025_63_en_2025-04-07.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/63/latest/LMS1033941.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/63/latest/LMS1033942.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/63/latest/LMS1033943.html"
+          ],
+          "provision_count": 6,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2025/0063/regulation/1",
+            "nz/regulation/regulation/public/2025/0063/regulation/2",
+            "nz/regulation/regulation/public/2025/0063/regulation/3",
+            "nz/regulation/regulation/public/2025/0063/regulation/4",
+            "nz/regulation/regulation/public/2025/0063/regulation/5",
+            "nz/regulation/regulation/public/2025/0063/regulation/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 3 amended (Rates rebate)",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Specified Amounts) Order 2026",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/2026/84"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2026/84/secondary-legislation_pco-drafted_2026_84_en_2026-04-07.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2026/84/latest/LMS1583208.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2026/84/latest/LMS1583209.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2026/84/latest/LMS1583210.html"
+          ],
+          "provision_count": 6,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/2026/0084/regulation/1",
+            "nz/regulation/regulation/public/2026/0084/regulation/2",
+            "nz/regulation/regulation/public/2026/0084/regulation/3",
+            "nz/regulation/regulation/public/2026/0084/regulation/4",
+            "nz/regulation/regulation/public/2026/0084/regulation/5",
+            "nz/regulation/regulation/public/2026/0084/regulation/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Commencement",
+            "Principal Act",
+            "Section 3 amended (Rates rebate)",
+            "Revocation",
+            "Saving"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Statutory Declarations) Amendment Act 2020",
+          "document_class": "statute",
+          "source_document_ids": [
+            "act/public/2020/44"
+          ],
+          "source_paths": [
+            "sources/nz/statute/2026-06-16-pco-latest/act/public/2020/44/act_public_2020_44_en_2020-08-06.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/act/public/2020/44/latest/LMS258135.html",
+            "https://www.legislation.govt.nz/act/public/2020/44/latest/LMS258136.html",
+            "https://www.legislation.govt.nz/act/public/2020/44/latest/LMS258138.html"
+          ],
+          "provision_count": 11,
+          "sample_citation_paths": [
+            "nz/statute/act/public/2020/0044/section/1",
+            "nz/statute/act/public/2020/0044/section/10",
+            "nz/statute/act/public/2020/0044/section/13",
+            "nz/statute/act/public/2020/0044/section/2",
+            "nz/statute/act/public/2020/0044/section/3",
+            "nz/statute/act/public/2020/0044/section/4",
+            "nz/statute/act/public/2020/0044/section/5",
+            "nz/statute/act/public/2020/0044/section/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Section 14 amended (Offences)",
+            "Form of verification",
+            "Commencement",
+            "Principal Act",
+            "Section 5 amended (Applications to territorial authority for rates rebate)",
+            "Section 6 amended (Applications for refunds of rates paid)",
+            "Section 7 amended (Refund to owner of owner-occupier flat of contribution towards rates)"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Statutory Declarations) Amendment Bill",
+          "document_class": "rulemaking",
+          "source_document_ids": [
+            "bill/government/2019/178"
+          ],
+          "source_paths": [
+            "sources/nz/rulemaking/2026-06-16-pco-latest/bill/government/2019/178/bill_government_2019_178_en_2020-06-30.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/bill/government/2019/178/latest/LMS258135.html",
+            "https://www.legislation.govt.nz/bill/government/2019/178/latest/LMS258136.html",
+            "https://www.legislation.govt.nz/bill/government/2019/178/latest/LMS258138.html"
+          ],
+          "provision_count": 11,
+          "sample_citation_paths": [
+            "nz/rulemaking/bill/government/2019/0178/clause/1",
+            "nz/rulemaking/bill/government/2019/0178/clause/10",
+            "nz/rulemaking/bill/government/2019/0178/clause/13",
+            "nz/rulemaking/bill/government/2019/0178/clause/2",
+            "nz/rulemaking/bill/government/2019/0178/clause/3",
+            "nz/rulemaking/bill/government/2019/0178/clause/4",
+            "nz/rulemaking/bill/government/2019/0178/clause/5",
+            "nz/rulemaking/bill/government/2019/0178/clause/6"
+          ],
+          "sample_headings": [
+            "Title",
+            "Section 14 amended (Offences)",
+            "Form of verification",
+            "Commencement",
+            "Principal Act",
+            "Section 5 amended (Applications to territorial authority for rates rebate)",
+            "Section 6 amended (Applications for refunds of rates paid)",
+            "Section 7 amended (Refund to owner of owner-occupier flat of contribution towards rates)"
+          ]
+        },
+        {
+          "title": "Rates Rebate (Witnessing of Declarations) Notice 1977",
+          "document_class": "regulation",
+          "source_document_ids": [
+            "secondary-legislation/pco-drafted/1977/12"
+          ],
+          "source_paths": [
+            "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/1977/12/secondary-legislation_pco-drafted_1977_12_en_1977-02-11.xml"
+          ],
+          "source_urls": [
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/1977/12/latest/DLM53850.html",
+            "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/1977/12/latest/DLM53851.html"
+          ],
+          "provision_count": 2,
+          "sample_citation_paths": [
+            "nz/regulation/regulation/public/1977/0012/regulation/1",
+            "nz/regulation/regulation/public/1977/0012/regulation/2"
+          ],
+          "sample_headings": [
+            "Title and commencement",
+            "Witnessing of rates rebate applications"
+          ]
+        }
+      ]
+    },
+    {
+      "requested_work": "Social Security Act 2018",
+      "tracks": [
+        "childcare-and-disability",
+        "housing-assistance",
+        "social-security-main-benefits"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Social Security Act 2018",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2018/32"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2018/32/act_public_2018_32_en_2026-04-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2018/32/latest/DLM6783121.html",
+          "https://www.legislation.govt.nz/act/public/2018/32/latest/DLM6783122.html",
+          "https://www.legislation.govt.nz/act/public/2018/32/latest/DLM6783123.html"
+        ],
+        "provision_count": 707,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2018/0032/section/1-DLM6784293",
+          "nz/statute/act/public/2018/0032/section/1-DLM6784814",
+          "nz/statute/act/public/2018/0032/section/1-DLM6784899",
+          "nz/statute/act/public/2018/0032/section/1-DLM6784943",
+          "nz/statute/act/public/2018/0032/section/1-DLM6784950",
+          "nz/statute/act/public/2018/0032/section/1-DLM6784963",
+          "nz/statute/act/public/2018/0032/section/1-LMS41450",
+          "nz/statute/act/public/2018/0032/section/10-DLM6783130"
+        ],
+        "sample_headings": [
+          "Changeover and saved defined",
+          "What this schedule does",
+          "Duty to answer questions asked by MSD",
+          "Establishment",
+          "Social Security Appeal Authority",
+          "Establishment and membership",
+          "Title",
+          "Comparative tables of old and new provisions"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Social Security Regulations 2018",
+      "tracks": [
+        "childcare-and-disability",
+        "housing-assistance",
+        "social-security-main-benefits"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Social Security Regulations 2018",
+        "document_class": "regulation",
+        "source_document_ids": [
+          "secondary-legislation/pco-drafted/2018/202"
+        ],
+        "source_paths": [
+          "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/2018/202/secondary-legislation_pco-drafted_2018_202_en_2026-04-05.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/202/latest/LMS1444193.html",
+          "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/202/latest/LMS1444489.html",
+          "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2018/202/latest/LMS1444528.html"
+        ],
+        "provision_count": 425,
+        "sample_citation_paths": [
+          "nz/regulation/regulation/public/2018/0202/regulation/1-LMS96212",
+          "nz/regulation/regulation/public/2018/0202/regulation/1-LMS96973",
+          "nz/regulation/regulation/public/2018/0202/regulation/1-LMS96992",
+          "nz/regulation/regulation/public/2018/0202/regulation/10-LMS399577",
+          "nz/regulation/regulation/public/2018/0202/regulation/10-LMS96248",
+          "nz/regulation/regulation/public/2018/0202/regulation/10-LMS97034",
+          "nz/regulation/regulation/public/2018/0202/regulation/100",
+          "nz/regulation/regulation/public/2018/0202/regulation/101"
+        ],
+        "sample_headings": [
+          "Title",
+          "Childcare assistance: approvals of out-of-school programme or proposed out-of-school programme",
+          "Cash assets exemptions (for accommodation supplement)",
+          "Application of regulation 28(1)\ufeff(a), (3)\ufeff(aa), and (4)",
+          "Minimum period of eligibility",
+          "Lump sum payments made under Programme",
+          "Exemption from work-preparation obligations",
+          "Exemption from work-test obligations: all work-tested beneficiaries"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Student Allowances Regulations 1998",
+      "tracks": [
+        "student-support"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Student Allowances Regulations 1998",
+        "document_class": "regulation",
+        "source_document_ids": [
+          "secondary-legislation/pco-drafted/1998/277"
+        ],
+        "source_paths": [
+          "sources/nz/regulation/2026-06-16-pco-latest/secondary-legislation/pco-drafted/1998/277/secondary-legislation_pco-drafted_1998_277_en_2026-04-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/1998/277/latest/DLM259354.html",
+          "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/1998/277/latest/DLM259355.html",
+          "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/1998/277/latest/DLM259987.html"
+        ],
+        "provision_count": 82,
+        "sample_citation_paths": [
+          "nz/regulation/regulation/public/1998/0277/regulation/1-DLM259354",
+          "nz/regulation/regulation/public/1998/0277/regulation/1-DLM7019751",
+          "nz/regulation/regulation/public/1998/0277/regulation/1-LMS1588487",
+          "nz/regulation/regulation/public/1998/0277/regulation/1-LMS5326",
+          "nz/regulation/regulation/public/1998/0277/regulation/1-LMS5329",
+          "nz/regulation/regulation/public/1998/0277/regulation/10-DLM260331",
+          "nz/regulation/regulation/public/1998/0277/regulation/10-LMS1577651",
+          "nz/regulation/regulation/public/1998/0277/regulation/11-DLM260334"
+        ],
+        "sample_headings": [
+          "Title and commencement",
+          "Amendments apply only to study starting on or after 1\u00a0January 2017",
+          "Combined income not more than $569.40 for week",
+          "Title",
+          "Title",
+          "Award of A-Bursary",
+          "Transitional provision for persons granted accommodation benefit before 2 March 2026",
+          "Award of B-Bursary"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Student Loan Scheme Act 2011",
+      "tracks": [
+        "payroll-savings-deductions",
+        "student-support"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Student Loan Scheme Act 2011",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2011/62"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2011/62/act_public_2011_62_en_2026-04-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2011/62/latest/DLM2494100.html",
+          "https://www.legislation.govt.nz/act/public/2011/62/latest/DLM2543900.html",
+          "https://www.legislation.govt.nz/act/public/2011/62/latest/DLM2652600.html"
+        ],
+        "provision_count": 335,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2011/0062/section/1-DLM3179931",
+          "nz/statute/act/public/2011/0062/section/1-DLM3180451",
+          "nz/statute/act/public/2011/0062/section/1-DLM3180477",
+          "nz/statute/act/public/2011/0062/section/1-DLM6030534",
+          "nz/statute/act/public/2011/0062/section/10-DLM3180076",
+          "nz/statute/act/public/2011/0062/section/10-DLM3180464",
+          "nz/statute/act/public/2011/0062/section/10-DLM3180488",
+          "nz/statute/act/public/2011/0062/section/10-DLM6030545"
+        ],
+        "sample_headings": [
+          "Title",
+          "Definitions",
+          "Schedule applies despite repeal of Student Loan Scheme Act 1992 and anything to contrary",
+          "Interpretation",
+          "Loan manager must notify Commissioner of persons who apply for student loan",
+          "Conditions to Niue, Cook Islands, Tokelau, and Ross Dependency application",
+          "Deduction rates and deduction rate certificates",
+          "Treatment of distributions from retirement savings schemes"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Tax Administration Act 1994",
+      "tracks": [
+        "family-assistance-wff",
+        "tax-personal-income"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Tax Administration Act 1994",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/1994/166"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/1994/166/act_public_1994_166_en_2026-05-01.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/1994/166/latest/DLM1189110.html",
+          "https://www.legislation.govt.nz/act/public/1994/166/latest/DLM1189134.html",
+          "https://www.legislation.govt.nz/act/public/1994/166/latest/DLM1189140.html"
+        ],
+        "provision_count": 1099,
+        "sample_citation_paths": [
+          "nz/statute/act/public/1994/0166/section/1-DLM348347",
+          "nz/statute/act/public/1994/0166/section/1-LMS185605",
+          "nz/statute/act/public/1994/0166/section/1-LMS195591",
+          "nz/statute/act/public/1994/0166/section/1-LMS195599",
+          "nz/statute/act/public/1994/0166/section/1-LMS195603",
+          "nz/statute/act/public/1994/0166/section/1-LMS198021",
+          "nz/statute/act/public/1994/0166/section/1-LMS31456",
+          "nz/statute/act/public/1994/0166/section/1-LMS31461"
+        ],
+        "sample_headings": [
+          "Short Title and commencement",
+          "Parts A to D",
+          "Tax codes generally",
+          "Tailored tax codes",
+          "Rates of tax for schedular payments",
+          "Writing off certain amounts of tax payable",
+          "Short Title",
+          "Short Title and application"
+        ]
+      },
+      "related_matches": []
+    },
+    {
+      "requested_work": "Veterans' Support Act 2014",
+      "tracks": [
+        "superannuation"
+      ],
+      "status": "exact_match",
+      "exact_match": {
+        "title": "Veterans' Support Act 2014",
+        "document_class": "statute",
+        "source_document_ids": [
+          "act/public/2014/56"
+        ],
+        "source_paths": [
+          "sources/nz/statute/2026-06-16-pco-latest/act/public/2014/56/act_public_2014_56_en_2022-11-26.xml"
+        ],
+        "source_urls": [
+          "https://www.legislation.govt.nz/act/public/2014/56/latest/DLM5537700.html",
+          "https://www.legislation.govt.nz/act/public/2014/56/latest/DLM5537702.html",
+          "https://www.legislation.govt.nz/act/public/2014/56/latest/DLM5537705.html"
+        ],
+        "provision_count": 381,
+        "sample_citation_paths": [
+          "nz/statute/act/public/2014/0056/section/1-DLM5537777",
+          "nz/statute/act/public/2014/0056/section/1-DLM5618941",
+          "nz/statute/act/public/2014/0056/section/1-DLM5959340",
+          "nz/statute/act/public/2014/0056/section/1-LMS218010",
+          "nz/statute/act/public/2014/0056/section/10-DLM5537938",
+          "nz/statute/act/public/2014/0056/section/10-DLM5602314",
+          "nz/statute/act/public/2014/0056/section/10-DLM5959338",
+          "nz/statute/act/public/2014/0056/section/100"
+        ],
+        "sample_headings": [
+          "Title",
+          "Allowances for services of attendant in certain cases",
+          "Application",
+          "Title",
+          "Functions to be performed and powers to be exercised in accordance with certain principles",
+          "Child care",
+          "Dependants",
+          "Entitlement to weekly compensation"
+        ]
+      },
+      "related_matches": []
+    }
+  ]
+}
