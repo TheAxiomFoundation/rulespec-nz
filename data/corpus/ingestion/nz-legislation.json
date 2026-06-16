@@ -14,13 +14,20 @@
     "module": "axiom_corpus.corpus.nz_legislation",
     "function": "extract_nz_legislation",
     "cli": "extract-nz-legislation",
-    "minimum_ref": "637e06cc06e1f4c7860f7a61a1c09fcd43c5c37d"
+    "minimum_ref": "2b920c166860387a6e22ffb894830d697cc4032c"
   },
   "source_acquisition": {
     "api_docs_url": "https://api.legislation.govt.nz/docs/",
     "api_key_env": "NZ_LEGISLATION_API_KEY",
     "command_template": "uv run axiom-corpus download-nz-legislation-api --output-dir <path-to-pco-xml> --manifest-path data/corpus/inventory/nz/api-downloads/<run-id>.json --limit <optional-smoke-limit>",
-    "status": "blocked_until_api_key_available",
+    "status": "api_key_available_full_download_completed",
+    "latest_download": {
+      "run_id": "2026-06-16-pco-latest",
+      "discovered_works": 20973,
+      "raw_xml_files": 20971,
+      "failed_downloads": 2,
+      "local_raw_xml_path": "/Users/maxghenis/_axiom-worktrees/nz-legislation-api-downloads/2026-06-16-pco-latest/xml"
+    },
     "blockers_observed_on_2026_06_16": [
       "api.legislation.govt.nz/v0/works returns 401 without an API key",
       "www.legislation.govt.nz/developer-api presents a human-verification challenge",
