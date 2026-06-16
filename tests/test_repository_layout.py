@@ -120,6 +120,43 @@ def test_json_manifests_parse() -> None:
         json.loads(path.read_text())
 
 
+def test_tax_benefit_source_map_references_known_ids() -> None:
+    source_map = json.loads(
+        (ROOT / "data/coverage/tax-benefit-source-map.json").read_text()
+    )
+    backlog = json.loads((ROOT / "data/coverage/full-country-backlog.json").read_text())
+    source_spine = json.loads(
+        (ROOT / "data/corpus/inventory/nz/source-spine.json").read_text()
+    )
+    oracle_index = json.loads((ROOT / "data/oracles/oracle-index.json").read_text())
+
+    track_ids = {track["id"] for track in backlog["tracks"]}
+    source_ids = {source["id"] for source in source_spine["sources"]}
+    oracle_ids = {oracle["id"] for oracle in oracle_index["oracles"]}
+
+    unknown_tracks = [
+        track["track_id"]
+        for track in source_map["tracks"]
+        if track["track_id"] not in track_ids
+    ]
+    unknown_sources = [
+        f"{track['track_id']}:{source['source_id']}"
+        for track in source_map["tracks"]
+        for source in track["official_source_refs"]
+        if source["source_id"] not in source_ids
+    ]
+    unknown_oracles = [
+        f"{track['track_id']}:{oracle['oracle_id']}"
+        for track in source_map["tracks"]
+        for oracle in track["oracle_surfaces"]
+        if oracle["oracle_id"] not in oracle_ids
+    ]
+
+    assert unknown_tracks == []
+    assert unknown_sources == []
+    assert unknown_oracles == []
+
+
 def test_no_obsolete_formula_artifacts() -> None:
     obsolete_ext = ".r" "ac"
     obsolete = [
@@ -322,4 +359,3 @@ def test_derived_rules_are_exercised_by_companion_tests() -> None:
         )
 
     assert apply_gap_ratchet("uncovered_derived_rules", missing) == []
-

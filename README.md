@@ -13,6 +13,8 @@ This repository is the full-country Aotearoa New Zealand RuleSpec workspace. It 
 - `data/oracles/`: reproducible references to oracle models and datasets used to cross-check Axiom outputs.
 - `data/coverage/`: full-country coverage backlog and status.
 
+The detailed tax-benefit intake map is `data/coverage/tax-benefit-source-map.json`. It links each priority track to official source families, pinned oracle files, and first RuleSpec encoding batches.
+
 ## Initial Oracles
 
 The first oracle set is intentionally broad:
