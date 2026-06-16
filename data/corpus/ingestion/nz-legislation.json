@@ -14,7 +14,7 @@
     "module": "axiom_corpus.corpus.nz_legislation",
     "function": "extract_nz_legislation",
     "cli": "extract-nz-legislation",
-    "minimum_ref": "8fe63b96c2e5bf16a22d0636a89f581a7902ab9f"
+    "minimum_ref": "637e06cc06e1f4c7860f7a61a1c09fcd43c5c37d"
   },
   "source_acquisition": {
     "api_docs_url": "https://api.legislation.govt.nz/docs/",
