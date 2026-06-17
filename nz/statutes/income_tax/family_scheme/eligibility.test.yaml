@@ -1,0 +1,383 @@
+- name: wff_family_scheme_qualifying_family_and_in_work_credit
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_age: 30
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_dependent_children_principal_caregiver_count: 2
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_new_zealand_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_present_in_new_zealand_continuous_months: 24
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_resident_under_yd1_on_credit_days: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_present_in_new_zealand_for_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_entitled_to_emergency_benefit: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_spouse_or_partner_combined_entitlement_applies: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_spouse_or_partner_combined_entitlement_allocated_to_person: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_relationship_period_parent_allowance_or_childrens_pension_received: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_relationship_period_main_benefit_received: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_parental_leave_or_preterm_baby_payment_for_child_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_parental_tax_credit_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_parent_allowance_or_childrens_pension_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_meets_qualifying_criteria_each_day: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_spouse_or_partner_started_or_stopped_during_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_principal_caregiver_status_changed_except_first_or_last_day: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_dependent_child_status_stopped_except_first_or_last_day: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_tax_credit_composition_changed_except_first_or_last_day: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_protected_family_tax_credit_status_changed_except_first_or_last_day: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_person_is_principal_caregiver_for_child: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_child_age_and_birth_date_requirement: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_credit_child_age: 18
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_credit_child_financially_independent: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_credit_child_attending_school_or_tertiary: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_commissioner_considers_primary_day_to_day_care: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_care_is_temporary: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_body_of_persons: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_spouse_or_partner_of_non_electing_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_disqualifying_residence_or_institution_operator_or_employee: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_lives_apart_from_another_qualifying_person_for_child: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_exclusive_care_fraction_for_family_or_best_start_credit: 0.5
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_exclusive_care_fraction: 0.5
+    nz:statutes/income_tax/family_scheme/eligibility#input.parental_tax_credit_child_exclusive_care_fraction: 0.5
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_age: 30
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_financially_dependent: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_treated_financially_dependent_by_payments: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_new_zealand_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_present_in_new_zealand_continuous_months: 24
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_resident_under_yd1_on_credit_days: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_present_in_new_zealand_for_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_or_partner_receives_main_benefit: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_or_partner_receives_basic_and_independent_circumstances_grants: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_or_partner_receives_parent_allowance_or_childrens_pension: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_allowed_paye_income_payment: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_rd3b_or_rd3c_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_business_income_from_profit_activity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_personal_service_rehabilitation_payment_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_earner: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_in_relation_to_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_major_shareholder_in_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_close_company_derives_gross_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_tax_credit_received_for_period_ending_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_incapacity_suffered_between_2006_01_01_and_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_weekly_compensation_paid_for_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_full_time_earner_income_at_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_would_have_been_eligible_under_legacy_formula: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_full_time_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_birth_absence_weeks: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_work_reduced_or_stopped_due_to_child_birth: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_entitled_to_parental_tax_credit_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_currently_meets_fifth_requirement: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_days_since_last_met_fifth_requirement: 0
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#wff_minimum_age: 16
+    nz:statutes/income_tax/family_scheme/eligibility#wff_residence_continuous_presence_months: 12
+    nz:statutes/income_tax/family_scheme/eligibility#wff_principal_caregiver_minimum_exclusive_care_fraction: 0.3333333333333333
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_birth_absence_period_weeks: 1
+    nz:statutes/income_tax/family_scheme/eligibility#wff_credit_child_school_tertiary_age: 18
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_recent_requirement_concession_days: 14
+    nz:statutes/income_tax/family_scheme/eligibility#wff_person_age_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_principal_care_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_person_residence_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_child_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_residence_or_emergency_benefit_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_spouse_or_partner_allocation_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_qualifying_criteria: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_abating_or_best_start_not_disqualified: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_in_work_parental_minimum_not_disqualified: holds
+    nz:statutes/income_tax/family_scheme/eligibility#best_start_child_not_disqualified: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_continuing_requirements: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_entitled_to_family_scheme: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_entitled_to_abating_wff_tax_credit: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_entitled_to_best_start_for_child: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_age_18_credit_child_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_general_principal_caregiver: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_family_tax_credit_or_best_start_principal_caregiver: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_principal_caregiver: holds
+    nz:statutes/income_tax/family_scheme/eligibility#parental_tax_credit_principal_caregiver: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_age_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_financially_dependent_child_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_person_residence_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_child_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_residence_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_benefit_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_qualifying_income_derived: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_income_earner_route: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_close_company_earner_route: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_legacy_compensation_route: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_birth_absence_route: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_recent_requirement_concession: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_earner_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#entitled_to_in_work_tax_credit: holds
+
+- name: wff_emergency_benefit_allows_residence_requirement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_present_in_new_zealand_continuous_months: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_resident_under_yd1_on_credit_days: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_present_in_new_zealand_for_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_entitled_to_emergency_benefit: true
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#wff_person_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_child_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_residence_or_emergency_benefit_requirement: holds
+
+- name: wff_child_residence_allows_residence_requirement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_present_in_new_zealand_continuous_months: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_resident_under_yd1_on_credit_days: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_new_zealand_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_present_in_new_zealand_for_entitlement_period: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_entitled_to_emergency_benefit: false
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#wff_person_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_child_residence_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_residence_or_emergency_benefit_requirement: holds
+
+- name: wff_allocation_and_disqualification_failures
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_age: 30
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_dependent_children_principal_caregiver_count: 1
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_new_zealand_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_present_in_new_zealand_continuous_months: 12
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_resident_under_yd1_on_credit_days: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_present_in_new_zealand_for_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_person_entitled_to_emergency_benefit: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_spouse_or_partner_combined_entitlement_applies: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_spouse_or_partner_combined_entitlement_allocated_to_person: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_relationship_period_parent_allowance_or_childrens_pension_received: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_relationship_period_main_benefit_received: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_parental_leave_or_preterm_baby_payment_for_child_period: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_parental_tax_credit_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.best_start_parent_allowance_or_childrens_pension_for_child: false
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#wff_person_age_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_principal_care_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_spouse_or_partner_allocation_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_qualifying_criteria: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_abating_or_best_start_not_disqualified: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_in_work_parental_minimum_not_disqualified: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#best_start_child_not_disqualified: not_holds
+
+- name: wff_continuing_requirement_fails_on_mid_period_change
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_meets_qualifying_criteria_each_day: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_spouse_or_partner_started_or_stopped_during_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_principal_caregiver_status_changed_except_first_or_last_day: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_dependent_child_status_stopped_except_first_or_last_day: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_tax_credit_composition_changed_except_first_or_last_day: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_protected_family_tax_credit_status_changed_except_first_or_last_day: false
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#wff_continuing_requirements: not_holds
+
+- name: wff_principal_caregiver_requires_one_third_care
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_commissioner_considers_primary_day_to_day_care: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_care_is_temporary: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_body_of_persons: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_spouse_or_partner_of_non_electing_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_disqualifying_residence_or_institution_operator_or_employee: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_lives_apart_from_another_qualifying_person_for_child: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_child_exclusive_care_fraction_for_family_or_best_start_credit: 0.25
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_exclusive_care_fraction: 0.25
+    nz:statutes/income_tax/family_scheme/eligibility#input.parental_tax_credit_child_exclusive_care_fraction: 0.25
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#wff_general_principal_caregiver: holds
+    nz:statutes/income_tax/family_scheme/eligibility#wff_family_tax_credit_or_best_start_principal_caregiver: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_principal_caregiver: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#parental_tax_credit_principal_caregiver: not_holds
+
+- name: in_work_tax_credit_close_company_route
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_allowed_paye_income_payment: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_rd3b_or_rd3c_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_business_income_from_profit_activity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_personal_service_rehabilitation_payment_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_in_relation_to_close_company: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_major_shareholder_in_close_company: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_close_company_derives_gross_income: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_tax_credit_received_for_period_ending_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_incapacity_suffered_between_2006_01_01_and_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_weekly_compensation_paid_for_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_full_time_earner_income_at_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_would_have_been_eligible_under_legacy_formula: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_full_time_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_birth_absence_weeks: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_work_reduced_or_stopped_due_to_child_birth: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_entitled_to_parental_tax_credit_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_currently_meets_fifth_requirement: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_days_since_last_met_fifth_requirement: 20
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_qualifying_income_derived: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_income_earner_route: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_close_company_earner_route: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_legacy_compensation_route: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_birth_absence_route: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_recent_requirement_concession: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_earner_requirement: holds
+
+- name: in_work_tax_credit_child_residence_allows_residence_requirement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_present_in_new_zealand_continuous_months: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_resident_under_yd1_on_credit_days: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_new_zealand_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_present_in_new_zealand_for_entitlement_period: true
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_person_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_child_residence_requirement: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_residence_requirement: holds
+
+- name: in_work_tax_credit_birth_absence_and_recent_concession
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_allowed_paye_income_payment: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_rd3b_or_rd3c_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_business_income_from_profit_activity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_personal_service_rehabilitation_payment_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_in_relation_to_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_major_shareholder_in_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_close_company_derives_gross_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_tax_credit_received_for_period_ending_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_incapacity_suffered_between_2006_01_01_and_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_weekly_compensation_paid_for_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_full_time_earner_income_at_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_would_have_been_eligible_under_legacy_formula: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_full_time_earner: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_birth_absence_weeks: 1
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_work_reduced_or_stopped_due_to_child_birth: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_entitled_to_parental_tax_credit_for_child: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_currently_meets_fifth_requirement: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_days_since_last_met_fifth_requirement: 14
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_birth_absence_route: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_recent_requirement_concession: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_earner_requirement: holds
+
+- name: in_work_tax_credit_legacy_compensation_route
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_allowed_paye_income_payment: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_rd3b_or_rd3c_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_business_income_from_profit_activity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_personal_service_rehabilitation_payment_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_in_relation_to_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_major_shareholder_in_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_close_company_derives_gross_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_tax_credit_received_for_period_ending_2006_03_31: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_incapacity_suffered_between_2006_01_01_and_2006_03_31: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_weekly_compensation_paid_for_incapacity: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_full_time_earner_income_at_incapacity: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_would_have_been_eligible_under_legacy_formula: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_full_time_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_birth_absence_weeks: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_work_reduced_or_stopped_due_to_child_birth: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_entitled_to_parental_tax_credit_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_currently_meets_fifth_requirement: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_days_since_last_met_fifth_requirement: 20
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_legacy_compensation_route: holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_earner_requirement: holds
+
+- name: in_work_tax_credit_benefit_or_residence_failure_blocks_entitlement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_commissioner_considers_primary_day_to_day_care: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_care_is_temporary: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_body_of_persons: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_spouse_or_partner_of_non_electing_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_is_disqualifying_residence_or_institution_operator_or_employee: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.wff_caregiver_lives_apart_from_another_qualifying_person_for_child: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_exclusive_care_fraction: 0.5
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_age: 30
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_financially_dependent: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_treated_financially_dependent_by_payments: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_new_zealand_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_present_in_new_zealand_continuous_months: 12
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_resident_under_yd1_on_credit_days: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_transitional_resident: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_spouse_or_partner_transitional_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_new_zealand_resident: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_present_in_new_zealand_for_entitlement_period: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_or_partner_receives_main_benefit: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_or_partner_receives_basic_and_independent_circumstances_grants: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_person_or_partner_receives_parent_allowance_or_childrens_pension: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_allowed_paye_income_payment: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_rd3b_or_rd3c_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_business_income_from_profit_activity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_personal_service_rehabilitation_payment_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_earner: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_in_relation_to_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_earner_major_shareholder_in_close_company: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_close_company_derives_gross_income: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_child_tax_credit_received_for_period_ending_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_incapacity_suffered_between_2006_01_01_and_2006_03_31: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_weekly_compensation_paid_for_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_full_time_earner_income_at_incapacity: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_would_have_been_eligible_under_legacy_formula: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_normally_full_time_earner: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_birth_absence_weeks: 0
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_work_reduced_or_stopped_due_to_child_birth: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_entitled_to_parental_tax_credit_for_child: false
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_currently_meets_fifth_requirement: true
+    nz:statutes/income_tax/family_scheme/eligibility#input.in_work_tax_credit_days_since_last_met_fifth_requirement: 0
+  output:
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_person_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_residence_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#in_work_tax_credit_benefit_requirement: not_holds
+    nz:statutes/income_tax/family_scheme/eligibility#entitled_to_in_work_tax_credit: not_holds
