@@ -20,6 +20,7 @@ The detailed tax-benefit intake map is `data/coverage/tax-benefit-source-map.jso
 The first reference set is intentionally broad:
 
 - PolicyEngine NZ only as a minimal PolicyEngine-style smoke/reference surface, not as an authoritative oracle.
+- NZ Treasury IncomeExplorer as the executable stylized-family disposable-income and EMTR oracle; the public Python `emtr` prototype and AN25-01 repo are supporting references.
 - Dylan Mordaunt's `nztaxmicrosim` for historical tax, WFF, benefits, levies, and synthetic-population-oriented logic.
 - Dylan Mordaunt's `openfisca-aotearoa` for OpenFisca variables, parameters, tests, and ontology notes.
 - Dylan Mordaunt's AU/NZ legislation, NLP, dynamic simulation, value-of-information, and policy-diffusion repositories as supporting source and research infrastructure.
