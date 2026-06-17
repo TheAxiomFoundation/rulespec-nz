@@ -150,8 +150,11 @@
         {
           "id": "individual-tax-credits",
           "destination": "nz/statutes/income_tax/credits/individual_credits.yaml",
-          "source_requirements": ["Income Tax Act 2007 Part I"],
-          "oracle_checks": ["nztaxmicrosim:ietc", "nztaxmicrosim:donation_credit"]
+          "source_requirements": [
+            "Income Tax Act 2007 ss LC 13, LD 1-LD 8, and LA 7",
+            "Tax Administration Act 1994 s 41A"
+          ],
+          "oracle_checks": ["treasury-income-explorer:IETC", "nztaxmicrosim:ietc", "nztaxmicrosim:donation_credit"]
         }
       ]
     },

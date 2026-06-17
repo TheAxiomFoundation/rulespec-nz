@@ -142,6 +142,18 @@ def test_treasury_emtr_snapshot_schema() -> None:
             for column in output_columns:
                 assert column in row
 
+    single_adult = next(
+        scenario
+        for scenario in snapshot["scenarios"]
+        if scenario["id"] == "single_no_children_area2_no_housing_costs"
+    )
+    ietc_by_weekly_wage = {
+        row["gross_wage1"]: row["IETC_abated"]
+        for row in single_adult["sampled_outputs"]
+    }
+    assert ietc_by_weekly_wage[740] == 9.972603
+    assert ietc_by_weekly_wage[1000] == 9.972603
+
 
 def test_tax_benefit_source_map_references_known_ids() -> None:
     source_map = json.loads(

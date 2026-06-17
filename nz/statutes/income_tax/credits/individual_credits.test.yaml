@@ -1,0 +1,261 @@
+- name: independent_earner_treasury_ty27_plateau_at_statutory_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_person_is_natural_person: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_resident_in_new_zealand: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_main_benefit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_veterans_pension: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_new_zealand_superannuation: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_entitled_to_and_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_overseas_like_support: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_receives_overseas_like_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_net_income: 24000
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_period_whole_months: 12
+  output:
+    nz:statutes/income_tax/credits/individual_credits#individual_tax_credits_months_in_year: 12
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_minimum_net_income: 24000
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_full_year_amount: 520
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_abatement_threshold: 66000
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_abatement_rate: 0.13
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_status_requirement: holds
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_person_credit: 520
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_full_year_abatement: 0
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_before_status: 520
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit: 520
+
+- name: independent_earner_abates_for_complete_dollars_over_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_person_is_natural_person: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_resident_in_new_zealand: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_main_benefit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_veterans_pension: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_new_zealand_superannuation: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_entitled_to_and_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_overseas_like_support: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_receives_overseas_like_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_net_income: 67002.25
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_period_whole_months: 12
+  output:
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_status_requirement: holds
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_person_credit: 520
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_full_year_abatement: 130.26
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_before_status: 389.74
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit: 389.74
+
+- name: independent_earner_zero_below_minimum_net_income
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_person_is_natural_person: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_resident_in_new_zealand: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_main_benefit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_veterans_pension: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_new_zealand_superannuation: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_entitled_to_and_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_overseas_like_support: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_receives_overseas_like_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_net_income: 23999
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_period_whole_months: 12
+  output:
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_status_requirement: holds
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_person_credit: 0
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_full_year_abatement: 0
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_before_status: 0
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit: 0
+
+- name: independent_earner_partial_credit_period
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_person_is_natural_person: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_resident_in_new_zealand: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_main_benefit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_veterans_pension: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_new_zealand_superannuation: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_entitled_to_and_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_overseas_like_support: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_receives_overseas_like_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_net_income: 67000
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_period_whole_months: 6
+  output:
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_full_year_abatement: 130
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_before_status: 195
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit: 195
+
+- name: independent_earner_wff_or_benefit_blocks_credit
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_person_is_natural_person: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_resident_in_new_zealand: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_main_benefit: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_net_income: 30000
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_period_whole_months: 12
+  output:
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_status_requirement: not_holds
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_person_credit: 520
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit_before_status: 520
+    nz:statutes/income_tax/credits/individual_credits#independent_earner_tax_credit: 0
+
+- name: charitable_gift_credit_refundable_taxable_income_cap
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_amount: 1000
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_money: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_on_commissioner_list: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_testamentary: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_debt_forgiveness: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_absentee: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_company: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_public_authority: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_maori_authority: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_unincorporated_body: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_excluded_trustee: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_has_payroll_donation_credit_for_gift: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_application_made: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_application_in_time_or_special_circumstances: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_information_provided: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_requirements_of_ld1_met: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_total_gifts_made: 600
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_taxable_income: 300
+  output:
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_minimum_amount: 5
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_credit_rate: 0.3333333333333333
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_recipient_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_claimant_not_excluded: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_section_41a_refund_requirements: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_limited_total_gifts: 300
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_credit: 99.99999999999999
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_refundable_credit: 99.99999999999999
+
+- name: charitable_subscription_route_and_exclusion
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_amount: 50
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_money: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_subscription: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_subscription_confers_membership_rights: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_on_commissioner_list: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_listed_in_schedule_32: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_testamentary: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_debt_forgiveness: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_absentee: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_company: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_application_made: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_application_in_time_or_special_circumstances: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_information_provided: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_requirements_of_ld1_met: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_total_gifts_made: 50
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_taxable_income: 50000
+  output:
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_recipient_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_claimant_not_excluded: not_holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_section_41a_refund_requirements: not_holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_limited_total_gifts: 0
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_credit: 0
+
+- name: charitable_gift_below_minimum_fails
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_amount: 4.99
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_money: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_on_commissioner_list: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_listed_in_schedule_32: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_statutory_description_without_list: true
+  output:
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_recipient_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#charitable_or_public_benefit_gift_qualifies: not_holds
+
+- name: payroll_donation_credit_capped_by_pay_period_tax
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_is_employee: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employer_files_employment_income_information_electronically: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employer_offers_payroll_giving: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_chose_donation_from_pay: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_amount_transferred_from_pay_to_donee_organisation: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_tax_obligations_satisfied: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_statutory_or_legal_requirements_satisfied: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employment_income_information_received_by_commissioner: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_incorrect: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_transferred_to_ineligible_recipient: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_returned_to_person: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_total_donations_for_pay_period: 300
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_tax_for_pay_period: 80
+  output:
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_rate: 0.3333333333333333
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_extinguished: not_holds
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_before_cap: 99.99999999999999
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit: 80
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_blocks_section_41a_refund_application: holds
+
+- name: payroll_donation_credit_extinguished_when_returned_or_unfiled
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_is_employee: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employer_files_employment_income_information_electronically: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employer_offers_payroll_giving: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_chose_donation_from_pay: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_amount_transferred_from_pay_to_donee_organisation: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_tax_obligations_satisfied: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_statutory_or_legal_requirements_satisfied: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employment_income_information_received_by_commissioner: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_incorrect: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_corrected: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_returned_to_person: true
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_total_donations_for_pay_period: 300
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_tax_for_pay_period: 200
+  output:
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_qualifies: holds
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_extinguished: holds
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_before_cap: 99.99999999999999
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit: 0
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_blocks_section_41a_refund_application: not_holds
+
+- name: payroll_donation_non_employee_does_not_qualify
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_is_employee: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_total_donations_for_pay_period: 300
+  output:
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_qualifies: not_holds
+    nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_before_cap: 0

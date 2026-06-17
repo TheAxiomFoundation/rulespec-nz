@@ -1,0 +1,384 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 subpart LC section LC 13 sets the independent earner
+    tax credit for natural persons who are resident in New Zealand and are not
+    receiving main benefits, New Zealand superannuation, veterans' pension, WFF,
+    or equivalent overseas support. Subpart LD sections LD 1 to LD 8 set the
+    charitable or other public benefit gift credit and payroll donation credit.
+    Tax Administration Act 1994 section 41A supplies the refund-application
+    requirements for charitable and other public benefit gifts.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/section/LC-13
+      - nz/statute/act/public/2007/0097/section/LD-1
+      - nz/statute/act/public/2007/0097/section/LD-2
+      - nz/statute/act/public/2007/0097/section/LD-3
+      - nz/statute/act/public/2007/0097/section/LD-4
+      - nz/statute/act/public/2007/0097/section/LD-5
+      - nz/statute/act/public/2007/0097/section/LD-6
+      - nz/statute/act/public/2007/0097/section/LD-7
+      - nz/statute/act/public/2007/0097/section/LD-8
+      - nz/statute/act/public/2007/0097/section/LA-7
+      - nz/statute/act/public/1994/0166/section/41A
+    values:
+      individual_tax_credits_months_in_year: 12
+      independent_earner_tax_credit_minimum_net_income: 24000
+      independent_earner_tax_credit_full_year_amount: 520
+      independent_earner_tax_credit_abatement_threshold: 66000
+      independent_earner_tax_credit_abatement_rate: 0.13
+      charitable_or_public_benefit_gift_minimum_amount: 5
+      charitable_or_public_benefit_gift_credit_rate: 0.3333333333333333
+      payroll_donation_credit_rate: 0.3333333333333333
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: individual_tax_credits_months_in_year
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 s LC 13(2)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          12
+  - name: independent_earner_tax_credit_minimum_net_income
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13(4); Treasury IncomeExplorer TY27_BEFU25 IETC_MinimalIncome
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          24000
+  - name: independent_earner_tax_credit_full_year_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13(4); Treasury IncomeExplorer TY27_BEFU25 IETC_PerYear
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          520
+  - name: independent_earner_tax_credit_abatement_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13(5); Treasury IncomeExplorer TY27_BEFU25 IETC_AbatementScale
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          66000
+  - name: independent_earner_tax_credit_abatement_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s LC 13(5); Treasury IncomeExplorer TY27_BEFU25 IETC_AbatementScale
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.13
+  - name: charitable_or_public_benefit_gift_minimum_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s LD 3(1)(a) and (b)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          5
+  - name: charitable_or_public_benefit_gift_credit_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s LD 1(2)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.3333333333333333
+  - name: payroll_donation_credit_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s LD 4(2)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.3333333333333333
+  - name: independent_earner_tax_credit_status_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s LC 13(1)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              independent_earner_tax_credit_person_is_natural_person
+              and independent_earner_tax_credit_resident_in_new_zealand
+              and not independent_earner_tax_credit_receives_main_benefit
+              and not independent_earner_tax_credit_receives_veterans_pension
+              and not independent_earner_tax_credit_receives_new_zealand_superannuation
+              and not independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit
+              and not independent_earner_tax_credit_partner_entitled_to_and_receives_wff_tax_credit
+              and not independent_earner_tax_credit_receives_overseas_like_support
+              and not independent_earner_tax_credit_partner_receives_overseas_like_wff_tax_credit
+          )
+  - name: independent_earner_tax_credit_person_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13(4)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if independent_earner_tax_credit_net_income >= independent_earner_tax_credit_minimum_net_income:
+              independent_earner_tax_credit_full_year_amount
+          else:
+              0
+  - name: independent_earner_tax_credit_full_year_abatement
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13(5)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              floor(
+                  max(
+                      0,
+                      independent_earner_tax_credit_net_income
+                      - independent_earner_tax_credit_abatement_threshold
+                  )
+              )
+              * independent_earner_tax_credit_abatement_rate
+          )
+  - name: independent_earner_tax_credit_before_status
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13(2) and (6)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              max(
+                  0,
+                  independent_earner_tax_credit_person_credit
+                  - independent_earner_tax_credit_full_year_abatement
+              )
+              * min(
+                  individual_tax_credits_months_in_year,
+                  max(0, independent_earner_tax_credit_period_whole_months)
+              )
+              / individual_tax_credits_months_in_year
+          )
+  - name: independent_earner_tax_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LC 13
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if independent_earner_tax_credit_status_requirement:
+              independent_earner_tax_credit_before_status
+          else:
+              0
+  - name: charitable_or_public_benefit_gift_recipient_qualifies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s LD 3(1) and (2)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              charitable_or_public_benefit_gift_recipient_on_commissioner_list
+              or charitable_or_public_benefit_gift_recipient_listed_in_schedule_32
+              or charitable_or_public_benefit_gift_recipient_statutory_description_without_list
+          )
+  - name: charitable_or_public_benefit_gift_qualifies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s LD 3
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              charitable_or_public_benefit_gift_amount >= charitable_or_public_benefit_gift_minimum_amount
+              and charitable_or_public_benefit_gift_recipient_qualifies
+              and not charitable_or_public_benefit_gift_is_testamentary
+              and not charitable_or_public_benefit_gift_is_debt_forgiveness
+              and (
+                  charitable_or_public_benefit_gift_is_money
+                  or (
+                      charitable_or_public_benefit_gift_is_subscription
+                      and not charitable_or_public_benefit_gift_subscription_confers_membership_rights
+                  )
+              )
+          )
+  - name: charitable_or_public_benefit_gift_claimant_not_excluded
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s LD 2; Tax Administration Act 1994 s 41A(11)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              not charitable_or_public_benefit_gift_claimant_is_absentee
+              and not charitable_or_public_benefit_gift_claimant_is_company
+              and not charitable_or_public_benefit_gift_claimant_is_public_authority
+              and not charitable_or_public_benefit_gift_claimant_is_maori_authority
+              and not charitable_or_public_benefit_gift_claimant_is_unincorporated_body
+              and not charitable_or_public_benefit_gift_claimant_is_excluded_trustee
+              and not charitable_or_public_benefit_gift_claimant_has_payroll_donation_credit_for_gift
+          )
+  - name: charitable_or_public_benefit_gift_section_41a_refund_requirements
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Tax Administration Act 1994 s 41A
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              charitable_or_public_benefit_gift_claimant_not_excluded
+              and charitable_or_public_benefit_gift_refund_application_made
+              and charitable_or_public_benefit_gift_refund_application_in_time_or_special_circumstances
+              and charitable_or_public_benefit_gift_refund_information_provided
+              and charitable_or_public_benefit_gift_requirements_of_ld1_met
+          )
+  - name: charitable_or_public_benefit_gift_limited_total_gifts
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LD 1(3); Tax Administration Act 1994 s 41A(2)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if charitable_or_public_benefit_gift_qualifies and charitable_or_public_benefit_gift_section_41a_refund_requirements:
+              max(
+                  0,
+                  min(
+                      max(0, charitable_or_public_benefit_gift_total_gifts_made),
+                      max(0, charitable_or_public_benefit_gift_taxable_income)
+                  )
+              )
+          else:
+              0
+  - name: charitable_or_public_benefit_gift_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LD 1(1) and (2)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              charitable_or_public_benefit_gift_limited_total_gifts
+              * charitable_or_public_benefit_gift_credit_rate
+          )
+  - name: charitable_or_public_benefit_gift_refundable_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss LD 1(5) and LA 7
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          charitable_or_public_benefit_gift_credit
+  - name: payroll_donation_credit_qualifies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss LD 4(1) and LD 8
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              payroll_donation_person_is_employee
+              and payroll_donation_employer_files_employment_income_information_electronically
+              and payroll_donation_employer_offers_payroll_giving
+              and payroll_donation_person_chose_donation_from_pay
+              and payroll_donation_amount_transferred_from_pay_to_donee_organisation
+              and payroll_donation_tax_obligations_satisfied
+              and payroll_donation_statutory_or_legal_requirements_satisfied
+          )
+  - name: payroll_donation_credit_extinguished
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss LD 5 to LD 7
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              not payroll_donation_employment_income_information_received_by_commissioner
+              or (
+                  payroll_donation_particulars_incorrect
+                  and not payroll_donation_particulars_corrected
+              )
+              or payroll_donation_transferred_to_ineligible_recipient
+              or payroll_donation_returned_to_person
+          )
+  - name: payroll_donation_credit_before_cap
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LD 4(2) and (3)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if payroll_donation_credit_qualifies:
+              max(0, payroll_donation_total_donations_for_pay_period) * payroll_donation_credit_rate
+          else:
+              0
+  - name: payroll_donation_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s LD 4(4) and (5)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if payroll_donation_credit_extinguished:
+              0
+          else:
+              min(payroll_donation_credit_before_cap, max(0, payroll_donation_tax_for_pay_period))
+  - name: payroll_donation_blocks_section_41a_refund_application
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss LD 2(g) and LD 4(6)
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          payroll_donation_credit > 0
