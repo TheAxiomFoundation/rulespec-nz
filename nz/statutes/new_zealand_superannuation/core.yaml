@@ -1,0 +1,452 @@
+format: rulespec/v1
+module:
+  summary: |-
+    New Zealand Superannuation and Retirement Income Act 2001 sections 4A,
+    7, 8, 11, and 12 set living-alone status, age qualification, residential
+    qualification, commencement, and rates. Schedule 1 Part 1 sets ordinary
+    weekly rates before tax. This module encodes the ordinary domestic
+    entitlement and rate surface; overseas payment, refugee special residence,
+    hospital rates, and saved non-qualifying-spouse rates are left for
+    follow-on slices.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2001/0084/section/4A
+      - nz/statute/act/public/2001/0084/section/7
+      - nz/statute/act/public/2001/0084/section/8
+      - nz/statute/act/public/2001/0084/section/11
+      - nz/statute/act/public/2001/0084/section/12
+      - nz/statute/act/public/2001/0084/schedule/1/part/1
+    agency_reference_urls:
+      - https://www.legislation.govt.nz/act/public/2001/84/en/latest/
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: nz_super_age_threshold
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 7(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          65
+  - name: nz_super_minimum_new_zealand_resident_present_years_since_20
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(2)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          10
+  - name: nz_super_minimum_resident_present_years_since_50
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          5
+  - name: nz_super_living_alone_adult_age
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 4A(3) and (4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          18
+  - name: nz_super_single_living_alone_weekly_rate_before_tax
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 1 clause 1(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          647.37
+  - name: nz_super_single_not_living_alone_weekly_rate_before_tax
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 1 clause 1(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          595.57
+  - name: nz_super_partnered_weekly_rate_before_tax
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 1 clause 1(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          492.14
+  - name: nz_super_birth_cohort_june_cutoff_month
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          6
+  - name: nz_super_birth_cohort_cutoff_year_1959
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1959
+  - name: nz_super_birth_cohort_cutoff_year_1961
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1961
+  - name: nz_super_birth_cohort_cutoff_year_1963
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1963
+  - name: nz_super_birth_cohort_cutoff_year_1965
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1965
+  - name: nz_super_birth_cohort_cutoff_year_1967
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1967
+  - name: nz_super_birth_cohort_cutoff_year_1969
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1969
+  - name: nz_super_birth_cohort_cutoff_year_1971
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1971
+  - name: nz_super_birth_cohort_cutoff_year_1973
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1973
+  - name: nz_super_birth_cohort_cutoff_year_1975
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1975
+  - name: nz_super_birth_cohort_cutoff_year_1977
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1977
+  - name: nz_super_total_time_requirement_10_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          10
+  - name: nz_super_total_time_requirement_11_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          11
+  - name: nz_super_total_time_requirement_12_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          12
+  - name: nz_super_total_time_requirement_13_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          13
+  - name: nz_super_total_time_requirement_14_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          14
+  - name: nz_super_total_time_requirement_15_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          15
+  - name: nz_super_total_time_requirement_16_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          16
+  - name: nz_super_total_time_requirement_17_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          17
+  - name: nz_super_total_time_requirement_18_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          18
+  - name: nz_super_total_time_requirement_19_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          19
+  - name: nz_super_total_time_requirement_20_years
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          20
+  - name: nz_super_standard_total_time_requirement_years
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1959
+              or (
+                  nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1959
+                  and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+              )
+          ):
+              nz_super_total_time_requirement_10_years
+          else:
+              if (
+                  nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1961
+                  or (
+                      nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1961
+                      and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                  )
+              ):
+                  nz_super_total_time_requirement_11_years
+              else:
+                  if (
+                      nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1963
+                      or (
+                          nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1963
+                          and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                      )
+                  ):
+                      nz_super_total_time_requirement_12_years
+                  else:
+                      if (
+                          nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1965
+                          or (
+                              nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1965
+                              and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                          )
+                      ):
+                          nz_super_total_time_requirement_13_years
+                      else:
+                          if (
+                              nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1967
+                              or (
+                                  nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1967
+                                  and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                              )
+                          ):
+                              nz_super_total_time_requirement_14_years
+                          else:
+                              if (
+                                  nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1969
+                                  or (
+                                      nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1969
+                                      and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                  )
+                              ):
+                                  nz_super_total_time_requirement_15_years
+                              else:
+                                  if (
+                                      nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1971
+                                      or (
+                                          nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1971
+                                          and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                      )
+                                  ):
+                                      nz_super_total_time_requirement_16_years
+                                  else:
+                                      if (
+                                          nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1973
+                                          or (
+                                              nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1973
+                                              and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                          )
+                                      ):
+                                          nz_super_total_time_requirement_17_years
+                                      else:
+                                          if (
+                                              nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1975
+                                              or (
+                                                  nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1975
+                                                  and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                              )
+                                          ):
+                                              nz_super_total_time_requirement_18_years
+                                          else:
+                                              if (
+                                                  nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1977
+                                                  or (
+                                                      nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1977
+                                                      and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                                  )
+                                              ):
+                                                  nz_super_total_time_requirement_19_years
+                                              else:
+                                                  nz_super_total_time_requirement_20_years
+  - name: nz_super_living_alone
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 4A
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_single
+              and nz_super_principal_residence_is_qualifying_accommodation
+              and (
+                  not nz_super_shares_residence_with_person_at_least_adult_age
+                  or nz_super_all_shared_adults_are_exempt_dependent_children_or_temporary_visitors
+              )
+          )
+  - name: nz_super_age_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 7
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_person_age >= nz_super_age_threshold
+              and not nz_super_elected_weekly_compensation_instead_of_superannuation
+          )
+  - name: nz_super_residential_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              (
+                  nz_super_ordinarily_resident_in_new_zealand_on_application
+                  or nz_super_overseas_application_residence_exception_applies
+              )
+              and nz_super_resident_present_since_age_20_total_years >= nz_super_standard_total_time_requirement_years
+              and nz_super_resident_present_since_age_20_new_zealand_years >= nz_super_minimum_new_zealand_resident_present_years_since_20
+              and nz_super_resident_present_since_age_50_total_years >= nz_super_minimum_resident_present_years_since_50
+          )
+  - name: entitled_to_new_zealand_superannuation
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 ss 7 and 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_age_requirement
+              and nz_super_residential_requirement
+          )
+  - name: nz_super_ordinary_weekly_rate_before_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 12 and Schedule 1 Part 1 clause 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if nz_super_single:
+              if nz_super_living_alone:
+                  nz_super_single_living_alone_weekly_rate_before_tax
+              else:
+                  nz_super_single_not_living_alone_weekly_rate_before_tax
+          else:
+              nz_super_partnered_weekly_rate_before_tax
+  - name: nz_super_weekly_amount_before_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 ss 11 and 12 and Schedule 1 Part 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if entitled_to_new_zealand_superannuation:
+              nz_super_ordinary_weekly_rate_before_tax
+          else:
+              0
