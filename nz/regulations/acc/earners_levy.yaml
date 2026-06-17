@@ -1,0 +1,196 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Accident Compensation (Earners' Levy) Regulations 2025 regulations 4 and 5
+    set the earners' levy rate and maximum earnings cap for the 2025/26,
+    2026/27, and 2027/28 tax years. Regulations 6 and 7 set the special
+    formulas for low-earning self-employed persons who work more than 30 hours
+    per week and for self-employed persons who purchase weekly compensation.
+    Regulation 8 states that the regulatory levy amounts exclude GST. Inland
+    Revenue publishes the PAYE-facing rates and maximum levy amounts including
+    GST.
+  source_verification:
+    corpus_citation_paths:
+      - nz/regulation/regulation/public/2025/0018/regulation/4
+      - nz/regulation/regulation/public/2025/0018/regulation/5
+      - nz/regulation/regulation/public/2025/0018/regulation/6
+      - nz/regulation/regulation/public/2025/0018/regulation/7
+      - nz/regulation/regulation/public/2025/0018/regulation/8
+      - nz/regulation/regulation/public/2025/0018/regulation/9
+      - nz/agency/ird/acc-earners-levy-rates
+    agency_reference_urls:
+      - https://www.ird.govt.nz/income-tax/income-tax-for-individuals/acc-clients-and-carers/acc-earners-levy-rates
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: acc_earners_levy_rate_excluding_gst
+    kind: parameter
+    dtype: Rate
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 4
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.0145
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.0152
+      - effective_from: '2027-04-01'
+        formula: |-
+          0.0159
+  - name: acc_earners_levy_rate_including_gst
+    kind: parameter
+    dtype: Rate
+    source: Inland Revenue ACC earners' levy rates
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.0167
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.0175
+      - effective_from: '2027-04-01'
+        formula: |-
+          0.0183
+  - name: acc_earners_levy_maximum_earnings
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 5; Inland Revenue ACC earners' levy rates
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          152790
+      - effective_from: '2026-04-01'
+        formula: |-
+          156641
+      - effective_from: '2027-04-01'
+        formula: |-
+          160244
+  - name: acc_low_self_employed_minimum_earnings
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 6
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          49365
+      - effective_from: '2026-04-01'
+        formula: |-
+          50501
+      - effective_from: '2027-04-01'
+        formula: |-
+          51632
+  - name: acc_weekly_compensation_purchase_multiplier
+    kind: parameter
+    dtype: Decimal
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 7
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          1.25
+  - name: acc_self_employed_invoice_exempt_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 9
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          40
+  - name: acc_levy_cents_rounding_scale
+    kind: parameter
+    dtype: Count
+    source: Inland Revenue ACC earners' levy rates
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          100
+  - name: acc_standard_earners_levy_excluding_gst
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 regs 4, 5, and 8
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          min(
+              max(0, acc_earnings_for_earners_levy),
+              acc_earners_levy_maximum_earnings
+          ) * acc_earners_levy_rate_excluding_gst
+  - name: acc_standard_earners_levy_including_gst
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Inland Revenue ACC earners' levy rates
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          floor(
+              (
+                  min(
+                      max(0, acc_earnings_for_earners_levy),
+                      acc_earners_levy_maximum_earnings
+                  )
+                  * acc_earners_levy_rate_including_gst
+                  * acc_levy_cents_rounding_scale
+              )
+              + (1 / 2)
+          ) / acc_levy_cents_rounding_scale
+  - name: acc_low_self_employed_minimum_levy_excluding_gst
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 6
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_self_employed_more_than_30_hours_per_week and acc_self_employed_earnings_for_earners_levy < acc_low_self_employed_minimum_earnings:
+              acc_earners_levy_rate_excluding_gst
+              * max(
+                  0,
+                  acc_low_self_employed_minimum_earnings
+                  - acc_employee_earnings_for_low_self_employed_formula
+              )
+          else:
+              0
+  - name: acc_weekly_compensation_purchase_levy_excluding_gst
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 7
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_self_employed_purchases_weekly_compensation:
+              (
+                  acc_earners_levy_rate_excluding_gst
+                  * acc_weekly_compensation_purchase_multiplier
+                  * acc_agreed_weekly_compensation_purchased_annual_amount
+              )
+          else:
+              0
+  - name: acc_self_employed_invoice_levy_payable_after_exempt_amount
+    kind: derived
+    entity: Invoice
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 9
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_invoice_issued_to_self_employed_person_for_acc_act_purposes and acc_invoice_includes_earners_levy and acc_self_employed_invoice_acc_levy_amount <= acc_self_employed_invoice_exempt_amount:
+              0
+          else:
+              acc_self_employed_invoice_acc_levy_amount
