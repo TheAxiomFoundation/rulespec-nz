@@ -1,0 +1,134 @@
+- name: single_living_alone_meets_1959_cohort_residence
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_year: 1959
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_month: 6
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_single: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_principal_residence_is_qualifying_accommodation: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_shares_residence_with_person_at_least_adult_age: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_all_shared_adults_are_exempt_dependent_children_or_temporary_visitors: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_person_age: 66
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_elected_weekly_compensation_instead_of_superannuation: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_overseas_application_residence_exception_applies: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_total_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_new_zealand_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_50_total_years: 5
+  output:
+    nz:statutes/new_zealand_superannuation/core#nz_super_age_threshold: 65
+    nz:statutes/new_zealand_superannuation/core#nz_super_minimum_new_zealand_resident_present_years_since_20: 10
+    nz:statutes/new_zealand_superannuation/core#nz_super_minimum_resident_present_years_since_50: 5
+    nz:statutes/new_zealand_superannuation/core#nz_super_living_alone_adult_age: 18
+    nz:statutes/new_zealand_superannuation/core#nz_super_standard_total_time_requirement_years: 10
+    nz:statutes/new_zealand_superannuation/core#nz_super_living_alone: holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_age_requirement: holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_residential_requirement: holds
+    nz:statutes/new_zealand_superannuation/core#entitled_to_new_zealand_superannuation: holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_ordinary_weekly_rate_before_tax: 647.37
+    nz:statutes/new_zealand_superannuation/core#nz_super_weekly_amount_before_tax: 647.37
+
+- name: single_not_living_alone_uses_lower_single_rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_year: 1959
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_month: 7
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_single: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_principal_residence_is_qualifying_accommodation: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_shares_residence_with_person_at_least_adult_age: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_all_shared_adults_are_exempt_dependent_children_or_temporary_visitors: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_person_age: 66
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_elected_weekly_compensation_instead_of_superannuation: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_overseas_application_residence_exception_applies: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_total_years: 11
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_new_zealand_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_50_total_years: 5
+  output:
+    nz:statutes/new_zealand_superannuation/core#nz_super_standard_total_time_requirement_years: 11
+    nz:statutes/new_zealand_superannuation/core#nz_super_living_alone: not_holds
+    nz:statutes/new_zealand_superannuation/core#entitled_to_new_zealand_superannuation: holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_ordinary_weekly_rate_before_tax: 595.57
+    nz:statutes/new_zealand_superannuation/core#nz_super_weekly_amount_before_tax: 595.57
+
+- name: partnered_person_uses_partnered_rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_year: 1963
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_month: 6
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_single: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_principal_residence_is_qualifying_accommodation: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_shares_residence_with_person_at_least_adult_age: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_all_shared_adults_are_exempt_dependent_children_or_temporary_visitors: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_person_age: 65
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_elected_weekly_compensation_instead_of_superannuation: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_overseas_application_residence_exception_applies: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_total_years: 12
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_new_zealand_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_50_total_years: 5
+  output:
+    nz:statutes/new_zealand_superannuation/core#nz_super_standard_total_time_requirement_years: 12
+    nz:statutes/new_zealand_superannuation/core#nz_super_living_alone: not_holds
+    nz:statutes/new_zealand_superannuation/core#entitled_to_new_zealand_superannuation: holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_ordinary_weekly_rate_before_tax: 492.14
+    nz:statutes/new_zealand_superannuation/core#nz_super_weekly_amount_before_tax: 492.14
+
+- name: insufficient_residence_blocks_entitlement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_year: 1977
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_month: 7
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_single: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_principal_residence_is_qualifying_accommodation: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_shares_residence_with_person_at_least_adult_age: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_all_shared_adults_are_exempt_dependent_children_or_temporary_visitors: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_person_age: 65
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_elected_weekly_compensation_instead_of_superannuation: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_overseas_application_residence_exception_applies: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_total_years: 19
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_new_zealand_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_50_total_years: 5
+  output:
+    nz:statutes/new_zealand_superannuation/core#nz_super_standard_total_time_requirement_years: 20
+    nz:statutes/new_zealand_superannuation/core#nz_super_age_requirement: holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_residential_requirement: not_holds
+    nz:statutes/new_zealand_superannuation/core#entitled_to_new_zealand_superannuation: not_holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_weekly_amount_before_tax: 0
+
+- name: compensation_election_blocks_age_requirement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_year: 1958
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_birth_month: 12
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_single: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_principal_residence_is_qualifying_accommodation: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_shares_residence_with_person_at_least_adult_age: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_all_shared_adults_are_exempt_dependent_children_or_temporary_visitors: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_person_age: 68
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_elected_weekly_compensation_instead_of_superannuation: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_overseas_application_residence_exception_applies: false
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_total_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_20_new_zealand_years: 10
+    nz:statutes/new_zealand_superannuation/core#input.nz_super_resident_present_since_age_50_total_years: 5
+  output:
+    nz:statutes/new_zealand_superannuation/core#nz_super_age_requirement: not_holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_residential_requirement: holds
+    nz:statutes/new_zealand_superannuation/core#entitled_to_new_zealand_superannuation: not_holds
+    nz:statutes/new_zealand_superannuation/core#nz_super_weekly_amount_before_tax: 0
