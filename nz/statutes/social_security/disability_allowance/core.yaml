@@ -1,0 +1,396 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Social Security Act 2018 sections 84 to 88 define Disability Allowance
+    eligibility, ongoing disability-cost requirements, excluded expenses,
+    discretionary refusal or reduction circumstances, and medical examination
+    requirements. Schedule 3 clause 19 adjusts disability expenses for health
+    or disability insurance payments. Schedule 4 Part 9 sets the maximum weekly
+    rate and Schedule 5 Part 3 sets the income limits. Social Security
+    Regulations 2018 regulations 50 and 51 provide duration-related special
+    eligibility categories, and regulation 52 prescribes health practitioners
+    for section 88 medical examinations.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2018/0032/section/16
+      - nz/statute/act/public/2018/0032/section/84
+      - nz/statute/act/public/2018/0032/section/85
+      - nz/statute/act/public/2018/0032/section/86
+      - nz/statute/act/public/2018/0032/section/87
+      - nz/statute/act/public/2018/0032/section/88
+      - nz/statute/act/public/2018/0032/schedule/3/clause/19
+      - nz/statute/act/public/2018/0032/schedule/4/part/9/clause/2
+      - nz/statute/act/public/2018/0032/schedule/5/part/3
+      - nz/regulation/regulation/public/2018/0202/regulation/50
+      - nz/regulation/regulation/public/2018/0202/regulation/51
+      - nz/regulation/regulation/public/2018/0202/regulation/52
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: disability_allowance_continuing_disability_months_threshold
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 85(2)(b); Social Security Regulations 2018 regs 50 and 51
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          6
+  - name: disability_allowance_max_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 9 clause 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          82.85
+  - name: disability_allowance_income_limit_single_16_or_17_without_children
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 10
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          696.60
+  - name: disability_allowance_income_limit_single_other_without_children
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 11
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          870.00
+  - name: disability_allowance_income_limit_partnered
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 12
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1295.11
+  - name: disability_allowance_income_limit_sole_parent_one_child
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 13
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          971.51
+  - name: disability_allowance_income_limit_sole_parent_other
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 14
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1023.59
+  - name: disability_allowance_income_limit_young_single_minimum_age
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 10
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          16
+  - name: disability_allowance_income_limit_young_single_maximum_age
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 Schedule 5 Part 3 clause 10
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          17
+  - name: disability_allowance_functional_need_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85(2)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_requires_ongoing_support_for_everyday_functions
+              or disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner
+          )
+  - name: disability_allowance_continuing_disability_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85(2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          disability_allowance_expected_disability_duration_months >= disability_allowance_continuing_disability_months_threshold
+  - name: disability_allowance_income_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 5 Part 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if disability_allowance_person_in_relationship:
+              disability_allowance_income_limit_partnered
+          else:
+              if disability_allowance_person_is_sole_parent:
+                  if disability_allowance_dependent_children_count <= 1:
+                      disability_allowance_income_limit_sole_parent_one_child
+                  else:
+                      disability_allowance_income_limit_sole_parent_other
+              else:
+                  if (
+                      disability_allowance_person_age_years
+                      >= disability_allowance_income_limit_young_single_minimum_age
+                      and disability_allowance_person_age_years
+                      <= disability_allowance_income_limit_young_single_maximum_age
+                      and disability_allowance_dependent_children_count == 0
+                  ):
+                      disability_allowance_income_limit_single_16_or_17_without_children
+                  else:
+                      disability_allowance_income_limit_single_other_without_children
+  - name: disability_allowance_income_under_limit
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85(2)(c)(ii); Schedule 5 Part 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          disability_allowance_weekly_income_for_income_test < disability_allowance_income_limit
+  - name: disability_allowance_income_or_main_benefit_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85(2)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_receiving_main_benefit_under_social_security_act
+              or disability_allowance_income_under_limit
+          )
+  - name: disability_allowance_weekly_expenses_after_insurance_reduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 85(2)(d); Schedule 3 clause 19
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              disability_allowance_weekly_ongoing_additional_disability_expenses
+              - disability_allowance_health_or_disability_insurance_weekly_reduction
+          )
+  - name: disability_allowance_unmet_ongoing_additional_expenses
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85(2)(d); Schedule 3 clause 19
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_weekly_expenses_after_insurance_reduction
+              > disability_allowance_weekly_other_assistance_for_disability_expenses
+          )
+  - name: disability_allowance_otherwise_eligible_except_duration
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 ss 16 and 85; Social Security Regulations 2018 reg 50
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_residential_requirement_met
+              and disability_allowance_functional_need_requirement
+              and disability_allowance_income_or_main_benefit_requirement
+              and disability_allowance_unmet_ongoing_additional_expenses
+          )
+  - name: disability_allowance_standard_eligibility_criteria
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_otherwise_eligible_except_duration
+              and disability_allowance_continuing_disability_requirement
+          )
+  - name: disability_allowance_regulation_50_special_category
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 50
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_otherwise_eligible_except_duration
+              and (
+                  disability_allowance_life_expectancy_less_than_six_months
+                  or disability_allowance_six_month_duration_not_determinable_but_reasonably_possible
+              )
+          )
+  - name: disability_allowance_regulation_51_mandatory_category
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 51
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_application_declined_only_because_duration_under_six_months
+              and disability_allowance_later_satisfies_or_has_satisfied_six_month_duration
+              and disability_allowance_would_otherwise_have_been_eligible_from_original_application
+          )
+  - name: disability_allowance_eligibility_criteria_met
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 85; Social Security Regulations 2018 regs 50 and 51
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_standard_eligibility_criteria
+              or disability_allowance_regulation_50_special_category
+              or disability_allowance_regulation_51_mandatory_category
+          )
+  - name: disability_allowance_expenses_excluded_under_section_86
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 86
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act
+              or disability_allowance_residential_care_costs_funded_under_pae_ora_act
+          )
+  - name: disability_allowance_section_87_refusal_reduction_or_cancellation_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 87
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_receives_veterans_support_disablement_pension_or_entitlement_for_same_disability
+              or disability_allowance_receives_acc_entitlement_for_same_disability
+              or disability_allowance_receives_analogous_overseas_disability_payment_for_same_disability
+          )
+  - name: disability_allowance_prescribed_medical_exam_practitioner
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 52
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_medical_exam_practitioner_acting_within_scope
+              and (
+                  disability_allowance_medical_exam_by_medical_practitioner
+                  or disability_allowance_medical_exam_by_nurse_practitioner
+              )
+          )
+  - name: disability_allowance_medical_examination_requirement_satisfied
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 88; Social Security Regulations 2018 reg 52
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not disability_allowance_msd_requires_medical_examination
+              or (
+                  disability_allowance_medical_examination_required_person_examined_by_msd_appointee
+                  and disability_allowance_prescribed_medical_exam_practitioner
+              )
+          )
+  - name: disability_allowance_payable_before_section_87_reduction
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 ss 85, 86, and 88
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              disability_allowance_eligibility_criteria_met
+              and not disability_allowance_expenses_excluded_under_section_86
+              and disability_allowance_medical_examination_requirement_satisfied
+          )
+  - name: disability_allowance_weekly_amount_before_section_87_reduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 85(2)(d); Schedule 4 Part 9 clause 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if disability_allowance_payable_before_section_87_reduction:
+              min(
+                  max(
+                      0,
+                      disability_allowance_weekly_expenses_after_insurance_reduction
+                      - disability_allowance_weekly_other_assistance_for_disability_expenses
+                  ),
+                  disability_allowance_max_weekly_rate
+              )
+          else:
+              0
+  - name: disability_allowance_weekly_payment
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 ss 85 to 88; Schedule 4 Part 9 clause 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if disability_allowance_section_87_refusal_reduction_or_cancellation_applies:
+              max(
+                  0,
+                  disability_allowance_weekly_amount_before_section_87_reduction
+                  - disability_allowance_section_87_weekly_reduction_amount
+              )
+          else:
+              disability_allowance_weekly_amount_before_section_87_reduction
