@@ -1,0 +1,180 @@
+- name: ordinary_income_is_assessable
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_income_under_part_c_specific_provision: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_income_under_ordinary_concepts: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_exempt_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_non_residents_foreign_sourced_income: false
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_amount_is_income: holds
+    nz:statutes/income_tax/core/taxable_income#income_tax_amount_is_assessable_income: holds
+
+- name: exempt_excluded_or_nonresident_foreign_income_not_assessable
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_income_under_part_c_specific_provision: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_income_under_ordinary_concepts: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_exempt_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_excluded_income: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_non_residents_foreign_sourced_income: false
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_amount_is_income: holds
+    nz:statutes/income_tax/core/taxable_income#income_tax_amount_is_assessable_income: not_holds
+
+- name: amount_not_income_under_part_c_or_ordinary_concepts
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_income_under_part_c_specific_provision: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_amount_is_income_under_ordinary_concepts: false
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_amount_is_income: not_holds
+
+- name: annual_gross_net_and_taxable_income_after_available_loss
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_total_income_allocated_to_corresponding_income_year: 50000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_exempt_income_allocated_to_corresponding_income_year: 1000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_excluded_income_allocated_to_corresponding_income_year: 2000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_non_residents_foreign_sourced_income_allocated_to_corresponding_income_year: 3000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_deductions_allocated_to_corresponding_income_year: 12000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_available_tax_loss: 5000
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_annual_gross_income: 44000
+    nz:statutes/income_tax/core/taxable_income#income_tax_annual_total_deduction: 12000
+    nz:statutes/income_tax/core/taxable_income#income_tax_net_income: 32000
+    nz:statutes/income_tax/core/taxable_income#income_tax_net_loss: 0
+    nz:statutes/income_tax/core/taxable_income#taxable_income: 27000
+
+- name: annual_total_deductions_above_income_create_net_loss_and_zero_taxable_income
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_total_income_allocated_to_corresponding_income_year: 10000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_exempt_income_allocated_to_corresponding_income_year: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_excluded_income_allocated_to_corresponding_income_year: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_non_residents_foreign_sourced_income_allocated_to_corresponding_income_year: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_deductions_allocated_to_corresponding_income_year: 12000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_available_tax_loss: 0
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_annual_gross_income: 10000
+    nz:statutes/income_tax/core/taxable_income#income_tax_annual_total_deduction: 12000
+    nz:statutes/income_tax/core/taxable_income#income_tax_net_income: 0
+    nz:statutes/income_tax/core/taxable_income#income_tax_net_loss: 2000
+    nz:statutes/income_tax/core/taxable_income#taxable_income: 0
+
+- name: general_permission_allows_assessable_income_deduction
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_assessable_income: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_assessable_and_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_assessable_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_assessable_and_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_specific_rule_supplements_general_permission: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_is_capital_nature: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_is_private_or_domestic: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_exempt_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_employment_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_non_resident_passive_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_non_residents_foreign_sourced_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_amount: 2500
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_general_limitation_applies: not_holds
+    nz:statutes/income_tax/core/taxable_income#income_tax_general_permission_applies: holds
+    nz:statutes/income_tax/core/taxable_income#income_tax_general_permission_deduction: 2500
+
+- name: general_limitation_overrides_permission
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_assessable_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_assessable_and_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_assessable_income: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_assessable_and_excluded_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_specific_rule_supplements_general_permission: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_is_capital_nature: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_amount: 2500
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_general_limitation_applies: holds
+    nz:statutes/income_tax/core/taxable_income#income_tax_general_permission_applies: not_holds
+    nz:statutes/income_tax/core/taxable_income#income_tax_general_permission_deduction: 0
+
+- name: non_filing_taxpayer_liability_is_tax_withheld
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_total_tax_withheld_from_annual_gross_income: 4200
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_non_filing_taxpayer_liability: 4200
+
+- name: filing_taxpayer_liability_without_schedular_income
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_person_has_schedular_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_basic_tax_liability_on_taxable_income: 8270.5
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_filing_taxpayer_liability_before_credits: 8270.5
+
+- name: schedular_income_liability_adds_schedular_component
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_person_has_schedular_income: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_schedular_income_tax_liability: 300
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_liability_if_person_had_no_schedular_income: 8270.5
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_filing_taxpayer_liability_before_credits: 8570.5
+
+- name: terminal_tax_when_liability_exceeds_credits
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_liability_before_credits: 9000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_credits_available_to_satisfy_liability: 8500
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_terminal_tax: 500
+    nz:statutes/income_tax/core/taxable_income#income_tax_remaining_credits_after_liability: 0
+
+- name: remaining_credits_when_credits_exceed_liability
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_liability_before_credits: 8000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_credits_available_to_satisfy_liability: 8500
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_terminal_tax: 0
+    nz:statutes/income_tax/core/taxable_income#income_tax_remaining_credits_after_liability: 500
