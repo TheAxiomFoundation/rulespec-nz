@@ -641,10 +641,10 @@
       ],
       "first_rule_batches": [
         {
-          "id": "childcare-disability-core",
-          "destination": "nz/statutes/social_security/childcare_and_disability/",
-          "source_requirements": ["Social Security Act 2018 childcare and disability provisions", "MSD rate tables"],
-          "oracle_checks": ["openfisca-aotearoa:childcare/disability tests"]
+          "id": "childcare-assistance-core",
+          "destination": "nz/regulations/social_security/childcare_assistance/",
+          "source_requirements": ["Social Security Act 2018 childcare assistance provisions", "Social Security Regulations 2018 childcare assistance provisions and Schedule 2 rates"],
+          "oracle_checks": ["openfisca-aotearoa:childcare_assistance tests"]
         }
       ]
     },

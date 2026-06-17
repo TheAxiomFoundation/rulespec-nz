@@ -1,0 +1,804 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Social Security Act 2018 section 77 gives childcare assistance eligibility
+    to a principal caregiver or temporary OB or UCB caregiver who meets the
+    regulations. Social Security Regulations 2018 subpart 6 sets the Childcare
+    Subsidy and OSCAR Subsidy child eligibility gates, weekly hour caps,
+    mutual-exclusion rule, other-government-funding exclusion, actual-fee cap,
+    and Schedule 2 hourly rates.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2018/0032/section/77
+      - nz/statute/act/public/2018/0032/section/424
+      - nz/regulation/regulation/public/2018/0202/regulation/21
+      - nz/regulation/regulation/public/2018/0202/regulation/22
+      - nz/regulation/regulation/public/2018/0202/regulation/23
+      - nz/regulation/regulation/public/2018/0202/regulation/24
+      - nz/regulation/regulation/public/2018/0202/regulation/30
+      - nz/regulation/regulation/public/2018/0202/regulation/31
+      - nz/regulation/regulation/public/2018/0202/regulation/32
+      - nz/regulation/regulation/public/2018/0202/regulation/33
+      - nz/regulation/regulation/public/2018/0202/regulation/34
+      - nz/regulation/regulation/public/2018/0202/regulation/35
+      - nz/regulation/regulation/public/2018/0202/regulation/36
+      - nz/regulation/regulation/public/2018/0202/regulation/38
+      - nz/regulation/regulation/public/2018/0202/regulation/39
+      - nz/regulation/regulation/public/2018/0202/regulation/40
+      - nz/regulation/regulation/public/2018/0202/regulation/41
+      - nz/regulation/regulation/public/2018/0202/regulation/42
+      - nz/regulation/regulation/public/2018/0202/regulation/44
+      - nz/regulation/regulation/public/2018/0202/schedule/2
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: childcare_assistance_minimum_weekly_participation_hours
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 regs 32, 34, 35, 38, and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3
+  - name: childcare_subsidy_approved_activity_max_weekly_hours
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 32
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          50
+  - name: childcare_subsidy_serious_disability_max_weekly_hours
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 34
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          50
+  - name: childcare_subsidy_other_max_weekly_hours
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 35
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          9
+  - name: childcare_subsidy_serious_disability_hours_needed_threshold
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 34(b)(ii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          9
+  - name: oscar_subsidy_school_term_max_weekly_hours
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 regs 41 and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          20
+  - name: oscar_subsidy_school_holiday_max_weekly_hours
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 regs 41 and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          50
+  - name: oscar_subsidy_serious_disability_hours_needed_threshold
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 42(b)(ii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3
+  - name: childcare_subsidy_age_5_years
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 30
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          5
+  - name: childcare_subsidy_age_5_years_days_limit
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 30(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          28
+  - name: childcare_subsidy_child_disability_allowance_age_limit
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 30(1)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          6
+  - name: oscar_subsidy_lower_age_limit
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 38(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          5
+  - name: oscar_subsidy_upper_age_limit
+    kind: parameter
+    dtype: Count
+    source: Social Security Regulations 2018 reg 38(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          14
+  - name: childcare_assistance_highest_hourly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          6.72
+  - name: childcare_assistance_second_hourly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          5.36
+  - name: childcare_assistance_third_hourly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3.75
+  - name: childcare_assistance_fourth_hourly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2.09
+  - name: childcare_assistance_one_child_income_threshold_1
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1131
+  - name: childcare_assistance_one_child_income_threshold_2
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2060
+  - name: childcare_assistance_one_child_income_threshold_3
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2232
+  - name: childcare_assistance_one_child_income_threshold_4
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2404
+  - name: childcare_assistance_two_children_income_threshold_1
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1301
+  - name: childcare_assistance_two_children_income_threshold_2
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2370
+  - name: childcare_assistance_two_children_income_threshold_3
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2557
+  - name: childcare_assistance_two_children_income_threshold_4
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2748
+  - name: childcare_assistance_three_plus_children_income_threshold_1
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1457
+  - name: childcare_assistance_three_plus_children_income_threshold_2
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2644
+  - name: childcare_assistance_three_plus_children_income_threshold_3
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2868
+  - name: childcare_assistance_three_plus_children_income_threshold_4
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2 item 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3091
+  - name: childcare_assistance_caregiver_eligible_under_act
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 77
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          childcare_assistance_caregiver_is_principal_or_temporary_ob_or_ucb
+  - name: childcare_assistance_not_receiving_both_subsidies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 21
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          not (childcare_subsidy_granted_for_child and oscar_subsidy_granted_for_child)
+  - name: childcare_assistance_meets_minimum_weekly_participation
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 32, 34, 35, 38, and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          childcare_assistance_programme_participation_hours_per_week >= childcare_assistance_minimum_weekly_participation_hours
+  - name: childcare_assistance_other_caregiver_condition
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 32, 34, 41, and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_assistance_child_has_no_other_caregiver
+              or childcare_assistance_other_caregiver_engaged_in_approved_activity
+              or childcare_assistance_other_caregiver_cannot_care_for_good_reason
+              or childcare_assistance_child_disability_allowance_payable
+          )
+  - name: childcare_subsidy_child_age_condition
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 30
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              (
+                  (
+                      childcare_assistance_child_age_years < childcare_subsidy_age_5_years
+                      or (
+                          childcare_assistance_child_age_years == childcare_subsidy_age_5_years
+                          and childcare_subsidy_child_days_after_fifth_birthday <= childcare_subsidy_age_5_years_days_limit
+                      )
+                  )
+                  and not childcare_assistance_child_attending_school
+              )
+              or (
+                  childcare_assistance_child_age_years == childcare_subsidy_age_5_years
+                  and childcare_subsidy_cohort_entry_intended
+                  and childcare_subsidy_cohort_entry_eligibility_period_active
+              )
+              or (
+                  childcare_assistance_child_age_years < childcare_subsidy_child_disability_allowance_age_limit
+                  and childcare_assistance_child_disability_allowance_payable
+              )
+          )
+  - name: childcare_subsidy_child_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 77; Social Security Regulations 2018 reg 30
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_assistance_caregiver_eligible_under_act
+              and childcare_assistance_child_is_dependent_child
+              and childcare_subsidy_child_age_condition
+          )
+  - name: childcare_subsidy_approved_activity_condition
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 32 and 33
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_assistance_other_caregiver_condition
+              and (
+                  childcare_assistance_caregiver_engaged_in_approved_activity
+                  or childcare_assistance_caregiver_travelling_to_approved_activity
+                  or childcare_assistance_caregiver_in_shift_employment_period
+                  or childcare_assistance_caregiver_travelling_for_shift_employment
+              )
+          )
+  - name: childcare_subsidy_payable_under_regulation_32
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 31 and 32
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_subsidy_child_eligible
+              and childcare_assistance_meets_minimum_weekly_participation
+              and (
+                  childcare_subsidy_approved_activity_condition
+                  or childcare_assistance_child_disability_allowance_payable
+                  or childcare_assistance_caregiver_also_cares_for_other_child_in_hospital_or_with_disability_allowance
+              )
+          )
+  - name: childcare_subsidy_payable_hours_regulation_32
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 reg 32
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_subsidy_payable_under_regulation_32:
+              min(
+                  max(0, childcare_assistance_requested_hours_per_week),
+                  childcare_subsidy_approved_activity_max_weekly_hours
+              )
+          else:
+              0
+  - name: childcare_subsidy_payable_under_regulation_34
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 31 and 34
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_subsidy_child_eligible
+              and childcare_assistance_meets_minimum_weekly_participation
+              and not childcare_assistance_caregiver_engaged_in_approved_activity
+              and childcare_assistance_caregiver_has_serious_disability_or_illness_certificate
+              and childcare_assistance_caregiver_needs_childcare_hours_per_week > childcare_subsidy_serious_disability_hours_needed_threshold
+              and childcare_assistance_other_caregiver_condition
+          )
+  - name: childcare_subsidy_payable_hours_regulation_34
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 reg 34
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_subsidy_payable_under_regulation_34:
+              min(
+                  max(0, childcare_assistance_requested_hours_per_week),
+                  childcare_subsidy_serious_disability_max_weekly_hours
+              )
+          else:
+              0
+  - name: childcare_subsidy_payable_under_regulation_35
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 31 and 35
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_subsidy_child_eligible
+              and childcare_assistance_meets_minimum_weekly_participation
+              and not childcare_assistance_caregiver_engaged_in_approved_activity
+              and not childcare_subsidy_payable_under_regulation_34
+          )
+  - name: childcare_subsidy_payable_hours_regulation_35
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 reg 35
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_subsidy_payable_under_regulation_35:
+              min(
+                  max(0, childcare_assistance_requested_hours_per_week),
+                  childcare_subsidy_other_max_weekly_hours
+              )
+          else:
+              0
+  - name: childcare_subsidy_payable_hours
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 regs 31, 32, 34, and 35
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_subsidy_payable_under_regulation_32:
+              childcare_subsidy_payable_hours_regulation_32
+          else:
+              if childcare_subsidy_payable_under_regulation_34:
+                  childcare_subsidy_payable_hours_regulation_34
+              else:
+                  childcare_subsidy_payable_hours_regulation_35
+  - name: oscar_subsidy_child_age_condition
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 38
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              (
+                  childcare_assistance_child_age_years >= oscar_subsidy_lower_age_limit
+                  and childcare_assistance_child_age_years < oscar_subsidy_upper_age_limit
+              )
+              or (
+                  childcare_assistance_child_age_years >= oscar_subsidy_upper_age_limit
+                  and childcare_assistance_child_disability_allowance_payable
+              )
+          )
+  - name: oscar_subsidy_child_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 38
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_assistance_child_is_dependent_child
+              and childcare_assistance_meets_minimum_weekly_participation
+              and oscar_subsidy_child_age_condition
+          )
+  - name: oscar_subsidy_weekly_hours_cap
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 regs 41 and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if oscar_subsidy_school_holiday_period:
+              oscar_subsidy_school_holiday_max_weekly_hours
+          else:
+              oscar_subsidy_school_term_max_weekly_hours
+  - name: oscar_subsidy_approved_activity_condition
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 40 and 41
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              childcare_assistance_other_caregiver_condition
+              and (
+                  childcare_assistance_caregiver_engaged_in_approved_activity
+                  or childcare_assistance_caregiver_travelling_to_approved_activity
+                  or childcare_assistance_caregiver_in_shift_employment_period
+                  or childcare_assistance_caregiver_travelling_for_shift_employment
+              )
+          )
+  - name: oscar_subsidy_payable_under_regulation_41
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 39 and 41
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              oscar_subsidy_child_eligible
+              and (
+                  oscar_subsidy_approved_activity_condition
+                  or childcare_assistance_child_disability_allowance_payable
+                  or childcare_assistance_caregiver_also_cares_for_other_child_in_hospital_or_with_disability_allowance
+              )
+          )
+  - name: oscar_subsidy_payable_hours_regulation_41
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 reg 41
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if oscar_subsidy_payable_under_regulation_41:
+              min(max(0, childcare_assistance_requested_hours_per_week), oscar_subsidy_weekly_hours_cap)
+          else:
+              0
+  - name: oscar_subsidy_payable_under_regulation_42
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 regs 39 and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              oscar_subsidy_child_eligible
+              and childcare_assistance_caregiver_has_serious_disability_or_illness_certificate
+              and childcare_assistance_caregiver_needs_childcare_hours_per_week > oscar_subsidy_serious_disability_hours_needed_threshold
+              and childcare_assistance_other_caregiver_condition
+          )
+  - name: oscar_subsidy_payable_hours_regulation_42
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 reg 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if oscar_subsidy_payable_under_regulation_42:
+              min(max(0, childcare_assistance_requested_hours_per_week), oscar_subsidy_weekly_hours_cap)
+          else:
+              0
+  - name: oscar_subsidy_payable_hours
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Social Security Regulations 2018 regs 39, 41, and 42
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if oscar_subsidy_payable_under_regulation_41:
+              oscar_subsidy_payable_hours_regulation_41
+          else:
+              oscar_subsidy_payable_hours_regulation_42
+  - name: childcare_assistance_schedule_2_hourly_rate_before_fee_cap
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 Schedule 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_assistance_dependent_children_count <= 1:
+              if childcare_assistance_household_income_before_tax < childcare_assistance_one_child_income_threshold_1:
+                  childcare_assistance_highest_hourly_rate
+              else:
+                  if childcare_assistance_household_income_before_tax < childcare_assistance_one_child_income_threshold_2:
+                      childcare_assistance_second_hourly_rate
+                  else:
+                      if childcare_assistance_household_income_before_tax < childcare_assistance_one_child_income_threshold_3:
+                          childcare_assistance_third_hourly_rate
+                      else:
+                          if childcare_assistance_household_income_before_tax < childcare_assistance_one_child_income_threshold_4:
+                              childcare_assistance_fourth_hourly_rate
+                          else:
+                              0
+          else:
+              if childcare_assistance_dependent_children_count == 2:
+                  if childcare_assistance_household_income_before_tax < childcare_assistance_two_children_income_threshold_1:
+                      childcare_assistance_highest_hourly_rate
+                  else:
+                      if childcare_assistance_household_income_before_tax < childcare_assistance_two_children_income_threshold_2:
+                          childcare_assistance_second_hourly_rate
+                      else:
+                          if childcare_assistance_household_income_before_tax < childcare_assistance_two_children_income_threshold_3:
+                              childcare_assistance_third_hourly_rate
+                          else:
+                              if childcare_assistance_household_income_before_tax < childcare_assistance_two_children_income_threshold_4:
+                                  childcare_assistance_fourth_hourly_rate
+                              else:
+                                  0
+              else:
+                  if childcare_assistance_household_income_before_tax < childcare_assistance_three_plus_children_income_threshold_1:
+                      childcare_assistance_highest_hourly_rate
+                  else:
+                      if childcare_assistance_household_income_before_tax < childcare_assistance_three_plus_children_income_threshold_2:
+                          childcare_assistance_second_hourly_rate
+                      else:
+                          if childcare_assistance_household_income_before_tax < childcare_assistance_three_plus_children_income_threshold_3:
+                              childcare_assistance_third_hourly_rate
+                          else:
+                              if childcare_assistance_household_income_before_tax < childcare_assistance_three_plus_children_income_threshold_4:
+                                  childcare_assistance_fourth_hourly_rate
+                              else:
+                                  0
+  - name: childcare_assistance_actual_or_averaged_hourly_fee_payable
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 reg 24(2) and (3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_assistance_periodic_flat_fee_payable and childcare_assistance_flat_fee_enrolled_hours > 0:
+              (
+                  max(
+                      0,
+                      childcare_assistance_periodic_flat_fee
+                      - childcare_assistance_third_party_flat_fee_payment
+                  )
+                  / childcare_assistance_flat_fee_enrolled_hours
+              )
+          else:
+              max(
+                  0,
+                  childcare_assistance_stated_actual_hourly_fee
+                  - childcare_assistance_third_party_hourly_fee_payment
+              )
+  - name: childcare_assistance_hourly_fee_cap
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 reg 24
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if childcare_assistance_regulation_28_absence_applies:
+              max(
+                  childcare_assistance_actual_or_averaged_hourly_fee_payable,
+                  childcare_assistance_placekeeping_hourly_fee
+              )
+          else:
+              childcare_assistance_actual_or_averaged_hourly_fee_payable
+  - name: childcare_assistance_hourly_rate_after_fee_cap
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 regs 24, 36, and 44
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          min(
+              childcare_assistance_schedule_2_hourly_rate_before_fee_cap,
+              childcare_assistance_hourly_fee_cap
+          )
+  - name: childcare_assistance_not_blocked_by_other_government_funding
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Regulations 2018 reg 23
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not (
+                  childcare_assistance_other_government_funding_purchases_childcare_hour
+                  and (
+                      childcare_assistance_other_government_funding_amount_per_hour
+                      > childcare_assistance_hourly_rate_after_fee_cap
+                  )
+              )
+              or childcare_assistance_home_based_top_up_exception_applies
+          )
+  - name: childcare_subsidy_weekly_payment
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 77; Social Security Regulations 2018 regs 21, 23, 24, 31, 32, 34, 35, and 36
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              childcare_subsidy_granted_for_child
+              and childcare_assistance_not_receiving_both_subsidies
+              and childcare_assistance_not_blocked_by_other_government_funding
+          ):
+              childcare_subsidy_payable_hours * childcare_assistance_hourly_rate_after_fee_cap
+          else:
+              0
+  - name: oscar_subsidy_weekly_payment
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 77; Social Security Regulations 2018 regs 21, 23, 24, 39, 41, 42, and 44
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              oscar_subsidy_granted_for_child
+              and childcare_assistance_not_receiving_both_subsidies
+              and childcare_assistance_not_blocked_by_other_government_funding
+          ):
+              oscar_subsidy_payable_hours * childcare_assistance_hourly_rate_after_fee_cap
+          else:
+              0
