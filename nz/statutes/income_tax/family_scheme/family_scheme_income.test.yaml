@@ -1,0 +1,165 @@
+- name: period_adjusted_family_scheme_income_with_common_additions
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_base_income_excluding_mb3_to_mb13_adjustments: 40000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_activity_income: 12000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_activity_deductions: 9000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_superannuation_distribution_income: 1000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_retirement_scheme_distribution_income: 500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_person_voting_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_dependent_child_voting_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_relevant_major_shareholders: 1
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_net_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_dividends: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_net_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_beneficiary_income_vested_or_paid: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_voting_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_net_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_dividends: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trust_settlors_alive_count: 1
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_employee_salary_or_wages: 30000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_short_term_charge_facility_value_excluding_fbt: 100
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_short_term_charge_facility_value_including_fbt: 120
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_employment_income_foregone_for_motor_vehicle: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_controlling_shareholder_voting_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_attributed_fringe_benefits_taxable_value: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_attributed_fringe_benefits_fbt_liability: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_exempt_pension_or_annuity_amount: 2000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_dependent_child_relevant_amounts: 1500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_dependent_child_principal_caregivers_count: 2
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_spouse_or_partner_nonresident_foreign_sourced_income: 300
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_commissioner_excludes_non_settlor_trust_payment: false
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_non_settlor_trust_payment: 700
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_other_payments_not_excluded: 250
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_income_period_days: 365
+  output:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_days_in_year: 365
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_activity_income_included: 3000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_pension_or_annuity_income: 1000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_dependent_child_income: 500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_partner_nonresident_foreign_sourced_income: 300
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_non_settlor_trust_payment_income: 700
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_other_replacement_or_living_expense_payment_income: 250
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_income_before_period_adjustment: 47250
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_income: 47250
+
+- name: close_company_attribution_with_equalisation_adjustments
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_person_voting_interest: 0.40
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_dependent_child_voting_interest: 0.20
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_relevant_major_shareholders: 2
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_net_income: 100000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_main_income_equalisation_deposits: 5000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_main_income_equalisation_refunds: 2000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_dividends: 30000
+  output:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_close_company_attributed_interest: 0.10
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_close_company_income: 36500
+
+- name: trust_settlor_attribution
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_net_income: 50000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_main_income_equalisation_deposits: 1000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_main_income_equalisation_refunds: 500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_beneficiary_income_vested_or_paid: 10000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_voting_interest: 0.25
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_net_income: 80000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_dividends: 20000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trust_settlors_alive_count: 2
+  output:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_settlor_trustee_adjusted_net_income: 40500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_settlor_trust_company_income: 15000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_settlor_trust_income: 27750
+
+- name: employment_benefits_and_controlling_shareholder_fringe_benefits
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_employee_salary_or_wages: 30000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_short_term_charge_facility_value_excluding_fbt: 1300
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_short_term_charge_facility_value_including_fbt: 1500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_employment_income_foregone_for_motor_vehicle: 4000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_controlling_shareholder_voting_interest: 0.50
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_attributed_fringe_benefits_taxable_value: 3000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_attributed_fringe_benefits_fbt_liability: 900
+  output:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_short_term_charge_facility_salary_rate: 0.05
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_short_term_charge_facility_amount_cap: 1200
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_short_term_charge_facility_threshold: 1200
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_short_term_charge_facility_income: 1500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_non_controlling_employee_benefit_income: 5500
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_controlling_shareholder_voting_interest_threshold: 0.5
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_controlling_shareholder_fringe_benefit_income: 3900
+
+- name: zero_branches_and_exclusions
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_dependent_child_voting_interest: 0.20
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_relevant_major_shareholders: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_net_income: 1000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_beneficiary_income_vested_or_paid: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_voting_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_net_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trustee_company_dividends: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_trust_settlors_alive_count: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_employee_salary_or_wages: 30000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_short_term_charge_facility_value_excluding_fbt: 100
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_short_term_charge_facility_value_including_fbt: 120
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_controlling_shareholder_voting_interest: 0.49
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_attributed_fringe_benefits_taxable_value: 3000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_attributed_fringe_benefits_fbt_liability: 900
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_dependent_child_relevant_amounts: 1000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_dependent_child_principal_caregivers_count: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_commissioner_excludes_non_settlor_trust_payment: true
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_non_settlor_trust_payment: 700
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_base_income_excluding_mb3_to_mb13_adjustments: 10000
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_activity_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_activity_deductions: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_superannuation_distribution_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_retirement_scheme_distribution_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_person_voting_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_net_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_main_income_equalisation_deposits: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_main_income_equalisation_refunds: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_close_company_dividends: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_employment_income_foregone_for_motor_vehicle: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_exempt_pension_or_annuity_amount: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_spouse_or_partner_nonresident_foreign_sourced_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_other_payments_not_excluded: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#input.family_scheme_income_period_days: 0
+  output:
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_close_company_attributed_interest: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_settlor_trust_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_short_term_charge_facility_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_controlling_shareholder_fringe_benefit_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_dependent_child_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_non_settlor_trust_payment_income: 0
+    nz:statutes/income_tax/family_scheme/family_scheme_income#family_scheme_income: 0

@@ -1,0 +1,363 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 subpart MB defines family scheme income for Working for
+    Families. This module encodes the executable adjustment layer: period
+    annualisation, net-loss activity treatment, close-company attribution,
+    settlor trust attribution, employment and fringe-benefit additions, pension
+    and dependent-child income additions, non-resident partner income, trust
+    payments, other replacement/living-expense payments, and an aggregate
+    family scheme income bridge.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/section/MB-1
+      - nz/statute/act/public/2007/0097/section/MB-2
+      - nz/statute/act/public/2007/0097/section/MB-3
+      - nz/statute/act/public/2007/0097/section/MB-4
+      - nz/statute/act/public/2007/0097/section/MB-5
+      - nz/statute/act/public/2007/0097/section/MB-6
+      - nz/statute/act/public/2007/0097/section/MB-7
+      - nz/statute/act/public/2007/0097/section/MB-7B
+      - nz/statute/act/public/2007/0097/section/MB-8
+      - nz/statute/act/public/2007/0097/section/MB-10
+      - nz/statute/act/public/2007/0097/section/MB-11
+      - nz/statute/act/public/2007/0097/section/MB-12
+      - nz/statute/act/public/2007/0097/section/MB-12B
+      - nz/statute/act/public/2007/0097/section/MB-13
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: family_scheme_days_in_year
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 s MB 2(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          365
+  - name: family_scheme_pension_or_annuity_inclusion_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MB 10(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.5
+  - name: family_scheme_dependent_child_income_exemption
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MB 11(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          500
+  - name: family_scheme_short_term_charge_facility_salary_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MB 7B(2)(b)(i)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.05
+  - name: family_scheme_short_term_charge_facility_amount_cap
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7B(2)(b)(ii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1200
+  - name: family_scheme_controlling_shareholder_voting_interest_threshold
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MB 8(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.5
+  - name: family_scheme_activity_income_included
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 3(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              family_scheme_activity_income
+              - family_scheme_activity_deductions
+          )
+  - name: family_scheme_close_company_attributed_interest
+    kind: derived
+    entity: Family
+    dtype: Rate
+    period: Year
+    source: Income Tax Act 2007 s MB 4(5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_close_company_relevant_major_shareholders > 0:
+              (
+                  family_scheme_close_company_dependent_child_voting_interest
+                  / family_scheme_close_company_relevant_major_shareholders
+              )
+          else:
+              0
+  - name: family_scheme_close_company_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 4(2), (3), (7), and (8)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              (
+                  family_scheme_close_company_person_voting_interest
+                  + family_scheme_close_company_attributed_interest
+              )
+              * (
+                  family_scheme_close_company_net_income
+                  + family_scheme_close_company_main_income_equalisation_deposits
+                  - family_scheme_close_company_main_income_equalisation_refunds
+                  - family_scheme_close_company_dividends
+              )
+          )
+  - name: family_scheme_settlor_trustee_adjusted_net_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7(4)(a), (7), and (8)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              family_scheme_trustee_net_income
+              + family_scheme_trustee_main_income_equalisation_deposits
+              - family_scheme_trustee_main_income_equalisation_refunds
+              - family_scheme_trustee_beneficiary_income_vested_or_paid
+          )
+  - name: family_scheme_settlor_trust_company_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7(4)(b), (5), (7), and (8)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              family_scheme_trustee_company_voting_interest
+              * (
+                  family_scheme_trustee_company_net_income
+                  + family_scheme_trustee_company_main_income_equalisation_deposits
+                  - family_scheme_trustee_company_main_income_equalisation_refunds
+                  - family_scheme_trustee_company_dividends
+              )
+          )
+  - name: family_scheme_settlor_trust_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7(2B) and (3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_trust_settlors_alive_count > 0:
+              (
+                  family_scheme_settlor_trustee_adjusted_net_income
+                  + family_scheme_settlor_trust_company_income
+              ) / family_scheme_trust_settlors_alive_count
+          else:
+              0
+  - name: family_scheme_short_term_charge_facility_threshold
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7B(2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          min(
+              family_scheme_short_term_charge_facility_salary_rate
+              * family_scheme_employee_salary_or_wages,
+              family_scheme_short_term_charge_facility_amount_cap
+          )
+  - name: family_scheme_short_term_charge_facility_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7B(2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_short_term_charge_facility_value_excluding_fbt > family_scheme_short_term_charge_facility_threshold:
+              family_scheme_short_term_charge_facility_value_including_fbt
+          else:
+              0
+  - name: family_scheme_non_controlling_employee_benefit_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 7B(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              max(0, family_scheme_employment_income_foregone_for_motor_vehicle)
+              + family_scheme_short_term_charge_facility_income
+          )
+  - name: family_scheme_controlling_shareholder_fringe_benefit_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 8(1) and (2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_controlling_shareholder_voting_interest >= family_scheme_controlling_shareholder_voting_interest_threshold:
+              (
+                  family_scheme_attributed_fringe_benefits_taxable_value
+                  + family_scheme_attributed_fringe_benefits_fbt_liability
+              )
+          else:
+              0
+  - name: family_scheme_pension_or_annuity_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 10(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              max(0, family_scheme_exempt_pension_or_annuity_amount)
+              * family_scheme_pension_or_annuity_inclusion_rate
+          )
+  - name: family_scheme_dependent_child_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 11(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_dependent_child_principal_caregivers_count > 0:
+              (
+                  max(
+                      0,
+                      family_scheme_dependent_child_relevant_amounts
+                      - family_scheme_dependent_child_income_exemption
+                  )
+                  / family_scheme_dependent_child_principal_caregivers_count
+              )
+          else:
+              0
+  - name: family_scheme_partner_nonresident_foreign_sourced_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 12
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, family_scheme_spouse_or_partner_nonresident_foreign_sourced_income)
+  - name: family_scheme_non_settlor_trust_payment_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 12B(2) and (3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_commissioner_excludes_non_settlor_trust_payment:
+              0
+          else:
+              max(0, family_scheme_non_settlor_trust_payment)
+  - name: family_scheme_other_replacement_or_living_expense_payment_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 13
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, family_scheme_other_payments_not_excluded)
+  - name: family_scheme_income_before_period_adjustment
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MB 1 and MB 3 to MB 13
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              family_scheme_base_income_excluding_mb3_to_mb13_adjustments
+              + family_scheme_activity_income_included
+              + max(0, family_scheme_superannuation_distribution_income)
+              + max(0, family_scheme_retirement_scheme_distribution_income)
+              + family_scheme_close_company_income
+              + family_scheme_settlor_trust_income
+              + family_scheme_non_controlling_employee_benefit_income
+              + family_scheme_controlling_shareholder_fringe_benefit_income
+              + family_scheme_pension_or_annuity_income
+              + family_scheme_dependent_child_income
+              + family_scheme_partner_nonresident_foreign_sourced_income
+              + family_scheme_non_settlor_trust_payment_income
+              + family_scheme_other_replacement_or_living_expense_payment_income
+          )
+  - name: family_scheme_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if family_scheme_income_period_days > 0:
+              (
+                  family_scheme_income_before_period_adjustment
+                  * family_scheme_days_in_year
+                  / family_scheme_income_period_days
+              )
+          else:
+              0
