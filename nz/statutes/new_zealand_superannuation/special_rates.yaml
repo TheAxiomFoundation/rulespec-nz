@@ -1,0 +1,180 @@
+format: rulespec/v1
+module:
+  summary: |-
+    New Zealand Superannuation and Retirement Income Act 2001 sections 18
+    and 19, plus Schedule 1, set special New Zealand superannuation rate
+    surfaces for long-term residential care/hospitalisation and saved
+    non-qualifying-spouse rates. This module encodes the executable hospital
+    reduced-rate predicates, spouse benefit increase formula, and saved-rate
+    amounts before Income Test 3 abatement.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2001/0084/section/18
+      - nz/statute/act/public/2001/0084/section/19
+      - nz/statute/act/public/2001/0084/schedule/1/part/1
+      - nz/statute/act/public/2001/0084/schedule/1/part/2
+    agency_reference_urls:
+      - https://www.legislation.govt.nz/act/public/2001/84/en/latest/
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: nz_super_hospital_unaffected_weeks
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(3) and (4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          13
+  - name: nz_super_hospital_temporary_absence_continuity_days
+    kind: parameter
+    dtype: Count
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(8)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          28
+  - name: nz_super_hospital_reduced_rate_net_after_tax
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 1 clause 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          58.34
+  - name: nz_super_saved_non_qualifying_spouse_alternative_weekly_rate_before_tax
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 2 clause 1(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          984.28
+  - name: nz_super_saved_non_qualifying_spouse_other_weekly_rate_before_tax
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 2 clause 1(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          933.16
+  - name: nz_super_long_term_care_spouse_living_alone_single_rate_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 18
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_spouse_or_partner_in_long_term_residential_care_hospital_or_rest_home
+              and nz_super_living_alone
+          )
+  - name: nz_super_hospital_rate_population
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_receives_or_becomes_entitled
+              and (
+                  nz_super_single
+                  or (
+                      nz_super_in_relationship
+                      and not nz_super_has_dependent_children
+                  )
+              )
+          )
+  - name: nz_super_hospital_reduced_rate_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(3) to (5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_hospital_rate_population
+              and nz_super_patient_in_hospital
+              and nz_super_hospitalisation_weeks > nz_super_hospital_unaffected_weeks
+              and not nz_super_residential_care_funder_pays_contracted_care
+          )
+  - name: nz_super_hospital_rate_continues_after_short_absence
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(8)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              nz_super_hospital_rate_previously_reduced
+              and nz_super_absent_from_hospital_days <= nz_super_hospital_temporary_absence_continuity_days
+          )
+  - name: nz_super_hospital_weekly_rate_net_after_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(4) and Schedule 1 Part 1 clause 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if nz_super_hospital_reduced_rate_applies:
+              nz_super_hospital_reduced_rate_net_after_tax
+          else:
+              0
+  - name: nz_super_spouse_or_partner_specified_benefit_hospital_increase
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 s 19(7) to (7C)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              nz_super_hospital_reduced_rate_applies
+              and nz_super_has_spouse_or_partner_receiving_specified_benefit
+              and not nz_super_spouse_or_partner_also_hospitalised_more_than_unaffected_weeks
+          ):
+              (
+                  nz_super_spouse_or_partner_maximum_single_specified_benefit_rate
+                  - nz_super_spouse_or_partner_maximum_partnered_specified_benefit_rate_with_spouse_receiving_super
+              )
+          else:
+              0
+  - name: nz_super_saved_non_qualifying_spouse_weekly_rate_before_income_test
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 2 clause 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if nz_super_saved_non_qualifying_spouse_rate_eligible_under_schedule_1aa_clause_7:
+              if nz_super_pre_1991_alternative_rate_case:
+                  max(
+                      nz_super_saved_non_qualifying_spouse_alternative_weekly_rate_before_tax,
+                      nz_super_saved_non_qualifying_spouse_other_weekly_rate_before_tax
+                  )
+              else:
+                  nz_super_saved_non_qualifying_spouse_other_weekly_rate_before_tax
+          else:
+              0
