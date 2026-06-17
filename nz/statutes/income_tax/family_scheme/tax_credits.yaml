@@ -1,0 +1,489 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 Part M sets the core Working for Families tax-credit
+    calculations. Sections MD 1 to MD 3 calculate the abating WFF credit and
+    family tax credit, section MD 10 calculates the in-work tax credit, section
+    MD 13 calculates family-credit abatement, section ME 1 calculates the
+    minimum family tax credit, section ME 3 defines net family scheme income for
+    that credit, and sections MG 1 to MG 3 calculate Best Start and its separate
+    abatement. Section MA 4 floors negative tax-credit components at zero.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/section/MA-4
+      - nz/statute/act/public/2007/0097/section/MD-1
+      - nz/statute/act/public/2007/0097/section/MD-2
+      - nz/statute/act/public/2007/0097/section/MD-3
+      - nz/statute/act/public/2007/0097/section/MD-10
+      - nz/statute/act/public/2007/0097/section/MD-13
+      - nz/statute/act/public/2007/0097/section/ME-1
+      - nz/statute/act/public/2007/0097/section/ME-3
+      - nz/statute/act/public/2007/0097/section/MG-1
+      - nz/statute/act/public/2007/0097/section/MG-2
+      - nz/statute/act/public/2007/0097/section/MG-3
+      - nz/statute/act/public/2026/0008/section/2
+      - nz/statute/act/public/2026/0008/section/105
+      - nz/agency/ird/working-for-families-family-tax-credit
+      - nz/agency/ird/working-for-families-in-work-tax-credit
+      - nz/agency/ird/working-for-families-best-start
+      - nz/agency/ird/working-for-families-minimum-family-tax-credit
+    agency_reference_urls:
+      - https://www.ird.govt.nz/working-for-families/types/family-tax-credit
+      - https://www.ird.govt.nz/working-for-families/types/in-work-tax-credit
+      - https://www.ird.govt.nz/working-for-families/types/best-start
+      - https://www.ird.govt.nz/working-for-families/types/minimum-family-tax-credit
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: wff_days_in_tax_year
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 ss MD 3, MD 13, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          365
+  - name: wff_weeks_in_tax_year
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 ss MD 10 and ME 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          52
+  - name: wff_in_work_tax_credit_minimum_children_for_base_amount
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 s MD 10(3)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3
+  - name: family_tax_credit_eldest_child_annual_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MD 3(4)(a); Inland Revenue family tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          7921
+  - name: family_tax_credit_subsequent_child_annual_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MD 3(4)(b); Inland Revenue family tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          6454
+  - name: family_tax_credit_prescribed_amount
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 3(4) and (7)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              family_tax_credit_eldest_child_annual_amount
+              * min(
+                  1,
+                  max(0, family_tax_credit_eldest_dependent_child_care_units)
+              )
+          )
+          + (
+              family_tax_credit_subsequent_child_annual_amount
+              * max(0, family_tax_credit_subsequent_dependent_child_care_units)
+          )
+  - name: family_tax_credit_before_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 3(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              family_tax_credit_prescribed_amount
+              * max(0, family_tax_credit_entitlement_days)
+              / wff_days_in_tax_year
+          )
+  - name: in_work_tax_credit_base_annual_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MD 10(3)(a); Taxation (Annual Rates for 2025-26, Compliance Simplification, and Remedial Measures) Act 2026 ss 2 and 105; Inland Revenue in-work tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          7670
+      - effective_from: '2027-04-01'
+        formula: |-
+          5070
+  - name: in_work_tax_credit_additional_child_annual_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MD 10(3)(b); Inland Revenue in-work tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          780
+  - name: in_work_tax_credit_relevant_children
+    kind: derived
+    entity: Family
+    dtype: Count
+    period: Year
+    source: Income Tax Act 2007 s MD 10(3)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              wff_in_work_tax_credit_minimum_children_for_base_amount,
+              max(0, in_work_tax_credit_allowed_children_count)
+          )
+  - name: in_work_tax_credit_before_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 10(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if entitled_to_in_work_tax_credit:
+              (
+                  in_work_tax_credit_base_annual_amount
+                  + (
+                      in_work_tax_credit_additional_child_annual_amount
+                      * (
+                          in_work_tax_credit_relevant_children
+                          - wff_in_work_tax_credit_minimum_children_for_base_amount
+                      )
+                  )
+              ) * max(0, in_work_tax_credit_weekly_periods) / wff_weeks_in_tax_year
+          else:
+              0
+  - name: wff_family_credit_abatement_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MD 13(3)(a); Inland Revenue family tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          44900
+  - name: wff_family_credit_abatement_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MD 13(3)(a); Inland Revenue family tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.275
+  - name: wff_family_credit_full_year_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 13(3)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              floor(
+                  max(
+                      0,
+                      wff_family_scheme_income_for_relationship_period
+                      - wff_family_credit_abatement_threshold
+                  )
+              )
+              * wff_family_credit_abatement_rate
+          )
+  - name: wff_family_credit_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 13(2) and (3)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_family_credit_full_year_abatement
+              * max(0, wff_family_credit_abatement_days)
+              / wff_days_in_tax_year
+          )
+  - name: wff_in_work_or_child_tax_credit_before_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 1(3)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if entitled_to_in_work_tax_credit:
+              in_work_tax_credit_before_abatement
+          else:
+              max(0, child_tax_credit_for_entitlement_period)
+  - name: wff_total_credit_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 1(3)(d)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_family_credit_abatement
+              + max(0, parental_tax_credit_additional_abatement)
+          )
+  - name: family_tax_credit_after_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MA 4 and MD 2(2)(c)(i)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, family_tax_credit_before_abatement - wff_family_credit_abatement)
+  - name: wff_abatement_remaining_after_family_tax_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 2(2)(c)(i) and (ii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, wff_family_credit_abatement - family_tax_credit_before_abatement)
+  - name: in_work_or_child_tax_credit_after_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MA 4 and MD 2(2)(c)(ii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              wff_in_work_or_child_tax_credit_before_abatement
+              - wff_abatement_remaining_after_family_tax_credit
+          )
+  - name: wff_abatement_remaining_after_in_work_or_child_tax_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MD 2(2)(c)(ii) and (iii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              wff_abatement_remaining_after_family_tax_credit
+              - wff_in_work_or_child_tax_credit_before_abatement
+          )
+  - name: parental_tax_credit_after_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MA 4 and MD 2(2)(c)(iii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              max(0, parental_tax_credit_for_entitlement_period)
+              - wff_abatement_remaining_after_in_work_or_child_tax_credit
+              - max(0, parental_tax_credit_additional_abatement)
+          )
+  - name: abating_wff_tax_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MA 4 and MD 1(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              family_tax_credit_before_abatement
+              + wff_in_work_or_child_tax_credit_before_abatement
+              + max(0, parental_tax_credit_for_entitlement_period)
+              - wff_total_credit_abatement
+          )
+  - name: best_start_tax_credit_prescribed_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MG 2(2)(a); Inland Revenue Best Start guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          4041
+  - name: best_start_tax_credit_before_abatement
+    kind: derived
+    entity: Child
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MG 2(1) and (5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              best_start_tax_credit_prescribed_amount
+              * max(0, best_start_entitlement_days)
+              / wff_days_in_tax_year
+              * min(1, max(0, best_start_child_care_fraction))
+          )
+  - name: best_start_abatement_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MG 3(2)(a); Inland Revenue Best Start guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          79000
+  - name: best_start_abatement_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MG 3(2)(a); Inland Revenue Best Start guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.21
+  - name: best_start_full_year_abatement
+    kind: derived
+    entity: Child
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MG 3(2)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              floor(
+                  max(
+                      0,
+                      best_start_family_scheme_income_for_relationship_period
+                      - best_start_abatement_threshold
+                  )
+              )
+              * best_start_abatement_rate
+          )
+  - name: best_start_credit_abatement
+    kind: derived
+    entity: Child
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MG 3(1) and (2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              best_start_full_year_abatement
+              * max(0, best_start_abatement_days)
+              / wff_days_in_tax_year
+          )
+  - name: best_start_tax_credit
+    kind: derived
+    entity: Child
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MA 4 and MG 1(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, best_start_tax_credit_before_abatement - best_start_credit_abatement)
+  - name: minimum_family_tax_credit_prescribed_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s ME 1(3)(a); Inland Revenue minimum family tax credit guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          36604
+  - name: minimum_family_adjusted_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s ME 3(3)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if minimum_family_full_time_earner_weeks > 0:
+              (
+                  minimum_family_scheme_income_attributable_to_full_time_weeks
+                  * wff_weeks_in_tax_year
+                  / minimum_family_full_time_earner_weeks
+              )
+          else:
+              0
+  - name: minimum_family_net_family_scheme_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s ME 3(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              minimum_family_adjusted_income
+              - minimum_family_adjusted_income_tax_liability
+              + minimum_family_amount_received
+              - minimum_family_amount_paid
+          )
+  - name: minimum_family_tax_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MA 4 and ME 1(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              (
+                  minimum_family_tax_credit_prescribed_amount
+                  - minimum_family_net_family_scheme_income
+              )
+              * max(0, minimum_family_tax_credit_weekly_periods)
+              / wff_weeks_in_tax_year
+          )

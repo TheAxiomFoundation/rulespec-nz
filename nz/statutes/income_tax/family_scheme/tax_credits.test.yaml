@@ -1,0 +1,135 @@
+- name: family_tax_credit_full_year_two_children_under_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_eldest_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_subsequent_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_entitlement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 40000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: false
+    nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_eldest_child_annual_amount: 7921
+    nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_subsequent_child_annual_amount: 6454
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_family_credit_abatement_threshold: 44900
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_family_credit_abatement_rate: 0.275
+    nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_prescribed_amount: 14375
+    nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_before_abatement: 14375
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_before_abatement: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_family_credit_abatement: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_in_work_or_child_tax_credit_before_abatement: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_total_credit_abatement: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_after_abatement: 14375
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_abatement_remaining_after_in_work_or_child_tax_credit: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#parental_tax_credit_after_abatement: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#abating_wff_tax_credit: 14375
+
+- name: wff_abatement_reduces_family_credit_then_in_work_credit
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_eldest_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_subsequent_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_entitlement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 100000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: true
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 2
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 52
+    nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_base_annual_amount: 7670
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_relevant_children: 3
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_before_abatement: 7670
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_family_credit_full_year_abatement: 15152.5
+    nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_after_abatement: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_abatement_remaining_after_family_tax_credit: 777.5
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_or_child_tax_credit_after_abatement: 6892.5
+    nz:statutes/income_tax/family_scheme/tax_credits#abating_wff_tax_credit: 6892.5
+
+- name: in_work_tax_credit_2027_reverts_to_prior_base
+  period:
+    period_kind: tax_year
+    start: '2027-04-01'
+    end: '2028-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: true
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 5
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 52
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_base_annual_amount: 5070
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_additional_child_annual_amount: 780
+    nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_before_abatement: 6630
+
+- name: best_start_2026_full_year_with_abatement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.best_start_entitlement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.best_start_child_care_fraction: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.best_start_family_scheme_income_for_relationship_period: 90000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.best_start_abatement_days: 365
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_tax_credit_prescribed_amount: 4041
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_abatement_threshold: 79000
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_abatement_rate: 0.21
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_tax_credit_before_abatement: 4041
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_full_year_abatement: 2310
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_credit_abatement: 2310
+    nz:statutes/income_tax/family_scheme/tax_credits#best_start_tax_credit: 1731
+
+- name: minimum_family_tax_credit_full_year
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_scheme_income_attributable_to_full_time_weeks: 27000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_full_time_earner_weeks: 52
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_adjusted_income_tax_liability: 3633
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_amount_received: 1000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_amount_paid: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_tax_credit_weekly_periods: 52
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_tax_credit_prescribed_amount: 36604
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_adjusted_income: 27000
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_net_family_scheme_income: 24367
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_tax_credit: 12237
+
+- name: minimum_family_tax_credit_zero_when_income_exceeds_prescribed_amount
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_scheme_income_attributable_to_full_time_weeks: 42000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_full_time_earner_weeks: 52
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_adjusted_income_tax_liability: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_amount_received: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_amount_paid: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_tax_credit_weekly_periods: 52
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_net_family_scheme_income: 42000
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_tax_credit: 0
+
+- name: minimum_family_adjusted_income_zero_when_no_full_time_weeks
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_scheme_income_attributable_to_full_time_weeks: 10000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.minimum_family_full_time_earner_weeks: 0
+  output:
+    nz:statutes/income_tax/family_scheme/tax_credits#minimum_family_adjusted_income: 0
