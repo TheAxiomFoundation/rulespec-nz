@@ -1,0 +1,523 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 sections MC 2 to MC 11 set the qualifying and
+    continuing requirements for Working for Families family-scheme
+    entitlements. Sections MD 4 to MD 9 set the five requirements for
+    entitlement to the in-work tax credit. This module encodes the mechanical
+    eligibility predicates and keeps Commissioner allocations, residence
+    status, benefit receipt, and other external legal facts as inputs.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/section/MC-2
+      - nz/statute/act/public/2007/0097/section/MC-3
+      - nz/statute/act/public/2007/0097/section/MC-4
+      - nz/statute/act/public/2007/0097/section/MC-5
+      - nz/statute/act/public/2007/0097/section/MC-6
+      - nz/statute/act/public/2007/0097/section/MC-7
+      - nz/statute/act/public/2007/0097/section/MC-8
+      - nz/statute/act/public/2007/0097/section/MC-9
+      - nz/statute/act/public/2007/0097/section/MC-10
+      - nz/statute/act/public/2007/0097/section/MC-11
+      - nz/statute/act/public/2007/0097/section/MD-4
+      - nz/statute/act/public/2007/0097/section/MD-5
+      - nz/statute/act/public/2007/0097/section/MD-6
+      - nz/statute/act/public/2007/0097/section/MD-7
+      - nz/statute/act/public/2007/0097/section/MD-8
+      - nz/statute/act/public/2007/0097/section/MD-9
+rules:
+  - name: wff_minimum_age
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 ss MC 3 and MD 5
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          16
+  - name: wff_residence_continuous_presence_months
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 ss MC 5(2)(a)(i) and MD 7(2)(a)(i)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          12
+  - name: wff_principal_caregiver_minimum_exclusive_care_fraction
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MC 10(2), (3), and (5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.3333333333333333
+  - name: in_work_tax_credit_birth_absence_period_weeks
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 s MD 9(5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1
+  - name: wff_credit_child_school_tertiary_age
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 s MC 9(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          18
+  - name: in_work_tax_credit_recent_requirement_concession_days
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 s MD 9(6)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          14
+  - name: wff_person_age_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          wff_person_age >= wff_minimum_age
+  - name: wff_principal_care_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 4
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          wff_dependent_children_principal_caregiver_count >= 1
+  - name: wff_person_residence_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 5(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_person_new_zealand_resident
+              and wff_person_present_in_new_zealand_continuous_months >= wff_residence_continuous_presence_months
+              and wff_person_resident_under_yd1_on_credit_days
+              and not wff_person_transitional_resident
+              and not wff_person_spouse_or_partner_transitional_resident
+          )
+  - name: wff_child_residence_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 5(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_child_new_zealand_resident
+              and wff_child_present_in_new_zealand_for_entitlement_period
+          )
+  - name: wff_residence_or_emergency_benefit_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 5(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_person_residence_requirement
+              or wff_child_residence_requirement
+              or wff_person_entitled_to_emergency_benefit
+          )
+  - name: wff_spouse_or_partner_allocation_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 7
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not wff_spouse_or_partner_combined_entitlement_applies
+              or wff_spouse_or_partner_combined_entitlement_allocated_to_person
+          )
+  - name: wff_qualifying_criteria
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss MC 2 to MC 7
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_person_age_requirement
+              and wff_principal_care_requirement
+              and wff_residence_or_emergency_benefit_requirement
+              and wff_spouse_or_partner_allocation_requirement
+          )
+  - name: wff_abating_or_best_start_not_disqualified
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 6(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          not wff_relationship_period_parent_allowance_or_childrens_pension_received
+  - name: wff_in_work_parental_minimum_not_disqualified
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 6(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not wff_relationship_period_main_benefit_received
+              and not wff_relationship_period_parent_allowance_or_childrens_pension_received
+          )
+  - name: best_start_child_not_disqualified
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 6(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not best_start_parental_leave_or_preterm_baby_payment_for_child_period
+              and not best_start_parental_tax_credit_for_child
+              and not best_start_parent_allowance_or_childrens_pension_for_child
+          )
+  - name: wff_continuing_requirements
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 8(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_meets_qualifying_criteria_each_day
+              and not wff_spouse_or_partner_started_or_stopped_during_entitlement_period
+              and not wff_principal_caregiver_status_changed_except_first_or_last_day
+              and not wff_dependent_child_status_stopped_except_first_or_last_day
+              and not wff_tax_credit_composition_changed_except_first_or_last_day
+              and not wff_protected_family_tax_credit_status_changed_except_first_or_last_day
+          )
+  - name: wff_entitled_to_family_scheme
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss MC 2 and MC 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          wff_qualifying_criteria and wff_continuing_requirements
+  - name: wff_entitled_to_abating_wff_tax_credit
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss MC 2, MC 6(a), MC 8, and MD 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          wff_entitled_to_family_scheme and wff_abating_or_best_start_not_disqualified
+  - name: wff_entitled_to_best_start_for_child
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 ss MC 2, MC 6(a), MC 6(c), MC 8, and MG 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_entitled_to_family_scheme
+              and wff_abating_or_best_start_not_disqualified
+              and best_start_child_not_disqualified
+              and best_start_person_is_principal_caregiver_for_child
+              and best_start_child_age_and_birth_date_requirement
+          )
+  - name: wff_age_18_credit_child_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 9(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_credit_child_age == wff_credit_child_school_tertiary_age
+              and not wff_credit_child_financially_independent
+              and wff_credit_child_attending_school_or_tertiary
+          )
+  - name: wff_general_principal_caregiver
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 10(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_commissioner_considers_primary_day_to_day_care
+              and not wff_care_is_temporary
+              and not wff_caregiver_is_body_of_persons
+              and not wff_caregiver_is_spouse_or_partner_of_non_electing_transitional_resident
+              and not wff_caregiver_is_disqualifying_residence_or_institution_operator_or_employee
+          )
+  - name: wff_family_tax_credit_or_best_start_principal_caregiver
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 10(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_general_principal_caregiver
+              and wff_caregiver_lives_apart_from_another_qualifying_person_for_child
+              and wff_child_exclusive_care_fraction_for_family_or_best_start_credit >= wff_principal_caregiver_minimum_exclusive_care_fraction
+          )
+  - name: in_work_tax_credit_principal_caregiver
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 10(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_general_principal_caregiver
+              and wff_caregiver_lives_apart_from_another_qualifying_person_for_child
+              and in_work_tax_credit_child_exclusive_care_fraction >= wff_principal_caregiver_minimum_exclusive_care_fraction
+          )
+  - name: parental_tax_credit_principal_caregiver
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MC 10(5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              wff_general_principal_caregiver
+              and wff_caregiver_lives_apart_from_another_qualifying_person_for_child
+              and parental_tax_credit_child_exclusive_care_fraction >= wff_principal_caregiver_minimum_exclusive_care_fraction
+          )
+  - name: in_work_tax_credit_age_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 5
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          in_work_tax_credit_person_age >= wff_minimum_age
+  - name: in_work_tax_credit_financially_dependent_child_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 6(1) and (2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_principal_caregiver
+              and (
+                  in_work_tax_credit_child_financially_dependent
+                  or in_work_tax_credit_child_treated_financially_dependent_by_payments
+              )
+          )
+  - name: in_work_tax_credit_person_residence_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 7(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_person_new_zealand_resident
+              and in_work_tax_credit_person_present_in_new_zealand_continuous_months >= wff_residence_continuous_presence_months
+              and in_work_tax_credit_person_resident_under_yd1_on_credit_days
+              and not in_work_tax_credit_person_transitional_resident
+              and not in_work_tax_credit_person_spouse_or_partner_transitional_resident
+          )
+  - name: in_work_tax_credit_child_residence_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 7(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_child_new_zealand_resident
+              and in_work_tax_credit_child_present_in_new_zealand_for_entitlement_period
+          )
+  - name: in_work_tax_credit_residence_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 7(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          in_work_tax_credit_person_residence_requirement or in_work_tax_credit_child_residence_requirement
+  - name: in_work_tax_credit_benefit_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not in_work_tax_credit_person_or_partner_receives_main_benefit
+              and not in_work_tax_credit_person_or_partner_receives_basic_and_independent_circumstances_grants
+              and not in_work_tax_credit_person_or_partner_receives_parent_allowance_or_childrens_pension
+          )
+  - name: in_work_tax_credit_qualifying_income_derived
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9(2) and (3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_allowed_paye_income_payment
+              or in_work_tax_credit_rd3b_or_rd3c_income
+              or in_work_tax_credit_business_income_from_profit_activity
+              or in_work_tax_credit_personal_service_rehabilitation_payment_income
+          )
+  - name: in_work_tax_credit_income_earner_route
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9(1)(a), (2), and (3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          in_work_tax_credit_normally_earner and in_work_tax_credit_qualifying_income_derived
+  - name: in_work_tax_credit_close_company_earner_route
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9(1)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_earner_in_relation_to_close_company
+              and in_work_tax_credit_earner_major_shareholder_in_close_company
+              and in_work_tax_credit_close_company_derives_gross_income
+          )
+  - name: in_work_tax_credit_legacy_compensation_route
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_child_tax_credit_received_for_period_ending_2006_03_31
+              and in_work_tax_credit_incapacity_suffered_between_2006_01_01_and_2006_03_31
+              and in_work_tax_credit_weekly_compensation_paid_for_incapacity
+              and in_work_tax_credit_full_time_earner_income_at_incapacity
+              and in_work_tax_credit_would_have_been_eligible_under_legacy_formula
+          )
+  - name: in_work_tax_credit_birth_absence_route
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9(5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_normally_full_time_earner
+              and in_work_tax_credit_birth_absence_weeks == in_work_tax_credit_birth_absence_period_weeks
+              and in_work_tax_credit_work_reduced_or_stopped_due_to_child_birth
+              and in_work_tax_credit_entitled_to_parental_tax_credit_for_child
+          )
+  - name: in_work_tax_credit_recent_requirement_concession
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9(6)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not in_work_tax_credit_currently_meets_fifth_requirement
+              and in_work_tax_credit_days_since_last_met_fifth_requirement <= in_work_tax_credit_recent_requirement_concession_days
+          )
+  - name: in_work_tax_credit_earner_requirement
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 9
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_income_earner_route
+              or in_work_tax_credit_close_company_earner_route
+              or in_work_tax_credit_legacy_compensation_route
+              or in_work_tax_credit_birth_absence_route
+              or in_work_tax_credit_recent_requirement_concession
+          )
+  - name: entitled_to_in_work_tax_credit
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s MD 4
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              in_work_tax_credit_age_requirement
+              and in_work_tax_credit_financially_dependent_child_requirement
+              and in_work_tax_credit_residence_requirement
+              and in_work_tax_credit_benefit_requirement
+              and in_work_tax_credit_earner_requirement
+          )
