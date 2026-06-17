@@ -120,6 +120,29 @@ def test_json_manifests_parse() -> None:
         json.loads(path.read_text())
 
 
+def test_treasury_emtr_snapshot_schema() -> None:
+    snapshot = json.loads((ROOT / "data/oracles/treasury-emtr-snapshot.json").read_text())
+
+    assert snapshot["oracle"]["id"] == "treasury-income-explorer"
+    assert snapshot["oracle"]["parameter_vintage"] == "TY27_BEFU25"
+    assert snapshot["oracle"]["commit"] == "741a6ca4f5d27b1dc00b43dc395e39ffc4040a4b"
+
+    output_columns = snapshot["generator"]["output_columns"]
+    assert {"Net_Income", "EMTR", "PTR", "AS_Amount", "WFF_abated"}.issubset(
+        output_columns
+    )
+    sampled_wages = snapshot["generator"]["sampled_weekly_gross_wage"]
+    assert sampled_wages == [0, 160, 250, 370, 555, 740, 1000, 1500]
+
+    assert len(snapshot["scenarios"]) == 4
+    for scenario in snapshot["scenarios"]:
+        outputs = scenario["sampled_outputs"]
+        assert [row["gross_wage1"] for row in outputs] == sampled_wages
+        for row in outputs:
+            for column in output_columns:
+                assert column in row
+
+
 def test_tax_benefit_source_map_references_known_ids() -> None:
     source_map = json.loads(
         (ROOT / "data/coverage/tax-benefit-source-map.json").read_text()

@@ -22,6 +22,61 @@
       "authority": "supporting_reference"
     },
     {
+      "id": "treasury-income-explorer",
+      "name": "NZ Treasury IncomeExplorer",
+      "url": "https://github.com/Treasury-Analytics-and-Insights/IncomeExplorer",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-treasury-income-explorer",
+      "commit": "741a6ca4f5d27b1dc00b43dc395e39ffc4040a4b",
+      "role": "Executable stylized-family disposable-income and EMTR oracle maintained by NZ Treasury Analytics & Insights.",
+      "coverage": [
+        "income_tax",
+        "acc_earners_levy",
+        "independent_earner_tax_credit",
+        "working_for_families",
+        "main_benefits",
+        "accommodation_supplement",
+        "winter_energy_payment",
+        "best_start",
+        "minimum_family_tax_credit",
+        "effective_marginal_tax_rates",
+        "replacement_rates",
+        "participation_tax_rates"
+      ],
+      "authority": "oracle"
+    },
+    {
+      "id": "treasury-emtr",
+      "name": "NZ Treasury EMTR Python prototype",
+      "url": "https://github.com/Treasury-Analytics-and-Insights/emtr",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-treasury-emtr",
+      "commit": "7259052c3562d29f71c3362df639bcc596e7dd0f",
+      "role": "Portable Python prototype and unit-test scenario surface derived from IncomeExplorer; useful for lightweight smoke comparisons.",
+      "coverage": [
+        "income_tax",
+        "acc_earners_levy",
+        "working_for_families",
+        "main_benefits",
+        "accommodation_supplement",
+        "winter_energy_payment",
+        "emtr_unit_test_scenarios"
+      ],
+      "authority": "supporting_oracle"
+    },
+    {
+      "id": "treasury-an25-01",
+      "name": "NZ Treasury AN25-01 EMTR analytical note",
+      "url": "https://github.com/Treasury-Analytics-and-Insights/AN25-01",
+      "local_path": "/Users/maxghenis/_axiom-worktrees/nz-treasury-an25-01",
+      "commit": "e88b1bbd75e1df59af9ecc194d07797455084040",
+      "role": "Published analytical-note code and released data for effective marginal tax-rate analysis; static aggregate and chart-output comparison surface.",
+      "coverage": [
+        "effective_marginal_tax_rates",
+        "distributional_outputs",
+        "tawa_released_outputs"
+      ],
+      "authority": "published_reference"
+    },
+    {
       "id": "nztaxmicrosim",
       "name": "NZ Personal Tax Microsimulation Model",
       "url": "https://github.com/edithatogo/nztaxmicrosim",

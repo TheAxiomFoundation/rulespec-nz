@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-06-17",
   "jurisdiction": "nz",
   "scope": "full_tax_benefit_surface",
   "purpose": "Machine-readable intake map from full-country NZ tax-benefit tracks to official source families, pinned comparison references, and first RuleSpec encoding batches.",
@@ -24,6 +24,9 @@
   "toolchain_refs": {
     "axiom_corpus_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd",
     "policyengine_nz_ref": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+    "treasury_income_explorer_ref": "741a6ca4f5d27b1dc00b43dc395e39ffc4040a4b",
+    "treasury_emtr_ref": "7259052c3562d29f71c3362df639bcc596e7dd0f",
+    "treasury_an25_01_ref": "e88b1bbd75e1df59af9ecc194d07797455084040",
     "nztaxmicrosim_ref": "9a9de211b40086a7a85a938ae26db4a533b27e99",
     "openfisca_aotearoa_ref": "c36c40bcf553dc95ddca473be12440d4be9d0560"
   },
@@ -95,6 +98,16 @@
             "policyengine_nz/parameters/gov/ird/income_tax/thresholds.yaml",
             "policyengine_nz/tests/policy/baseline/test_income_tax.yaml",
             "policyengine_nz/tests/validation/test_against_treasury.py"
+          ]
+        },
+        {
+          "oracle_id": "treasury-income-explorer",
+          "role": "stylized-family income tax, ACC, net-income, and EMTR oracle",
+          "files": [
+            "R/emtr.R",
+            "R/util.R",
+            "inst/parameters/TY27_BEFU25.yaml",
+            "data/oracles/treasury-emtr-snapshot.json"
           ]
         },
         {
@@ -181,6 +194,15 @@
           ]
         },
         {
+          "oracle_id": "treasury-income-explorer",
+          "role": "employment ACC levy component inside disposable-income and EMTR scenarios",
+          "files": [
+            "R/emtr.R",
+            "inst/parameters/TY27_BEFU25.yaml",
+            "data/oracles/treasury-emtr-snapshot.json"
+          ]
+        },
+        {
           "oracle_id": "nztaxmicrosim",
           "role": "historical ACC levy parameter oracle",
           "files": ["src/acc_levy.py", "tests/test_acc_levy.py", "docs/parameter_coverage.md"]
@@ -247,6 +269,15 @@
             "policyengine_nz/variables/gov/ird/working_for_families/in_work_tax_credit.py",
             "policyengine_nz/variables/gov/ird/working_for_families/best_start.py",
             "policyengine_nz/tests/policy/baseline/test_working_for_families.yaml"
+          ]
+        },
+        {
+          "oracle_id": "treasury-income-explorer",
+          "role": "WFF, Best Start, MFTC, IETC, and abatement component oracle inside net-income scenarios",
+          "files": [
+            "R/emtr.R",
+            "inst/parameters/TY27_BEFU25.yaml",
+            "data/oracles/treasury-emtr-snapshot.json"
           ]
         },
         {
@@ -332,6 +363,15 @@
           ]
         },
         {
+          "oracle_id": "treasury-income-explorer",
+          "role": "Jobseeker/Sole Parent core benefit, benefit abatement, and Winter Energy component oracle inside stylized-family EMTR scenarios",
+          "files": [
+            "R/emtr.R",
+            "inst/parameters/TY27_BEFU25.yaml",
+            "data/oracles/treasury-emtr-snapshot.json"
+          ]
+        },
+        {
           "oracle_id": "nztaxmicrosim",
           "role": "main benefit and historical social policy oracle",
           "files": ["src/benefit_rules.py", "src/benefits.py", "tests/test_benefit_rules.py", "tests/test_benefits.py"]
@@ -399,6 +439,15 @@
             "policyengine_nz/parameters/gov/msd/accommodation_supplement/payment_rates.yaml",
             "policyengine_nz/parameters/gov/msd/accommodation_supplement/income_test.yaml",
             "policyengine_nz/tests/validation/test_against_treasury.py"
+          ]
+        },
+        {
+          "oracle_id": "treasury-income-explorer",
+          "role": "Accommodation Supplement amount and income-abatement oracle inside stylized-family scenarios",
+          "files": [
+            "R/emtr.R",
+            "inst/parameters/TY27_BEFU25.yaml",
+            "data/oracles/treasury-emtr-snapshot.json"
           ]
         },
         {
@@ -839,7 +888,7 @@
   "first_parallel_workstreams": [
     {
       "id": "reference-fixture-extraction",
-      "description": "Extract small, reproducible scenario fixtures from nztaxmicrosim and OpenFisca Aotearoa without copying whole upstream repos; keep PolicyEngine NZ only for minimal smoke references.",
+      "description": "Extract small, reproducible scenario fixtures from NZ Treasury IncomeExplorer, nztaxmicrosim, and OpenFisca Aotearoa without copying whole upstream repos; keep PolicyEngine NZ only for minimal smoke references.",
       "unblocked_by_api_key": true
     },
     {
