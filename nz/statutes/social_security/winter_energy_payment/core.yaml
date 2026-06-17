@@ -1,0 +1,371 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Social Security Act 2018 sections 70 to 75 set Winter Energy Payment
+    purpose, definitions, entitlement, elections, instalments, and termination.
+    Section 220 sets the special absence rule, and Schedule 4 Part 8 sets the
+    per-winter-period rates and dependent-child category. This module encodes
+    the executable entitlement and payment surface, leaving MSD selections,
+    reviews, and care-funding determinations as factual inputs.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2018/0032/section/70
+      - nz/statute/act/public/2018/0032/section/71
+      - nz/statute/act/public/2018/0032/section/72
+      - nz/statute/act/public/2018/0032/section/73
+      - nz/statute/act/public/2018/0032/section/74
+      - nz/statute/act/public/2018/0032/section/75
+      - nz/statute/act/public/2018/0032/section/220
+      - nz/statute/act/public/2018/0032/schedule/4/part/8
+    agency_reference_urls:
+      - https://www.workandincome.govt.nz/products/a-z-benefits/winter-energy-payment.html
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: winter_energy_payment_single_no_dependent_children_rate_per_winter_period
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 8 clause 1(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          450
+  - name: winter_energy_payment_other_rate_per_winter_period
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 8 clause 1(b) and (c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          700
+  - name: winter_energy_payment_winter_period_weeks
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 71 and s 74(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          22
+  - name: winter_energy_payment_winter_period_fortnights
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 74(1)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          11
+  - name: winter_energy_payment_absence_payable_days_limit
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 220(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          28
+  - name: winter_energy_payment_residential_care_older_age_threshold
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 72(2)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          65
+  - name: winter_energy_payment_residential_care_middle_age_minimum
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 72(2)(ca)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          50
+  - name: winter_energy_payment_residential_care_middle_age_maximum
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 72(2)(ca)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          64
+  - name: winter_energy_payment_cent_rounding_scale
+    kind: parameter
+    dtype: Count
+    source: Social Security Act 2018 s 74(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          100
+  - name: winter_energy_payment_one_cent
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 s 74(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.01
+  - name: winter_energy_payment_receiving_qualifying_benefit
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 71 and s 72(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              winter_energy_payment_receiving_main_benefit
+              or winter_energy_payment_receiving_new_zealand_superannuation
+              or winter_energy_payment_receiving_veterans_pension
+          )
+  - name: winter_energy_payment_aged_65_or_over_for_residential_care
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 72(2)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          winter_energy_payment_person_age >= winter_energy_payment_residential_care_older_age_threshold
+  - name: winter_energy_payment_aged_50_to_64_for_residential_care
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 72(2)(ca)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              winter_energy_payment_person_age >= winter_energy_payment_residential_care_middle_age_minimum
+              and winter_energy_payment_person_age <= winter_energy_payment_residential_care_middle_age_maximum
+          )
+  - name: winter_energy_payment_residential_care_disqualification
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 72(2)(c), (ca), and (d)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              (
+                  winter_energy_payment_aged_65_or_over_for_residential_care
+                  and winter_energy_payment_rcdss_qualifying_person
+                  and winter_energy_payment_income_based_ltr_care_contribution_below_maximum
+              )
+              or (
+                  winter_energy_payment_aged_50_to_64_for_residential_care
+                  and winter_energy_payment_rcdss_50_plus_single_person
+                  and winter_energy_payment_income_based_ltr_care_contribution_below_maximum
+              )
+              or (
+                  winter_energy_payment_disability_or_chronic_condition_residential_care_partly_funded
+                  and winter_energy_payment_residential_care_cost_contribution_redirected_from_benefit
+              )
+          )
+  - name: winter_energy_payment_not_elected_out
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 73
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          not winter_energy_payment_valid_election_not_to_receive_in_force
+  - name: winter_energy_payment_not_disqualified
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 72(2), s 73, and s 75
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not winter_energy_payment_partnered_rate_and_partner_determined_entitled
+              and not winter_energy_payment_qualifying_benefit_reduced_to_long_term_hospital_rate_and_payment_terminated_after_review
+              and not winter_energy_payment_residential_care_disqualification
+              and winter_energy_payment_not_elected_out
+          )
+  - name: entitled_to_winter_energy_payment
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 72
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              winter_energy_payment_receiving_qualifying_benefit
+              and winter_energy_payment_qualifying_benefit_payable
+              and winter_energy_payment_not_disqualified
+          )
+  - name: winter_energy_payment_payable_during_absence_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 220
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not winter_energy_payment_absent_from_new_zealand
+              or (
+                  winter_energy_payment_payment_would_be_payable_but_for_absence
+                  and winter_energy_payment_absence_days_during_winter_period <= winter_energy_payment_absence_payable_days_limit
+                  and winter_energy_payment_absence_days_do_not_affect_section_72_eligibility
+              )
+          )
+  - name: winter_energy_payment_payable
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 ss 72, 74, and 220
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              entitled_to_winter_energy_payment
+              and winter_energy_payment_payable_during_absence_requirement
+          )
+  - name: winter_energy_payment_rate_per_winter_period
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              winter_energy_payment_single
+              and not winter_energy_payment_has_dependent_children
+          ):
+              winter_energy_payment_single_no_dependent_children_rate_per_winter_period
+          else:
+              winter_energy_payment_other_rate_per_winter_period
+  - name: winter_energy_payment_amount_per_winter_period
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 ss 72 and 74 and Schedule 4 Part 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if winter_energy_payment_payable:
+              winter_energy_payment_rate_per_winter_period
+          else:
+              0
+  - name: winter_energy_payment_weekly_instalment
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 74(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              (
+                  winter_energy_payment_rate_per_winter_period
+                  / winter_energy_payment_winter_period_weeks
+              )
+              > (
+                  floor(
+                      (
+                          winter_energy_payment_rate_per_winter_period
+                          / winter_energy_payment_winter_period_weeks
+                      )
+                      * winter_energy_payment_cent_rounding_scale
+                  )
+                  / winter_energy_payment_cent_rounding_scale
+              )
+          ):
+              (
+                  (
+                      floor(
+                          (
+                              winter_energy_payment_rate_per_winter_period
+                              / winter_energy_payment_winter_period_weeks
+                          )
+                          * winter_energy_payment_cent_rounding_scale
+                      )
+                      / winter_energy_payment_cent_rounding_scale
+                  )
+                  + winter_energy_payment_one_cent
+              )
+          else:
+              (
+                  floor(
+                      (
+                          winter_energy_payment_rate_per_winter_period
+                          / winter_energy_payment_winter_period_weeks
+                      )
+                      * winter_energy_payment_cent_rounding_scale
+                  )
+                  / winter_energy_payment_cent_rounding_scale
+              )
+  - name: winter_energy_payment_fortnightly_instalment
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 74(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              (
+                  winter_energy_payment_rate_per_winter_period
+                  / winter_energy_payment_winter_period_fortnights
+              )
+              > (
+                  floor(
+                      (
+                          winter_energy_payment_rate_per_winter_period
+                          / winter_energy_payment_winter_period_fortnights
+                      )
+                      * winter_energy_payment_cent_rounding_scale
+                  )
+                  / winter_energy_payment_cent_rounding_scale
+              )
+          ):
+              (
+                  (
+                      floor(
+                          (
+                              winter_energy_payment_rate_per_winter_period
+                              / winter_energy_payment_winter_period_fortnights
+                          )
+                          * winter_energy_payment_cent_rounding_scale
+                      )
+                      / winter_energy_payment_cent_rounding_scale
+                  )
+                  + winter_energy_payment_one_cent
+              )
+          else:
+              (
+                  floor(
+                      (
+                          winter_energy_payment_rate_per_winter_period
+                          / winter_energy_payment_winter_period_fortnights
+                      )
+                      * winter_energy_payment_cent_rounding_scale
+                  )
+                  / winter_energy_payment_cent_rounding_scale
+              )
