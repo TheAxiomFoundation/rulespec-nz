@@ -1,0 +1,556 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Social Security Act 2018 sections 65 to 69 set Accommodation Supplement
+    entitlement gates, section 65AAA defines accommodation costs, Schedule 4
+    Part 7 sets the weekly formula and maximums by area and family category,
+    and Social Security Regulations 2018 regulations 15 to 19 set the asset
+    limits, delegated base-rate mechanics, income reduction for
+    non-beneficiaries, and dollar rounding. This module encodes the executable
+    core calculation while taking the delegated base rate and non-beneficiary
+    income cutout as inputs for later cross-module wiring.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2018/0032/section/65AAA
+      - nz/statute/act/public/2018/0032/section/65
+      - nz/statute/act/public/2018/0032/section/66
+      - nz/statute/act/public/2018/0032/section/67
+      - nz/statute/act/public/2018/0032/section/68
+      - nz/statute/act/public/2018/0032/section/69
+      - nz/statute/act/public/2018/0032/section/423
+      - nz/statute/act/public/2018/0032/schedule/4/part/7
+      - nz/regulation/regulation/public/2018/0202/regulation/15
+      - nz/regulation/regulation/public/2018/0202/regulation/17
+      - nz/regulation/regulation/public/2018/0202/regulation/18
+      - nz/regulation/regulation/public/2018/0202/regulation/19
+    agency_reference_urls:
+      - https://www.workandincome.govt.nz/products/benefit-rates/benefit-rates-april-2026.html
+      - https://www.workandincome.govt.nz/products/a-z-benefits/accommodation-supplement.html
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: accommodation_supplement_cash_asset_limit_partnered_or_with_children
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 reg 15(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          16200
+  - name: accommodation_supplement_cash_asset_limit_other
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 reg 15(1)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          8100
+  - name: accommodation_supplement_board_and_contribution_fraction
+    kind: parameter
+    dtype: Rate
+    source: Social Security Act 2018 s 65AAA and Schedule 4 Part 7 clause 7
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.62
+  - name: accommodation_supplement_rent_board_entry_threshold_rate
+    kind: parameter
+    dtype: Rate
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.25
+  - name: accommodation_supplement_homeownership_entry_threshold_rate
+    kind: parameter
+    dtype: Rate
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 4 to 6
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.30
+  - name: accommodation_supplement_rebate_rate
+    kind: parameter
+    dtype: Rate
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.70
+  - name: accommodation_supplement_non_beneficiary_income_reduction_rate
+    kind: parameter
+    dtype: Rate
+    source: Social Security Regulations 2018 reg 18(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.25
+  - name: accommodation_supplement_full_premises_area_ratio
+    kind: parameter
+    dtype: Rate
+    source: Social Security Act 2018 Schedule 4 Part 7 clause 7 formula, term 1 minus excluded-area ratio
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1
+  - name: accommodation_supplement_complete_dollar_rounding_increment
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Regulations 2018 reg 19 requires rounding up to the complete dollar
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1
+  - name: accommodation_supplement_large_family_area_1_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(a) and 4(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          305
+  - name: accommodation_supplement_large_family_area_2_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(b) and 4(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          220
+  - name: accommodation_supplement_large_family_area_3_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(c) and 4(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          160
+  - name: accommodation_supplement_large_family_area_4_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(d) and 4(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          120
+  - name: accommodation_supplement_middle_family_area_1_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(a) and 5(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          235
+  - name: accommodation_supplement_middle_family_area_2_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(b) and 5(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          155
+  - name: accommodation_supplement_middle_family_area_3_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(c) and 5(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          105
+  - name: accommodation_supplement_middle_family_area_4_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(d) and 5(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          80
+  - name: accommodation_supplement_other_area_1_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(a) and 6(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          165
+  - name: accommodation_supplement_other_area_2_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(b) and 6(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          105
+  - name: accommodation_supplement_other_area_3_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(c) and 6(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          80
+  - name: accommodation_supplement_other_area_4_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(d) and 6(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          70
+  - name: accommodation_supplement_cash_assets_within_limit
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 65(1)(b); Social Security Regulations 2018 reg 15
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              (
+                  (
+                      accommodation_supplement_in_relationship
+                      or accommodation_supplement_has_dependent_children
+                  )
+                  and (
+                      accommodation_supplement_cash_assets
+                      <= accommodation_supplement_cash_asset_limit_partnered_or_with_children
+                  )
+              )
+              or (
+                  not accommodation_supplement_in_relationship
+                  and not accommodation_supplement_has_dependent_children
+                  and accommodation_supplement_cash_assets <= accommodation_supplement_cash_asset_limit_other
+              )
+          )
+  - name: accommodation_supplement_social_housing_exclusion_not_applies
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 66
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not accommodation_supplement_rent_paid_to_kainga_ora
+              and not accommodation_supplement_rent_paid_to_registered_community_housing_provider_social_housing
+              and not accommodation_supplement_concessionary_mortgage_payments_to_kainga_ora_or_crown
+          )
+  - name: accommodation_supplement_other_funding_exclusion_not_applies
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 s 67
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              (
+                  not accommodation_supplement_partner_receiving_accommodation_supplement
+                  or accommodation_supplement_section_68_joint_tenant_exception_applies
+              )
+              and not accommodation_supplement_receiving_or_eligible_for_student_allowance_grant
+              and not accommodation_supplement_residential_care_funded_under_residential_care_act
+              and not accommodation_supplement_disability_accommodation_or_care_funded_under_pae_ora_act
+              and not accommodation_supplement_super_or_veterans_pension_income_above_schedule_5_limit
+          )
+  - name: accommodation_supplement_non_rate_entitlement_requirements
+    kind: derived
+    entity: Family
+    dtype: Judgment
+    period: Year
+    source: Social Security Act 2018 ss 65 to 67
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              accommodation_supplement_has_accommodation_costs
+              and accommodation_supplement_cash_assets_within_limit
+              and accommodation_supplement_social_housing_exclusion_not_applies
+              and accommodation_supplement_other_funding_exclusion_not_applies
+          )
+  - name: accommodation_supplement_weekly_accommodation_costs
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 s 65AAA definition of accommodation costs
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if accommodation_supplement_owns_premises_and_not_joint_owner_with_resident:
+              accommodation_supplement_owner_weekly_required_payments
+          else:
+              if accommodation_supplement_joint_owner_with_resident:
+                  accommodation_supplement_owner_weekly_payment_share
+              else:
+                  if accommodation_supplement_additional_resident_in_social_housing:
+                      (
+                          accommodation_supplement_social_housing_weekly_contributions_paid
+                          * accommodation_supplement_board_and_contribution_fraction
+                      )
+                  else:
+                      if accommodation_supplement_boarder:
+                          (
+                              accommodation_supplement_weekly_board_and_lodgings_paid
+                              * accommodation_supplement_board_and_contribution_fraction
+                          )
+                      else:
+                          accommodation_supplement_weekly_rent_paid
+  - name: accommodation_supplement_weekly_accommodation_income
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clause 7 definition of accommodation income
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              max(0, accommodation_supplement_weekly_rent_received_from_other_residents)
+              + (
+                  max(
+                      0,
+                      accommodation_supplement_weekly_contributions_received_from_additional_residents
+                  )
+                  * accommodation_supplement_board_and_contribution_fraction
+              )
+              + (
+                  max(0, accommodation_supplement_weekly_boarder_payments_received)
+                  * accommodation_supplement_board_and_contribution_fraction
+              )
+          )
+  - name: accommodation_supplement_weekly_qualifying_accommodation_costs
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clause 7 definition of weekly qualifying accommodation costs
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if accommodation_supplement_total_premises_area > 0:
+              max(
+                  0,
+                  (
+                      accommodation_supplement_weekly_accommodation_costs
+                      * (
+                          accommodation_supplement_full_premises_area_ratio
+                          - (
+                              (
+                                  accommodation_supplement_business_use_area
+                                  + accommodation_supplement_self_contained_area_let_to_residents
+                                  + accommodation_supplement_area_let_to_nonresidents
+                              )
+                              / accommodation_supplement_total_premises_area
+                          )
+                      )
+                  )
+                  - accommodation_supplement_weekly_accommodation_income
+              )
+          else:
+              max(
+                  0,
+                  accommodation_supplement_weekly_accommodation_costs
+                  - accommodation_supplement_weekly_accommodation_income
+              )
+  - name: accommodation_supplement_entry_threshold_rate
+    kind: derived
+    entity: Family
+    dtype: Rate
+    period: Year
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if accommodation_supplement_costs_are_homeownership:
+              accommodation_supplement_homeownership_entry_threshold_rate
+          else:
+              accommodation_supplement_rent_board_entry_threshold_rate
+  - name: accommodation_supplement_entry_threshold_weekly_amount
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6; Social Security Regulations 2018 reg 17
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              accommodation_supplement_base_rate_weekly_amount
+              * accommodation_supplement_entry_threshold_rate
+          )
+  - name: accommodation_supplement_maximum_weekly_rate
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6; Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              (
+                  accommodation_supplement_in_relationship
+                  and accommodation_supplement_has_dependent_children
+              )
+              or (
+                  accommodation_supplement_sole_parent
+                  and accommodation_supplement_has_two_or_more_dependent_children
+              )
+          ):
+              if accommodation_supplement_resides_in_area_1:
+                  accommodation_supplement_large_family_area_1_maximum_weekly_rate
+              else:
+                  if accommodation_supplement_resides_in_area_2:
+                      accommodation_supplement_large_family_area_2_maximum_weekly_rate
+                  else:
+                      if accommodation_supplement_resides_in_area_3:
+                          accommodation_supplement_large_family_area_3_maximum_weekly_rate
+                      else:
+                          accommodation_supplement_large_family_area_4_maximum_weekly_rate
+          else:
+              if (
+                  (
+                      accommodation_supplement_in_relationship
+                      and not accommodation_supplement_has_dependent_children
+                  )
+                  or (
+                      accommodation_supplement_sole_parent
+                      and accommodation_supplement_has_dependent_children
+                      and not accommodation_supplement_has_two_or_more_dependent_children
+                  )
+              ):
+                  if accommodation_supplement_resides_in_area_1:
+                      accommodation_supplement_middle_family_area_1_maximum_weekly_rate
+                  else:
+                      if accommodation_supplement_resides_in_area_2:
+                          accommodation_supplement_middle_family_area_2_maximum_weekly_rate
+                      else:
+                          if accommodation_supplement_resides_in_area_3:
+                              accommodation_supplement_middle_family_area_3_maximum_weekly_rate
+                          else:
+                              accommodation_supplement_middle_family_area_4_maximum_weekly_rate
+              else:
+                  if accommodation_supplement_resides_in_area_1:
+                      accommodation_supplement_other_area_1_maximum_weekly_rate
+                  else:
+                      if accommodation_supplement_resides_in_area_2:
+                          accommodation_supplement_other_area_2_maximum_weekly_rate
+                      else:
+                          if accommodation_supplement_resides_in_area_3:
+                              accommodation_supplement_other_area_3_maximum_weekly_rate
+                          else:
+                              accommodation_supplement_other_area_4_maximum_weekly_rate
+  - name: accommodation_supplement_formula_weekly_amount_before_cap
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              max(
+                  0,
+                  accommodation_supplement_weekly_qualifying_accommodation_costs
+                  - accommodation_supplement_entry_threshold_weekly_amount
+              )
+              * accommodation_supplement_rebate_rate
+          )
+  - name: accommodation_supplement_assessed_weekly_amount_before_income_reduction
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          min(
+              accommodation_supplement_formula_weekly_amount_before_cap,
+              accommodation_supplement_maximum_weekly_rate
+          )
+  - name: accommodation_supplement_non_beneficiary_income_reduction
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 reg 18
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if accommodation_supplement_non_beneficiary:
+              (
+                  max(
+                      0,
+                      accommodation_supplement_relevant_weekly_income
+                      - accommodation_supplement_non_beneficiary_income_cutout_weekly_amount
+                  )
+                  * accommodation_supplement_non_beneficiary_income_reduction_rate
+              )
+          else:
+              0
+  - name: accommodation_supplement_weekly_amount_before_rounding
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 regs 18 and 19
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              accommodation_supplement_assessed_weekly_amount_before_income_reduction
+              - accommodation_supplement_non_beneficiary_income_reduction
+          )
+  - name: accommodation_supplement_rounded_weekly_payment
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Social Security Regulations 2018 reg 19
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              accommodation_supplement_weekly_amount_before_rounding
+              > floor(accommodation_supplement_weekly_amount_before_rounding)
+          ):
+              (
+                  floor(accommodation_supplement_weekly_amount_before_rounding)
+                  + accommodation_supplement_complete_dollar_rounding_increment
+              )
+          else:
+              floor(accommodation_supplement_weekly_amount_before_rounding)
