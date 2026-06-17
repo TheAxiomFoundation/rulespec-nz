@@ -1,0 +1,267 @@
+- name: community_services_card_main_benefit_route
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input: &base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_income: 60000.75
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_superannuation_income: 70000.99
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_credit_income: 130000.25
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_married_or_partnered: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_single_person_living_alone: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_family_size: 1
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_family_adult_count: 1
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_dependent_children_count: 0
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receives_current_family_assistance_credit_instalments: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_received_family_assistance_credit_in_preceding_tax_year: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_sole_parent_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_supported_living_payment: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_emergency_benefit_instead_of_listed_main_benefit: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_veterans_pension: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_youth_payment: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_young_parent_payment: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_accommodation_supplement: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receiving_veterans_support_weekly_income_compensation: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receiving_veterans_support_weekly_compensation: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_is_child: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_orphans_benefit_payable_for_person: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_unsupported_childs_benefit_payable_for_person: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_child_disability_allowance_payable_for_person: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_tenant_of_social_housing: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_ordinarily_resident_in_new_zealand: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_age_years: 30
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_is_dependent_child: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_age_would_entitle_another_person_to_family_assistance_credit: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_is_superannuitant: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receives_veterans_pension: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_receives_grandparented_nz_super_or_veterans_pension_rate: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_student_in_recognised_full_time_tertiary_course: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receiving_residential_care_disability_services_funded_under_pae_ora: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_financial_means_assessed_under_residential_care_and_disability_support_services_act: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_is_eligible_for_community_services_card: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_receiving_residential_care_disability_services_funded_under_pae_ora: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_eligible_only_by_young_parent_payment_route: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_is_veteran_to_whom_veterans_support_act_section_162_applies: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_eligible_for_supergold_card: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_minimum_age_without_dependent_children: 16
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_limit_single_shared_accommodation: 34974
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_limit_single_living_alone: 37116
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_limit_partnered: 55501
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_limit_single_shared_accommodation: 37372
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_limit_single_living_alone: 39796
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_limit_partnered: 59694
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_two_person_family: 67791
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_three_person_family: 83444
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_four_person_family: 96266
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_five_person_family: 108860
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_six_person_family: 122724
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_each_additional_person: 12440
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit_six_person_family_size: 6
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_definition_minimum_adults: 1
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_definition_maximum_adults: 2
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_route_backdate_months: 3
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_income_test_route_backdate_days: 28
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_maximum_expiry_years_after_commencement: 3
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_income_assessment_lookback_years_maximum: 2
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_assessed_family_income: 60000
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_assessed_superannuation_income: 70000
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_assessed_family_credit_income: 130000
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_limit: 34974
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_limit: 37372
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_additional_person_count: 0
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit: 67791
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_under_limit: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_under_limit: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_under_limit: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_group_for_dependent_child_threshold: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_assistance_credit_entitlement: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_main_benefit_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_veterans_support_compensation_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_child_benefit_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_dependent_children_income_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_no_dependent_children_income_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuitant_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_student_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_residential_care_disability_services_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_personal_eligibility_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_young_parent_payment_exception_satisfied: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_issue_power_available: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_supergold_code_issue_power_available: holds
+
+- name: community_services_card_dependent_children_income_route_for_large_family
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_credit_income: 135164.90
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_family_size: 7
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_family_adult_count: 2
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_dependent_children_count: 5
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_assessed_family_credit_income: 135164
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_additional_person_count: 1
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit: 135164
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_under_limit: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_group_for_dependent_child_threshold: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_dependent_children_income_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_dependent_children_family_assistance_credit_route
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_credit_income: 83444
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_family_size: 3
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_dependent_children_count: 1
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_ordinarily_resident_in_new_zealand: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receives_current_family_assistance_credit_instalments: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_credit_income_limit: 83444
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_assistance_credit_entitlement: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_dependent_children_income_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_no_dependent_children_living_alone
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_income: 37116.99
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_single_person_living_alone: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_assessed_family_income: 37116
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_limit: 37116
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_under_limit: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_no_dependent_children_income_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_no_dependent_children_blocked_by_superannuitant_status
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_income: 30000
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_is_superannuitant: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_superannuation_income: 50000
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_no_dependent_children_income_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuitant_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: not_holds
+
+- name: community_services_card_superannuitant_partnered_income_route
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_married_or_partnered: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_superannuation_income: 59694
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_is_superannuitant: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_limit: 59694
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuation_income_under_limit: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_superannuitant_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_student_partnered_income_route
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_married_or_partnered: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_raw_family_income: 55501
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_student_in_recognised_full_time_tertiary_course: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_limit: 55501
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_family_income_under_limit: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_student_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_child_social_housing_veterans_and_residential_care_routes
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receiving_veterans_support_weekly_compensation: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_person_is_child: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_child_disability_allowance_payable_for_person: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_tenant_of_social_housing: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_receiving_residential_care_disability_services_funded_under_pae_ora: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_financial_means_assessed_under_residential_care_and_disability_support_services_act: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_veterans_support_compensation_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_child_benefit_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_residential_care_disability_services_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_personal_eligibility_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_partner_route_holds
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_is_eligible_for_community_services_card: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_personal_eligibility_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_young_parent_payment_exception_satisfied: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds
+
+- name: community_services_card_partner_route_blocked_by_young_parent_payment_exception
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_is_eligible_for_community_services_card: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_eligible_only_by_young_parent_payment_route: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_young_parent_payment_exception_satisfied: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_route: not_holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: not_holds
+
+- name: community_services_card_partner_route_young_parent_payment_veteran_exception
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    <<: *base_community_services_card_input
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_applied_for_and_entitled_to_jobseeker_support: false
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_is_eligible_for_community_services_card: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_eligible_only_by_young_parent_payment_route: true
+    nz:regulations/health_entitlement_cards/community_services_card/core#input.community_services_card_spouse_or_partner_is_veteran_to_whom_veterans_support_act_section_162_applies: true
+  output:
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_young_parent_payment_exception_satisfied: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_partner_route: holds
+    nz:regulations/health_entitlement_cards/community_services_card/core#community_services_card_eligible: holds

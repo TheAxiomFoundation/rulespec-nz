@@ -1,0 +1,590 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Health Entitlement Cards Regulations 1993 Part 1 defines Community
+    Services Card eligibility, issue powers, SuperGold Card coding, card
+    commencement and expiry limits, and income ascertainment. This module
+    encodes the current regulation 8 eligibility routes and the 2026 income
+    thresholds. Cross-Act predicates such as Social Security Act benefit
+    entitlement, Income Tax Act family assistance credit entitlement, social
+    housing tenancy, Veterans' Support Act compensation, and Pae Ora-funded
+    residential care disability services are factual inputs pending dedicated
+    cross-module wiring.
+  source_verification:
+    corpus_citation_paths:
+      - nz/regulation/regulation/public/1993/0169/regulation/2
+      - nz/regulation/regulation/public/1993/0169/regulation/4
+      - nz/regulation/regulation/public/1993/0169/regulation/4A
+      - nz/regulation/regulation/public/1993/0169/regulation/5
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/1
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/3
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/4
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/5
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/5A
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/6
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/7
+      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/8
+      - nz/regulation/regulation/public/1993/0169/regulation/9
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: community_services_card_minimum_age_without_dependent_children
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(d)(iii)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          16
+  - name: community_services_card_family_income_limit_single_shared_accommodation
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          34974
+  - name: community_services_card_family_income_limit_single_living_alone
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          37116
+  - name: community_services_card_family_income_limit_partnered
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          55501
+  - name: community_services_card_superannuation_income_limit_single_shared_accommodation
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5A)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          37372
+  - name: community_services_card_superannuation_income_limit_single_living_alone
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5A)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          39796
+  - name: community_services_card_superannuation_income_limit_partnered
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5A)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          59694
+  - name: community_services_card_family_credit_income_limit_two_person_family
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          67791
+  - name: community_services_card_family_credit_income_limit_three_person_family
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          83444
+  - name: community_services_card_family_credit_income_limit_four_person_family
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          96266
+  - name: community_services_card_family_credit_income_limit_five_person_family
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(d)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          108860
+  - name: community_services_card_family_credit_income_limit_six_person_family
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          122724
+  - name: community_services_card_family_credit_income_limit_each_additional_person
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          12440
+  - name: community_services_card_family_credit_income_limit_six_person_family_size
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          6
+  - name: community_services_card_family_definition_minimum_adults
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 8(7)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1
+  - name: community_services_card_family_definition_maximum_adults
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 8(7)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2
+  - name: community_services_card_family_credit_route_backdate_months
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 5(2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3
+  - name: community_services_card_income_test_route_backdate_days
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 5(2)(c)(i)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          28
+  - name: community_services_card_maximum_expiry_years_after_commencement
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 5(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3
+  - name: community_services_card_income_assessment_lookback_years_maximum
+    kind: parameter
+    dtype: Count
+    source: Health Entitlement Cards Regulations 1993 reg 9(2)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2
+  - name: community_services_card_assessed_family_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 9(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          floor(community_services_card_raw_family_income)
+  - name: community_services_card_assessed_superannuation_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 9(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          floor(community_services_card_raw_superannuation_income)
+  - name: community_services_card_assessed_family_credit_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 9(3)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          floor(community_services_card_raw_family_credit_income)
+  - name: community_services_card_family_income_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if community_services_card_person_married_or_partnered:
+              community_services_card_family_income_limit_partnered
+          else:
+              if community_services_card_single_person_living_alone:
+                  community_services_card_family_income_limit_single_living_alone
+              else:
+                  community_services_card_family_income_limit_single_shared_accommodation
+  - name: community_services_card_superannuation_income_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(5A)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if community_services_card_person_married_or_partnered:
+              community_services_card_superannuation_income_limit_partnered
+          else:
+              if community_services_card_single_person_living_alone:
+                  community_services_card_superannuation_income_limit_single_living_alone
+              else:
+                  community_services_card_superannuation_income_limit_single_shared_accommodation
+  - name: community_services_card_family_credit_income_additional_person_count
+    kind: derived
+    entity: Person
+    dtype: Count
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              community_services_card_family_size
+              <= community_services_card_family_credit_income_limit_six_person_family_size
+          ):
+              0
+          else:
+              (
+                  community_services_card_family_size
+                  - community_services_card_family_credit_income_limit_six_person_family_size
+              )
+  - name: community_services_card_family_credit_income_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Health Entitlement Cards Regulations 1993 reg 8(6) and (7)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if community_services_card_family_size <= 2:
+              community_services_card_family_credit_income_limit_two_person_family
+          else:
+              if community_services_card_family_size == 3:
+                  community_services_card_family_credit_income_limit_three_person_family
+              else:
+                  if community_services_card_family_size == 4:
+                      community_services_card_family_credit_income_limit_four_person_family
+                  else:
+                      if community_services_card_family_size == 5:
+                          community_services_card_family_credit_income_limit_five_person_family
+                      else:
+                          (
+                              community_services_card_family_credit_income_limit_six_person_family
+                              + community_services_card_family_credit_income_additional_person_count
+                              * community_services_card_family_credit_income_limit_each_additional_person
+                          )
+  - name: community_services_card_family_income_under_limit
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(d), 8(1)(f), and 8(5)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          community_services_card_assessed_family_income <= community_services_card_family_income_limit
+  - name: community_services_card_superannuation_income_under_limit
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(e) and 8(5A)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          community_services_card_assessed_superannuation_income <= community_services_card_superannuation_income_limit
+  - name: community_services_card_family_credit_income_under_limit
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(c) and 8(6)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          community_services_card_assessed_family_credit_income <= community_services_card_family_credit_income_limit
+  - name: community_services_card_family_group_for_dependent_child_threshold
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(7)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_family_adult_count
+              >= community_services_card_family_definition_minimum_adults
+              and community_services_card_family_adult_count
+              <= community_services_card_family_definition_maximum_adults
+              and community_services_card_dependent_children_count >= 1
+          )
+  - name: community_services_card_family_assistance_credit_entitlement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(4)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_receives_current_family_assistance_credit_instalments
+              or community_services_card_received_family_assistance_credit_in_preceding_tax_year
+          )
+  - name: community_services_card_main_benefit_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_applied_for_and_entitled_to_sole_parent_support
+              or community_services_card_applied_for_and_entitled_to_supported_living_payment
+              or community_services_card_applied_for_and_entitled_to_jobseeker_support
+              or community_services_card_applied_for_and_entitled_to_emergency_benefit_instead_of_listed_main_benefit
+              or community_services_card_applied_for_and_entitled_to_veterans_pension
+              or community_services_card_applied_for_and_entitled_to_youth_payment
+              or community_services_card_applied_for_and_entitled_to_young_parent_payment
+              or community_services_card_applied_for_and_entitled_to_accommodation_supplement
+          )
+  - name: community_services_card_veterans_support_compensation_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(ab)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_receiving_veterans_support_weekly_income_compensation
+              or community_services_card_receiving_veterans_support_weekly_compensation
+          )
+  - name: community_services_card_child_benefit_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_person_is_child
+              and (
+                  community_services_card_orphans_benefit_payable_for_person
+                  or community_services_card_unsupported_childs_benefit_payable_for_person
+                  or community_services_card_child_disability_allowance_payable_for_person
+              )
+          )
+  - name: community_services_card_dependent_children_income_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(c)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_family_group_for_dependent_child_threshold
+              and community_services_card_family_credit_income_under_limit
+              and (
+                  community_services_card_ordinarily_resident_in_new_zealand
+                  or community_services_card_family_assistance_credit_entitlement
+              )
+          )
+  - name: community_services_card_no_dependent_children_income_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(d)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_family_income_under_limit
+              and community_services_card_dependent_children_count == 0
+              and community_services_card_ordinarily_resident_in_new_zealand
+              and community_services_card_person_age_years
+              >= community_services_card_minimum_age_without_dependent_children
+              and not community_services_card_person_is_dependent_child
+              and not community_services_card_person_age_would_entitle_another_person_to_family_assistance_credit
+              and not community_services_card_person_is_superannuitant
+              and not community_services_card_receives_veterans_pension
+              and not community_services_card_spouse_or_partner_receives_grandparented_nz_super_or_veterans_pension_rate
+              and not community_services_card_receiving_veterans_support_weekly_income_compensation
+              and not community_services_card_receiving_veterans_support_weekly_compensation
+          )
+  - name: community_services_card_superannuitant_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(e)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_person_is_superannuitant
+              and community_services_card_superannuation_income_under_limit
+          )
+  - name: community_services_card_student_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(f)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_student_in_recognised_full_time_tertiary_course
+              and community_services_card_ordinarily_resident_in_new_zealand
+              and community_services_card_family_income_under_limit
+          )
+  - name: community_services_card_residential_care_disability_services_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)(g)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_receiving_residential_care_disability_services_funded_under_pae_ora
+              and community_services_card_financial_means_assessed_under_residential_care_and_disability_support_services_act
+          )
+  - name: community_services_card_personal_eligibility_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(1)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_main_benefit_route
+              or community_services_card_veterans_support_compensation_route
+              or community_services_card_child_benefit_route
+              or community_services_card_tenant_of_social_housing
+              or community_services_card_dependent_children_income_route
+              or community_services_card_no_dependent_children_income_route
+              or community_services_card_superannuitant_route
+              or community_services_card_student_route
+              or community_services_card_residential_care_disability_services_route
+          )
+  - name: community_services_card_partner_young_parent_payment_exception_satisfied
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(3A)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              not community_services_card_spouse_or_partner_eligible_only_by_young_parent_payment_route
+              or community_services_card_spouse_or_partner_is_veteran_to_whom_veterans_support_act_section_162_applies
+          )
+  - name: community_services_card_partner_route
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 8(3) and 8(3A)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_spouse_or_partner_is_eligible_for_community_services_card
+              and community_services_card_ordinarily_resident_in_new_zealand
+              and not community_services_card_receiving_residential_care_disability_services_funded_under_pae_ora
+              and not community_services_card_spouse_or_partner_receiving_residential_care_disability_services_funded_under_pae_ora
+              and community_services_card_partner_young_parent_payment_exception_satisfied
+          )
+  - name: community_services_card_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 regs 4 and 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_personal_eligibility_route
+              or community_services_card_partner_route
+          )
+  - name: community_services_card_issue_power_available
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 4(1)(a)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          community_services_card_eligible
+  - name: community_services_card_supergold_code_issue_power_available
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Health Entitlement Cards Regulations 1993 reg 4A
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              community_services_card_eligible
+              and community_services_card_person_eligible_for_supergold_card
+          )

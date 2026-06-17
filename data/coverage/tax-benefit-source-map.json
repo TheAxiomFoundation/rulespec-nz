@@ -628,6 +628,11 @@
           "files": ["src/benefit_rules.py", "src/benefits.py", "docs/parameter_coverage.md"]
         },
         {
+          "oracle_id": "treasury-income-explorer",
+          "role": "checked for Community Services Card, childcare, and disability direct coverage; no direct health-card surface at pinned commit, but still used for downstream net-income and EMTR interactions",
+          "files": ["R/emtr.R", "ui.R", "inst/parameters/TY27_BEFU25.yaml"]
+        },
+        {
           "oracle_id": "openfisca-aotearoa",
           "role": "childcare, disability, and health variables oracle",
           "files": [
@@ -657,6 +662,12 @@
           "destination": "nz/statutes/social_security/disability_allowance/",
           "source_requirements": ["Social Security Act 2018 ss 84-88, Schedule 3 clause 19, Schedule 4 Part 9, and Schedule 5 Part 3", "Social Security Regulations 2018 regs 50-52"],
           "oracle_checks": ["openfisca-aotearoa:disability_allowance tests"]
+        },
+        {
+          "id": "community-services-card-core",
+          "destination": "nz/regulations/health_entitlement_cards/community_services_card/",
+          "source_requirements": ["Health Entitlement Cards Regulations 1993 regs 2, 4, 4A, 5, 8, and 9"],
+          "oracle_checks": ["openfisca-aotearoa:community_services_card tests", "treasury-income-explorer:no direct community-services-card surface at 741a6ca"]
         }
       ]
     },
