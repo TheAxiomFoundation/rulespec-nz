@@ -2,7 +2,7 @@
 
 New Zealand RuleSpec encodings and source registry.
 
-This repository is the full-country Aotearoa New Zealand RuleSpec workspace. It is intended to cover the complete tax, transfer, social insurance, student support, family assistance, housing support, and related eligibility surface, with official source provenance and oracle comparisons from existing NZ models.
+This repository is the full-country Aotearoa New Zealand RuleSpec workspace. It is intended to cover the complete tax, transfer, social insurance, student support, family assistance, housing support, and related eligibility surface, with official source provenance and comparison references from existing NZ models.
 
 ## Scope
 
@@ -10,16 +10,16 @@ This repository is the full-country Aotearoa New Zealand RuleSpec workspace. It 
 - `nz/regulations/`: regulations, orders, determinations, and delegated instruments.
 - `nz/policies/`: agency guidance, rate tables, calculator-facing policies, and executable policy surfaces when statute/regulation decomposition is not yet complete.
 - `data/corpus/`: source inventory, provision slices, and coverage artifacts promoted from official NZ source ingestion.
-- `data/oracles/`: reproducible references to oracle models and datasets used to cross-check Axiom outputs.
+- `data/oracles/`: reproducible references to comparison models and datasets used to cross-check Axiom outputs.
 - `data/coverage/`: full-country coverage backlog and status.
 
-The detailed tax-benefit intake map is `data/coverage/tax-benefit-source-map.json`. It links each priority track to official source families, pinned oracle files, and first RuleSpec encoding batches.
+The detailed tax-benefit intake map is `data/coverage/tax-benefit-source-map.json`. It links each priority track to official source families, pinned comparison files, and first RuleSpec encoding batches.
 
-## Initial Oracles
+## Initial References
 
-The first oracle set is intentionally broad:
+The first reference set is intentionally broad:
 
-- PolicyEngine NZ for current PolicyEngine-style tests and parameters.
+- PolicyEngine NZ only as a minimal PolicyEngine-style smoke/reference surface, not as an authoritative oracle.
 - Dylan Mordaunt's `nztaxmicrosim` for historical tax, WFF, benefits, levies, and synthetic-population-oriented logic.
 - Dylan Mordaunt's `openfisca-aotearoa` for OpenFisca variables, parameters, tests, and ontology notes.
 - Dylan Mordaunt's AU/NZ legislation, NLP, dynamic simulation, value-of-information, and policy-diffusion repositories as supporting source and research infrastructure.
@@ -32,9 +32,9 @@ This is not a pilot repo. The target is full NZ coverage. The work should procee
 
 1. Official source spine: NZ Legislation, IRD, MSD/Work and Income, ACC, Studylink, Education, Local Government/rates, and Stats NZ definitions.
 2. Corpus ingestion: source snapshots, normalized provisions, coverage reports, and inventory manifests for each source family.
-3. Oracle extraction: normalized scenarios and expected outputs from PolicyEngine NZ, nztaxmicrosim, and OpenFisca Aotearoa.
+3. Reference extraction: normalized scenarios and expected outputs from nztaxmicrosim, OpenFisca Aotearoa, and minimal smoke references from PolicyEngine NZ.
 4. RuleSpec encoding: source-grounded modules under `nz/statutes`, `nz/regulations`, and `nz/policies`.
-5. Parity: compare Axiom outputs against oracle cases, then mark divergences as either Axiom bugs, oracle bugs, or legally meaningful interpretation questions.
+5. Parity: compare Axiom outputs against reference cases, then mark divergences as either Axiom bugs, reference bugs, or legally meaningful interpretation questions.
 
 The first source-first ingestion lane is the NZ Legislation PCO XML adapter in `axiom-corpus`. With an official API key available in `NZ_LEGISLATION_API_KEY`, acquire XML sources first:
 
@@ -59,4 +59,4 @@ Use the official API or data.govt.nz bulk XML directory for Acts, regulations, B
 
 ## Conventions
 
-Durable ids are `nz:<path>#<rule>`. Keep source law provenance in corpus artifacts and use `module.source_verification.corpus_citation_path` or `corpus_citation_paths` in encoded RuleSpec. Do not copy full external oracle repositories into this repo; pin their SHAs and extract only minimal comparison fixtures when needed.
+Durable ids are `nz:<path>#<rule>`. Keep source law provenance in corpus artifacts and use `module.source_verification.corpus_citation_path` or `corpus_citation_paths` in encoded RuleSpec. Do not copy full external comparison repositories into this repo; pin their SHAs and extract only minimal comparison fixtures when needed.

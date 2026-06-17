@@ -2,11 +2,11 @@
   "generated_at": "2026-06-16",
   "jurisdiction": "nz",
   "scope": "full_tax_benefit_surface",
-  "purpose": "Machine-readable intake map from full-country NZ tax-benefit tracks to official source families, pinned executable oracles, and first RuleSpec encoding batches.",
+  "purpose": "Machine-readable intake map from full-country NZ tax-benefit tracks to official source families, pinned comparison references, and first RuleSpec encoding batches.",
   "source_priority": [
     "Official legislation and delegated instruments from New Zealand Legislation / Parliamentary Counsel Office",
     "Agency rate tables, manuals, calculator guidance, and operational manuals",
-    "Pinned executable or documentary oracles for parity and regression tests"
+    "Pinned executable or documentary comparison references for parity and regression tests"
   ],
   "current_blockers": [],
   "resolved_blockers": [
@@ -87,7 +87,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "current-year rate and formula smoke oracle",
+          "role": "minimal current-year rate and formula smoke reference",
           "files": [
             "policyengine_nz/variables/gov/ird/income_tax/income_tax.py",
             "policyengine_nz/variables/gov/ird/income_tax/taxable_income.py",
@@ -126,13 +126,13 @@
           "id": "income-tax-rate-scale",
           "destination": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
           "source_requirements": ["Income Tax Act 2007 Schedule 1", "IRD individual income tax rates"],
-          "oracle_checks": ["policyengine-nz:test_income_tax", "nztaxmicrosim:tax_brackets"]
+          "oracle_checks": ["nztaxmicrosim:tax_brackets"]
         },
         {
           "id": "taxable-income-core",
           "destination": "nz/statutes/income_tax/core/taxable_income.yaml",
           "source_requirements": ["Income Tax Act 2007 Parts B-D"],
-          "oracle_checks": ["policyengine-nz:taxable_income", "openfisca-aotearoa:individual.py"]
+          "oracle_checks": ["openfisca-aotearoa:individual.py"]
         },
         {
           "id": "individual-tax-credits",
@@ -171,7 +171,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "current-year ACC levy oracle",
+          "role": "minimal current-year ACC levy smoke reference",
           "files": [
             "policyengine_nz/variables/gov/ird/acc/acc_liable_income.py",
             "policyengine_nz/variables/gov/ird/acc/acc_earners_levy.py",
@@ -200,7 +200,7 @@
           "id": "acc-earners-levy",
           "destination": "nz/regulations/acc/earners_levy.yaml",
           "source_requirements": ["ACC earners' levy regulations", "IRD/ACC levy rate tables"],
-          "oracle_checks": ["policyengine-nz:test_acc_levy", "nztaxmicrosim:acc_levy", "openfisca-aotearoa:earners_levy"]
+          "oracle_checks": ["nztaxmicrosim:acc_levy", "openfisca-aotearoa:earners_levy"]
         }
       ]
     },
@@ -241,7 +241,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "current WFF scenario oracle",
+          "role": "minimal current WFF smoke reference",
           "files": [
             "policyengine_nz/variables/gov/ird/working_for_families/family_tax_credit.py",
             "policyengine_nz/variables/gov/ird/working_for_families/in_work_tax_credit.py",
@@ -284,7 +284,7 @@
           "id": "wff-credit-entitlements",
           "destination": "nz/statutes/income_tax/family_scheme/tax_credits.yaml",
           "source_requirements": ["Income Tax Act 2007 subparts MD-MJ"],
-          "oracle_checks": ["policyengine-nz:test_working_for_families", "nztaxmicrosim:ftc/iwtc/mftc/bstc"]
+          "oracle_checks": ["nztaxmicrosim:ftc/iwtc/mftc/bstc"]
         }
       ]
     },
@@ -325,7 +325,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "small current-rate oracle for Jobseeker and related MSD parameters",
+          "role": "small current-rate smoke reference for Jobseeker and related MSD parameters",
           "files": [
             "policyengine_nz/variables/gov/msd/jobseeker/jobseeker_support.py",
             "policyengine_nz/parameters/gov/msd/jobseeker/payment_rates.yaml"
@@ -394,7 +394,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "parameter baseline oracle",
+          "role": "minimal parameter smoke reference",
           "files": [
             "policyengine_nz/parameters/gov/msd/accommodation_supplement/payment_rates.yaml",
             "policyengine_nz/parameters/gov/msd/accommodation_supplement/income_test.yaml",
@@ -421,7 +421,7 @@
           "id": "accommodation-supplement",
           "destination": "nz/statutes/social_security/accommodation_supplement/",
           "source_requirements": ["Social Security Act 2018 accommodation supplement provisions", "MSD area and rate tables"],
-          "oracle_checks": ["openfisca-aotearoa:accommodation_supplement tests", "policyengine-nz:accommodation_supplement params"]
+          "oracle_checks": ["openfisca-aotearoa:accommodation_supplement tests"]
         }
       ]
     },
@@ -455,7 +455,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "NZ Super current-rate oracle",
+          "role": "NZ Super minimal current-rate smoke reference",
           "files": [
             "policyengine_nz/variables/gov/msd/superannuation/nz_superannuation.py",
             "policyengine_nz/parameters/gov/msd/superannuation/payment_rates.yaml"
@@ -481,7 +481,7 @@
           "id": "nz-superannuation",
           "destination": "nz/statutes/superannuation/nz_superannuation.yaml",
           "source_requirements": ["New Zealand Superannuation and Retirement Income Act 2001", "MSD NZ Super rates"],
-          "oracle_checks": ["policyengine-nz:nz_superannuation", "openfisca-aotearoa:super"]
+          "oracle_checks": ["openfisca-aotearoa:super"]
         }
       ]
     },
@@ -770,7 +770,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "KiwiSaver parameter baseline",
+          "role": "KiwiSaver minimal parameter smoke reference",
           "files": ["policyengine_nz/parameters/gov/ird/kiwisaver/contribution_rates.yaml"]
         },
         {
@@ -784,7 +784,7 @@
           "id": "student-loan-and-kiwisaver-payroll",
           "destination": "nz/statutes/payroll/deductions.yaml",
           "source_requirements": ["Student Loan Scheme Act 2011", "KiwiSaver Act 2006", "IRD payroll guidance"],
-          "oracle_checks": ["nztaxmicrosim:student_loan", "nztaxmicrosim:kiwisaver", "policyengine-nz:kiwisaver parameters"]
+          "oracle_checks": ["nztaxmicrosim:student_loan", "nztaxmicrosim:kiwisaver"]
         }
       ]
     },
@@ -817,7 +817,7 @@
       "oracle_surfaces": [
         {
           "oracle_id": "policyengine-nz",
-          "role": "GST parameter baseline",
+          "role": "GST minimal parameter smoke reference",
           "files": ["policyengine_nz/parameters/gov/ird/gst/rate.yaml"]
         },
         {
@@ -831,15 +831,15 @@
           "id": "gst-rate-and-conversions",
           "destination": "nz/statutes/gst/rate.yaml",
           "source_requirements": ["Goods and Services Tax Act 1985", "IRD GST guidance"],
-          "oracle_checks": ["policyengine-nz:gst rate"]
+          "oracle_checks": ["ird:calculating-gst examples"]
         }
       ]
     }
   ],
   "first_parallel_workstreams": [
     {
-      "id": "oracle-fixture-extraction",
-      "description": "Extract small, reproducible scenario fixtures from PolicyEngine NZ, nztaxmicrosim, and OpenFisca Aotearoa without copying whole upstream repos.",
+      "id": "reference-fixture-extraction",
+      "description": "Extract small, reproducible scenario fixtures from nztaxmicrosim and OpenFisca Aotearoa without copying whole upstream repos; keep PolicyEngine NZ only for minimal smoke references.",
       "unblocked_by_api_key": true
     },
     {

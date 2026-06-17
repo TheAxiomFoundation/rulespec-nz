@@ -1,0 +1,45 @@
+- name: add_and_remove_gst
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2026-06-16'
+    end: '2026-06-16'
+  input:
+    nz:statutes/gst/rate#input.gst_exclusive_amount: 100
+    nz:statutes/gst/rate#input.gst_inclusive_amount: 115
+  output:
+    nz:statutes/gst/rate#gst_standard_rate: 0.15
+    nz:statutes/gst/rate#gst_component_from_exclusive_amount: 15
+    nz:statutes/gst/rate#gst_inclusive_amount_from_exclusive_amount: 115
+    nz:statutes/gst/rate#gst_component_from_inclusive_amount: 15
+    nz:statutes/gst/rate#gst_exclusive_amount_from_inclusive_amount: 100
+
+- name: zero_amounts
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2026-06-16'
+    end: '2026-06-16'
+  input:
+    nz:statutes/gst/rate#input.gst_exclusive_amount: 0
+    nz:statutes/gst/rate#input.gst_inclusive_amount: 0
+  output:
+    nz:statutes/gst/rate#gst_component_from_exclusive_amount: 0
+    nz:statutes/gst/rate#gst_inclusive_amount_from_exclusive_amount: 0
+    nz:statutes/gst/rate#gst_component_from_inclusive_amount: 0
+    nz:statutes/gst/rate#gst_exclusive_amount_from_inclusive_amount: 0
+
+- name: cents_scale_amounts
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2026-06-16'
+    end: '2026-06-16'
+  input:
+    nz:statutes/gst/rate#input.gst_exclusive_amount: 1
+    nz:statutes/gst/rate#input.gst_inclusive_amount: 1.15
+  output:
+    nz:statutes/gst/rate#gst_component_from_exclusive_amount: 0.15
+    nz:statutes/gst/rate#gst_inclusive_amount_from_exclusive_amount: 1.15
+    nz:statutes/gst/rate#gst_component_from_inclusive_amount: 0.15
+    nz:statutes/gst/rate#gst_exclusive_amount_from_inclusive_amount: 1

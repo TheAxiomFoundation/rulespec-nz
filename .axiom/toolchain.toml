@@ -1,6 +1,6 @@
 [toolchain]
-axiom_encode_version = "0.2.681"
-axiom_encode_ref = "c1e03301354e77bccd21b1da571676acfe7f96dc"
+axiom_encode_version = "0.2.683"
+axiom_encode_ref = "9185b549f86b8a53b8fbdf193286b94048048988"
 axiom_rules_engine_ref = "326289f8e099224eab782ba0cf0f88cc34e630a5"
 axiom_corpus_ref = "6e80d535f3ef4204c9450cd4f2821d75ecb39237"
 rulespec_us_ref = "b21951f0e6480fe06264994008831863aa1726eb"

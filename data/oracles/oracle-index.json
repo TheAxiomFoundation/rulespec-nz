@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-06-16",
   "jurisdiction": "nz",
-  "purpose": "Pinned oracle and supporting-source references for full New Zealand Axiom coverage.",
+  "purpose": "Pinned comparison-oracle and supporting-source references for full New Zealand Axiom coverage.",
   "oracles": [
     {
       "id": "policyengine-nz",
@@ -9,7 +9,7 @@
       "url": "https://github.com/PolicyEngine/policyengine-nz",
       "local_path": "/Users/maxghenis/PolicyEngine/policyengine-nz",
       "commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
-      "role": "Current PolicyEngine-style baseline parameters, variables, and tests.",
+      "role": "Minimal PolicyEngine-style smoke/reference surface; not authoritative enough for NZ oracle coverage.",
       "coverage": [
         "income_tax",
         "acc_earners_levy",
@@ -19,7 +19,7 @@
         "jobseeker_support",
         "nz_superannuation"
       ],
-      "authority": "oracle"
+      "authority": "supporting_reference"
     },
     {
       "id": "nztaxmicrosim",
@@ -140,4 +140,3 @@
     }
   ]
 }
-
