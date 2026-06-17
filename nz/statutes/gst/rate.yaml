@@ -1,0 +1,75 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Goods and Services Tax Act 1985 sections 8 and 12 impose GST at
+    15% on taxable supplies and imports, and section 10 states the
+    GST-inclusive value mechanics for supplies. Inland Revenue's GST
+    calculation guidance gives the current arithmetic for adding GST to
+    GST-exclusive amounts and removing GST from GST-inclusive amounts.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/1985/0141/section/8-DLM82299
+      - nz/statute/act/public/1985/0141/section/10
+      - nz/statute/act/public/1985/0141/section/12
+    agency_reference_urls:
+      - https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst
+    values:
+      gst_standard_rate: "0.15"
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: gst_standard_rate
+    kind: parameter
+    dtype: Rate
+    source: Goods and Services Tax Act 1985 ss 8(1) and 12(1)
+    versions:
+      - effective_from: '2010-10-01'
+        formula: |-
+          0.15
+  - name: gst_component_from_exclusive_amount
+    kind: derived
+    entity: Supply
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance
+    versions:
+      - effective_from: '2010-10-01'
+        formula: gst_exclusive_amount * gst_standard_rate
+  - name: gst_inclusive_amount_from_exclusive_amount
+    kind: derived
+    entity: Supply
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance
+    versions:
+      - effective_from: '2010-10-01'
+        formula: gst_exclusive_amount * (1 + gst_standard_rate)
+  - name: gst_component_from_inclusive_amount
+    kind: derived
+    entity: Supply
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Inland Revenue GST calculation guidance
+    versions:
+      - effective_from: '2010-10-01'
+        formula: |-
+          gst_inclusive_amount
+          * gst_standard_rate
+          / (1 + gst_standard_rate)
+  - name: gst_exclusive_amount_from_inclusive_amount
+    kind: derived
+    entity: Supply
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Goods and Services Tax Act 1985 s 10(2); Inland Revenue GST calculation guidance
+    versions:
+      - effective_from: '2010-10-01'
+        formula: |-
+          gst_inclusive_amount
+          / (1 + gst_standard_rate)

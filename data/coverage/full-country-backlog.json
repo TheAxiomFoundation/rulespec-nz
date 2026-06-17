@@ -5,10 +5,10 @@
   "status_terms": {
     "not_started": "No Axiom corpus or RuleSpec artifact exists yet.",
     "source_spine": "Official source family identified and ready for corpus ingestion.",
-    "oracle_identified": "At least one executable or documentary oracle is pinned.",
+    "oracle_identified": "At least one executable or documentary comparison oracle is pinned.",
     "ready_for_ingest": "Official source URLs and target provision families are identified.",
     "encoded": "RuleSpec exists with companion tests.",
-    "oracle_parity": "Axiom outputs are compared against at least one pinned oracle."
+    "oracle_parity": "Axiom outputs are compared against at least one pinned comparison oracle."
   },
   "tracks": [
     {
@@ -16,7 +16,7 @@
       "title": "Personal income tax",
       "administered_by": ["Inland Revenue"],
       "official_source_families": ["Income Tax Act 2007", "Tax Administration Act 1994", "IRD individual income tax rates guidance", "annual tax amendment Acts"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
       "components": [
         "resident individual tax brackets and rates",
         "non-resident sourced income treatment",
@@ -35,7 +35,7 @@
       "title": "ACC earners' levy and related ACC income supports",
       "administered_by": ["ACC", "Inland Revenue"],
       "official_source_families": ["Accident Compensation Act 2001", "ACC levy regulations and rate notices", "IRD PAYE/ACC guidance"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
       "components": [
         "earners' levy rate",
         "maximum liable earnings",
@@ -52,7 +52,7 @@
       "title": "Working for Families and family scheme tax credits",
       "administered_by": ["Inland Revenue", "Ministry of Social Development"],
       "official_source_families": ["Income Tax Act 2007 family scheme provisions", "Working for Families guidance", "Tax credits rate orders"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
       "components": [
         "Family Tax Credit",
         "In-Work Tax Credit",
@@ -72,7 +72,7 @@
       "title": "Main benefits and income tests",
       "administered_by": ["Ministry of Social Development", "Work and Income"],
       "official_source_families": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD benefit rate tables"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
       "components": [
         "Jobseeker Support",
         "Sole Parent Support",
@@ -95,7 +95,7 @@
       "title": "Housing assistance",
       "administered_by": ["Ministry of Social Development", "Work and Income", "Kainga Ora"],
       "official_source_families": ["Social Security Act 2018", "Social Security Regulations 2018", "Accommodation Supplement area and rate schedules", "Housing Restructuring and Tenancy Matters Act 1992"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
       "components": [
         "Accommodation Supplement",
         "accommodation areas",
@@ -113,7 +113,7 @@
       "title": "NZ Superannuation and veteran pension surface",
       "administered_by": ["Ministry of Social Development", "Work and Income", "Veterans' Affairs"],
       "official_source_families": ["New Zealand Superannuation and Retirement Income Act 2001", "Veterans' Support Act 2014", "MSD rate tables"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim", "openfisca-aotearoa"],
+      "oracle_ids": ["nztaxmicrosim", "openfisca-aotearoa"],
       "components": [
         "age qualification",
         "residence qualification",
@@ -215,7 +215,7 @@
       "title": "Payroll deductions and savings interfaces",
       "administered_by": ["Inland Revenue"],
       "official_source_families": ["KiwiSaver Act 2006", "Student Loan Scheme Act 2011", "PAYE rules and guidance"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim"],
+      "oracle_ids": ["nztaxmicrosim"],
       "components": [
         "KiwiSaver employee contribution rates",
         "KiwiSaver employer contribution interfaces",
@@ -230,7 +230,7 @@
       "title": "GST and indirect-tax interfaces",
       "administered_by": ["Inland Revenue", "New Zealand Customs Service"],
       "official_source_families": ["Goods and Services Tax Act 1985", "Customs and Excise Act 2018", "IRD GST guidance"],
-      "oracle_ids": ["policyengine-nz", "nztaxmicrosim"],
+      "oracle_ids": ["nztaxmicrosim"],
       "components": [
         "GST rate",
         "GST inclusive/exclusive calculations",
@@ -258,4 +258,3 @@
     }
   ]
 }
-
