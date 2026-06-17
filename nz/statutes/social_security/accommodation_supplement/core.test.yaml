@@ -1,0 +1,177 @@
+- name: renter_sole_parent_two_children_area_1_hits_maximum
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_accommodation_costs: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_cash_assets: 1000
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_in_relationship: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_dependent_children: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_two_or_more_dependent_children: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_sole_parent: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_rent_paid_to_kainga_ora: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_rent_paid_to_registered_community_housing_provider_social_housing: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_concessionary_mortgage_payments_to_kainga_ora_or_crown: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_partner_receiving_accommodation_supplement: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_section_68_joint_tenant_exception_applies: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_receiving_or_eligible_for_student_allowance_grant: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_residential_care_funded_under_residential_care_act: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_disability_accommodation_or_care_funded_under_pae_ora_act: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_super_or_veterans_pension_income_above_schedule_5_limit: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_owns_premises_and_not_joint_owner_with_resident: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_joint_owner_with_resident: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_additional_resident_in_social_housing: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_boarder: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_rent_paid: 700
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_rent_received_from_other_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_contributions_received_from_additional_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_boarder_payments_received: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_total_premises_area: 100
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_business_use_area: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_self_contained_area_let_to_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_area_let_to_nonresidents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_costs_are_homeownership: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_base_rate_weekly_amount: 600
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_1: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_2: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_3: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_non_beneficiary: false
+  output:
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_cash_assets_within_limit: holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_social_housing_exclusion_not_applies: holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_other_funding_exclusion_not_applies: holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_non_rate_entitlement_requirements: holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_accommodation_costs: 700
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_accommodation_income: 0
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_qualifying_accommodation_costs: 700
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_entry_threshold_rate: 0.25
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_entry_threshold_weekly_amount: 150
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_maximum_weekly_rate: 305
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_formula_weekly_amount_before_cap: 385
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_assessed_weekly_amount_before_income_reduction: 305
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_non_beneficiary_income_reduction: 0
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_amount_before_rounding: 305
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_rounded_weekly_payment: 305
+
+- name: homeowner_non_beneficiary_area_4_income_reduction_rounds_up
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_cash_assets: 8000
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_in_relationship: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_dependent_children: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_sole_parent: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_owns_premises_and_not_joint_owner_with_resident: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_owner_weekly_required_payments: 300
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_rent_received_from_other_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_contributions_received_from_additional_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_boarder_payments_received: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_total_premises_area: 100
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_business_use_area: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_self_contained_area_let_to_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_area_let_to_nonresidents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_costs_are_homeownership: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_base_rate_weekly_amount: 372.55
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_1: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_2: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_3: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_non_beneficiary: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_relevant_weekly_income: 750
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_non_beneficiary_income_cutout_weekly_amount: 700
+  output:
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_cash_assets_within_limit: holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_accommodation_costs: 300
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_entry_threshold_rate: 0.30
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_entry_threshold_weekly_amount: 111.765
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_maximum_weekly_rate: 70
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_formula_weekly_amount_before_cap: 131.7645
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_assessed_weekly_amount_before_income_reduction: 70
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_non_beneficiary_income_reduction: 12.5
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_amount_before_rounding: 57.5
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_rounded_weekly_payment: 58
+
+- name: boarder_partnered_without_children_area_2_uses_sixty_two_percent_costs
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_in_relationship: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_dependent_children: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_sole_parent: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_owns_premises_and_not_joint_owner_with_resident: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_joint_owner_with_resident: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_additional_resident_in_social_housing: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_boarder: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_board_and_lodgings_paid: 400
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_rent_received_from_other_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_contributions_received_from_additional_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_boarder_payments_received: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_total_premises_area: 100
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_business_use_area: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_self_contained_area_let_to_residents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_area_let_to_nonresidents: 0
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_costs_are_homeownership: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_base_rate_weekly_amount: 600
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_1: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_2: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_resides_in_area_3: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_non_beneficiary: false
+  output:
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_accommodation_costs: 248
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_entry_threshold_weekly_amount: 150
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_maximum_weekly_rate: 155
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_formula_weekly_amount_before_cap: 68.6
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_assessed_weekly_amount_before_income_reduction: 68.6
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_rounded_weekly_payment: 69
+
+- name: let_areas_and_accommodation_income_reduce_qualifying_costs
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_owns_premises_and_not_joint_owner_with_resident: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_joint_owner_with_resident: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_additional_resident_in_social_housing: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_boarder: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_rent_paid: 1000
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_rent_received_from_other_residents: 50
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_contributions_received_from_additional_residents: 100
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_weekly_boarder_payments_received: 100
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_total_premises_area: 100
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_business_use_area: 10
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_self_contained_area_let_to_residents: 10
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_area_let_to_nonresidents: 10
+  output:
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_accommodation_costs: 1000
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_accommodation_income: 174
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_weekly_qualifying_accommodation_costs: 526
+
+- name: exclusions_and_assets_block_non_rate_entitlement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_accommodation_costs: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_cash_assets: 20000
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_in_relationship: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_has_dependent_children: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_rent_paid_to_kainga_ora: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_rent_paid_to_registered_community_housing_provider_social_housing: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_concessionary_mortgage_payments_to_kainga_ora_or_crown: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_partner_receiving_accommodation_supplement: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_section_68_joint_tenant_exception_applies: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_receiving_or_eligible_for_student_allowance_grant: true
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_residential_care_funded_under_residential_care_act: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_disability_accommodation_or_care_funded_under_pae_ora_act: false
+    nz:statutes/social_security/accommodation_supplement/core#input.accommodation_supplement_super_or_veterans_pension_income_above_schedule_5_limit: false
+  output:
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_cash_assets_within_limit: not_holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_social_housing_exclusion_not_applies: not_holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_other_funding_exclusion_not_applies: not_holds
+    nz:statutes/social_security/accommodation_supplement/core#accommodation_supplement_non_rate_entitlement_requirements: not_holds
