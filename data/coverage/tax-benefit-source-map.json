@@ -645,6 +645,12 @@
           "destination": "nz/regulations/social_security/childcare_assistance/",
           "source_requirements": ["Social Security Act 2018 childcare assistance provisions", "Social Security Regulations 2018 childcare assistance provisions and Schedule 2 rates"],
           "oracle_checks": ["openfisca-aotearoa:childcare_assistance tests"]
+        },
+        {
+          "id": "child-disability-allowance-core",
+          "destination": "nz/statutes/social_security/child_disability_allowance/",
+          "source_requirements": ["Social Security Act 2018 ss 78-83 and Schedule 4 Part 9", "Social Security Regulations 2018 reg 49"],
+          "oracle_checks": ["openfisca-aotearoa:child_disability_allowance tests"]
         }
       ]
     },
