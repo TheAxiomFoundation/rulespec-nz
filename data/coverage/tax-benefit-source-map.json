@@ -144,8 +144,8 @@
         {
           "id": "taxable-income-core",
           "destination": "nz/statutes/income_tax/core/taxable_income.yaml",
-          "source_requirements": ["Income Tax Act 2007 Parts B-D"],
-          "oracle_checks": ["openfisca-aotearoa:individual.py"]
+          "source_requirements": ["Income Tax Act 2007 ss BB 1, BC 1-BC 8, BD 1-BD 2, CA 1-CA 2, and DA 1-DA 4"],
+          "oracle_checks": ["openfisca-aotearoa:individual.py", "treasury-income-explorer:Tax_BaseScale taxable wage scenarios"]
         },
         {
           "id": "individual-tax-credits",
