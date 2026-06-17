@@ -1,0 +1,96 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 Schedule 1 part A clause 1 sets the basic
+    progressive income tax rate table for a person's taxable income when no
+    more specific basic rate applies. Inland Revenue's individual tax-rate
+    guidance publishes the same bands from 1 April 2025.
+  source_verification:
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/1-DLM1523194
+    agency_reference_urls:
+      - https://www.ird.govt.nz/income-tax/income-tax-for-individuals/tax-codes-and-tax-rates-for-individuals/tax-rates-for-individuals
+    values:
+      individual_income_tax_bracket_rates:
+        1: "0.105"
+        2: "0.175"
+        3: "0.300"
+        4: "0.330"
+        5: "0.390"
+      individual_income_tax_bracket_thresholds:
+        1: 15600
+        2: 53500
+        3: 78100
+        4: 180000
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: individual_income_tax_bracket_rates
+    kind: parameter
+    dtype: Rate
+    indexed_by: bracket
+    source: Income Tax Act 2007 Schedule 1 part A clause 1 table 1
+    versions:
+      - effective_from: '2025-04-01'
+        values:
+          1: 0.105
+          2: 0.175
+          3: 0.300
+          4: 0.330
+          5: 0.390
+  - name: individual_income_tax_bracket_thresholds
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    indexed_by: bracket
+    source: Income Tax Act 2007 Schedule 1 part A clause 1 table 1
+    versions:
+      - effective_from: '2025-04-01'
+        values:
+          1: 15600
+          2: 53500
+          3: 78100
+          4: 180000
+  - name: individual_income_tax_before_credits
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 Schedule 1 part A clause 1
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              individual_income_tax_bracket_rates[1]
+              * min(max(0, taxable_income), individual_income_tax_bracket_thresholds[1])
+          )
+          + (
+              individual_income_tax_bracket_rates[2]
+              * max(
+                  0,
+                  min(max(0, taxable_income), individual_income_tax_bracket_thresholds[2])
+                  - individual_income_tax_bracket_thresholds[1]
+              )
+          )
+          + (
+              individual_income_tax_bracket_rates[3]
+              * max(
+                  0,
+                  min(max(0, taxable_income), individual_income_tax_bracket_thresholds[3])
+                  - individual_income_tax_bracket_thresholds[2]
+              )
+          )
+          + (
+              individual_income_tax_bracket_rates[4]
+              * max(
+                  0,
+                  min(max(0, taxable_income), individual_income_tax_bracket_thresholds[4])
+                  - individual_income_tax_bracket_thresholds[3]
+              )
+          )
+          + (
+              individual_income_tax_bracket_rates[5]
+              * max(0, max(0, taxable_income) - individual_income_tax_bracket_thresholds[4])
+          )
