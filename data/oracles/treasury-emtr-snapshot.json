@@ -13,7 +13,7 @@
     "model_year": 2027
   },
   "generator": {
-    "script": "programs/nz/generate_treasury_emtr_snapshot.R",
+    "adapter": "treasury-income-explorer-emtr-snapshot",
     "treasury_function": "R/emtr.R#emtr",
     "sampled_weekly_gross_wage": [0, 160, 250, 370, 555, 740, 1000, 1500],
     "output_columns": ["gross_wage1", "hours1", "gross_wage1_annual", "gross_wage2", "wage1_tax", "wage1_ACC_levy", "net_wage1", "net_wage", "net_benefit", "FTC_abated", "IWTC_abated", "MFTC", "IETC_abated", "WinterEnergy", "BestStart_Total", "AS_Amount", "WFF_abated", "Net_Income", "Net_Income_annual", "EMTR", "RR", "PTR"],
