@@ -43,8 +43,8 @@ def rulespec_content_roots() -> list[Path]:
 
 def allowed_yaml_roots() -> set[str]:
     return {
+        ".axiom",
         ".github",
-        "programs",
         "known-dangling.yaml",
         "known-validation-gaps.yaml",
         *(d.name for d in jurisdiction_dirs()),
