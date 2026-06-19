@@ -4,4 +4,7 @@
 .venv/
 __pycache__/
 *.pyc
+*.pyd
+target/
+rulespec-nz/target/
 
