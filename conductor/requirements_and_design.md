@@ -17,11 +17,14 @@ This document details the requirements and the system design for the NZ Rules-as
 *   **WASM Compilation Target:** Compile the core `rulespec-nz` logic to WebAssembly via `wasm-bindgen` for high-performance client-side browser evaluation.
 *   **Arrow Flight Data Ingestion:** Use Apache Arrow Flight TCP streams for low-latency, parallel transfers of micro-simulation data between execution pipelines.
 *   **Type-State Compile-Time Verification:** Enforce legislative states and calculations via Rust type-state pattern to catch invalid policy paths at compile-time.
+*   **Cranelift JIT Compilation Engine:** JIT-compile RuleSpec files to native machine code at runtime using Cranelift to eliminate evaluation loop overhead.
 *   **OpenFisca Migration Adapter:** Automatic parsing utility to map legacy `openfisca-aotearoa` Python code to RuleSpec YAML.
 *   **Microsimulation Data Pipe:** Interface to inject synthetic populations from `open_social_data`.
 *   **Value of Information Routing:** Link outputs to the `mars` regression and `voiage` VoI libraries.
 
 ### Could Have
+*   **Fully Homomorphic Encryption (FHE):** Run simulations on encrypted administrative population microdata using `tfhe-rs` without exposing raw records.
+*   **Zero-Knowledge Proof (ZKP) Targets:** Compile rules to zk-SNARK constraint systems using `arkworks` or Noir for private eligibility assertions.
 *   **Differential Dataflow Calculations:** Low-latency incremental engine evaluations using `differential-dataflow` to re-compute only affected population nodes.
 *   **Formal Proof Solvers:** Compile RuleSpec equations into SMT-LIB2 structures for formal proof verification via Z3 Solver.
 *   **Distributed Ray-on-Arrow Grid:** Scale simulations horizontally using a distributed cluster architecture.
@@ -53,6 +56,9 @@ graph TD
         E -->|Formal Verification Target| E_SMT[Z3 SMT Proof Solver]
         E -->|Compile-Time Verification| E_TYPE[Type-State Static Asserts]
         E -->|Timely / Differential Stream| E_DIFF[Differential Dataflow Pipeline]
+        E -->|Cranelift JIT Pipeline| E_JIT[JIT Native Compiler Engine]
+        E -->|Noir/zk-SNARK compilation| E_ZKP[Zero-Knowledge Proof Gates]
+        E -->|tfhe-rs evaluation| E_FHE[Homomorphic Private Microdata Layer]
     end
 
     subgraph Evaluation & Analysis
