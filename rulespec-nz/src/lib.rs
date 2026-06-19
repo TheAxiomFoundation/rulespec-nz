@@ -13,3 +13,12 @@ fn rulespec_nz(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
     Ok(())
 }
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sum_as_string_returns_decimal_sum() {
+        assert_eq!(sum_as_string(40, 2).unwrap(), "42");
+    }
+}
