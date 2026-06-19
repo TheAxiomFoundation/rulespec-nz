@@ -8,9 +8,9 @@ This plan implements Track 1 to build the Rust core engine with Apache Arrow/Pol
 
 - [x] Task: Set up Rust crate structure under rulespec-nz core (085b1d5)
   Initialize `Cargo.toml` with `pyo3`, `arrow`, `polars`, and `serde`.
-- [ ] Task: Implement PyO3 binding framework
+- [x] Task: Implement PyO3 binding framework (5e83f6c)
   Expose simple Rust mathematical operations to Python to verify the pyo3 toolchain.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Engine Core Scaffolding' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 1: Engine Core Scaffolding' (Protocol in workflow.md)
 
 ---
 
