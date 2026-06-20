@@ -2,7 +2,7 @@
 
 ## Phase 1: Source Manifest
 
-- [~] Add a source-backed inventory manifest for existing New Zealand Superannuation RuleSpec modules.
+- [x] Add a source-backed inventory manifest for existing New Zealand Superannuation RuleSpec modules. (`ab0154f`)
 
 ## Phase 2: Destination Reconciliation
 
@@ -11,3 +11,7 @@
 ## Phase 3: Oracle Fixtures
 
 - [ ] Add bounded oracle comparison fixtures for the NZ Super eligibility and rate surface.
+
+### Completed Implementation Commits
+
+- `ab0154f` - Added the New Zealand Superannuation source inventory manifest, Track 6 conductor files, and manifest regression tests.
