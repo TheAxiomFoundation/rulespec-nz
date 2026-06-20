@@ -10,7 +10,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 2: OpenFisca Parsing & Transpilation Adapter
 *Link: [./conductor/tracks/02_openfisca_migration/](./conductor/tracks/02_openfisca_migration/)*
 
-## [ ] Track 3: Legislation Ingestion - Income Tax Act rate schedules
+## [~] Track 3: Legislation Ingestion - Income Tax Act rate schedules
 *Link: [./conductor/tracks/03_income_tax_rates/](./conductor/tracks/03_income_tax_rates/)*
 
 ## [ ] Track 4: Legislation Ingestion - Social Security Act welfare benefit schedules
@@ -33,3 +33,4 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## [ ] Track 10: State Ledger and Temporal Policy Ledger Integrations (`kairos` & `TheAxiomFoundation`)
 *Link: [./conductor/tracks/10_state_ledger_temporal/](./conductor/tracks/10_state_ledger_temporal/)*
+

@@ -1,0 +1,38 @@
+{
+  "manifest_id": "income-tax-rate-schedule",
+  "track_id": "03_income_tax_rates",
+  "authority": "official_source",
+  "source_map_track_id": "tax-personal-income",
+  "source_batch_id": "income-tax-rate-scale",
+  "rulespec_module": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+  "corpus_citation_path": "nz/statute/act/public/2007/0097/section/1-DLM1523194",
+  "agency_reference_urls": [
+    "https://www.ird.govt.nz/income-tax/income-tax-for-individuals/tax-codes-and-tax-rates-for-individuals/tax-rates-for-individuals"
+  ],
+  "source_requirements": [
+    "Income Tax Act 2007 Schedule 1",
+    "IRD individual income tax rates"
+  ],
+  "oracle_checks": [
+    "nztaxmicrosim:tax_brackets"
+  ],
+  "verified_values": {
+    "individual_income_tax_bracket_rates": {
+      "1": "0.105",
+      "2": "0.175",
+      "3": "0.300",
+      "4": "0.330",
+      "5": "0.390"
+    },
+    "individual_income_tax_bracket_thresholds": {
+      "1": 15600,
+      "2": 53500,
+      "3": 78100,
+      "4": 180000
+    }
+  },
+  "notes": [
+    "The PCO corpus citation is the legal authority for Schedule 1. The IRD URL is an agency cross-reference for the same current bands.",
+    "Oracle checks are comparison fixtures only and do not substitute for official source verification."
+  ]
+}
