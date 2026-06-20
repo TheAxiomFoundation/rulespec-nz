@@ -32,4 +32,8 @@ This plan is the active numbered Conductor surface for the income tax rate inges
   Add tests proving the fixture aligns with the official-source-backed RuleSpec values without treating the oracle as legal authority.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (Protocol in workflow.md)
 
+### Completed Implementation Commits
+
+- `11e073a` conductor-track3-income-tax-rate-manifest
+
 
