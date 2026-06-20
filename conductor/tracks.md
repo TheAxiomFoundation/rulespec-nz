@@ -19,7 +19,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 5: Legislation Ingestion - GST Act and ACC levies
 *Link: [./conductor/tracks/05_gst_acc_levies/](./conductor/tracks/05_gst_acc_levies/)*
 
-## [ ] Track 6: Legislation Ingestion - New Zealand Superannuation Act
+## [~] Track 6: Legislation Ingestion - New Zealand Superannuation Act
 *Link: [./conductor/tracks/06_nz_superannuation/](./conductor/tracks/06_nz_superannuation/)*
 
 ## [ ] Track 7: Ingestion Adapter for Local Parquet Layers (`corpus-legislation-nz` & `corpus-nz-hansard`)

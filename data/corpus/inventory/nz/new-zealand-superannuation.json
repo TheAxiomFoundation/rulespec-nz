@@ -1,0 +1,102 @@
+{
+  "manifest_id": "new-zealand-superannuation",
+  "track_id": "06_nz_superannuation",
+  "authority": "official_source",
+  "source_map_track_id": "superannuation",
+  "canonical_source_map_destination": "nz/statutes/superannuation/nz_superannuation.yaml",
+  "rulespec_modules": [
+    {
+      "path": "nz/statutes/new_zealand_superannuation/core.yaml",
+      "test_path": "nz/statutes/new_zealand_superannuation/core.test.yaml",
+      "available_corpus_citation_paths": [
+        "nz/statute/act/public/2001/0084/section/4A",
+        "nz/statute/act/public/2001/0084/section/7",
+        "nz/statute/act/public/2001/0084/section/8",
+        "nz/statute/act/public/2001/0084/section/11",
+        "nz/statute/act/public/2001/0084/section/12",
+        "nz/statute/act/public/2001/0084/schedule/1/part/1"
+      ],
+      "agency_reference_urls": [
+        "https://www.legislation.govt.nz/act/public/2001/84/en/latest/"
+      ]
+    },
+    {
+      "path": "nz/statutes/new_zealand_superannuation/special_rates.yaml",
+      "test_path": "nz/statutes/new_zealand_superannuation/special_rates.test.yaml",
+      "available_corpus_citation_paths": [
+        "nz/statute/act/public/2001/0084/section/18",
+        "nz/statute/act/public/2001/0084/section/19",
+        "nz/statute/act/public/2001/0084/schedule/1/part/1",
+        "nz/statute/act/public/2001/0084/schedule/1/part/2"
+      ],
+      "agency_reference_urls": [
+        "https://www.legislation.govt.nz/act/public/2001/84/en/latest/"
+      ]
+    }
+  ],
+  "provision_files": [
+    {
+      "path": "data/corpus/provisions/nz/statute/2026-06-17-new-zealand-superannuation-core.jsonl",
+      "citation_paths": [
+        "nz/statute/act/public/2001/0084/section/4A",
+        "nz/statute/act/public/2001/0084/section/7",
+        "nz/statute/act/public/2001/0084/section/8",
+        "nz/statute/act/public/2001/0084/section/11",
+        "nz/statute/act/public/2001/0084/section/12",
+        "nz/statute/act/public/2001/0084/schedule/1/part/1"
+      ]
+    },
+    {
+      "path": "data/corpus/provisions/nz/statute/2026-06-17-new-zealand-superannuation-special-rates.jsonl",
+      "citation_paths": [
+        "nz/statute/act/public/2001/0084/section/18",
+        "nz/statute/act/public/2001/0084/section/19",
+        "nz/statute/act/public/2001/0084/schedule/1/part/2"
+      ]
+    }
+  ],
+  "source_batches": [
+    {
+      "id": "nz-superannuation",
+      "source_map_track_id": "superannuation",
+      "destination": "nz/statutes/superannuation/nz_superannuation.yaml",
+      "implemented_modules": [
+        "nz/statutes/new_zealand_superannuation/core.yaml",
+        "nz/statutes/new_zealand_superannuation/special_rates.yaml"
+      ],
+      "source_requirements": [
+        "New Zealand Superannuation and Retirement Income Act 2001",
+        "MSD NZ Super rates"
+      ],
+      "oracle_checks": [
+        "openfisca-aotearoa:super"
+      ]
+    }
+  ],
+  "known_path_divergences": [
+    {
+      "source_map_destination": "nz/statutes/superannuation/nz_superannuation.yaml",
+      "implemented_modules": [
+        "nz/statutes/new_zealand_superannuation/core.yaml",
+        "nz/statutes/new_zealand_superannuation/special_rates.yaml"
+      ],
+      "reason": "Existing RuleSpec modules use the source-law directory nz/statutes/new_zealand_superannuation/ and split ordinary eligibility/rates from special-rate rules. The source-map destination remains the canonical future consolidation target."
+    }
+  ],
+  "implemented_surfaces": [
+    "NZ Super age qualification",
+    "residence qualification",
+    "relationship and living-alone rates",
+    "long-term care and hospital reduced-rate predicates",
+    "saved non-qualifying-spouse rates before income-test abatement"
+  ],
+  "deferred_surfaces": [
+    "overseas pension deduction interfaces",
+    "veteran pension surface",
+    "full MSD agency-rate inventory beyond legislation.govt.nz references"
+  ],
+  "notes": [
+    "Oracle repositories remain comparison references only and are not legal authority.",
+    "The manifest records current source-backed modules without moving existing RuleSpec paths."
+  ]
+}
