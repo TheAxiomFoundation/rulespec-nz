@@ -2,7 +2,7 @@
 
 ## Phase 1: Builder Contract
 
-- [~] Add a checked-in synthetic population builder manifest for local generator integrations.
+- [x] Add a checked-in synthetic population builder manifest for local generator integrations. (`11b5f50`)
 
 ## Phase 2: Fixture Smoke Data
 
@@ -11,3 +11,7 @@
 ## Phase 3: Live Local Generator Validation
 
 - [ ] Validate against real local `open_social_data` and `fyi-cli` outputs when available.
+
+### Completed Implementation Commits
+
+- `11b5f50` - Added the synthetic population builder manifest, Track 8 conductor files, and builder contract regression tests.
