@@ -16,7 +16,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 4: Legislation Ingestion - Social Security Act welfare benefit schedules
 *Link: [./conductor/tracks/04_social_security_benefits/](./conductor/tracks/04_social_security_benefits/)*
 
-## [ ] Track 5: Legislation Ingestion - GST Act and ACC levies
+## [~] Track 5: Legislation Ingestion - GST Act and ACC levies
 *Link: [./conductor/tracks/05_gst_acc_levies/](./conductor/tracks/05_gst_acc_levies/)*
 
 ## [ ] Track 6: Legislation Ingestion - New Zealand Superannuation Act

@@ -1,0 +1,118 @@
+{
+  "manifest_id": "gst-acc-levies",
+  "track_id": "05_gst_acc_levies",
+  "authority": "official_source",
+  "source_map_track_ids": [
+    "consumption-and-indirect-tax",
+    "levies-acc"
+  ],
+  "rulespec_modules": [
+    {
+      "path": "nz/statutes/gst/rate.yaml",
+      "test_path": "nz/statutes/gst/rate.test.yaml",
+      "available_corpus_citation_paths": [
+        "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/12"
+      ],
+      "unresolved_corpus_citation_paths": [
+        "nz/statute/act/public/1985/0141/section/10"
+      ],
+      "agency_citation_paths": [],
+      "agency_reference_urls": [
+        "https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst"
+      ]
+    },
+    {
+      "path": "nz/regulations/acc/earners_levy.yaml",
+      "test_path": "nz/regulations/acc/earners_levy.test.yaml",
+      "available_corpus_citation_paths": [
+        "nz/regulation/regulation/public/2025/0018/regulation/4",
+        "nz/regulation/regulation/public/2025/0018/regulation/5",
+        "nz/regulation/regulation/public/2025/0018/regulation/6",
+        "nz/regulation/regulation/public/2025/0018/regulation/7",
+        "nz/regulation/regulation/public/2025/0018/regulation/8",
+        "nz/regulation/regulation/public/2025/0018/regulation/9"
+      ],
+      "unresolved_corpus_citation_paths": [],
+      "agency_citation_paths": [
+        "nz/agency/ird/acc-earners-levy-rates"
+      ],
+      "agency_reference_urls": [
+        "https://www.ird.govt.nz/income-tax/income-tax-for-individuals/acc-clients-and-carers/acc-earners-levy-rates"
+      ]
+    }
+  ],
+  "provision_files": [
+    {
+      "path": "data/corpus/provisions/nz/statute/2026-06-16-pco-latest.jsonl",
+      "citation_paths": [
+        "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/12"
+      ]
+    },
+    {
+      "path": "data/corpus/provisions/nz/regulation/2026-06-17-acc-earners-levy-2025-formulas.jsonl",
+      "citation_paths": [
+        "nz/regulation/regulation/public/2025/0018/regulation/4",
+        "nz/regulation/regulation/public/2025/0018/regulation/5",
+        "nz/regulation/regulation/public/2025/0018/regulation/6",
+        "nz/regulation/regulation/public/2025/0018/regulation/7",
+        "nz/regulation/regulation/public/2025/0018/regulation/8",
+        "nz/regulation/regulation/public/2025/0018/regulation/9"
+      ]
+    }
+  ],
+  "source_batches": [
+    {
+      "id": "gst-rate-and-conversions",
+      "source_map_track_id": "consumption-and-indirect-tax",
+      "destination": "nz/statutes/gst/rate.yaml",
+      "implemented_modules": [
+        "nz/statutes/gst/rate.yaml"
+      ],
+      "source_requirements": [
+        "Goods and Services Tax Act 1985",
+        "IRD GST guidance"
+      ],
+      "oracle_checks": [
+        "ird:calculating-gst examples"
+      ]
+    },
+    {
+      "id": "acc-earners-levy",
+      "source_map_track_id": "levies-acc",
+      "destination": "nz/regulations/acc/earners_levy.yaml",
+      "implemented_modules": [
+        "nz/regulations/acc/earners_levy.yaml"
+      ],
+      "source_requirements": [
+        "ACC earners' levy regulations",
+        "IRD/ACC levy rate tables"
+      ],
+      "oracle_checks": [
+        "nztaxmicrosim:acc_levy",
+        "openfisca-aotearoa:earners_levy"
+      ]
+    }
+  ],
+  "known_corpus_gaps": [
+    "nz/statute/act/public/1985/0141/section/10"
+  ],
+  "implemented_surfaces": [
+    "GST rate",
+    "GST inclusive and exclusive conversions",
+    "ACC earners' levy rate",
+    "maximum liable earnings cap"
+  ],
+  "deferred_surfaces": [
+    "GST low-value imported goods interface",
+    "customs and excise interfaces",
+    "ACC liable income definition beyond earners' levy formulas",
+    "weekly compensation and abatement predicates"
+  ],
+  "notes": [
+    "PCO corpus extracts are the legal authority for available GST and ACC regulation citations; IRD pages are agency cross-references for calculation guidance and PAYE-facing rates.",
+    "Goods and Services Tax Act 1985 section 10 remains cited by the RuleSpec module but is not present in the current normalized provision JSONL files.",
+    "Oracle checks are comparison fixtures only and do not substitute for official source verification."
+  ]
+}
