@@ -25,7 +25,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 7: Ingestion Adapter for Local Parquet Layers (`corpus-legislation-nz` & `corpus-nz-hansard`)
 *Link: [./conductor/tracks/07_corpus_parquet_ingest/](./conductor/tracks/07_corpus_parquet_ingest/)*
 
-## [ ] Track 8: Microsimulation Synthetic Population Builder (`open_social_data` & `fyi-cli`)
+## [~] Track 8: Microsimulation Synthetic Population Builder (`open_social_data` & `fyi-cli`)
 *Link: [./conductor/tracks/08_microsimulation_populations/](./conductor/tracks/08_microsimulation_populations/)*
 
 ## [ ] Track 9: Regression and Value of Information Outputs Pipeline (`mars` & `voiage`)

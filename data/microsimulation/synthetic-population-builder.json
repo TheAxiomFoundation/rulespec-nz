@@ -1,0 +1,186 @@
+{
+  "builder_id": "synthetic-population-builder",
+  "track_id": "08_microsimulation_populations",
+  "authority": "adapter_contract",
+  "jurisdiction": "nz",
+  "mode": "read_only_external_generators",
+  "purpose": "Repository-side contract for adapting synthetic population outputs from open_social_data and fyi-cli into Arrow-compatible RuleSpec evaluation inputs without committing full population payloads.",
+  "sources": [
+    {
+      "id": "open_social_data",
+      "name": "Open Social Data synthetic population generator",
+      "status": "expected_local_external",
+      "local_path_env": "RULESPEC_NZ_OPEN_SOCIAL_DATA_DIR",
+      "payload_format": "arrow_or_parquet",
+      "role": "Primary synthetic person, household, and benefit-unit microdata generator for tax-benefit simulations.",
+      "never_commit_payloads": true
+    },
+    {
+      "id": "fyi-cli",
+      "name": "FYI CLI metadata and administrative-shape adapter",
+      "status": "expected_local_external",
+      "local_path_env": "RULESPEC_NZ_FYI_CLI_DIR",
+      "payload_format": "json_or_parquet_metadata",
+      "role": "Optional metadata adapter for administrative source shapes and public-interest request catalogs; not a raw personal-data source for this repository.",
+      "never_commit_payloads": true
+    }
+  ],
+  "target_policy_tracks": [
+    "tax-personal-income",
+    "levies-acc",
+    "family-assistance-wff",
+    "social-security-main-benefits",
+    "housing-assistance",
+    "superannuation",
+    "student-support",
+    "childcare-and-disability",
+    "payroll-savings-deductions"
+  ],
+  "arrow_contract": {
+    "transport": "arrow_record_batch",
+    "batch_grain": "tax_year_population_slice",
+    "stable_id_columns": [
+      "person_id",
+      "household_id",
+      "benefit_unit_id"
+    ],
+    "currency_unit": "NZD",
+    "decimal_type": "decimal128(18,2)"
+  },
+  "entity_tables": [
+    {
+      "id": "persons",
+      "primary_key": "person_id",
+      "columns": {
+        "person_id": "string",
+        "household_id": "string",
+        "benefit_unit_id": "string",
+        "age_years": "int16",
+        "sex": "string",
+        "is_dependent_child": "bool",
+        "annual_employment_income": "decimal128(18,2)",
+        "annual_self_employment_income": "decimal128(18,2)",
+        "annual_investment_income": "decimal128(18,2)",
+        "student_status": "string",
+        "disability_status": "string"
+      }
+    },
+    {
+      "id": "households",
+      "primary_key": "household_id",
+      "columns": {
+        "household_id": "string",
+        "region_code": "string",
+        "area_unit_code": "string",
+        "tenure_type": "string",
+        "weekly_rent_or_mortgage": "decimal128(18,2)",
+        "household_weight": "float64"
+      }
+    },
+    {
+      "id": "benefit_units",
+      "primary_key": "benefit_unit_id",
+      "columns": {
+        "benefit_unit_id": "string",
+        "household_id": "string",
+        "relationship_status": "string",
+        "dependent_child_count": "int16",
+        "primary_caregiver_person_id": "string",
+        "benefit_unit_weight": "float64"
+      }
+    }
+  ],
+  "rulespec_input_mapping": [
+    {
+      "rulespec_input": "input.person_age_years",
+      "table": "persons",
+      "column": "age_years",
+      "join_key": "person_id"
+    },
+    {
+      "rulespec_input": "input.annual_employment_income",
+      "table": "persons",
+      "column": "annual_employment_income",
+      "join_key": "person_id"
+    },
+    {
+      "rulespec_input": "input.annual_self_employment_income",
+      "table": "persons",
+      "column": "annual_self_employment_income",
+      "join_key": "person_id"
+    },
+    {
+      "rulespec_input": "input.household_region_code",
+      "table": "households",
+      "column": "region_code",
+      "join_key": "household_id"
+    },
+    {
+      "rulespec_input": "input.weekly_housing_cost",
+      "table": "households",
+      "column": "weekly_rent_or_mortgage",
+      "join_key": "household_id"
+    },
+    {
+      "rulespec_input": "input.relationship_status",
+      "table": "benefit_units",
+      "column": "relationship_status",
+      "join_key": "benefit_unit_id"
+    },
+    {
+      "rulespec_input": "input.dependent_child_count",
+      "table": "benefit_units",
+      "column": "dependent_child_count",
+      "join_key": "benefit_unit_id"
+    }
+  ],
+  "calibration_contract": {
+    "seed_required": true,
+    "seed_field": "population_seed",
+    "minimum_metadata_fields": [
+      "run_id",
+      "generator_id",
+      "generator_version",
+      "population_seed",
+      "tax_year",
+      "record_count",
+      "weight_sum"
+    ],
+    "recommended_control_totals": [
+      "age_band_by_sex",
+      "region_household_count",
+      "employment_income_decile",
+      "benefit_unit_type"
+    ]
+  },
+  "privacy_boundaries": {
+    "population_type": "synthetic_only",
+    "raw_personal_data_allowed": false,
+    "direct_identifiers_allowed": false,
+    "minimum_cell_size_for_promoted_aggregates": 6,
+    "notes": [
+      "Do not import raw administrative microdata into this repository.",
+      "Stable IDs must be synthetic run-local identifiers, not hashed real-world identifiers.",
+      "Promoted fixtures must be tiny synthetic smoke data or aggregate validation summaries."
+    ]
+  },
+  "repository_boundaries": {
+    "never_commit_globs": [
+      "**/*.parquet",
+      "**/*.arrow",
+      "data/microsimulation/local/**",
+      "data/microsimulation/raw/**",
+      "data/microsimulation/populations/**"
+    ],
+    "allowed_promoted_outputs": [
+      "data/microsimulation/*.json",
+      "data/microsimulation/fixtures/*.jsonl",
+      "data/microsimulation/fixtures/*.json"
+    ]
+  },
+  "deferred_work": [
+    "Add tiny JSONL or Arrow-compatible synthetic fixtures for schema-level validation.",
+    "Validate against real local open_social_data and fyi-cli outputs when available.",
+    "Add calibration diagnostics before any country-scale simulation run."
+  ]
+}
