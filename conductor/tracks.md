@@ -28,7 +28,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 8: Microsimulation Synthetic Population Builder (`open_social_data` & `fyi-cli`)
 *Link: [./conductor/tracks/08_microsimulation_populations/](./conductor/tracks/08_microsimulation_populations/)*
 
-## [ ] Track 9: Regression and Value of Information Outputs Pipeline (`mars` & `voiage`)
+## [~] Track 9: Regression and Value of Information Outputs Pipeline (`mars` & `voiage`)
 *Link: [./conductor/tracks/09_regression_voi_pipeline/](./conductor/tracks/09_regression_voi_pipeline/)*
 
 ## [ ] Track 10: State Ledger and Temporal Policy Ledger Integrations (`kairos` & `TheAxiomFoundation`)
