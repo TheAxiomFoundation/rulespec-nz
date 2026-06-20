@@ -6,7 +6,7 @@ This plan implements Track 2 to build a guarded OpenFisca reference parser and f
 
 ## Phase 1: Guarded Oracle Reference Intake
 
-- [~] Task: Scaffold OpenFisca oracle reference parser
+- [x] Task: Scaffold OpenFisca oracle reference parser (7eb1ba0)
   Parse `data/oracles/oracle-index.json` and `data/coverage/tax-benefit-source-map.json` to produce comparison-only OpenFisca reference manifests with pinned commits and `canonical_law: false` guardrails.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Guarded Oracle Reference Intake' (Protocol in workflow.md)
 
