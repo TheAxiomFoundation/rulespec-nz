@@ -32,4 +32,7 @@ This plan is the active numbered Conductor surface for GST and ACC levy ingestio
   Add tests proving fixtures align with official-source-backed RuleSpec values without treating oracles as legal authority.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (Protocol in workflow.md)
 
+### Completed Implementation Commits
+
+- 7a9fe3d conductor-track5-gst-acc-manifest
 
