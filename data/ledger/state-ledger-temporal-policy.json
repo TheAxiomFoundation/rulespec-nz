@@ -1,0 +1,170 @@
+{
+  "ledger_id": "state-ledger-temporal-policy",
+  "track_id": "10_state_ledger_temporal",
+  "authority": "adapter_contract",
+  "jurisdiction": "nz",
+  "mode": "read_only_external_ledger_tools",
+  "purpose": "Define repository-side temporal policy state ledger handoffs without committing local external-tool payloads.",
+  "tools": [
+    {
+      "id": "kairos",
+      "name": "Kairos",
+      "status": "pinned_research_oracle",
+      "oracle_id": "kairos",
+      "local_path_env": "RULESPEC_NZ_KAIROS_DIR",
+      "role": "Temporal state and lifecycle reference for dynamic simulations and policy state transitions.",
+      "never_commit_payloads": true
+    },
+    {
+      "id": "axiom-corpus",
+      "name": "Axiom Corpus NZ legislation ingestion",
+      "status": "pinned_ingestion_tool",
+      "repository": "TheAxiomFoundation/axiom-corpus",
+      "minimum_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd",
+      "source_manifest": "data/corpus/ingestion/nz-legislation.json",
+      "role": "Official source-corpus extraction and citation-path source identity provider.",
+      "never_commit_payloads": true
+    }
+  ],
+  "input_manifests": [
+    {
+      "id": "nz_legislation_ingestion",
+      "path": "data/corpus/ingestion/nz-legislation.json"
+    },
+    {
+      "id": "local_parquet_layers",
+      "path": "data/corpus/ingestion/local-parquet-layers.json"
+    },
+    {
+      "id": "synthetic_population_builder",
+      "path": "data/microsimulation/synthetic-population-builder.json"
+    },
+    {
+      "id": "regression_voi_pipeline",
+      "path": "data/analysis/regression-voi-pipeline.json"
+    }
+  ],
+  "source_spine_path": "data/corpus/inventory/nz/source-spine.json",
+  "event_statuses": [
+    "draft",
+    "active",
+    "superseded",
+    "withdrawn"
+  ],
+  "event_types": [
+    {
+      "id": "policy_version_declared",
+      "required_fields": [
+        "event_id",
+        "event_type",
+        "effective_from",
+        "recorded_at",
+        "source_ref",
+        "artifact_path",
+        "commit_sha",
+        "policy_id",
+        "version_id"
+      ]
+    },
+    {
+      "id": "source_corpus_promoted",
+      "required_fields": [
+        "event_id",
+        "event_type",
+        "effective_from",
+        "recorded_at",
+        "source_ref",
+        "artifact_path",
+        "commit_sha",
+        "citation_path"
+      ]
+    },
+    {
+      "id": "rulespec_module_encoded",
+      "required_fields": [
+        "event_id",
+        "event_type",
+        "effective_from",
+        "recorded_at",
+        "source_ref",
+        "artifact_path",
+        "commit_sha",
+        "module_id"
+      ]
+    },
+    {
+      "id": "oracle_parity_checked",
+      "required_fields": [
+        "event_id",
+        "event_type",
+        "effective_from",
+        "recorded_at",
+        "source_ref",
+        "artifact_path",
+        "commit_sha",
+        "oracle_id"
+      ]
+    }
+  ],
+  "temporal_join_keys": [
+    {
+      "id": "rulespec_module_to_corpus",
+      "keys": [
+        "citation_path",
+        "artifact_path",
+        "commit_sha"
+      ]
+    },
+    {
+      "id": "source_version_to_effective_interval",
+      "keys": [
+        "citation_path",
+        "effective_from",
+        "effective_to"
+      ]
+    },
+    {
+      "id": "policy_event_to_analysis_run",
+      "keys": [
+        "run_id",
+        "scenario_id",
+        "commit_sha"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "state_ledger_events",
+      "format": "jsonl",
+      "path": "data/ledger/events/<run-id>.jsonl"
+    },
+    {
+      "id": "temporal_policy_index",
+      "format": "json",
+      "path": "data/ledger/indexes/temporal-policy-index.json"
+    },
+    {
+      "id": "handoff_report",
+      "format": "markdown",
+      "path": "data/ledger/reports/<run-id>.md"
+    }
+  ],
+  "repository_boundaries": {
+    "never_commit_globs": [
+      "data/ledger/local/**",
+      "data/ledger/raw/**",
+      "**/*.parquet",
+      "**/*.arrow"
+    ],
+    "allowed_promoted_outputs": [
+      "data/ledger/*.json",
+      "data/ledger/events/*.jsonl",
+      "data/ledger/indexes/*.json",
+      "data/ledger/reports/*.md"
+    ]
+  },
+  "deferred_work": [
+    "Add tiny fixture events for schema-level validation.",
+    "Validate against local kairos and axiom-corpus workflows when available."
+  ]
+}

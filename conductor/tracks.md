@@ -31,6 +31,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 9: Regression and Value of Information Outputs Pipeline (`mars` & `voiage`)
 *Link: [./conductor/tracks/09_regression_voi_pipeline/](./conductor/tracks/09_regression_voi_pipeline/)*
 
-## [ ] Track 10: State Ledger and Temporal Policy Ledger Integrations (`kairos` & `TheAxiomFoundation`)
+## [~] Track 10: State Ledger and Temporal Policy Ledger Integrations (`kairos` & `TheAxiomFoundation`)
 *Link: [./conductor/tracks/10_state_ledger_temporal/](./conductor/tracks/10_state_ledger_temporal/)*
 
