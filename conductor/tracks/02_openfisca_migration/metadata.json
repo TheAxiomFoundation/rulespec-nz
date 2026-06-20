@@ -1,0 +1,8 @@
+{
+  "track_id": "02_openfisca_migration",
+  "type": "feature",
+  "status": "in_progress",
+  "created_at": "2026-06-20T00:00:00Z",
+  "updated_at": "2026-06-20T00:00:00Z",
+  "description": "Build a guarded OpenFisca parsing adapter that extracts comparison-oracle references and fixtures without treating OpenFisca code as canonical law."
+}

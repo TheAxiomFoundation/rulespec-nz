@@ -7,7 +7,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 1: Rust Core & Apache Arrow Integration (`rulespec-nz`)
 *Link: [./conductor/tracks/01_rust_core_arrow/](./conductor/tracks/01_rust_core_arrow/)*
 
-## [ ] Track 2: OpenFisca Parsing & Transpilation Adapter
+## [~] Track 2: OpenFisca Parsing & Transpilation Adapter
 *Link: [./conductor/tracks/02_openfisca_migration/](./conductor/tracks/02_openfisca_migration/)*
 
 ## [ ] Track 3: Legislation Ingestion - Income Tax Act rate schedules
