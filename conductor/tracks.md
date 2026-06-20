@@ -13,7 +13,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## [~] Track 3: Legislation Ingestion - Income Tax Act rate schedules
 *Link: [./conductor/tracks/03_income_tax_rates/](./conductor/tracks/03_income_tax_rates/)*
 
-## [ ] Track 4: Legislation Ingestion - Social Security Act welfare benefit schedules
+## [~] Track 4: Legislation Ingestion - Social Security Act welfare benefit schedules
 *Link: [./conductor/tracks/04_social_security_benefits/](./conductor/tracks/04_social_security_benefits/)*
 
 ## [ ] Track 5: Legislation Ingestion - GST Act and ACC levies
