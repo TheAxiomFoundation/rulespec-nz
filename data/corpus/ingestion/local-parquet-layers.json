@@ -1,0 +1,101 @@
+{
+  "adapter_id": "local-parquet-layers",
+  "track_id": "07_corpus_parquet_ingest",
+  "authority": "adapter_contract",
+  "jurisdiction": "nz",
+  "mode": "read_only_local_files",
+  "purpose": "Repository-side contract for reading local Parquet layers from corpus-legislation-nz and corpus-nz-hansard, then promoting selected normalized JSON/JSONL corpus artifacts into rulespec-nz.",
+  "sources": [
+    {
+      "id": "corpus-legislation-nz",
+      "name": "Corpus Legislation NZ local Parquet export",
+      "status": "expected_local_external",
+      "payload_format": "parquet",
+      "local_path_env": "RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR",
+      "canonical_source_id": "nz-legislation",
+      "legal_authority": "official_legislation",
+      "role": "Local columnar mirror of official NZ legislation provision text for source locator, coverage, and RuleSpec provenance joins.",
+      "never_commit_payloads": true
+    },
+    {
+      "id": "corpus-nz-hansard",
+      "name": "Corpus NZ Hansard local Parquet export",
+      "status": "expected_local_external",
+      "payload_format": "parquet",
+      "local_path_env": "RULESPEC_NZ_CORPUS_HANSARD_PARQUET_DIR",
+      "canonical_source_id": "nz-parliament-hansard",
+      "legal_authority": "parliamentary_context",
+      "role": "Local columnar Hansard text for parliamentary context, explanatory evidence, and later non-authoritative semantic review.",
+      "used_for_rule_authority": false,
+      "never_commit_payloads": true
+    }
+  ],
+  "tables": [
+    {
+      "id": "legislation_provisions",
+      "source_id": "corpus-legislation-nz",
+      "required_columns": [
+        "citation_path",
+        "work_id",
+        "work_title",
+        "document_class",
+        "expression_date",
+        "version",
+        "text",
+        "source_path"
+      ],
+      "primary_join_key": "citation_path",
+      "accepted_document_classes": [
+        "act",
+        "regulation",
+        "order",
+        "secondary_legislation",
+        "bill",
+        "sop"
+      ],
+      "normalized_record_shape": "data/corpus/provisions/nz/<document_class>/<run-id>.jsonl"
+    },
+    {
+      "id": "hansard_speeches",
+      "source_id": "corpus-nz-hansard",
+      "required_columns": [
+        "sitting_date",
+        "chamber",
+        "speaker_name",
+        "debate_title",
+        "speech_id",
+        "text",
+        "source_path"
+      ],
+      "primary_join_key": "source_path",
+      "normalized_record_shape": "data/corpus/provisions/nz/hansard/<run-id>.jsonl"
+    }
+  ],
+  "normalized_output_paths": {
+    "legislation_provisions": "data/corpus/provisions/nz/<document_class>/<run-id>.jsonl",
+    "legislation_inventory": "data/corpus/inventory/nz/<document_class>/<run-id>.json",
+    "hansard_context": "data/corpus/provisions/nz/hansard/<run-id>.jsonl"
+  },
+  "repository_boundaries": {
+    "never_commit_globs": [
+      "**/*.parquet",
+      "data/corpus/local/**",
+      "data/corpus/sources/nz/**"
+    ],
+    "allowed_promoted_outputs": [
+      "data/corpus/ingestion/*.json",
+      "data/corpus/inventory/nz/*.json",
+      "data/corpus/provisions/nz/**/*.jsonl"
+    ]
+  },
+  "authority_boundaries": [
+    "Use corpus-legislation-nz only when its records retain official NZ Legislation citation paths and source metadata.",
+    "Use corpus-nz-hansard as parliamentary context only; do not cite Hansard as executable RuleSpec law authority.",
+    "Keep raw Parquet exports local and promote only small, deliberate normalized JSON or JSONL artifacts."
+  ],
+  "deferred_work": [
+    "Add tiny synthetic Parquet or Arrow fixtures for reader smoke tests.",
+    "Validate table contracts against real local corpus-legislation-nz and corpus-nz-hansard exports.",
+    "Add semantic source-spec auditing over promoted normalized records."
+  ]
+}
