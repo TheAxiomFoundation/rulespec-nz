@@ -163,9 +163,7 @@
       "data/ledger/reports/*.md"
     ]
   },
-  "deferred_work": [
-    "Validate against local kairos and axiom-corpus workflows when available."
-  ],
+  "deferred_work": [],
   "fixture_outputs": [
     {
       "id": "state-ledger-events-smoke",
@@ -196,5 +194,39 @@
         "known limitations"
       ]
     }
-  ]
+  ],
+  "live_validation": {
+    "checked_at": "2026-06-22",
+    "validated_against_real_workflows": false,
+    "result": "blocked_missing_local_ledger_workflows",
+    "probes": [
+      {
+        "tool_id": "kairos",
+        "local_path_env": "RULESPEC_NZ_KAIROS_DIR",
+        "env_value_present": false,
+        "adjacent_checkout_present": false,
+        "cli_on_path": false,
+        "oracle_id": "kairos",
+        "status": "blocked_missing_local_checkout"
+      },
+      {
+        "tool_id": "axiom-corpus",
+        "repository": "TheAxiomFoundation/axiom-corpus",
+        "local_path_env": "RULESPEC_NZ_AXIOM_CORPUS_DIR",
+        "env_value_present": false,
+        "adjacent_checkout_present": false,
+        "cli_on_path": false,
+        "status": "blocked_missing_local_checkout"
+      }
+    ],
+    "blockers": [
+      "RULESPEC_NZ_KAIROS_DIR is not set and no adjacent kairos checkout or kairos CLI was found.",
+      "No local axiom-corpus checkout or axiom-corpus CLI was found for live ingestion validation."
+    ],
+    "next_validation_steps": [
+      "Set RULESPEC_NZ_KAIROS_DIR to a local kairos checkout or install a kairos CLI before live state-ledger validation.",
+      "Set RULESPEC_NZ_AXIOM_CORPUS_DIR to a local TheAxiomFoundation/axiom-corpus checkout or install axiom-corpus before live ingestion validation.",
+      "Keep raw live ledger outputs under data/ledger/local or data/ledger/raw and promote only schema-safe summaries."
+    ]
+  }
 }

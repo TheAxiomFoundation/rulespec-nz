@@ -214,3 +214,28 @@ def test_state_ledger_fixture_outputs_cover_event_schemas() -> None:
     report_text = report_path.read_text(encoding="utf-8").lower()
     for section in _string_list(fixture_outputs["handoff-report-smoke"]["required_sections"]):
         assert section in report_text
+
+
+def test_state_ledger_manifest_records_live_validation_state() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    live = manifest["live_validation"]
+    assert isinstance(live, dict)
+    live_items = cast(dict[str, object], live)
+
+    assert live_items["checked_at"] == "2026-06-22"
+    assert live_items["validated_against_real_workflows"] is False
+    assert live_items["result"] == "blocked_missing_local_ledger_workflows"
+
+    probes = {_string_value(item["tool_id"]): item for item in _object_list(live_items["probes"])}
+    assert set(probes) == {"kairos", "axiom-corpus"}
+    assert probes["kairos"]["local_path_env"] == "RULESPEC_NZ_KAIROS_DIR"
+    assert probes["kairos"]["status"] == "blocked_missing_local_checkout"
+    assert probes["kairos"]["env_value_present"] is False
+    assert probes["kairos"]["cli_on_path"] is False
+    assert probes["axiom-corpus"]["repository"] == "TheAxiomFoundation/axiom-corpus"
+    assert probes["axiom-corpus"]["status"] == "blocked_missing_local_checkout"
+    assert probes["axiom-corpus"]["cli_on_path"] is False
+
+    blockers = set(_string_list(live_items["blockers"]))
+    assert "RULESPEC_NZ_KAIROS_DIR is not set and no adjacent kairos checkout or kairos CLI was found." in blockers
+    assert "No local axiom-corpus checkout or axiom-corpus CLI was found for live ingestion validation." in blockers
