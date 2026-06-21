@@ -100,6 +100,21 @@ unsafe fn summarize_i64_record_batch_from_raw(
     })
 }
 
+#[cfg(test)]
+fn summarize_polars_i64_series_zero_copy(
+    series: &polars::prelude::Series,
+) -> Result<ArrowRecordBatchSummary, String> {
+    let values = series
+        .i64()
+        .map_err(|error| error.to_string())?
+        .cont_slice()
+        .map_err(|error| error.to_string())?;
+    let mut summary =
+        unsafe { summarize_i64_record_batch_from_raw(values.as_ptr() as usize, values.len()) }?;
+    summary.column_name = series.name().to_string();
+    Ok(summary)
+}
+
 #[pyfunction]
 fn arrow_i64_record_batch_summary(values_ptr: usize, row_count: usize) -> PyResult<String> {
     let summary = unsafe { summarize_i64_record_batch_from_raw(values_ptr, row_count) }
@@ -124,6 +139,7 @@ fn rulespec_nz(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use polars::prelude::NamedFrom;
 
     #[test]
     fn sum_as_string_returns_decimal_sum() {
@@ -158,5 +174,17 @@ mod tests {
             arrow_i64_record_batch_summary(values.as_ptr() as usize, values.len()).unwrap();
 
         assert_eq!(summary, "column=values rows=3 sum=15 zero_copy=true");
+    }
+
+    #[test]
+    fn polars_i64_series_reads_through_arrow_batch_without_copying_values() {
+        let series = polars::prelude::Series::new("synthetic_income", &[100_i64, 250, 400]);
+        let summary = summarize_polars_i64_series_zero_copy(&series).unwrap();
+        let source_ptr = series.i64().unwrap().cont_slice().unwrap().as_ptr() as usize;
+
+        assert_eq!(summary.rows, 3);
+        assert_eq!(summary.column_name, "synthetic_income");
+        assert_eq!(summary.sum, 750);
+        assert_eq!(summary.values_buffer_ptr, source_ptr);
     }
 }
