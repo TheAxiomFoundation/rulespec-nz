@@ -6,7 +6,7 @@
 
 ## Phase 2: Fixture Smoke Data
 
-- [ ] Add tiny JSONL or Arrow-compatible synthetic fixtures for schema-level validation.
+- [x] Add tiny JSONL or Arrow-compatible synthetic fixtures for schema-level validation. (`1d975f3`)
 
 ## Phase 3: Live Local Generator Validation
 
@@ -15,3 +15,4 @@
 ### Completed Implementation Commits
 
 - `11b5f50` - Added the synthetic population builder manifest, Track 8 conductor files, and builder contract regression tests.
+- `1d975f3` - Added tiny synthetic-only JSONL smoke fixtures for entity schema validation.
