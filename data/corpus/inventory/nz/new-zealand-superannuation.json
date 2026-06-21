@@ -83,6 +83,16 @@
       "reason": "Existing RuleSpec modules use the source-law directory nz/statutes/new_zealand_superannuation/ and split ordinary eligibility/rates from special-rate rules. The source-map destination remains the canonical future consolidation target."
     }
   ],
+  "destination_reconciliation": {
+    "decision": "keep_split_modules",
+    "compatibility_wrapper_added": false,
+    "canonical_source_map_destination": "nz/statutes/superannuation/nz_superannuation.yaml",
+    "implemented_modules": [
+      "nz/statutes/new_zealand_superannuation/core.yaml",
+      "nz/statutes/new_zealand_superannuation/special_rates.yaml"
+    ],
+    "reason": "Keep the current source-law split because core eligibility/rates and special-rate rules are separately tested and cited. Do not add a compatibility wrapper until a downstream importer requires the source-map destination path."
+  },
   "implemented_surfaces": [
     "NZ Super age qualification",
     "residence qualification",

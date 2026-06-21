@@ -134,3 +134,20 @@ def test_nz_superannuation_manifest_records_path_divergence() -> None:
         "nz/statutes/new_zealand_superannuation/core.yaml",
         "nz/statutes/new_zealand_superannuation/special_rates.yaml",
     }
+
+
+def test_nz_superannuation_manifest_records_destination_reconciliation_decision() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    reconciliation = cast(dict[str, object], manifest["destination_reconciliation"])
+
+    assert reconciliation["decision"] == "keep_split_modules"
+    assert reconciliation["compatibility_wrapper_added"] is False
+    assert (
+        reconciliation["canonical_source_map_destination"]
+        == "nz/statutes/superannuation/nz_superannuation.yaml"
+    )
+    assert set(_string_list(reconciliation["implemented_modules"])) == {
+        "nz/statutes/new_zealand_superannuation/core.yaml",
+        "nz/statutes/new_zealand_superannuation/special_rates.yaml",
+    }
+    assert _string_value(reconciliation["reason"]) != ""
