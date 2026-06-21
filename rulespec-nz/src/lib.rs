@@ -1,13 +1,24 @@
+#[cfg(feature = "python")]
 use std::ptr::NonNull;
+#[cfg(feature = "python")]
 use std::sync::Arc;
 
+#[cfg(feature = "python")]
 use arrow::array::{make_array, ArrayData, ArrayRef, Int64Array};
+#[cfg(feature = "python")]
 use arrow::buffer::Buffer;
+#[cfg(feature = "python")]
 use arrow::datatypes::{DataType, Field, Schema};
+#[cfg(feature = "python")]
 use arrow::record_batch::RecordBatch;
+#[cfg(feature = "python")]
 use pyo3::exceptions::PyValueError;
+#[cfg(feature = "python")]
 use pyo3::prelude::*;
+#[cfg(feature = "wasm")]
+use wasm_bindgen::prelude::*;
 
+#[cfg(feature = "python")]
 #[derive(Debug, PartialEq)]
 struct ArrowRecordBatchSummary {
     rows: usize,
@@ -17,15 +28,28 @@ struct ArrowRecordBatchSummary {
     values_buffer_ptr: usize,
 }
 
+#[cfg(feature = "python")]
 #[derive(Debug)]
 struct BorrowedArrowValuesBuffer;
 
-/// Formats the sum of two numbers as string.
-#[pyfunction]
-fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
-    Ok((a + b).to_string())
+pub fn add_usize(a: usize, b: usize) -> usize {
+    a + b
 }
 
+#[cfg_attr(feature = "wasm", wasm_bindgen)]
+#[cfg(feature = "wasm")]
+pub fn wasm_sum(a: usize, b: usize) -> usize {
+    add_usize(a, b)
+}
+
+/// Formats the sum of two numbers as string.
+#[cfg(feature = "python")]
+#[pyfunction]
+fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
+    Ok(add_usize(a, b).to_string())
+}
+
+#[cfg(feature = "python")]
 unsafe fn build_i64_record_batch_from_raw(
     values_ptr: usize,
     row_count: usize,
@@ -76,6 +100,7 @@ unsafe fn build_i64_record_batch_from_raw(
     Ok((batch, values_ptr))
 }
 
+#[cfg(feature = "python")]
 unsafe fn summarize_i64_record_batch_from_raw(
     values_ptr: usize,
     row_count: usize,
@@ -100,7 +125,7 @@ unsafe fn summarize_i64_record_batch_from_raw(
     })
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "python"))]
 fn summarize_polars_i64_series_zero_copy(
     series: &polars::prelude::Series,
 ) -> Result<ArrowRecordBatchSummary, String> {
@@ -115,6 +140,7 @@ fn summarize_polars_i64_series_zero_copy(
     Ok(summary)
 }
 
+#[cfg(feature = "python")]
 #[pyfunction]
 fn arrow_i64_record_batch_summary(values: Vec<i64>) -> PyResult<String> {
     let values_ptr = values.as_ptr() as usize;
@@ -130,6 +156,7 @@ fn arrow_i64_record_batch_summary(values: Vec<i64>) -> PyResult<String> {
 
 /// A Python module implemented in Rust. The name of this function must match
 /// the `lib.name` in Cargo.toml.
+#[cfg(feature = "python")]
 #[pymodule]
 fn rulespec_nz(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
@@ -140,13 +167,21 @@ fn rulespec_nz(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(feature = "python")]
     use polars::prelude::NamedFrom;
 
+    #[test]
+    fn add_usize_returns_sum() {
+        assert_eq!(add_usize(40, 2), 42);
+    }
+
+    #[cfg(feature = "python")]
     #[test]
     fn sum_as_string_returns_decimal_sum() {
         assert_eq!(sum_as_string(40, 2).unwrap(), "42");
     }
 
+    #[cfg(feature = "python")]
     #[test]
     fn arrow_i64_record_batch_uses_source_values_buffer() {
         let values = vec![10_i64, 20, 30];
@@ -161,6 +196,7 @@ mod tests {
         assert_eq!(summary.values_buffer_ptr, values.as_ptr() as usize);
     }
 
+    #[cfg(feature = "python")]
     #[test]
     fn arrow_i64_record_batch_rejects_null_pointer_with_rows() {
         let error = unsafe { summarize_i64_record_batch_from_raw(0, 1) }.unwrap_err();
@@ -168,6 +204,7 @@ mod tests {
         assert!(error.contains("non-null"));
     }
 
+    #[cfg(feature = "python")]
     #[test]
     fn py_arrow_i64_record_batch_summary_is_registered() {
         let summary = arrow_i64_record_batch_summary(vec![4_i64, 5, 6]).unwrap();
@@ -175,6 +212,7 @@ mod tests {
         assert_eq!(summary, "column=values rows=3 sum=15 zero_copy=true");
     }
 
+    #[cfg(feature = "python")]
     #[test]
     fn polars_i64_series_reads_through_arrow_batch_without_copying_values() {
         let series = polars::prelude::Series::new("synthetic_income", &[100_i64, 250, 400]);
@@ -185,5 +223,11 @@ mod tests {
         assert_eq!(summary.column_name, "synthetic_income");
         assert_eq!(summary.sum, 750);
         assert_eq!(summary.values_buffer_ptr, source_ptr);
+    }
+
+    #[cfg(feature = "wasm")]
+    #[test]
+    fn wasm_sum_uses_core_addition() {
+        assert_eq!(wasm_sum(20, 22), 42);
     }
 }
