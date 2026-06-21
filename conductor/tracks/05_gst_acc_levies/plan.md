@@ -10,7 +10,8 @@ This plan is the active numbered Conductor surface for GST and ACC levy ingestio
   Write a failing repository test that requires an official-source manifest for GST and ACC levy RuleSpec modules.
 - [x] Task: Implement source manifest
   Add the manifest tying existing GST and ACC RuleSpec modules to normalized PCO provision JSONL files, source-map batches, agency references, and known corpus gaps.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Source Manifest and Existing RuleSpec Alignment' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Source Manifest and Existing RuleSpec Alignment' (7a9fe3d)
+  Verified on 2026-06-22 with `python -m ruff check tests\test_gst_acc_levies_manifest.py`, `python -m basedpyright tests\test_gst_acc_levies_manifest.py`, `python -m pytest tests\test_gst_acc_levies_manifest.py -p no:cacheprovider`, and `python -m pytest tests -p no:cacheprovider`.
 
 ---
 
