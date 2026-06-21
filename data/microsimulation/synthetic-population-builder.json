@@ -167,6 +167,42 @@
       "benefit_unit_type"
     ]
   },
+  "live_generator_validation": {
+    "validated_at": "2026-06-22",
+    "status": "partial_blocked",
+    "blocking_reasons": [
+      "RULESPEC_NZ_OPEN_SOCIAL_DATA_DIR is not set.",
+      "RULESPEC_NZ_FYI_CLI_DIR is not set.",
+      "Adjacent generator repositories were found, but no Track 8-compatible persons, households, and benefit_units output set was discovered without running generators."
+    ],
+    "sources": [
+      {
+        "source_id": "open_social_data",
+        "env_var": "RULESPEC_NZ_OPEN_SOCIAL_DATA_DIR",
+        "env_var_set": false,
+        "repo_candidate_found": true,
+        "repo_candidate_path": "../open_social_data",
+        "validated": false,
+        "candidate_status": "repo_found_no_compatible_entity_output",
+        "observed_candidates": [
+          "../open_social_data/datasets/stats_nz/population_estimates",
+          "../open_social_data/datasets/aihw/myhospitals/data/*.parquet"
+        ],
+        "notes": "Nearby open_social_data content exists, including Stats NZ population estimates and AIHW hospital Parquet files, but no synthetic persons/households/benefit_units entity output was found."
+      },
+      {
+        "source_id": "fyi-cli",
+        "env_var": "RULESPEC_NZ_FYI_CLI_DIR",
+        "env_var_set": false,
+        "repo_candidate_found": true,
+        "repo_candidate_path": "../fyi-cli",
+        "validated": false,
+        "candidate_status": "repo_found_no_generator_output",
+        "observed_candidates": [],
+        "notes": "Nearby fyi-cli repository exists, but no JSONL, Arrow, or Parquet generator output matching this builder contract was found without running the generator."
+      }
+    ]
+  },
   "privacy_boundaries": {
     "population_type": "synthetic_only",
     "raw_personal_data_allowed": false,

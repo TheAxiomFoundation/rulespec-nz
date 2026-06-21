@@ -198,3 +198,30 @@ def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas()
         values = cast(dict[str, object], row["values"])
         assert set(_string_map(table["columns"])) <= set(values)
         assert _string_value(table["primary_key"]) in values
+
+
+def test_synthetic_population_builder_records_live_generator_validation_state() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    live_validation = cast(dict[str, object], manifest["live_generator_validation"])
+
+    assert live_validation["validated_at"] == "2026-06-22"
+    assert live_validation["status"] == "partial_blocked"
+    assert _string_list(live_validation["blocking_reasons"]) != []
+
+    sources = {
+        _string_value(source["source_id"]): source
+        for source in _object_list(live_validation["sources"])
+    }
+    assert set(sources) == {"open_social_data", "fyi-cli"}
+
+    open_social_data = sources["open_social_data"]
+    assert open_social_data["env_var_set"] is False
+    assert open_social_data["validated"] is False
+    assert open_social_data["repo_candidate_found"] is True
+    assert open_social_data["candidate_status"] == "repo_found_no_compatible_entity_output"
+
+    fyi_cli = sources["fyi-cli"]
+    assert fyi_cli["env_var_set"] is False
+    assert fyi_cli["validated"] is False
+    assert fyi_cli["repo_candidate_found"] is True
+    assert fyi_cli["candidate_status"] == "repo_found_no_generator_output"
