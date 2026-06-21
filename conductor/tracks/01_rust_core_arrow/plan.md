@@ -19,8 +19,8 @@ This plan implements Track 1 to build the Rust core engine with Apache Arrow/Pol
 
 - [x] Task: Implement Arrow record batch passing (50b97a8)
   Build PyO3 wrappers receiving Arrow Array pointers from Python.
-- [~] Task: Validate Polars zero-copy reads in Rust
-  Verify memory sharing of synthetic populations from Python Polars to Rust memory spaces.
+- [x] Task: Validate Polars zero-copy reads in Rust (c6e5a9f)
+  Verified on 2026-06-21 with `cargo fmt --check` and `cargo test --no-default-features`; the Rust unit test `polars_i64_series_reads_through_arrow_batch_without_copying_values` confirms the Arrow values buffer pointer matches the source Polars contiguous slice pointer.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Zero-Copy Arrow Processing' (Protocol in workflow.md)
   Verified on 2026-06-21 with `cargo fmt --check`, `cargo check --no-default-features`,
   `cargo test --no-default-features`, and `cargo clippy --no-default-features -- -D warnings`.
