@@ -1,0 +1,45 @@
+{
+  "track_id": "01_rust_core_arrow",
+  "generated_at": "2026-06-22",
+  "coverage_threshold_percent": 90,
+  "layers": {
+    "native_rust": {
+      "coverage_command": "cargo llvm-cov --no-default-features --summary-only --json",
+      "status": "blocked",
+      "threshold_met": false,
+      "blocker": "cargo llvm-cov failed on x86_64-pc-windows-gnu because rustc could not find profiler_builtins; llvm-tools-preview was already installed, indicating this toolchain lacks the required profiler runtime.",
+      "last_attempted_at": "2026-06-22",
+      "evidence": [
+        "cargo llvm-cov --no-default-features --summary-only --json exited 101",
+        "error[E0463]: can't find crate for profiler_builtins"
+      ]
+    },
+    "python_binding": {
+      "coverage_command": "cargo test --no-default-features --features python",
+      "status": "blocked",
+      "threshold_met": false,
+      "blocker": "The Python/PyO3 feature test path compiled but final linking failed with No space left on device before coverage could be collected.",
+      "last_attempted_at": "2026-06-22",
+      "evidence": [
+        "cargo check --no-default-features --features python passed",
+        "cargo clippy --no-default-features --features python -- -D warnings passed"
+      ]
+    }
+  },
+  "supporting_gates": [
+    "cargo fmt --check",
+    "cargo test --no-default-features",
+    "cargo clippy --no-default-features -- -D warnings",
+    "cargo check --target wasm32-unknown-unknown --no-default-features --features wasm",
+    "cargo check",
+    "cargo check --no-default-features --features python",
+    "cargo clippy --no-default-features --features python -- -D warnings",
+    "cargo test --no-default-features --features wasm",
+    "python -m pytest tests -p no:cacheprovider"
+  ],
+  "coverage_status": "threshold_not_proven",
+  "notes": [
+    "This artifact records reproducible commands and blocker evidence; it does not claim the Track 1 >90% coverage target is met.",
+    "Python repository coverage for non-Track-1 adapter code was measured separately at 94%, but it is not used as Track 1 PyO3 binding coverage evidence."
+  ]
+}
