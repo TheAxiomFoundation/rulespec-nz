@@ -76,6 +76,18 @@
     "legislation_inventory": "data/corpus/inventory/nz/<document_class>/<run-id>.json",
     "hansard_context": "data/corpus/provisions/nz/hansard/<run-id>.jsonl"
   },
+  "reader_smoke_fixtures": [
+    {
+      "fixture_id": "local-parquet-reader-smoke",
+      "path": "data/corpus/ingestion/fixtures/local-parquet-reader-smoke.json",
+      "payload_format": "arrow_schema_json",
+      "committed_payload_format": "json",
+      "covers_tables": [
+        "legislation_provisions",
+        "hansard_speeches"
+      ]
+    }
+  ],
   "repository_boundaries": {
     "never_commit_globs": [
       "**/*.parquet",

@@ -1,0 +1,67 @@
+{
+  "fixture_id": "local-parquet-reader-smoke",
+  "payload_format": "arrow_schema_json",
+  "canonical_law": false,
+  "contains_raw_parquet": false,
+  "purpose": "Tiny schema-level reader fixture for local Parquet adapter contracts without committing raw Parquet payloads.",
+  "tables": [
+    {
+      "table_id": "legislation_provisions",
+      "source_id": "corpus-legislation-nz",
+      "primary_join_key": "citation_path",
+      "fixture_path": "data/corpus/ingestion/fixtures/local-parquet-reader-smoke.json",
+      "columns": [
+        "citation_path",
+        "work_id",
+        "work_title",
+        "document_class",
+        "expression_date",
+        "version",
+        "text",
+        "source_path"
+      ],
+      "sample_rows": [
+        {
+          "citation_path": "nz/statute/act/public/2001/0084/section/7",
+          "work_id": "public-2001-0084",
+          "work_title": "New Zealand Superannuation and Retirement Income Act 2001",
+          "document_class": "act",
+          "expression_date": "2026-06-17",
+          "version": "latest",
+          "text": "Synthetic provision row for reader schema validation only.",
+          "source_path": "synthetic/corpus-legislation-nz/public-2001-0084.parquet"
+        }
+      ]
+    },
+    {
+      "table_id": "hansard_speeches",
+      "source_id": "corpus-nz-hansard",
+      "primary_join_key": "source_path",
+      "fixture_path": "data/corpus/ingestion/fixtures/local-parquet-reader-smoke.json",
+      "columns": [
+        "sitting_date",
+        "chamber",
+        "speaker_name",
+        "debate_title",
+        "speech_id",
+        "text",
+        "source_path"
+      ],
+      "sample_rows": [
+        {
+          "sitting_date": "2026-01-01",
+          "chamber": "House",
+          "speaker_name": "Synthetic Speaker",
+          "debate_title": "Synthetic debate for reader schema validation",
+          "speech_id": "synthetic-hansard-0001",
+          "text": "Synthetic Hansard row for non-authoritative context schema validation only.",
+          "source_path": "synthetic/corpus-nz-hansard/speech-0001.parquet"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "This fixture is JSON carrying Arrow-style table schemas and sample rows; it is not raw Parquet and is not legal authority.",
+    "The source_path values intentionally point to synthetic local Parquet-style paths so reader joins can be validated without committing payloads."
+  ]
+}

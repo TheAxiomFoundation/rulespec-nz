@@ -7,6 +7,7 @@ from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/corpus/ingestion/local-parquet-layers.json"
+FIXTURE_PATH = ROOT / "data/corpus/ingestion/fixtures/local-parquet-reader-smoke.json"
 SOURCE_SPINE_PATH = ROOT / "data/corpus/inventory/nz/source-spine.json"
 REQUIREMENTS_PATH = ROOT / "conductor/requirements_and_design.md"
 
@@ -143,3 +144,43 @@ def test_local_parquet_adapter_records_non_commit_boundaries() -> None:
         "data/corpus/provisions/nz/**/*.jsonl",
     } <= allowed_outputs
 
+
+
+def test_local_parquet_adapter_reader_smoke_fixtures_cover_table_schemas() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    fixture_refs = _object_list(manifest["reader_smoke_fixtures"])
+    assert len(fixture_refs) == 1
+
+    fixture_ref = fixture_refs[0]
+    assert fixture_ref["fixture_id"] == "local-parquet-reader-smoke"
+    assert fixture_ref["path"] == FIXTURE_PATH.relative_to(ROOT).as_posix()
+    assert fixture_ref["payload_format"] == "arrow_schema_json"
+    assert fixture_ref["committed_payload_format"] == "json"
+
+    fixture = _load_json_object(FIXTURE_PATH)
+    assert fixture["fixture_id"] == fixture_ref["fixture_id"]
+    assert fixture["payload_format"] == "arrow_schema_json"
+    assert fixture["canonical_law"] is False
+    assert fixture["contains_raw_parquet"] is False
+
+    tables = {
+        _string_value(table["id"]): table for table in _object_list(manifest["tables"])
+    }
+    fixture_tables = {
+        _string_value(table["table_id"]): table for table in _object_list(fixture["tables"])
+    }
+    assert set(fixture_tables) == set(tables)
+
+    for table_id, table in tables.items():
+        fixture_table = fixture_tables[table_id]
+        assert fixture_table["source_id"] == table["source_id"]
+        assert fixture_table["primary_join_key"] == table["primary_join_key"]
+        assert fixture_table["fixture_path"] == FIXTURE_PATH.relative_to(ROOT).as_posix()
+        columns = set(_string_list(fixture_table["columns"]))
+        required_columns = set(_string_list(table["required_columns"]))
+        assert required_columns <= columns
+
+        sample_rows = _object_list(fixture_table["sample_rows"])
+        assert len(sample_rows) == 1
+        for row in sample_rows:
+            assert required_columns <= set(row)
