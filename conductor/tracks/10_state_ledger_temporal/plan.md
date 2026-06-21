@@ -6,7 +6,7 @@
 
 ## Phase 2: Fixture Events
 
-- [ ] Add tiny temporal policy event fixtures for schema-level validation.
+- [x] Add tiny temporal policy event fixtures for schema-level validation. (`d5e66cc`)
 
 ## Phase 3: Live Local Ledger Validation
 
@@ -15,3 +15,4 @@
 ### Completed Implementation Commits
 
 - `fe5a881` - Added the state ledger temporal policy manifest, Track 10 conductor files, and ledger contract regression tests.
+- `d5e66cc` - Added synthetic temporal policy event fixtures, smoke index, report, and schema validation tests.
