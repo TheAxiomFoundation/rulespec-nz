@@ -184,3 +184,29 @@ def test_local_parquet_adapter_reader_smoke_fixtures_cover_table_schemas() -> No
         assert len(sample_rows) == 1
         for row in sample_rows:
             assert required_columns <= set(row)
+
+
+def test_local_parquet_adapter_records_live_validation_state() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    live_validation = cast(dict[str, object], manifest["live_local_validation"])
+
+    assert live_validation["validated_at"] == "2026-06-22"
+    assert live_validation["status"] == "partial_blocked"
+    assert _string_list(live_validation["blocking_reasons"]) != []
+
+    sources = {
+        _string_value(source["source_id"]): source
+        for source in _object_list(live_validation["sources"])
+    }
+    assert set(sources) == {"corpus-legislation-nz", "corpus-nz-hansard"}
+
+    legislation = sources["corpus-legislation-nz"]
+    assert legislation["env_var_set"] is False
+    assert legislation["validated"] is False
+    assert legislation["candidate_status"] == "adjacent_noncanonical_candidate_found"
+
+    hansard = sources["corpus-nz-hansard"]
+    assert hansard["env_var_set"] is False
+    assert hansard["validated"] is False
+    assert hansard["candidate_status"] == "candidate_export_found"
+    assert _string_value(hansard["candidate_path"]).endswith("corpus-nz-hansard/generated/parquet/hansard.parquet")

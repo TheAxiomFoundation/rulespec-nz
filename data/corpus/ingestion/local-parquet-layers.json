@@ -88,6 +88,35 @@
       ]
     }
   ],
+  "live_local_validation": {
+    "validated_at": "2026-06-22",
+    "status": "partial_blocked",
+    "blocking_reasons": [
+      "RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR is not set.",
+      "RULESPEC_NZ_CORPUS_HANSARD_PARQUET_DIR is not set.",
+      "No corpus-legislation-nz export directory matching the manifest source id was found; adjacent corpus-law-nz Parquet appears noncanonical for this adapter contract."
+    ],
+    "sources": [
+      {
+        "source_id": "corpus-legislation-nz",
+        "env_var": "RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR",
+        "env_var_set": false,
+        "validated": false,
+        "candidate_status": "adjacent_noncanonical_candidate_found",
+        "candidate_path": "../corpus-law-nz/data/parquet/legislation_type=act/year=2026/part-00000.parquet",
+        "notes": "Adjacent corpus-law-nz Parquet was discovered, but the manifest contract expects corpus-legislation-nz or an explicit RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR value."
+      },
+      {
+        "source_id": "corpus-nz-hansard",
+        "env_var": "RULESPEC_NZ_CORPUS_HANSARD_PARQUET_DIR",
+        "env_var_set": false,
+        "validated": false,
+        "candidate_status": "candidate_export_found",
+        "candidate_path": "../corpus-nz-hansard/generated/parquet/hansard.parquet",
+        "notes": "A nearby Hansard export was discovered, but it was not validated as the configured adapter source because the environment variable is unset."
+      }
+    ]
+  },
   "repository_boundaries": {
     "never_commit_globs": [
       "**/*.parquet",
