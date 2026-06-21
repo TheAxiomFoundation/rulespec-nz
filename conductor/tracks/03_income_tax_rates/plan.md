@@ -10,7 +10,8 @@ This plan is the active numbered Conductor surface for the income tax rate inges
   Write a failing repository test that requires an official-source manifest for the Income Tax Act Schedule 1 individual rate scale and checks it against the existing RuleSpec module and source map.
 - [x] Task: Implement source manifest
   Add the manifest tying the RuleSpec destination to the PCO corpus citation, IRD reference URL, and comparison-oracle check.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Source Manifest and RuleSpec Alignment' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Source Manifest and RuleSpec Alignment' (eb5735d)
+  Verified on 2026-06-22 with `python -m ruff check tests\test_income_tax_rate_source_manifest.py`, `python -m basedpyright tests\test_income_tax_rate_source_manifest.py`, `python -m pytest tests\test_income_tax_rate_source_manifest.py -p no:cacheprovider`, and `python -m pytest tests -p no:cacheprovider`.
 
 ---
 
@@ -35,5 +36,6 @@ This plan is the active numbered Conductor surface for the income tax rate inges
 ### Completed Implementation Commits
 
 - `11e073a` conductor-track3-income-tax-rate-manifest
+- `eb5735d` Harden Track 3 manifest test typing and verification gates
 
 
