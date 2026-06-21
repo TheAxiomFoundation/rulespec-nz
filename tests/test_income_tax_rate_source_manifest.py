@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import cast
 
 import yaml
 
@@ -13,31 +13,43 @@ RULESPEC_PATH = ROOT / "nz/statutes/income_tax/schedule_1/individual_income_tax.
 SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
 
 
-def _load_json(path: Path) -> dict[str, Any]:
-    with path.open(encoding="utf-8") as handle:
-        loaded = json.load(handle)
+def _load_json_object(path: Path) -> dict[str, object]:
+    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return loaded
+    return cast(dict[str, object], loaded)
 
 
-def _load_yaml(path: Path) -> dict[str, Any]:
-    with path.open(encoding="utf-8") as handle:
-        loaded = yaml.safe_load(handle)
+def _load_yaml_object(path: Path) -> dict[str, object]:
+    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return loaded
+    return cast(dict[str, object], loaded)
 
 
-def _stringify_nested_keys(value: Any) -> Any:
+def _object_dict(value: object) -> dict[str, object]:
+    assert isinstance(value, dict)
+    return cast(dict[str, object], value)
+
+
+def _object_list(value: object) -> list[dict[str, object]]:
+    assert isinstance(value, list)
+    items = cast(list[object], value)
+    for item in items:
+        assert isinstance(item, dict)
+    return cast(list[dict[str, object]], items)
+
+
+def _stringify_nested_keys(value: object) -> object:
     if isinstance(value, dict):
-        return {str(key): _stringify_nested_keys(item) for key, item in value.items()}
+        items = cast(dict[object, object], value)
+        return {str(key): _stringify_nested_keys(item) for key, item in items.items()}
     return value
 
 
 def test_income_tax_rate_manifest_matches_rulespec_source_verification() -> None:
-    manifest = _load_json(MANIFEST_PATH)
-    rulespec = _load_yaml(RULESPEC_PATH)
+    manifest = _load_json_object(MANIFEST_PATH)
+    rulespec = _load_yaml_object(RULESPEC_PATH)
 
-    source_verification = rulespec["module"]["source_verification"]
+    source_verification = _object_dict(_object_dict(rulespec["module"])["source_verification"])
 
     assert manifest["track_id"] == "03_income_tax_rates"
     assert manifest["authority"] == "official_source"
@@ -48,17 +60,17 @@ def test_income_tax_rate_manifest_matches_rulespec_source_verification() -> None
 
 
 def test_income_tax_rate_manifest_matches_source_map_first_batch() -> None:
-    manifest = _load_json(MANIFEST_PATH)
-    source_map = _load_json(SOURCE_MAP_PATH)
+    manifest = _load_json_object(MANIFEST_PATH)
+    source_map = _load_json_object(SOURCE_MAP_PATH)
 
     tax_track = next(
         track
-        for track in source_map["tracks"]
+        for track in _object_list(source_map["tracks"])
         if track["track_id"] == "tax-personal-income"
     )
     batch = next(
         item
-        for item in tax_track["first_rule_batches"]
+        for item in _object_list(tax_track["first_rule_batches"])
         if item["id"] == "income-tax-rate-scale"
     )
 
