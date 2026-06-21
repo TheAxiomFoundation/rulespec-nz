@@ -115,3 +115,40 @@ def test_social_security_manifest_points_to_modules_and_provisions() -> None:
         for citation_path in citation_paths:
             assert citation_path in module_text
 
+
+def test_social_security_manifest_records_main_benefit_coverage_gaps() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    inventory = _object_list(manifest["coverage_inventory"])
+
+    by_surface = {_string_value(item["surface"]): item for item in inventory}
+
+    implemented = {
+        "Jobseeker Support",
+        "Sole Parent Support",
+        "Supported Living Payment",
+        "income tests",
+        "residence tests",
+    }
+    deferred = {
+        "Emergency Benefit",
+        "Youth Payment",
+        "Young Parent Payment",
+        "Orphan's Benefit",
+        "Unsupported Child's Benefit",
+        "asset tests",
+        "stand-down provisions",
+    }
+
+    assert set(by_surface) == implemented | deferred
+
+    for surface in implemented:
+        item = by_surface[surface]
+        assert item["status"] == "implemented"
+        assert _string_list(item["rulespec_modules"]) != []
+
+    for surface in deferred:
+        item = by_surface[surface]
+        assert item["status"] == "deferred"
+        assert _string_value(item["reason"]) != ""
+        assert _string_list(item["rulespec_modules"]) == []
+
