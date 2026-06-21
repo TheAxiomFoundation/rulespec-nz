@@ -12,11 +12,10 @@
       "test_path": "nz/statutes/gst/rate.test.yaml",
       "available_corpus_citation_paths": [
         "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/10",
         "nz/statute/act/public/1985/0141/section/12"
       ],
-      "unresolved_corpus_citation_paths": [
-        "nz/statute/act/public/1985/0141/section/10"
-      ],
+      "unresolved_corpus_citation_paths": [],
       "agency_citation_paths": [],
       "agency_reference_urls": [
         "https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst"
@@ -47,6 +46,7 @@
       "path": "data/corpus/provisions/nz/statute/2026-06-16-pco-latest.jsonl",
       "citation_paths": [
         "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/10",
         "nz/statute/act/public/1985/0141/section/12"
       ]
     },
@@ -95,9 +95,7 @@
       ]
     }
   ],
-  "known_corpus_gaps": [
-    "nz/statute/act/public/1985/0141/section/10"
-  ],
+  "known_corpus_gaps": [],
   "implemented_surfaces": [
     "GST rate",
     "GST inclusive and exclusive conversions",
@@ -112,7 +110,7 @@
   ],
   "notes": [
     "PCO corpus extracts are the legal authority for available GST and ACC regulation citations; IRD pages are agency cross-references for calculation guidance and PAYE-facing rates.",
-    "Goods and Services Tax Act 1985 section 10 remains cited by the RuleSpec module but is not present in the current normalized provision JSONL files.",
+    "Goods and Services Tax Act 1985 sections 8, 10, and 12 are available in the current normalized PCO provision JSONL files.",
     "Oracle checks are comparison fixtures only and do not substitute for official source verification."
   ]
 }

@@ -121,6 +121,18 @@ def test_gst_acc_manifest_points_to_modules_provisions_and_known_gaps() -> None:
         for citation_path in available | unresolved | agency_citations:
             assert citation_path in module_text
 
-    assert "nz/statute/act/public/1985/0141/section/10" in _string_list(
+    gst_module = next(
+        module
+        for module in modules
+        if module["path"] == "nz/statutes/gst/rate.yaml"
+    )
+    gst_citations = set(_string_list(gst_module["available_corpus_citation_paths"]))
+    assert gst_citations == {
+        "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/10",
+        "nz/statute/act/public/1985/0141/section/12",
+    }
+    assert _string_list(gst_module["unresolved_corpus_citation_paths"]) == []
+    assert "nz/statute/act/public/1985/0141/section/10" not in _string_list(
         manifest["known_corpus_gaps"]
     )
