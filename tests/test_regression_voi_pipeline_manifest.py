@@ -154,3 +154,42 @@ def test_regression_voi_manifest_declares_route_order() -> None:
     assert first_route["to"] == "mars"
     assert second_route["from"] == "mars"
     assert second_route["to"] == "voiage"
+
+def _jsonl_objects(path: Path) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        loaded = cast(object, json.loads(line))
+        assert isinstance(loaded, dict)
+        rows.append(cast(dict[str, object], loaded))
+    return rows
+
+
+def test_regression_voi_fixture_outputs_cover_output_schemas() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    outputs = {_string_value(item["id"]): item for item in _object_list(manifest["outputs"])}
+    fixture_outputs = {_string_value(item["id"]): item for item in _object_list(manifest["fixture_outputs"])}
+
+    assert set(fixture_outputs) == {"regression-smoke", "voi-smoke", "summary-report-smoke"}
+    for fixture in fixture_outputs.values():
+        assert fixture["synthetic_only"] is True
+        assert fixture["contains_raw_analysis_payload"] is False
+
+    regression_path = ROOT / _string_value(fixture_outputs["regression-smoke"]["path"])
+    voi_path = ROOT / _string_value(fixture_outputs["voi-smoke"]["path"])
+    report_path = ROOT / _string_value(fixture_outputs["summary-report-smoke"]["path"])
+
+    regression_rows = _jsonl_objects(regression_path)
+    voi_rows = _jsonl_objects(voi_path)
+    assert len(regression_rows) == 1
+    assert len(voi_rows) == 1
+
+    regression_columns = set(_string_list(outputs["regression_dataset"]["required_columns"]))
+    voi_columns = set(_string_list(outputs["voi_decision_table"]["required_columns"]))
+    assert regression_columns.issubset(set(regression_rows[0]))
+    assert voi_columns.issubset(set(voi_rows[0]))
+
+    report_text = report_path.read_text(encoding="utf-8").lower()
+    for section in _string_list(outputs["summary_report"]["required_sections"]):
+        assert section in report_text

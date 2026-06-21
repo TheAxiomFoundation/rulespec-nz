@@ -1,0 +1,1 @@
+{"run_id":"smoke-run","decision_id":"decision-001","scenario_id":"baseline-vs-reform","expected_value":650.0,"expected_value_of_information":42.5,"uncertainty_source":"synthetic-smoke-variance"}

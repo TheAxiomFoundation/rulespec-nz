@@ -153,7 +153,32 @@
   },
   "deferred_work": [
     "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected.",
-    "Add tiny regression and VOI fixture outputs for schema-level validation.",
     "Validate against real local mars and voiage workflows when available."
+  ],
+  "fixture_outputs": [
+    {
+      "id": "regression-smoke",
+      "output_id": "regression_dataset",
+      "path": "data/analysis/fixtures/regression-smoke.jsonl",
+      "format": "jsonl",
+      "synthetic_only": true,
+      "contains_raw_analysis_payload": false
+    },
+    {
+      "id": "voi-smoke",
+      "output_id": "voi_decision_table",
+      "path": "data/analysis/fixtures/voi-smoke.jsonl",
+      "format": "jsonl",
+      "synthetic_only": true,
+      "contains_raw_analysis_payload": false
+    },
+    {
+      "id": "summary-report-smoke",
+      "output_id": "summary_report",
+      "path": "data/analysis/reports/smoke.md",
+      "format": "markdown",
+      "synthetic_only": true,
+      "contains_raw_analysis_payload": false
+    }
   ]
 }
