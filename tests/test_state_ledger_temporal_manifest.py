@@ -173,3 +173,44 @@ def test_state_ledger_manifest_has_temporal_join_keys() -> None:
     assert {"run_id", "scenario_id", "commit_sha"} <= set(
         _string_list(joins["policy_event_to_analysis_run"]["keys"])
     )
+
+
+def _jsonl_objects(path: Path) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        loaded = cast(object, json.loads(line))
+        assert isinstance(loaded, dict)
+        rows.append(cast(dict[str, object], loaded))
+    return rows
+
+
+def test_state_ledger_fixture_outputs_cover_event_schemas() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    event_types = {_string_value(item["id"]): item for item in _object_list(manifest["event_types"])}
+    fixture_outputs = {_string_value(item["id"]): item for item in _object_list(manifest["fixture_outputs"])}
+
+    assert set(fixture_outputs) == {"state-ledger-events-smoke", "temporal-policy-index-smoke", "handoff-report-smoke"}
+    for fixture in fixture_outputs.values():
+        assert fixture["synthetic_only"] is True
+        assert fixture["contains_raw_ledger_payload"] is False
+
+    events_path = ROOT / _string_value(fixture_outputs["state-ledger-events-smoke"]["path"])
+    index_path = ROOT / _string_value(fixture_outputs["temporal-policy-index-smoke"]["path"])
+    report_path = ROOT / _string_value(fixture_outputs["handoff-report-smoke"]["path"])
+
+    events = _jsonl_objects(events_path)
+    assert {_string_value(event["event_type"]) for event in events} == set(event_types)
+    assert {_string_value(event["event_status"]) for event in events}.issubset(set(_string_list(manifest["event_statuses"])))
+    for event in events:
+        event_type = event_types[_string_value(event["event_type"])]
+        assert set(_string_list(event_type["required_fields"])).issubset(set(event))
+
+    index = _load_json_object(index_path)
+    assert index["source_spine_path"] == manifest["source_spine_path"]
+    assert set(_string_list(index["event_ids"])) == {_string_value(event["event_id"]) for event in events}
+
+    report_text = report_path.read_text(encoding="utf-8").lower()
+    for section in _string_list(fixture_outputs["handoff-report-smoke"]["required_sections"]):
+        assert section in report_text

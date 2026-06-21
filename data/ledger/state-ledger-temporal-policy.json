@@ -164,7 +164,37 @@
     ]
   },
   "deferred_work": [
-    "Add tiny fixture events for schema-level validation.",
     "Validate against local kairos and axiom-corpus workflows when available."
+  ],
+  "fixture_outputs": [
+    {
+      "id": "state-ledger-events-smoke",
+      "output_id": "state_ledger_events",
+      "path": "data/ledger/events/smoke.jsonl",
+      "format": "jsonl",
+      "synthetic_only": true,
+      "contains_raw_ledger_payload": false
+    },
+    {
+      "id": "temporal-policy-index-smoke",
+      "output_id": "temporal_policy_index",
+      "path": "data/ledger/indexes/temporal-policy-index-smoke.json",
+      "format": "json",
+      "synthetic_only": true,
+      "contains_raw_ledger_payload": false
+    },
+    {
+      "id": "handoff-report-smoke",
+      "output_id": "handoff_report",
+      "path": "data/ledger/reports/smoke.md",
+      "format": "markdown",
+      "synthetic_only": true,
+      "contains_raw_ledger_payload": false,
+      "required_sections": [
+        "temporal policy events",
+        "source corpus",
+        "known limitations"
+      ]
+    }
   ]
 }

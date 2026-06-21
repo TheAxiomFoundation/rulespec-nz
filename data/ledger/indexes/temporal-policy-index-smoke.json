@@ -1,0 +1,1 @@
+{"index_id":"temporal-policy-index-smoke","synthetic_only":true,"source_spine_path":"data/corpus/inventory/nz/source-spine.json","event_ids":["ledger-smoke-policy-version","ledger-smoke-source-corpus","ledger-smoke-rulespec-module","ledger-smoke-oracle-parity"]}
