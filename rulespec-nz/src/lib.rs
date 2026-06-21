@@ -36,6 +36,29 @@ pub fn add_usize(a: usize, b: usize) -> usize {
     a + b
 }
 
+#[derive(Debug, PartialEq, Eq)]
+pub struct ArrowFlightContract {
+    pub transport: &'static str,
+    pub endpoint_uri: &'static str,
+    pub stream_name: &'static str,
+    pub schema_fields: [&'static str; 1],
+    pub zero_copy_values_buffer: bool,
+    pub live_transport_validated: bool,
+    pub validation_scope: &'static str,
+}
+
+pub fn arrow_flight_contract() -> ArrowFlightContract {
+    ArrowFlightContract {
+        transport: "arrow_flight",
+        endpoint_uri: "flight://rulespec-nz/local/record-batches",
+        stream_name: "rulespec_nz_i64_record_batches",
+        schema_fields: ["values:int64:not_null"],
+        zero_copy_values_buffer: true,
+        live_transport_validated: false,
+        validation_scope: "repository_contract_only_until_live_arrow_flight_endpoint_exists",
+    }
+}
+
 #[cfg_attr(feature = "wasm", wasm_bindgen)]
 #[cfg(feature = "wasm")]
 pub fn wasm_sum(a: usize, b: usize) -> usize {
@@ -229,5 +252,24 @@ mod tests {
     #[test]
     fn wasm_sum_uses_core_addition() {
         assert_eq!(wasm_sum(20, 22), 42);
+    }
+
+    #[test]
+    fn arrow_flight_contract_describes_repository_boundary() {
+        let contract = arrow_flight_contract();
+
+        assert_eq!(contract.transport, "arrow_flight");
+        assert_eq!(
+            contract.endpoint_uri,
+            "flight://rulespec-nz/local/record-batches"
+        );
+        assert_eq!(contract.stream_name, "rulespec_nz_i64_record_batches");
+        assert_eq!(contract.schema_fields, ["values:int64:not_null"]);
+        assert!(contract.zero_copy_values_buffer);
+        assert!(!contract.live_transport_validated);
+        assert_eq!(
+            contract.validation_scope,
+            "repository_contract_only_until_live_arrow_flight_endpoint_exists"
+        );
     }
 }
