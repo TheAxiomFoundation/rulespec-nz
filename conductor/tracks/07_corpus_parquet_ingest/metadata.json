@@ -1,7 +1,7 @@
 {
   "track_id": "07_corpus_parquet_ingest",
   "title": "Ingestion Adapter for Local Parquet Layers",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-06-20",
-  "updated_at": "2026-06-20"
+  "updated_at": "2026-06-22"
 }
