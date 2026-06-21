@@ -10,7 +10,8 @@ This plan is the active numbered Conductor surface for Social Security Act 2018 
   Write a failing repository test that requires an official-source manifest for Social Security Act 2018 main-benefit entitlement and rate schedules.
 - [x] Task: Implement source manifest
   Add the manifest tying existing main-benefit RuleSpec modules to normalized PCO provision JSONL files, source-map batches, and comparison-oracle checks.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Source Manifest and Existing RuleSpec Alignment' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Source Manifest and Existing RuleSpec Alignment' (7427380)
+  Verified on 2026-06-22 with `python -m ruff check tests\test_social_security_main_benefits_manifest.py`, `python -m basedpyright tests\test_social_security_main_benefits_manifest.py`, `python -m pytest tests\test_social_security_main_benefits_manifest.py -p no:cacheprovider`, and `python -m pytest tests -p no:cacheprovider`.
 
 ---
 
