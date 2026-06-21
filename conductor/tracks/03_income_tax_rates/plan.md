@@ -21,7 +21,8 @@ This plan is the active numbered Conductor surface for the income tax rate inges
   Identify the normalized PCO provision record for the Schedule 1 rate table and record the corpus locator/provision path.
 - [x] Task: Add provision trace assertions (f265c33)
   Test that the manifest points to an available normalized provision or records an explicit blocker.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Corpus Provision Trace' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Corpus Provision Trace' (f265c33)
+  Verified on 2026-06-22 with `python -m ruff check tests\test_income_tax_rate_source_manifest.py`, `python -m basedpyright tests\test_income_tax_rate_source_manifest.py`, `python -m pytest tests\test_income_tax_rate_source_manifest.py -p no:cacheprovider`, and `python -m pytest tests -p no:cacheprovider`.
 
 ---
 
@@ -37,5 +38,6 @@ This plan is the active numbered Conductor surface for the income tax rate inges
 
 - `11e073a` conductor-track3-income-tax-rate-manifest
 - `eb5735d` Harden Track 3 manifest test typing and verification gates
+- `f265c33` Add Track 3 Schedule 1 provision trace
 
 
