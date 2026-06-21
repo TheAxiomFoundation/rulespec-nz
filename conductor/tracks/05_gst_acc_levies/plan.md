@@ -17,11 +17,12 @@ This plan is the active numbered Conductor surface for GST and ACC levy ingestio
 
 ## Phase 2: Complete GST Corpus Trace
 
-- [ ] Task: Locate GST section 10 provision extract
+- [x] Task: Locate GST section 10 provision extract (91248fe)
   Identify or generate the normalized PCO provision record for Goods and Services Tax Act 1985 section 10.
-- [ ] Task: Add complete GST trace assertions
+- [x] Task: Add complete GST trace assertions (91248fe)
   Test that the GST module has available normalized provision records for sections 8, 10, and 12.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Complete GST Corpus Trace' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Complete GST Corpus Trace' (91248fe)
+  Verified on 2026-06-22 with `python -m pytest tests\test_gst_acc_levies_manifest.py -p no:cacheprovider` red before implementation, then green with `python -m pytest tests\test_gst_acc_levies_manifest.py -p no:cacheprovider`, `python -m ruff check tests\test_gst_acc_levies_manifest.py`, `python -m basedpyright tests\test_gst_acc_levies_manifest.py`, and `python -m pytest tests -p no:cacheprovider`.
 
 ---
 
@@ -36,4 +37,5 @@ This plan is the active numbered Conductor surface for GST and ACC levy ingestio
 ### Completed Implementation Commits
 
 - 7a9fe3d conductor-track5-gst-acc-manifest
+- 91248fe Resolve_track5_gst_section10_trace
 
