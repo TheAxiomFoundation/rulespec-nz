@@ -29,8 +29,8 @@ This plan implements Track 1 to build the Rust core engine with Apache Arrow/Pol
 
 ## Phase 3: Remaining Runtime and Quality Coverage
 
-- [ ] Task: Add a WASM target smoke contract
-  Verify the Rust core exposes a minimal `wasm-bindgen` build path without depending on Python extension-module linking.
+- [x] Task: Add a WASM target smoke contract (5796d63)
+  Added an explicit `wasm` feature and minimal `wasm-bindgen` export that compiles without Python extension-module linking; verified with native no-default tests, WASM target check, WASM-feature tests, and clippy.
 - [ ] Task: Add Arrow Flight integration contract
   Define the repository-side Arrow Flight stream boundary and add a focused contract test or fixture for future transport work.
 - [ ] Task: Add coverage gate evidence for native and Python binding layers
