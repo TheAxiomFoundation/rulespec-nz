@@ -32,10 +32,12 @@ This plan is the active numbered Conductor surface for Social Security Act 2018 
   Extract minimal pinned fixtures for Jobseeker, Sole Parent Support, and Supported Living Payment from comparison oracles.
 - [x] Task: Compare fixtures against RuleSpec values (43f5d23)
   Add tests proving oracle fixtures align with official-source-backed RuleSpec values without treating oracles as legal authority.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (43f5d23)
+  Verified on 2026-06-22 with `python -m ruff check tests\test_social_security_main_benefits_manifest.py`, `python -m basedpyright tests\test_social_security_main_benefits_manifest.py`, `python -m pytest tests\test_social_security_main_benefits_manifest.py -p no:cacheprovider`, and `python -m pytest tests -p no:cacheprovider`.
 
 ### Completed Implementation Commits
 
 - 7427380 conductor-track4-social-security-manifest
 - fa4fea4 Add Track 4 main-benefit coverage inventory
+- 43f5d23 Add Track 4 main-benefit oracle fixture
 
