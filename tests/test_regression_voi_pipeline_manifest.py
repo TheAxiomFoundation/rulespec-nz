@@ -193,3 +193,28 @@ def test_regression_voi_fixture_outputs_cover_output_schemas() -> None:
     report_text = report_path.read_text(encoding="utf-8").lower()
     for section in _string_list(outputs["summary_report"]["required_sections"]):
         assert section in report_text
+
+
+def test_regression_voi_manifest_records_live_validation_state() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    live = manifest["live_validation"]
+    assert isinstance(live, dict)
+    live_items = cast(dict[str, object], live)
+
+    assert live_items["checked_at"] == "2026-06-22"
+    assert live_items["validated_against_real_workflows"] is False
+    assert live_items["result"] == "blocked_missing_local_workflows"
+
+    probes = {_string_value(item["tool_id"]): item for item in _object_list(live_items["probes"])}
+    assert set(probes) == {"mars", "voiage"}
+    assert probes["mars"]["local_path_env"] == "RULESPEC_NZ_MARS_DIR"
+    assert probes["mars"]["status"] == "blocked_missing_local_checkout"
+    assert probes["mars"]["env_value_present"] is False
+    assert probes["mars"]["adjacent_checkout_present"] is False
+    assert probes["voiage"]["local_path_env"] == "RULESPEC_NZ_VOIAGE_DIR"
+    assert probes["voiage"]["status"] == "blocked_missing_local_checkout"
+    assert probes["voiage"]["oracle_id"] == "voiage"
+
+    blockers = set(_string_list(live_items["blockers"]))
+    assert "RULESPEC_NZ_MARS_DIR is not set and no adjacent mars checkout was found." in blockers
+    assert "RULESPEC_NZ_VOIAGE_DIR is not set and no adjacent voiage checkout was found." in blockers

@@ -152,8 +152,7 @@
     ]
   },
   "deferred_work": [
-    "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected.",
-    "Validate against real local mars and voiage workflows when available."
+    "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected."
   ],
   "fixture_outputs": [
     {
@@ -180,5 +179,37 @@
       "synthetic_only": true,
       "contains_raw_analysis_payload": false
     }
-  ]
+  ],
+  "live_validation": {
+    "checked_at": "2026-06-22",
+    "validated_against_real_workflows": false,
+    "result": "blocked_missing_local_workflows",
+    "probes": [
+      {
+        "tool_id": "mars",
+        "local_path_env": "RULESPEC_NZ_MARS_DIR",
+        "env_value_present": false,
+        "adjacent_checkout_present": false,
+        "oracle_id": null,
+        "status": "blocked_missing_local_checkout"
+      },
+      {
+        "tool_id": "voiage",
+        "local_path_env": "RULESPEC_NZ_VOIAGE_DIR",
+        "env_value_present": false,
+        "adjacent_checkout_present": false,
+        "oracle_id": "voiage",
+        "status": "blocked_missing_local_checkout"
+      }
+    ],
+    "blockers": [
+      "RULESPEC_NZ_MARS_DIR is not set and no adjacent mars checkout was found.",
+      "RULESPEC_NZ_VOIAGE_DIR is not set and no adjacent voiage checkout was found."
+    ],
+    "next_validation_steps": [
+      "Set RULESPEC_NZ_MARS_DIR to a local mars checkout before running regression workflow validation.",
+      "Set RULESPEC_NZ_VOIAGE_DIR to a local voiage checkout before running VOI workflow validation.",
+      "Keep raw live analysis outputs under data/analysis/local, data/analysis/raw, or data/analysis/runs and promote only schema-safe summaries."
+    ]
+  }
 }
