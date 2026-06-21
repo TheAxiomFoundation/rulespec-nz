@@ -31,7 +31,7 @@ This plan implements Track 1 to build the Rust core engine with Apache Arrow/Pol
 
 - [x] Task: Add a WASM target smoke contract (5796d63)
   Added an explicit `wasm` feature and minimal `wasm-bindgen` export that compiles without Python extension-module linking; verified with native no-default tests, WASM target check, WASM-feature tests, and clippy.
-- [ ] Task: Add Arrow Flight integration contract
-  Define the repository-side Arrow Flight stream boundary and add a focused contract test or fixture for future transport work.
+- [x] Task: Add Arrow Flight integration contract (cd9aaed)
+  Added a repository-side Arrow Flight stream boundary contract for future transport work, including endpoint URI, stream name, schema fields, zero-copy expectation, and `live_transport_validated: false`.
 - [ ] Task: Add coverage gate evidence for native and Python binding layers
   Establish a reproducible coverage command and record whether Track 1 meets the >90% target from the specification.
