@@ -28,9 +28,9 @@ This plan is the active numbered Conductor surface for Social Security Act 2018 
 
 ## Phase 3: Oracle Fixture Cross-Check
 
-- [ ] Task: Add main-benefit oracle fixtures
+- [x] Task: Add main-benefit oracle fixtures (43f5d23)
   Extract minimal pinned fixtures for Jobseeker, Sole Parent Support, and Supported Living Payment from comparison oracles.
-- [ ] Task: Compare fixtures against RuleSpec values
+- [x] Task: Compare fixtures against RuleSpec values (43f5d23)
   Add tests proving oracle fixtures align with official-source-backed RuleSpec values without treating oracles as legal authority.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (Protocol in workflow.md)
 
