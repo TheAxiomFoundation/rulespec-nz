@@ -116,10 +116,11 @@ fn summarize_polars_i64_series_zero_copy(
 }
 
 #[pyfunction]
-fn arrow_i64_record_batch_summary(values_ptr: usize, row_count: usize) -> PyResult<String> {
-    let summary = unsafe { summarize_i64_record_batch_from_raw(values_ptr, row_count) }
+fn arrow_i64_record_batch_summary(values: Vec<i64>) -> PyResult<String> {
+    let values_ptr = values.as_ptr() as usize;
+    let summary = unsafe { summarize_i64_record_batch_from_raw(values_ptr, values.len()) }
         .map_err(PyValueError::new_err)?;
-    let zero_copy = row_count == 0 || summary.values_buffer_ptr == values_ptr;
+    let zero_copy = values.is_empty() || summary.values_buffer_ptr == values_ptr;
 
     Ok(format!(
         "column={} rows={} sum={} zero_copy={}",
@@ -169,9 +170,7 @@ mod tests {
 
     #[test]
     fn py_arrow_i64_record_batch_summary_is_registered() {
-        let values = vec![4_i64, 5, 6];
-        let summary =
-            arrow_i64_record_batch_summary(values.as_ptr() as usize, values.len()).unwrap();
+        let summary = arrow_i64_record_batch_summary(vec![4_i64, 5, 6]).unwrap();
 
         assert_eq!(summary, "column=values rows=3 sum=15 zero_copy=true");
     }
