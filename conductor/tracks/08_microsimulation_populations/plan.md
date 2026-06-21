@@ -10,9 +10,11 @@
 
 ## Phase 3: Live Local Generator Validation
 
-- [ ] Validate against real local `open_social_data` and `fyi-cli` outputs when available.
+- [x] Validate against real local `open_social_data` and `fyi-cli` outputs when available. (`ba30658`)
+  Recorded partial-blocked live validation: expected environment variables are unset and no compatible persons, households, and benefit_units generator output was found without running generators.
 
 ### Completed Implementation Commits
 
 - `11b5f50` - Added the synthetic population builder manifest, Track 8 conductor files, and builder contract regression tests.
 - `1d975f3` - Added tiny synthetic-only JSONL smoke fixtures for entity schema validation.
+- `ba30658` - Recorded Track 8 partial-blocked live local generator validation state.
