@@ -28,14 +28,16 @@ This plan is the active numbered Conductor surface for GST and ACC levy ingestio
 
 ## Phase 3: Oracle Fixture Cross-Check
 
-- [ ] Task: Add GST and ACC comparison fixtures
+- [x] Task: Add GST and ACC comparison fixtures (d3ece10)
   Extract minimal pinned fixtures for GST calculations and ACC earners' levy scenarios from comparison or agency references.
-- [ ] Task: Compare fixtures against RuleSpec values
+- [x] Task: Compare fixtures against RuleSpec values (d3ece10)
   Add tests proving fixtures align with official-source-backed RuleSpec values without treating oracles as legal authority.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Oracle Fixture Cross-Check' (d3ece10)
+  Verified on 2026-06-22 with `python -m pytest tests\test_gst_acc_levies_manifest.py -p no:cacheprovider` red before implementation, then green with `python -m pytest tests\test_gst_acc_levies_manifest.py -p no:cacheprovider`, `python -m ruff check tests\test_gst_acc_levies_manifest.py`, `python -m basedpyright tests\test_gst_acc_levies_manifest.py`, and `python -m pytest tests -p no:cacheprovider`.
 
 ### Completed Implementation Commits
 
 - 7a9fe3d conductor-track5-gst-acc-manifest
 - 91248fe Resolve_track5_gst_section10_trace
+- d3ece10 Add_track5_gst_acc_oracle_fixtures
 
