@@ -134,6 +134,20 @@
       "join_key": "benefit_unit_id"
     }
   ],
+  "fixture_smoke_data": [
+    {
+      "fixture_id": "synthetic-population-smoke",
+      "path": "data/microsimulation/fixtures/synthetic-population-smoke.jsonl",
+      "payload_format": "jsonl",
+      "synthetic_only": true,
+      "contains_raw_personal_data": false,
+      "covers_tables": [
+        "persons",
+        "households",
+        "benefit_units"
+      ]
+    }
+  ],
   "calibration_contract": {
     "seed_required": true,
     "seed_field": "population_seed",

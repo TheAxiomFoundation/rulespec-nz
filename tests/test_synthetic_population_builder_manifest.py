@@ -7,6 +7,7 @@ from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/microsimulation/synthetic-population-builder.json"
+FIXTURE_PATH = ROOT / "data/microsimulation/fixtures/synthetic-population-smoke.jsonl"
 REQUIREMENTS_PATH = ROOT / "conductor/requirements_and_design.md"
 BACKLOG_PATH = ROOT / "data/coverage/full-country-backlog.json"
 
@@ -157,3 +158,43 @@ def test_synthetic_population_builder_privacy_and_repository_boundaries() -> Non
     promoted_outputs = set(_string_list(repository_items["allowed_promoted_outputs"]))
     assert "data/microsimulation/*.json" in promoted_outputs
     assert "data/microsimulation/fixtures/*.jsonl" in promoted_outputs
+
+
+def _jsonl_objects(path: Path) -> list[dict[str, object]]:
+    return [_load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()]
+
+
+def _load_json_line(line: str) -> dict[str, object]:
+    loaded = cast(object, json.loads(line))
+    assert isinstance(loaded, dict)
+    return cast(dict[str, object], loaded)
+
+
+def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    fixture_refs = _object_list(manifest["fixture_smoke_data"])
+    assert len(fixture_refs) == 1
+
+    fixture_ref = fixture_refs[0]
+    assert fixture_ref["fixture_id"] == "synthetic-population-smoke"
+    assert fixture_ref["path"] == FIXTURE_PATH.relative_to(ROOT).as_posix()
+    assert fixture_ref["payload_format"] == "jsonl"
+    assert fixture_ref["synthetic_only"] is True
+    assert fixture_ref["contains_raw_personal_data"] is False
+
+    entity_tables = {
+        _string_value(table["id"]): table for table in _object_list(manifest["entity_tables"])
+    }
+    rows = _jsonl_objects(FIXTURE_PATH)
+    assert len(rows) == 3
+
+    rows_by_table = {_string_value(row["table"]): row for row in rows}
+    assert set(rows_by_table) == set(entity_tables)
+
+    for table_id, table in entity_tables.items():
+        row = rows_by_table[table_id]
+        assert row["fixture_id"] == fixture_ref["fixture_id"]
+        assert row["synthetic_only"] is True
+        values = cast(dict[str, object], row["values"])
+        assert set(_string_map(table["columns"])) <= set(values)
+        assert _string_value(table["primary_key"]) in values
