@@ -10,9 +10,10 @@
 
 ## Phase 3: Live Local Ledger Validation
 
-- [ ] Validate against real local kairos and TheAxiomFoundation axiom-corpus workflows when available.
+- [x] Validate against real local kairos and TheAxiomFoundation axiom-corpus workflows when available. (`332a9e1`)
 
 ### Completed Implementation Commits
 
 - `fe5a881` - Added the state ledger temporal policy manifest, Track 10 conductor files, and ledger contract regression tests.
 - `d5e66cc` - Added synthetic temporal policy event fixtures, smoke index, report, and schema validation tests.
+- `332a9e1` - Recorded blocked live validation state for missing local kairos/axiom-corpus workflows.
