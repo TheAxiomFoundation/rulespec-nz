@@ -21,6 +21,17 @@ This plan implements Track 1 to build the Rust core engine with Apache Arrow/Pol
   Build PyO3 wrappers receiving Arrow Array pointers from Python.
 - [x] Task: Validate Polars zero-copy reads in Rust (c6e5a9f)
   Verified on 2026-06-21 with `cargo fmt --check` and `cargo test --no-default-features`; the Rust unit test `polars_i64_series_reads_through_arrow_batch_without_copying_values` confirms the Arrow values buffer pointer matches the source Polars contiguous slice pointer.
-- [x] Task: Conductor - User Manual Verification 'Phase 2: Zero-Copy Arrow Processing' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Zero-Copy Arrow Processing' (Protocol in workflow.md) (bd99855)
   Verified on 2026-06-21 with `cargo fmt --check`, `cargo check --no-default-features`,
   `cargo test --no-default-features`, and `cargo clippy --no-default-features -- -D warnings`.
+
+---
+
+## Phase 3: Remaining Runtime and Quality Coverage
+
+- [ ] Task: Add a WASM target smoke contract
+  Verify the Rust core exposes a minimal `wasm-bindgen` build path without depending on Python extension-module linking.
+- [ ] Task: Add Arrow Flight integration contract
+  Define the repository-side Arrow Flight stream boundary and add a focused contract test or fixture for future transport work.
+- [ ] Task: Add coverage gate evidence for native and Python binding layers
+  Establish a reproducible coverage command and record whether Track 1 meets the >90% target from the specification.
