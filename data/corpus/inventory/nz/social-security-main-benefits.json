@@ -120,6 +120,14 @@
       ]
     }
   ],
+  "oracle_fixtures": [
+    {
+      "oracle_id": "openfisca-aotearoa",
+      "path": "data/oracles/fixtures/openfisca-aotearoa/main-benefit-entitlement-thresholds.json",
+      "commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+      "canonical_law": false
+    }
+  ],
   "implemented_surfaces": [
     "Jobseeker Support",
     "Sole Parent Support",

@@ -4,14 +4,25 @@ import json
 from pathlib import Path
 from typing import cast
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/corpus/inventory/nz/social-security-main-benefits.json"
 SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
+ENTITLEMENT_RULESPEC_PATH = (
+    ROOT / "nz/statutes/social_security/main_benefits/entitlement.yaml"
+)
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
     loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    assert isinstance(loaded, dict)
+    return cast(dict[str, object], loaded)
+
+
+def _load_yaml_object(path: Path) -> dict[str, object]:
+    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
     return cast(dict[str, object], loaded)
 
@@ -41,6 +52,23 @@ def _string_list(value: object) -> list[str]:
 def _string_value(value: object) -> str:
     assert isinstance(value, str)
     return value
+
+
+def _number_value(value: object) -> int | float:
+    assert isinstance(value, int | float)
+    return value
+
+
+def _rule_formulas_by_name(path: Path) -> dict[str, int | float | str]:
+    rulespec = _load_yaml_object(path)
+    rules = _object_list(rulespec["rules"])
+    formulas: dict[str, int | float | str] = {}
+    for rule in rules:
+        name = _string_value(rule["name"])
+        versions = _object_list(rule["versions"])
+        formula = _string_value(versions[0]["formula"]).strip()
+        formulas[name] = int(formula) if formula.isdecimal() else formula
+    return formulas
 
 
 def _source_map_track() -> dict[str, object]:
@@ -151,4 +179,43 @@ def test_social_security_manifest_records_main_benefit_coverage_gaps() -> None:
         assert item["status"] == "deferred"
         assert _string_value(item["reason"]) != ""
         assert _string_list(item["rulespec_modules"]) == []
+
+
+def test_social_security_main_benefit_oracle_fixture_matches_entitlement_constants() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    fixture_refs = _object_list(manifest["oracle_fixtures"])
+    assert len(fixture_refs) == 1
+
+    fixture_ref = fixture_refs[0]
+    assert fixture_ref["oracle_id"] == "openfisca-aotearoa"
+    assert fixture_ref["canonical_law"] is False
+
+    fixture = _load_json_object(ROOT / _string_value(fixture_ref["path"]))
+    assert fixture["oracle_id"] == fixture_ref["oracle_id"]
+    assert fixture["oracle_commit"] == fixture_ref["commit"]
+    assert fixture["canonical_law"] is False
+    assert fixture["rulespec_destination"] == (
+        "nz/statutes/social_security/main_benefits/entitlement.yaml"
+    )
+
+    formulas = _rule_formulas_by_name(ENTITLEMENT_RULESPEC_PATH)
+    normalized = cast(dict[str, object], fixture["normalized_values"])
+
+    assert _number_value(normalized["jobseeker_minimum_age_without_dependent_child"]) == formulas[
+        "jobseeker_minimum_age_without_dependent_child"
+    ]
+    assert _number_value(normalized["jobseeker_minimum_age_with_dependent_child"]) == formulas[
+        "jobseeker_minimum_age_with_dependent_child"
+    ]
+    assert _number_value(normalized["sole_parent_minimum_age"]) == formulas[
+        "sole_parent_minimum_age"
+    ]
+    assert _number_value(normalized["sole_parent_dependent_child_age_limit"]) == formulas[
+        "sole_parent_dependent_child_age_limit"
+    ]
+    assert _number_value(normalized["supported_living_restricted_or_blind_minimum_age"]) == formulas[
+        "supported_living_restricted_or_blind_minimum_age"
+    ]
+
+    assert fixture["rate_fixture_status"] == "historical_reference_only"
 
