@@ -4,9 +4,13 @@ import json
 from pathlib import Path
 from typing import cast
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/corpus/inventory/nz/gst-acc-levies.json"
+GST_RULESPEC_PATH = ROOT / "nz/statutes/gst/rate.yaml"
+ACC_RULESPEC_PATH = ROOT / "nz/regulations/acc/earners_levy.yaml"
 SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
 
 
@@ -20,6 +24,17 @@ def _load_json_line(line: str) -> dict[str, object]:
     loaded = cast(object, json.loads(line))
     assert isinstance(loaded, dict)
     return cast(dict[str, object], loaded)
+
+
+def _load_yaml_object(path: Path) -> dict[str, object]:
+    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
+    assert isinstance(loaded, dict)
+    return cast(dict[str, object], loaded)
+
+
+def _object_dict(value: object) -> dict[str, object]:
+    assert isinstance(value, dict)
+    return cast(dict[str, object], value)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
@@ -41,6 +56,21 @@ def _string_list(value: object) -> list[str]:
 def _string_value(value: object) -> str:
     assert isinstance(value, str)
     return value
+
+
+def _number_value(value: object) -> int | float:
+    assert isinstance(value, int | float)
+    return value
+
+
+def _rule_formulas_by_effective_date(path: Path, rule_name: str) -> dict[str, str]:
+    rulespec = _load_yaml_object(path)
+    rules = _object_list(rulespec["rules"])
+    rule = next(rule for rule in rules if rule["name"] == rule_name)
+    return {
+        _string_value(version["effective_from"]): _string_value(version["formula"]).strip()
+        for version in _object_list(rule["versions"])
+    }
 
 
 def _source_map_tracks() -> dict[str, dict[str, object]]:
@@ -136,3 +166,57 @@ def test_gst_acc_manifest_points_to_modules_provisions_and_known_gaps() -> None:
     assert "nz/statute/act/public/1985/0141/section/10" not in _string_list(
         manifest["known_corpus_gaps"]
     )
+
+
+def test_gst_acc_oracle_fixtures_match_rulespec_values_without_authority() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    fixture_refs = _object_list(manifest["oracle_fixtures"])
+    fixture_refs_by_id = {_string_value(ref["fixture_id"]): ref for ref in fixture_refs}
+
+    assert set(fixture_refs_by_id) == {
+        "policyengine-nz-gst-rate-2025",
+        "nztaxmicrosim-acc-earners-levy-2025-2027",
+    }
+
+    gst_ref = fixture_refs_by_id["policyengine-nz-gst-rate-2025"]
+    assert gst_ref["oracle_id"] == "policyengine-nz"
+    assert gst_ref["canonical_law"] is False
+    gst_fixture = _load_json_object(ROOT / _string_value(gst_ref["path"]))
+    assert gst_fixture["oracle_commit"] == gst_ref["commit"]
+    assert gst_fixture["canonical_law"] is False
+    assert gst_fixture["rulespec_destination"] == "nz/statutes/gst/rate.yaml"
+    gst_values = _object_dict(gst_fixture["normalized_values"])
+    assert _string_value(gst_values["gst_standard_rate"]) == _rule_formulas_by_effective_date(
+        GST_RULESPEC_PATH,
+        "gst_standard_rate",
+    )["2010-10-01"]
+
+    acc_ref = fixture_refs_by_id["nztaxmicrosim-acc-earners-levy-2025-2027"]
+    assert acc_ref["oracle_id"] == "nztaxmicrosim"
+    assert acc_ref["canonical_law"] is False
+    acc_fixture = _load_json_object(ROOT / _string_value(acc_ref["path"]))
+    assert acc_fixture["oracle_commit"] == acc_ref["commit"]
+    assert acc_fixture["canonical_law"] is False
+    assert acc_fixture["rulespec_destination"] == "nz/regulations/acc/earners_levy.yaml"
+
+    acc_values = _object_dict(acc_fixture["normalized_values"])
+    rates = _object_dict(acc_values["acc_earners_levy_rate_including_gst"])
+    caps = _object_dict(acc_values["acc_earners_levy_maximum_earnings"])
+    maximum_levies = _object_dict(acc_values["acc_maximum_levy_including_gst"])
+
+    rulespec_rates = _rule_formulas_by_effective_date(
+        ACC_RULESPEC_PATH,
+        "acc_earners_levy_rate_including_gst",
+    )
+    rulespec_caps = _rule_formulas_by_effective_date(
+        ACC_RULESPEC_PATH,
+        "acc_earners_levy_maximum_earnings",
+    )
+    for effective_from in ("2025-04-01", "2026-04-01", "2027-04-01"):
+        assert _string_value(rates[effective_from]) == rulespec_rates[effective_from]
+        assert _number_value(caps[effective_from]) == int(rulespec_caps[effective_from])
+        expected_maximum = round(
+            _number_value(caps[effective_from]) * float(rulespec_rates[effective_from]),
+            2,
+        )
+        assert _number_value(maximum_levies[effective_from]) == expected_maximum

@@ -62,6 +62,22 @@
       ]
     }
   ],
+  "oracle_fixtures": [
+    {
+      "fixture_id": "policyengine-nz-gst-rate-2025",
+      "oracle_id": "policyengine-nz",
+      "commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+      "path": "data/oracles/fixtures/policyengine-nz/gst-rate-2025.json",
+      "canonical_law": false
+    },
+    {
+      "fixture_id": "nztaxmicrosim-acc-earners-levy-2025-2027",
+      "oracle_id": "nztaxmicrosim",
+      "commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+      "path": "data/oracles/fixtures/nztaxmicrosim/acc-earners-levy-2025-2027.json",
+      "canonical_law": false
+    }
+  ],
   "source_batches": [
     {
       "id": "gst-rate-and-conversions",

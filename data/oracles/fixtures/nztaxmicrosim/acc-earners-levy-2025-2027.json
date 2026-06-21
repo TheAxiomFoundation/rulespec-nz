@@ -1,0 +1,52 @@
+{
+  "fixture_id": "nztaxmicrosim-acc-earners-levy-2025-2027",
+  "oracle_id": "nztaxmicrosim",
+  "oracle_commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+  "oracle_source_path": "src/data/nz_personal_tax_full.json",
+  "canonical_law": false,
+  "rulespec_destination": "nz/regulations/acc/earners_levy.yaml",
+  "comparison_scope": "ACC earners' levy inclusive rates, maximum earnings, and maximum levy amounts for 2025/26 through 2027/28",
+  "source_snapshot": {
+    "rates": [
+      {
+        "year": "2025/26",
+        "levy_rate_per_100_dollars": "$1.67",
+        "maximum_earnings": "$152,790",
+        "maximum_levy": "$2,551.59"
+      },
+      {
+        "year": "2026/27",
+        "levy_rate_per_100_dollars": "$1.75",
+        "maximum_earnings": "$156,641",
+        "maximum_levy": "$2,741.22"
+      },
+      {
+        "year": "2027/28",
+        "levy_rate_per_100_dollars": "$1.83",
+        "maximum_earnings": "$160,244",
+        "maximum_levy": "$2,932.47"
+      }
+    ]
+  },
+  "normalized_values": {
+    "acc_earners_levy_rate_including_gst": {
+      "2025-04-01": "0.0167",
+      "2026-04-01": "0.0175",
+      "2027-04-01": "0.0183"
+    },
+    "acc_earners_levy_maximum_earnings": {
+      "2025-04-01": 152790,
+      "2026-04-01": 156641,
+      "2027-04-01": 160244
+    },
+    "acc_maximum_levy_including_gst": {
+      "2025-04-01": 2551.59,
+      "2026-04-01": 2741.22,
+      "2027-04-01": 2932.47
+    }
+  },
+  "notes": [
+    "This is a comparison-only oracle fixture extracted from the pinned nztaxmicrosim commit; it is not legal authority.",
+    "The official PCO corpus citations, ACC earners' levy regulations, and IRD agency reference in the RuleSpec module remain the source of legal authority."
+  ]
+}
