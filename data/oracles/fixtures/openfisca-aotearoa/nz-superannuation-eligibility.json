@@ -1,0 +1,75 @@
+{
+  "fixture_id": "openfisca-aotearoa-nz-superannuation-eligibility",
+  "oracle_id": "openfisca-aotearoa",
+  "oracle_commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+  "oracle_source_paths": [
+    "openfisca_aotearoa/parameters/entitlements/superannuation/age_qualification.yaml",
+    "openfisca_aotearoa/tests/social_security/super.yaml"
+  ],
+  "canonical_law": false,
+  "rulespec_destination": "nz/statutes/new_zealand_superannuation/core.yaml",
+  "comparison_scope": "NZ Super eligibility age and pinned OpenFisca social-security super scenario outputs",
+  "source_snapshot": {
+    "age_qualification_values": {
+      "1898-01-01": 65
+    },
+    "test_period": "2018-08"
+  },
+  "normalized_values": {
+    "nz_super_age_threshold": 65
+  },
+  "scenario_outputs": [
+    {
+      "scenario": "Not_eligible",
+      "super_entitled": false,
+      "super_eligibility_age": 0
+    },
+    {
+      "scenario": "immigration__permanent_resident",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    },
+    {
+      "scenario": "immigration__resident",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    },
+    {
+      "scenario": "Is_citizen",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    },
+    {
+      "scenario": "Is_receiving_compensation",
+      "super_entitled": false,
+      "super_eligibility_age": 0
+    },
+    {
+      "scenario": "Is_a_Veteran",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    },
+    {
+      "scenario": "Is_a_NZ_Citizen",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    },
+    {
+      "scenario": "Lived_in_nz_for_more_than_10_years_since_age_20",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    },
+    {
+      "scenario": "Lived_in_nz_for_more_than_5_years_since_age_50",
+      "super_entitled": true,
+      "super_eligibility_age": 65
+    }
+  ],
+  "rate_fixture_status": "not_available_in_pinned_oracle",
+  "rate_fixture_blocker": "The pinned OpenFisca Aotearoa superannuation surface exposes age qualification and entitlement scenarios, but no NZ Super rate parameters matching the 2026 Schedule 1 rates encoded in this RuleSpec track were present.",
+  "notes": [
+    "This fixture is a comparison-only oracle extract and is not legal authority.",
+    "The official PCO corpus citations in the RuleSpec module remain the source of legal authority.",
+    "Rate values are intentionally not asserted from this oracle because the pinned repository does not expose matching rate parameters."
+  ]
+}

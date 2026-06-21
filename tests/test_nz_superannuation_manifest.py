@@ -4,9 +4,12 @@ import json
 from pathlib import Path
 from typing import cast
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/corpus/inventory/nz/new-zealand-superannuation.json"
+CORE_RULESPEC_PATH = ROOT / "nz/statutes/new_zealand_superannuation/core.yaml"
 SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
 
 
@@ -20,6 +23,17 @@ def _load_json_line(line: str) -> dict[str, object]:
     loaded = cast(object, json.loads(line))
     assert isinstance(loaded, dict)
     return cast(dict[str, object], loaded)
+
+
+def _load_yaml_object(path: Path) -> dict[str, object]:
+    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
+    assert isinstance(loaded, dict)
+    return cast(dict[str, object], loaded)
+
+
+def _object_dict(value: object) -> dict[str, object]:
+    assert isinstance(value, dict)
+    return cast(dict[str, object], value)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
@@ -41,6 +55,19 @@ def _string_list(value: object) -> list[str]:
 def _string_value(value: object) -> str:
     assert isinstance(value, str)
     return value
+
+
+def _number_value(value: object) -> int | float:
+    assert isinstance(value, int | float)
+    return value
+
+
+def _rule_formula(path: Path, rule_name: str) -> str:
+    rulespec = _load_yaml_object(path)
+    rules = _object_list(rulespec["rules"])
+    rule = next(rule for rule in rules if rule["name"] == rule_name)
+    versions = _object_list(rule["versions"])
+    return _string_value(versions[0]["formula"]).strip()
 
 
 def _source_map_track() -> dict[str, object]:
@@ -151,3 +178,32 @@ def test_nz_superannuation_manifest_records_destination_reconciliation_decision(
         "nz/statutes/new_zealand_superannuation/special_rates.yaml",
     }
     assert _string_value(reconciliation["reason"]) != ""
+
+
+def test_nz_superannuation_oracle_fixture_matches_age_threshold_without_authority() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    fixture_refs = _object_list(manifest["oracle_fixtures"])
+    assert len(fixture_refs) == 1
+
+    fixture_ref = fixture_refs[0]
+    assert fixture_ref["oracle_id"] == "openfisca-aotearoa"
+    assert fixture_ref["canonical_law"] is False
+
+    fixture = _load_json_object(ROOT / _string_value(fixture_ref["path"]))
+    assert fixture["oracle_id"] == fixture_ref["oracle_id"]
+    assert fixture["oracle_commit"] == fixture_ref["commit"]
+    assert fixture["canonical_law"] is False
+    assert fixture["rulespec_destination"] == "nz/statutes/new_zealand_superannuation/core.yaml"
+
+    normalized = _object_dict(fixture["normalized_values"])
+    assert _number_value(normalized["nz_super_age_threshold"]) == int(
+        _rule_formula(CORE_RULESPEC_PATH, "nz_super_age_threshold")
+    )
+
+    scenarios = _object_list(fixture["scenario_outputs"])
+    assert len(scenarios) == 9
+    assert {scenario["super_entitled"] for scenario in scenarios} == {False, True}
+    assert {scenario["super_eligibility_age"] for scenario in scenarios} == {0, 65}
+
+    assert fixture["rate_fixture_status"] == "not_available_in_pinned_oracle"
+    assert _string_value(fixture["rate_fixture_blocker"]) != ""
