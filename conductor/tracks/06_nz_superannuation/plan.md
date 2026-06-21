@@ -11,9 +11,11 @@
 
 ## Phase 3: Oracle Fixtures
 
-- [ ] Add bounded oracle comparison fixtures for the NZ Super eligibility and rate surface.
+- [x] Add bounded oracle comparison fixtures for the NZ Super eligibility and rate surface. (`c2839d4`)
+  Added a bounded OpenFisca eligibility fixture and recorded that the pinned oracle has no matching 2026 NZ Super rate parameters.
 
 ### Completed Implementation Commits
 
 - `ab0154f` - Added the New Zealand Superannuation source inventory manifest, Track 6 conductor files, and manifest regression tests.
 - `3f4ef41` - Recorded the New Zealand Superannuation destination reconciliation decision.
+- `c2839d4` - Added the New Zealand Superannuation OpenFisca eligibility fixture.
