@@ -25,7 +25,19 @@ def test_openfisca_manifest_groups_track_references_with_files() -> None:
     assert "openfisca_aotearoa/variables/acts/income_tax/individual.py" in tracks[
         "tax-personal-income"
     ]["files"]
+    assert (
+        tracks["tax-personal-income"]["source_commit"]
+        == manifest["oracle"]["commit"]
+    )
+    assert "nz/statutes/income_tax/core/taxable_income.yaml" in tracks[
+        "tax-personal-income"
+    ]["rulespec_destinations"]
     assert all(track["files"] for track in tracks.values())
+    assert all(
+        track["source_commit"] == manifest["oracle"]["commit"]
+        for track in tracks.values()
+    )
+    assert all(track["rulespec_destinations"] for track in tracks.values())
     assert all(track["canonical_law"] is False for track in tracks.values())
 
 

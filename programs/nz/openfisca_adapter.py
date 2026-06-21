@@ -22,6 +22,8 @@ class OpenFiscaTrackManifest(TypedDict):
     track_id: str
     role: str
     files: list[str]
+    source_commit: str
+    rulespec_destinations: list[str]
     canonical_law: bool
     authority: str
 
@@ -99,10 +101,24 @@ def _find_openfisca_oracle(oracle_index: JsonObject) -> OracleManifest:
     raise ValueError(f"Missing oracle index entry: {OPENFISCA_ORACLE_ID}")
 
 
-def _openfisca_tracks(source_map: JsonObject) -> list[OpenFiscaTrackManifest]:
+def _rulespec_destinations(track: JsonObject, track_id: str) -> list[str]:
+    destinations: list[str] = []
+    for batch in _object_list(
+        track.get("first_rule_batches", []), f"{track_id}.first_rule_batches"
+    ):
+        destination = batch.get("destination")
+        if isinstance(destination, str):
+            destinations.append(destination)
+    return destinations
+
+
+def _openfisca_tracks(
+    source_map: JsonObject, oracle: OracleManifest
+) -> list[OpenFiscaTrackManifest]:
     tracks: list[OpenFiscaTrackManifest] = []
     for track in _object_list(source_map.get("tracks", []), "tracks"):
         track_id = _string_value(track.get("track_id"), "track.track_id")
+        rulespec_destinations = _rulespec_destinations(track, track_id)
         for oracle_surface in _object_list(
             track.get("oracle_surfaces", []), f"{track_id}.oracle_surfaces"
         ):
@@ -118,6 +134,8 @@ def _openfisca_tracks(source_map: JsonObject) -> list[OpenFiscaTrackManifest]:
                     "files": _string_list(
                         oracle_surface.get("files", []), f"{track_id}.files"
                     ),
+                    "source_commit": oracle["commit"],
+                    "rulespec_destinations": rulespec_destinations,
                     "canonical_law": False,
                     "authority": "comparison_oracle",
                 }
@@ -172,7 +190,7 @@ def build_openfisca_reference_manifest(root: Path) -> OpenFiscaReferenceManifest
         root / "data" / "coverage" / "tax-benefit-source-map.json"
     )
     oracle = _find_openfisca_oracle(oracle_index)
-    tracks = _openfisca_tracks(source_map)
+    tracks = _openfisca_tracks(source_map, oracle)
 
     return {
         "adapter": "openfisca-aotearoa-reference-intake",
