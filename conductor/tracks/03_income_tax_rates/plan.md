@@ -17,9 +17,9 @@ This plan is the active numbered Conductor surface for the income tax rate inges
 
 ## Phase 2: Corpus Provision Trace
 
-- [ ] Task: Locate Schedule 1 provision extract
+- [x] Task: Locate Schedule 1 provision extract (f265c33)
   Identify the normalized PCO provision record for the Schedule 1 rate table and record the corpus locator/provision path.
-- [ ] Task: Add provision trace assertions
+- [x] Task: Add provision trace assertions (f265c33)
   Test that the manifest points to an available normalized provision or records an explicit blocker.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Corpus Provision Trace' (Protocol in workflow.md)
 
