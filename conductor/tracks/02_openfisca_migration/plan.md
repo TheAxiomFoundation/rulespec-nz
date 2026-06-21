@@ -20,3 +20,7 @@ This plan implements Track 2 to build a guarded OpenFisca reference parser and f
 - [ ] Task: Implement fixture extraction dry-run
   Read selected OpenFisca-style test/parameter snippets and emit normalized in-memory fixture candidates.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Fixture Extraction Contracts' (Protocol in workflow.md)
+
+### Review Remediation Commits
+
+- `e2f78a8` - Propagated pinned OpenFisca commits and RuleSpec destinations onto each track-level OpenFisca reference after Track 2 review.
