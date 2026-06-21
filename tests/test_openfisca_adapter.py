@@ -27,3 +27,37 @@ def test_openfisca_manifest_groups_track_references_with_files() -> None:
     ]["files"]
     assert all(track["files"] for track in tracks.values())
     assert all(track["canonical_law"] is False for track in tracks.values())
+
+
+def test_openfisca_fixture_extraction_schema_keeps_oracle_boundary() -> None:
+    manifest = build_openfisca_reference_manifest(ROOT)
+    schema = manifest["fixture_extraction_schema"]
+
+    assert schema["source_oracle_id"] == "openfisca-aotearoa"
+    assert schema["source_commit"] == manifest["oracle"]["commit"]
+    assert schema["canonical_law"] is False
+    assert schema["authority"] == "comparison_oracle"
+    assert schema["allowed_source_kinds"] == [
+        "parameter",
+        "test",
+        "variable_reference",
+    ]
+    assert schema["required_candidate_fields"] == [
+        "fixture_id",
+        "source_kind",
+        "source_path",
+        "source_commit",
+        "track_id",
+        "rulespec_destination",
+        "inputs",
+        "expected_outputs",
+        "canonical_law",
+        "authority",
+    ]
+    assert schema["promoted_output_boundary"]["standalone_yaml_fixtures_allowed"] is False
+    assert schema["promoted_output_boundary"]["allowed_roots"] == [
+        "nz/statutes/",
+        "nz/regulations/",
+        "nz/policies/",
+        "data/oracles/fixtures/openfisca-aotearoa/",
+    ]

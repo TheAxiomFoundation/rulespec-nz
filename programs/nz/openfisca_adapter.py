@@ -26,12 +26,28 @@ class OpenFiscaTrackManifest(TypedDict):
     authority: str
 
 
+class PromotedOutputBoundary(TypedDict):
+    standalone_yaml_fixtures_allowed: bool
+    allowed_roots: list[str]
+
+
+class FixtureExtractionSchema(TypedDict):
+    source_oracle_id: str
+    source_commit: str
+    canonical_law: bool
+    authority: str
+    allowed_source_kinds: list[str]
+    required_candidate_fields: list[str]
+    promoted_output_boundary: PromotedOutputBoundary
+
+
 class OpenFiscaReferenceManifest(TypedDict):
     adapter: str
     canonical_law: bool
     authority: str
     oracle: OracleManifest
     tracks: list[OpenFiscaTrackManifest]
+    fixture_extraction_schema: FixtureExtractionSchema
 
 
 def _load_json_object(path: Path) -> JsonObject:
@@ -109,6 +125,41 @@ def _openfisca_tracks(source_map: JsonObject) -> list[OpenFiscaTrackManifest]:
     return tracks
 
 
+def _fixture_extraction_schema(oracle: OracleManifest) -> FixtureExtractionSchema:
+    return {
+        "source_oracle_id": oracle["id"],
+        "source_commit": oracle["commit"],
+        "canonical_law": False,
+        "authority": "comparison_oracle",
+        "allowed_source_kinds": [
+            "parameter",
+            "test",
+            "variable_reference",
+        ],
+        "required_candidate_fields": [
+            "fixture_id",
+            "source_kind",
+            "source_path",
+            "source_commit",
+            "track_id",
+            "rulespec_destination",
+            "inputs",
+            "expected_outputs",
+            "canonical_law",
+            "authority",
+        ],
+        "promoted_output_boundary": {
+            "standalone_yaml_fixtures_allowed": False,
+            "allowed_roots": [
+                "nz/statutes/",
+                "nz/regulations/",
+                "nz/policies/",
+                "data/oracles/fixtures/openfisca-aotearoa/",
+            ],
+        },
+    }
+
+
 def build_openfisca_reference_manifest(root: Path) -> OpenFiscaReferenceManifest:
     """Build a guarded OpenFisca comparison-reference manifest.
 
@@ -129,4 +180,5 @@ def build_openfisca_reference_manifest(root: Path) -> OpenFiscaReferenceManifest
         "authority": "comparison_oracle",
         "oracle": oracle,
         "tracks": tracks,
+        "fixture_extraction_schema": _fixture_extraction_schema(oracle),
     }
