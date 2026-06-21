@@ -1,0 +1,55 @@
+{
+  "fixture_id": "nztaxmicrosim-income-tax-brackets-2025",
+  "oracle_id": "nztaxmicrosim",
+  "oracle_commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+  "oracle_source_path": "src/data/nz_personal_tax_rules.json",
+  "oracle_entry_selector": {
+    "year": 2025
+  },
+  "canonical_law": false,
+  "rulespec_destination": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+  "comparison_scope": "individual income tax bracket rates and thresholds",
+  "source_snapshot": {
+    "rates": [
+      {
+        "threshold": "0-$15,600",
+        "rate": "10.5%"
+      },
+      {
+        "threshold": "$15,601-$53,500",
+        "rate": "17.5%"
+      },
+      {
+        "threshold": "$53,501-$78,100",
+        "rate": "30%"
+      },
+      {
+        "threshold": "$78,101-$180,000",
+        "rate": "33%"
+      },
+      {
+        "threshold": "$180,001+",
+        "rate": "39%"
+      }
+    ]
+  },
+  "normalized_values": {
+    "individual_income_tax_bracket_rates": {
+      "1": "0.105",
+      "2": "0.175",
+      "3": "0.300",
+      "4": "0.330",
+      "5": "0.390"
+    },
+    "individual_income_tax_bracket_thresholds": {
+      "1": 15600,
+      "2": 53500,
+      "3": 78100,
+      "4": 180000
+    }
+  },
+  "notes": [
+    "This is a comparison-only oracle fixture extracted from the pinned nztaxmicrosim commit; it is not legal authority.",
+    "The official PCO corpus citation in the RuleSpec module remains the source of legal authority."
+  ]
+}

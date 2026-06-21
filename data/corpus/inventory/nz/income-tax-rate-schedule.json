@@ -26,6 +26,14 @@
   "oracle_checks": [
     "nztaxmicrosim:tax_brackets"
   ],
+  "oracle_fixtures": [
+    {
+      "oracle_id": "nztaxmicrosim",
+      "path": "data/oracles/fixtures/nztaxmicrosim/income-tax-brackets-2025.json",
+      "commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+      "canonical_law": false
+    }
+  ],
   "verified_values": {
     "individual_income_tax_bracket_rates": {
       "1": "0.105",

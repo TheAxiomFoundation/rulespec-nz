@@ -115,6 +115,23 @@ def test_income_tax_rate_manifest_points_to_schedule_1_provision_extract() -> No
     assert declared_paths <= available_paths
 
 
+def test_income_tax_rate_oracle_fixture_matches_rulespec_values_without_authority() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    oracle_fixtures = _object_list(manifest["oracle_fixtures"])
+    assert len(oracle_fixtures) == 1
+
+    fixture_ref = oracle_fixtures[0]
+    assert fixture_ref["oracle_id"] == "nztaxmicrosim"
+    assert fixture_ref["canonical_law"] is False
+
+    fixture = _load_json_object(ROOT / _string_value(fixture_ref["path"]))
+    assert fixture["oracle_id"] == fixture_ref["oracle_id"]
+    assert fixture["oracle_commit"] == fixture_ref["commit"]
+    assert fixture["canonical_law"] is False
+    assert fixture["rulespec_destination"] == manifest["rulespec_module"]
+    assert fixture["normalized_values"] == manifest["verified_values"]
+
+
 def _load_json_object_line(line: str) -> dict[str, object]:
     loaded = cast(object, json.loads(line))
     assert isinstance(loaded, dict)
