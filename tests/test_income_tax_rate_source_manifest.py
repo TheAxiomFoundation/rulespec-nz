@@ -38,6 +38,19 @@ def _object_list(value: object) -> list[dict[str, object]]:
     return cast(list[dict[str, object]], items)
 
 
+def _string_list(value: object) -> list[str]:
+    assert isinstance(value, list)
+    items = cast(list[object], value)
+    for item in items:
+        assert isinstance(item, str)
+    return cast(list[str], items)
+
+
+def _string_value(value: object) -> str:
+    assert isinstance(value, str)
+    return value
+
+
 def _stringify_nested_keys(value: object) -> object:
     if isinstance(value, dict):
         items = cast(dict[object, object], value)
@@ -79,5 +92,32 @@ def test_income_tax_rate_manifest_matches_source_map_first_batch() -> None:
     assert manifest["rulespec_module"] == batch["destination"]
     assert manifest["source_requirements"] == batch["source_requirements"]
     assert manifest["oracle_checks"] == batch["oracle_checks"]
+
+
+def test_income_tax_rate_manifest_points_to_schedule_1_provision_extract() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+
+    provision_files = _object_list(manifest["provision_files"])
+    assert len(provision_files) == 1
+
+    provision_file = provision_files[0]
+    provision_path = ROOT / _string_value(provision_file["path"])
+    assert provision_path.exists()
+
+    declared_paths = set(_string_list(provision_file["citation_paths"]))
+    assert declared_paths == {manifest["corpus_citation_path"]}
+
+    provision_records = [
+        _load_json_object_line(line)
+        for line in provision_path.read_text(encoding="utf-8").splitlines()
+    ]
+    available_paths = {_string_value(record["citation_path"]) for record in provision_records}
+    assert declared_paths <= available_paths
+
+
+def _load_json_object_line(line: str) -> dict[str, object]:
+    loaded = cast(object, json.loads(line))
+    assert isinstance(loaded, dict)
+    return cast(dict[str, object], loaded)
 
 

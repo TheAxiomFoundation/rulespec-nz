@@ -6,6 +6,16 @@
   "source_batch_id": "income-tax-rate-scale",
   "rulespec_module": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
   "corpus_citation_path": "nz/statute/act/public/2007/0097/section/1-DLM1523194",
+  "provision_files": [
+    {
+      "path": "data/corpus/provisions/nz/statute/2026-06-16-pco-latest.jsonl",
+      "citation_paths": [
+        "nz/statute/act/public/2007/0097/section/1-DLM1523194"
+      ],
+      "locator": "Income Tax Act 2007 Schedule 1 Part A clause 1 table 1",
+      "source_format": "pco-xml-slice"
+    }
+  ],
   "agency_reference_urls": [
     "https://www.ird.govt.nz/income-tax/income-tax-for-individuals/tax-codes-and-tax-rates-for-individuals/tax-rates-for-individuals"
   ],
