@@ -17,9 +17,9 @@ This plan is the active numbered Conductor surface for Social Security Act 2018 
 
 ## Phase 2: Remaining Main-Benefit Coverage Trace
 
-- [ ] Task: Inventory remaining main-benefit surfaces
+- [x] Task: Inventory remaining main-benefit surfaces (fa4fea4)
   Identify Emergency Benefit, Youth Payment, Young Parent Payment, Orphan's Benefit, Unsupported Child's Benefit, asset tests, and stand-down provisions still outside the first modules.
-- [ ] Task: Add coverage-gap assertions
+- [x] Task: Add coverage-gap assertions (fa4fea4)
   Test that the Track 4 manifest records implemented and deferred main-benefit surfaces explicitly.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Remaining Main-Benefit Coverage Trace' (Protocol in workflow.md)
 
