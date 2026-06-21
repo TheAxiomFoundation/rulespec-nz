@@ -17,8 +17,8 @@ This plan implements Track 2 to build a guarded OpenFisca reference parser and f
 
 - [x] Task: Define OpenFisca fixture extraction schema (93a4cb6)
   Added a guarded fixture extraction schema to the OpenFisca reference manifest, covering allowed source kinds, required normalized candidate fields, pinned source commit, non-authoritative guardrails, and promoted output boundaries.
-- [ ] Task: Implement fixture extraction dry-run
-  Read selected OpenFisca-style test/parameter snippets and emit normalized in-memory fixture candidates.
+- [x] Task: Implement fixture extraction dry-run (be3434a)
+  Added an in-memory dry-run normalizer that reads selected OpenFisca-style parameter and test snippets and emits guarded fixture candidates with pinned source commits, RuleSpec destinations, inputs, expected outputs, and `canonical_law: false`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Fixture Extraction Contracts' (Protocol in workflow.md)
 
 ### Review Remediation Commits
