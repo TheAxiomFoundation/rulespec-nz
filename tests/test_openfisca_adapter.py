@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from programs.nz.openfisca_adapter import build_openfisca_reference_manifest
+from programs.nz.openfisca_adapter import (
+    build_openfisca_fixture_candidates,
+    build_openfisca_reference_manifest,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -73,3 +76,53 @@ def test_openfisca_fixture_extraction_schema_keeps_oracle_boundary() -> None:
         "nz/policies/",
         "data/oracles/fixtures/openfisca-aotearoa/",
     ]
+
+
+def test_openfisca_fixture_dry_run_normalizes_selected_snippets() -> None:
+    manifest = build_openfisca_reference_manifest(ROOT)
+    candidates = build_openfisca_fixture_candidates(
+        manifest,
+        [
+            {
+                "source_kind": "parameter",
+                "source_path": (
+                    "openfisca_aotearoa/parameters/taxes/income_tax/"
+                    "individual_income_tax_rate.yaml"
+                ),
+                "track_id": "tax-personal-income",
+                "value": 0.105,
+            },
+            {
+                "source_kind": "test",
+                "source_path": "openfisca_aotearoa/tests/social_security/super.yaml",
+                "track_id": "superannuation",
+                "inputs": {"age": 65},
+                "expected_outputs": {"eligible": True},
+            },
+        ],
+    )
+
+    parameter_candidate, test_candidate = candidates
+
+    assert parameter_candidate["fixture_id"] == (
+        "openfisca-aotearoa:tax-personal-income:parameter:"
+        "individual_income_tax_rate"
+    )
+    assert parameter_candidate["source_commit"] == manifest["oracle"]["commit"]
+    assert parameter_candidate["rulespec_destination"] == (
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml"
+    )
+    assert parameter_candidate["inputs"] == {}
+    assert parameter_candidate["expected_outputs"] == {"value": 0.105}
+    assert parameter_candidate["canonical_law"] is False
+    assert parameter_candidate["authority"] == "comparison_oracle"
+
+    assert test_candidate["fixture_id"] == (
+        "openfisca-aotearoa:superannuation:test:super"
+    )
+    assert test_candidate["rulespec_destination"] == (
+        "nz/statutes/superannuation/nz_superannuation.yaml"
+    )
+    assert test_candidate["inputs"] == {"age": 65}
+    assert test_candidate["expected_outputs"] == {"eligible": True}
+    assert all(candidate["canonical_law"] is False for candidate in candidates)

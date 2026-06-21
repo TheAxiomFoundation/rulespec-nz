@@ -43,6 +43,28 @@ class FixtureExtractionSchema(TypedDict):
     promoted_output_boundary: PromotedOutputBoundary
 
 
+class OpenFiscaSnippet(TypedDict, total=False):
+    source_kind: str
+    source_path: str
+    track_id: str
+    value: object
+    inputs: JsonObject
+    expected_outputs: JsonObject
+
+
+class FixtureCandidate(TypedDict):
+    fixture_id: str
+    source_kind: str
+    source_path: str
+    source_commit: str
+    track_id: str
+    rulespec_destination: str
+    inputs: JsonObject
+    expected_outputs: JsonObject
+    canonical_law: bool
+    authority: str
+
+
 class OpenFiscaReferenceManifest(TypedDict):
     adapter: str
     canonical_law: bool
@@ -74,6 +96,12 @@ def _string_value(value: object, label: str) -> str:
     if not isinstance(value, str):
         raise ValueError(f"Expected string for {label}")
     return value
+
+
+def _object_value(value: object, label: str) -> JsonObject:
+    if not isinstance(value, dict):
+        raise ValueError(f"Expected object for {label}")
+    return cast(JsonObject, value)
 
 
 def _string_list(value: object, label: str) -> list[str]:
@@ -176,6 +204,73 @@ def _fixture_extraction_schema(oracle: OracleManifest) -> FixtureExtractionSchem
             ],
         },
     }
+
+
+def _track_by_id(
+    manifest: OpenFiscaReferenceManifest, track_id: str
+) -> OpenFiscaTrackManifest:
+    for track in manifest["tracks"]:
+        if track["track_id"] == track_id:
+            return track
+    raise ValueError(f"Unknown OpenFisca track_id: {track_id}")
+
+
+def _fixture_name(source_path: str) -> str:
+    name = Path(source_path).name
+    return name.rsplit(".", maxsplit=1)[0]
+
+
+def _candidate_outputs(snippet: OpenFiscaSnippet, source_kind: str) -> JsonObject:
+    if source_kind == "parameter":
+        if "value" not in snippet:
+            raise ValueError("Expected value for parameter fixture snippet")
+        return {"value": snippet["value"]}
+    return _object_value(snippet.get("expected_outputs", {}), "expected_outputs")
+
+
+def build_openfisca_fixture_candidates(
+    manifest: OpenFiscaReferenceManifest, snippets: list[OpenFiscaSnippet]
+) -> list[FixtureCandidate]:
+    """Normalize selected OpenFisca snippets into comparison fixture candidates.
+
+    The dry-run intentionally returns in-memory candidates only. It carries the
+    pinned OpenFisca commit and future RuleSpec destination while preserving the
+    comparison-only boundary.
+    """
+    schema = manifest["fixture_extraction_schema"]
+    candidates: list[FixtureCandidate] = []
+    for index, snippet in enumerate(snippets):
+        source_kind = _string_value(
+            snippet.get("source_kind"), f"snippet[{index}].source_kind"
+        )
+        if source_kind not in schema["allowed_source_kinds"]:
+            raise ValueError(f"Unsupported OpenFisca source_kind: {source_kind}")
+        source_path = _string_value(
+            snippet.get("source_path"), f"snippet[{index}].source_path"
+        )
+        track_id = _string_value(snippet.get("track_id"), f"snippet[{index}].track_id")
+        track = _track_by_id(manifest, track_id)
+        if not track["rulespec_destinations"]:
+            raise ValueError(f"Missing RuleSpec destination for OpenFisca track: {track_id}")
+
+        candidates.append(
+            {
+                "fixture_id": (
+                    f"{OPENFISCA_ORACLE_ID}:{track_id}:{source_kind}:"
+                    f"{_fixture_name(source_path)}"
+                ),
+                "source_kind": source_kind,
+                "source_path": source_path,
+                "source_commit": schema["source_commit"],
+                "track_id": track_id,
+                "rulespec_destination": track["rulespec_destinations"][0],
+                "inputs": _object_value(snippet.get("inputs", {}), "inputs"),
+                "expected_outputs": _candidate_outputs(snippet, source_kind),
+                "canonical_law": False,
+                "authority": "comparison_oracle",
+            }
+        )
+    return candidates
 
 
 def build_openfisca_reference_manifest(root: Path) -> OpenFiscaReferenceManifest:
