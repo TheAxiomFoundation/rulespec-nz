@@ -33,5 +33,6 @@ This plan implements Track 1 to build the Rust core engine with Apache Arrow/Pol
   Added an explicit `wasm` feature and minimal `wasm-bindgen` export that compiles without Python extension-module linking; verified with native no-default tests, WASM target check, WASM-feature tests, and clippy.
 - [x] Task: Add Arrow Flight integration contract (cd9aaed)
   Added a repository-side Arrow Flight stream boundary contract for future transport work, including endpoint URI, stream name, schema fields, zero-copy expectation, and `live_transport_validated: false`.
-- [ ] Task: Add coverage gate evidence for native and Python binding layers
+- [x] Task: Add coverage gate evidence for native and Python binding layers (d21e1c3)
+  Added a repository coverage evidence manifest and contract test for native Rust and Python binding layers. The artifact records reproducible coverage commands, the >90% threshold, supporting gates, and current blockers; the threshold remains `threshold_not_proven` because native `cargo llvm-cov` is blocked by missing `profiler_builtins` on this Windows GNU toolchain and the Python/PyO3 test path is blocked by disk-space exhaustion during final linking.
   Establish a reproducible coverage command and record whether Track 1 meets the >90% target from the specification.
