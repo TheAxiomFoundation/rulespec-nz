@@ -21,7 +21,8 @@ This plan is the active numbered Conductor surface for Social Security Act 2018 
   Identify Emergency Benefit, Youth Payment, Young Parent Payment, Orphan's Benefit, Unsupported Child's Benefit, asset tests, and stand-down provisions still outside the first modules.
 - [x] Task: Add coverage-gap assertions (fa4fea4)
   Test that the Track 4 manifest records implemented and deferred main-benefit surfaces explicitly.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Remaining Main-Benefit Coverage Trace' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Remaining Main-Benefit Coverage Trace' (fa4fea4)
+  Verified on 2026-06-22 with `python -m ruff check tests\test_social_security_main_benefits_manifest.py`, `python -m basedpyright tests\test_social_security_main_benefits_manifest.py`, `python -m pytest tests\test_social_security_main_benefits_manifest.py -p no:cacheprovider`, and `python -m pytest tests -p no:cacheprovider`.
 
 ---
 
@@ -36,4 +37,5 @@ This plan is the active numbered Conductor surface for Social Security Act 2018 
 ### Completed Implementation Commits
 
 - 7427380 conductor-track4-social-security-manifest
+- fa4fea4 Add Track 4 main-benefit coverage inventory
 
