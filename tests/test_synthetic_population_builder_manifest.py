@@ -225,3 +225,20 @@ def test_synthetic_population_builder_records_live_generator_validation_state() 
     assert fyi_cli["validated"] is False
     assert fyi_cli["repo_candidate_found"] is True
     assert fyi_cli["candidate_status"] == "repo_found_no_generator_output"
+
+
+def test_synthetic_population_builder_deferred_work_excludes_completed_track_phases() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    deferred_work = set(_string_list(manifest["deferred_work"]))
+
+    assert (
+        "Add tiny JSONL or Arrow-compatible synthetic fixtures for schema-level validation."
+        not in deferred_work
+    )
+    assert (
+        "Validate against real local open_social_data and fyi-cli outputs when available."
+        not in deferred_work
+    )
+    assert deferred_work == {
+        "Add calibration diagnostics before any country-scale simulation run."
+    }

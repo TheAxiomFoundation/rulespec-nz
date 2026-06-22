@@ -1,5 +1,6 @@
+# pyright: reportMissingImports=false, reportUnknownMemberType=false, reportUnknownVariableType=false
+
 import sys
-import os
 
 # Append the build directory of rulespec-nz to path or try to import it
 try:

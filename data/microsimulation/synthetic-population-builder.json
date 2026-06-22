@@ -229,8 +229,6 @@
     ]
   },
   "deferred_work": [
-    "Add tiny JSONL or Arrow-compatible synthetic fixtures for schema-level validation.",
-    "Validate against real local open_social_data and fyi-cli outputs when available.",
     "Add calibration diagnostics before any country-scale simulation run."
   ]
 }
