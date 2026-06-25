@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-06-24",
+  "track_id": "12_nztaxmicrosim_rule_incorporation",
+  "status": "implemented_pending_review",
+  "source_oracle_id": "nztaxmicrosim",
+  "source_commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+  "canonical_law": false,
+  "blockers": [],
+  "closeout_policy": "All nztaxmicrosim surfaces have been either reconciled to existing official-source RuleSpec coverage, approved as comparison-only fixtures, or deferred to official-source extraction before canonical encoding. No nztaxmicrosim Python formula is treated as legal authority.",
+  "approved_oracle_fixtures": [
+    {
+      "fixture": "data/oracles/fixtures/nztaxmicrosim/income-tax-brackets-2025.json",
+      "rulespec_destination": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+      "surface_id": "personal-income-tax-history"
+    },
+    {
+      "fixture": "data/oracles/fixtures/nztaxmicrosim/acc-earners-levy-2025-2027.json",
+      "rulespec_destination": "nz/regulations/acc/earners_levy.yaml",
+      "surface_id": "acc-earners-levy"
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "acc-earners-levy",
+      "closeout_status": "implemented_existing_official_source",
+      "rulespec_paths": ["nz/regulations/acc/earners_levy.yaml"],
+      "companion_tests": ["nz/regulations/acc/earners_levy.test.yaml"],
+      "fixture_status": "approved_comparison_fixture"
+    },
+    {
+      "id": "personal-income-tax-history",
+      "closeout_status": "implemented_existing_official_source",
+      "rulespec_paths": ["nz/statutes/income_tax/schedule_1/individual_income_tax.yaml", "nz/statutes/income_tax/core/taxable_income.yaml"],
+      "companion_tests": ["nz/statutes/income_tax/schedule_1/individual_income_tax.test.yaml", "nz/statutes/income_tax/core/taxable_income.test.yaml"],
+      "fixture_status": "approved_comparison_fixture"
+    },
+    {
+      "id": "individual-tax-credits",
+      "closeout_status": "implemented_existing_official_source_partial_oracle_reconcile",
+      "rulespec_paths": ["nz/statutes/income_tax/credits/individual_credits.yaml"],
+      "companion_tests": ["nz/statutes/income_tax/credits/individual_credits.test.yaml"],
+      "remaining_action": "Future fixture extraction may compare IETC and donation-credit examples after official-source scenarios are enumerated."
+    },
+    {
+      "id": "working-for-families",
+      "closeout_status": "implemented_existing_official_source_partial_oracle_reconcile",
+      "rulespec_paths": ["nz/statutes/income_tax/family_scheme/family_scheme_income.yaml", "nz/statutes/income_tax/family_scheme/eligibility.yaml", "nz/statutes/income_tax/family_scheme/tax_credits.yaml"],
+      "companion_tests": ["nz/statutes/income_tax/family_scheme/family_scheme_income.test.yaml", "nz/statutes/income_tax/family_scheme/eligibility.test.yaml", "nz/statutes/income_tax/family_scheme/tax_credits.test.yaml"],
+      "oracle_constraint_resolved": "nztaxmicrosim WFF placeholder values are excluded from canonical encoding."
+    },
+    {
+      "id": "main-benefits-and-supplements",
+      "closeout_status": "implemented_existing_official_source_partial_oracle_reconcile",
+      "rulespec_paths": ["nz/statutes/social_security/main_benefits/rates.yaml", "nz/statutes/social_security/main_benefits/entitlement.yaml", "nz/statutes/social_security/accommodation_supplement/core.yaml", "nz/statutes/social_security/disability_allowance/core.yaml", "nz/statutes/social_security/winter_energy_payment/core.yaml"],
+      "companion_tests": ["nz/statutes/social_security/main_benefits/rates.test.yaml", "nz/statutes/social_security/main_benefits/entitlement.test.yaml", "nz/statutes/social_security/accommodation_supplement/core.test.yaml", "nz/statutes/social_security/disability_allowance/core.test.yaml", "nz/statutes/social_security/winter_energy_payment/core.test.yaml"]
+    },
+    {
+      "id": "payroll-deductions",
+      "closeout_status": "deferred_to_official_source_extraction",
+      "planned_rulespec_paths": ["nz/statutes/kiwisaver/contributions.yaml", "nz/statutes/student_loan/repayments.yaml", "nz/statutes/payroll/deductions.yaml"],
+      "official_sources_required": ["KiwiSaver Act 2006", "Student Loan Scheme Act 2011", "IRD payroll deduction tables"],
+      "not_a_blocker_reason": "Track 12 records the surface and source requirements; canonical implementation must occur in a source-extraction task, not by copying nztaxmicrosim."
+    },
+    {
+      "id": "paid-parental-leave",
+      "closeout_status": "deferred_to_official_source_extraction",
+      "planned_rulespec_paths": ["nz/statutes/parental_leave/paid_parental_leave.yaml"],
+      "official_sources_required": ["Parental Leave and Employment Protection Act 1987", "IRD paid parental leave rate guidance"],
+      "not_a_blocker_reason": "Official-source extraction is the next atomic implementation unit."
+    },
+    {
+      "id": "investment-and-withholding-tax",
+      "closeout_status": "deferred_simplified_oracle_excluded",
+      "planned_rulespec_paths": ["nz/statutes/income_tax/investment/pie.yaml", "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml"],
+      "official_sources_required": ["Income Tax Act 2007 PIE provisions", "Income Tax Act 2007 RWT provisions", "IRD PIR and RWT rate guidance"],
+      "not_a_blocker_reason": "Oracle PIE logic is simplified and excluded from canonical encoding until full official PIR/RWT formulas are extracted."
+    },
+    {
+      "id": "child-support",
+      "closeout_status": "deferred_simplified_oracle_excluded",
+      "planned_rulespec_paths": ["nz/statutes/child_support/core_formula.yaml"],
+      "official_sources_required": ["Child Support Act 1991", "IRD child support formula guidance"],
+      "not_a_blocker_reason": "Oracle child-support logic is simplified and excluded from canonical encoding until official formula extraction."
+    }
+  ],
+  "next_atomic_tracks": [
+    "payroll-deductions-official-source-extraction",
+    "paid-parental-leave-official-source-extraction",
+    "pie-rwt-official-source-extraction",
+    "child-support-official-formula-extraction"
+  ]
+}

@@ -64,7 +64,9 @@ def test_synthetic_population_builder_manifest_covers_track8_requirements() -> N
     assert "open_social_data" in requirements
     assert "fyi-cli" in requirements
 
-    source_ids = {_string_value(source["id"]) for source in _object_list(manifest["sources"])}
+    source_ids = {
+        _string_value(source["id"]) for source in _object_list(manifest["sources"])
+    }
     assert source_ids == {"open_social_data", "fyi-cli"}
 
     for source in _object_list(manifest["sources"]):
@@ -92,7 +94,8 @@ def test_synthetic_population_builder_targets_backlog_policy_surfaces() -> None:
 def test_synthetic_population_builder_arrow_contract_has_stable_entities() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
     tables = {
-        _string_value(table["id"]): table for table in _object_list(manifest["entity_tables"])
+        _string_value(table["id"]): table
+        for table in _object_list(manifest["entity_tables"])
     }
 
     assert set(tables) == {"persons", "households", "benefit_units"}
@@ -125,7 +128,10 @@ def test_synthetic_population_builder_rule_input_mapping_is_explicit() -> None:
     }
 
     assert mappings["input.person_age_years"]["table"] == "persons"
-    assert mappings["input.annual_employment_income"]["column"] == "annual_employment_income"
+    assert (
+        mappings["input.annual_employment_income"]["column"]
+        == "annual_employment_income"
+    )
     assert mappings["input.household_region_code"]["table"] == "households"
     assert mappings["input.relationship_status"]["table"] == "benefit_units"
 
@@ -161,7 +167,9 @@ def test_synthetic_population_builder_privacy_and_repository_boundaries() -> Non
 
 
 def _jsonl_objects(path: Path) -> list[dict[str, object]]:
-    return [_load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    return [
+        _load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()
+    ]
 
 
 def _load_json_line(line: str) -> dict[str, object]:
@@ -170,7 +178,9 @@ def _load_json_line(line: str) -> dict[str, object]:
     return cast(dict[str, object], loaded)
 
 
-def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas() -> None:
+def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas() -> (
+    None
+):
     manifest = _load_json_object(MANIFEST_PATH)
     fixture_refs = _object_list(manifest["fixture_smoke_data"])
     assert len(fixture_refs) == 1
@@ -183,7 +193,8 @@ def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas()
     assert fixture_ref["contains_raw_personal_data"] is False
 
     entity_tables = {
-        _string_value(table["id"]): table for table in _object_list(manifest["entity_tables"])
+        _string_value(table["id"]): table
+        for table in _object_list(manifest["entity_tables"])
     }
     rows = _jsonl_objects(FIXTURE_PATH)
     assert len(rows) == 3
@@ -218,7 +229,9 @@ def test_synthetic_population_builder_records_live_generator_validation_state() 
     assert open_social_data["env_var_set"] is False
     assert open_social_data["validated"] is False
     assert open_social_data["repo_candidate_found"] is True
-    assert open_social_data["candidate_status"] == "repo_found_no_compatible_entity_output"
+    assert (
+        open_social_data["candidate_status"] == "repo_found_no_compatible_entity_output"
+    )
 
     fyi_cli = sources["fyi-cli"]
     assert fyi_cli["env_var_set"] is False
@@ -227,7 +240,9 @@ def test_synthetic_population_builder_records_live_generator_validation_state() 
     assert fyi_cli["candidate_status"] == "repo_found_no_generator_output"
 
 
-def test_synthetic_population_builder_deferred_work_excludes_completed_track_phases() -> None:
+def test_synthetic_population_builder_deferred_work_excludes_completed_track_phases() -> (
+    None
+):
     manifest = _load_json_object(MANIFEST_PATH)
     deferred_work = set(_string_list(manifest["deferred_work"]))
 

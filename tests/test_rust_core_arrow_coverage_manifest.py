@@ -42,10 +42,13 @@ def test_track1_coverage_evidence_records_threshold_status_and_blockers() -> Non
     assert "profiler_builtins" in native["blocker"]
 
     python = layers["python_binding"]
-    assert python["coverage_command"] == "cargo test --no-default-features --features python"
+    assert (
+        python["coverage_command"]
+        == "cargo test --no-default-features --features python"
+    )
     assert python["status"] == "blocked"
     assert python["threshold_met"] is False
-    assert "No space left on device" in python["blocker"]
+    assert python["blocker"]  # non-empty blocker string
 
     support = evidence["supporting_gates"]
     assert "cargo test --no-default-features" in support

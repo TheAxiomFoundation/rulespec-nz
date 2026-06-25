@@ -81,7 +81,9 @@ def _source_map_track() -> dict[str, object]:
 
 
 def _citation_paths_from_jsonl(path: Path) -> set[str]:
-    records = [_load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    records = [
+        _load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()
+    ]
     return {_string_value(record["citation_path"]) for record in records}
 
 
@@ -181,7 +183,9 @@ def test_social_security_manifest_records_main_benefit_coverage_gaps() -> None:
         assert _string_list(item["rulespec_modules"]) == []
 
 
-def test_social_security_main_benefit_oracle_fixture_matches_entitlement_constants() -> None:
+def test_social_security_main_benefit_oracle_fixture_matches_entitlement_constants() -> (
+    None
+):
     manifest = _load_json_object(MANIFEST_PATH)
     fixture_refs = _object_list(manifest["oracle_fixtures"])
     assert len(fixture_refs) == 1
@@ -201,21 +205,25 @@ def test_social_security_main_benefit_oracle_fixture_matches_entitlement_constan
     formulas = _rule_formulas_by_name(ENTITLEMENT_RULESPEC_PATH)
     normalized = cast(dict[str, object], fixture["normalized_values"])
 
-    assert _number_value(normalized["jobseeker_minimum_age_without_dependent_child"]) == formulas[
-        "jobseeker_minimum_age_without_dependent_child"
-    ]
-    assert _number_value(normalized["jobseeker_minimum_age_with_dependent_child"]) == formulas[
-        "jobseeker_minimum_age_with_dependent_child"
-    ]
-    assert _number_value(normalized["sole_parent_minimum_age"]) == formulas[
-        "sole_parent_minimum_age"
-    ]
-    assert _number_value(normalized["sole_parent_dependent_child_age_limit"]) == formulas[
-        "sole_parent_dependent_child_age_limit"
-    ]
-    assert _number_value(normalized["supported_living_restricted_or_blind_minimum_age"]) == formulas[
-        "supported_living_restricted_or_blind_minimum_age"
-    ]
+    assert (
+        _number_value(normalized["jobseeker_minimum_age_without_dependent_child"])
+        == formulas["jobseeker_minimum_age_without_dependent_child"]
+    )
+    assert (
+        _number_value(normalized["jobseeker_minimum_age_with_dependent_child"])
+        == formulas["jobseeker_minimum_age_with_dependent_child"]
+    )
+    assert (
+        _number_value(normalized["sole_parent_minimum_age"])
+        == formulas["sole_parent_minimum_age"]
+    )
+    assert (
+        _number_value(normalized["sole_parent_dependent_child_age_limit"])
+        == formulas["sole_parent_dependent_child_age_limit"]
+    )
+    assert (
+        _number_value(normalized["supported_living_restricted_or_blind_minimum_age"])
+        == formulas["supported_living_restricted_or_blind_minimum_age"]
+    )
 
     assert fixture["rate_fixture_status"] == "historical_reference_only"
-

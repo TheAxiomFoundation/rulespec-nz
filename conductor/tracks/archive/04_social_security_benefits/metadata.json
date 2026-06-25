@@ -1,0 +1,10 @@
+{
+  "track_id": "04_social_security_benefits",
+  "type": "feature",
+  "status": "archived",
+  "created_at": "2026-06-20T00:00:00Z",
+  "updated_at": "2026-06-23T00:00:00Z",
+  "archived_at": "2026-06-23T00:00:00Z",
+  "description": "Legislation ingestion and source-verified RuleSpec coverage for Social Security Act 2018 main benefit entitlement and rate schedules.",
+  "archive_reason": "Conductor review found the official-source manifest, RuleSpec module provenance, provision traces, deferred-surface inventory, and comparison-only oracle fixture gates passing."
+}

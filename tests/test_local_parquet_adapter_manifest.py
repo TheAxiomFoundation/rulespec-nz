@@ -50,7 +50,9 @@ def _string_map(value: object) -> dict[str, str]:
 
 def _source_spine_ids() -> set[str]:
     source_spine = _load_json_object(SOURCE_SPINE_PATH)
-    return {_string_value(source["id"]) for source in _object_list(source_spine["sources"])}
+    return {
+        _string_value(source["id"]) for source in _object_list(source_spine["sources"])
+    }
 
 
 def test_local_parquet_adapter_manifest_covers_track7_requirements() -> None:
@@ -64,7 +66,9 @@ def test_local_parquet_adapter_manifest_covers_track7_requirements() -> None:
     assert "corpus-legislation-nz" in requirements
     assert "corpus-nz-hansard" in requirements
 
-    source_ids = {_string_value(source["id"]) for source in _object_list(manifest["sources"])}
+    source_ids = {
+        _string_value(source["id"]) for source in _object_list(manifest["sources"])
+    }
     assert source_ids == {"corpus-legislation-nz", "corpus-nz-hansard"}
 
     for source in _object_list(manifest["sources"]):
@@ -78,7 +82,8 @@ def test_local_parquet_adapter_keeps_official_source_boundary() -> None:
     source_spine_ids = _source_spine_ids()
 
     sources = {
-        _string_value(source["id"]): source for source in _object_list(manifest["sources"])
+        _string_value(source["id"]): source
+        for source in _object_list(manifest["sources"])
     }
     legislation = sources["corpus-legislation-nz"]
     hansard = sources["corpus-nz-hansard"]
@@ -99,7 +104,9 @@ def test_local_parquet_adapter_table_contracts_support_corpus_joins() -> None:
 
     assert set(tables) == {"legislation_provisions", "hansard_speeches"}
 
-    legislation_columns = set(_string_list(tables["legislation_provisions"]["required_columns"]))
+    legislation_columns = set(
+        _string_list(tables["legislation_provisions"]["required_columns"])
+    )
     assert {
         "citation_path",
         "work_id",
@@ -122,9 +129,17 @@ def test_local_parquet_adapter_table_contracts_support_corpus_joins() -> None:
     assert tables["hansard_speeches"]["primary_join_key"] == "source_path"
 
     outputs = _string_map(manifest["normalized_output_paths"])
-    assert outputs["legislation_provisions"] == "data/corpus/provisions/nz/<document_class>/<run-id>.jsonl"
-    assert outputs["legislation_inventory"] == "data/corpus/inventory/nz/<document_class>/<run-id>.json"
-    assert outputs["hansard_context"] == "data/corpus/provisions/nz/hansard/<run-id>.jsonl"
+    assert (
+        outputs["legislation_provisions"]
+        == "data/corpus/provisions/nz/<document_class>/<run-id>.jsonl"
+    )
+    assert (
+        outputs["legislation_inventory"]
+        == "data/corpus/inventory/nz/<document_class>/<run-id>.json"
+    )
+    assert (
+        outputs["hansard_context"] == "data/corpus/provisions/nz/hansard/<run-id>.jsonl"
+    )
 
 
 def test_local_parquet_adapter_records_non_commit_boundaries() -> None:
@@ -143,7 +158,6 @@ def test_local_parquet_adapter_records_non_commit_boundaries() -> None:
         "data/corpus/inventory/nz/*.json",
         "data/corpus/provisions/nz/**/*.jsonl",
     } <= allowed_outputs
-
 
 
 def test_local_parquet_adapter_reader_smoke_fixtures_cover_table_schemas() -> None:
@@ -167,7 +181,8 @@ def test_local_parquet_adapter_reader_smoke_fixtures_cover_table_schemas() -> No
         _string_value(table["id"]): table for table in _object_list(manifest["tables"])
     }
     fixture_tables = {
-        _string_value(table["table_id"]): table for table in _object_list(fixture["tables"])
+        _string_value(table["table_id"]): table
+        for table in _object_list(fixture["tables"])
     }
     assert set(fixture_tables) == set(tables)
 
@@ -175,7 +190,9 @@ def test_local_parquet_adapter_reader_smoke_fixtures_cover_table_schemas() -> No
         fixture_table = fixture_tables[table_id]
         assert fixture_table["source_id"] == table["source_id"]
         assert fixture_table["primary_join_key"] == table["primary_join_key"]
-        assert fixture_table["fixture_path"] == FIXTURE_PATH.relative_to(ROOT).as_posix()
+        assert (
+            fixture_table["fixture_path"] == FIXTURE_PATH.relative_to(ROOT).as_posix()
+        )
         columns = set(_string_list(fixture_table["columns"]))
         required_columns = set(_string_list(table["required_columns"]))
         assert required_columns <= columns
@@ -184,6 +201,15 @@ def test_local_parquet_adapter_reader_smoke_fixtures_cover_table_schemas() -> No
         assert len(sample_rows) == 1
         for row in sample_rows:
             assert required_columns <= set(row)
+
+
+def test_local_parquet_adapter_deferred_work_excludes_completed_smoke_fixture() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    deferred_work = _string_list(manifest["deferred_work"])
+
+    assert not any(
+        "synthetic Parquet or Arrow fixtures" in item for item in deferred_work
+    )
 
 
 def test_local_parquet_adapter_records_live_validation_state() -> None:
@@ -209,4 +235,6 @@ def test_local_parquet_adapter_records_live_validation_state() -> None:
     assert hansard["env_var_set"] is False
     assert hansard["validated"] is False
     assert hansard["candidate_status"] == "candidate_export_found"
-    assert _string_value(hansard["candidate_path"]).endswith("corpus-nz-hansard/generated/parquet/hansard.parquet")
+    assert _string_value(hansard["candidate_path"]).endswith(
+        "corpus-nz-hansard/generated/parquet/hansard.parquet"
+    )

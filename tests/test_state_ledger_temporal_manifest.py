@@ -41,7 +41,9 @@ def _string_value(value: object) -> str:
 
 def _oracle_ids() -> set[str]:
     oracle_index = _load_json_object(ORACLE_INDEX_PATH)
-    return {_string_value(oracle["id"]) for oracle in _object_list(oracle_index["oracles"])}
+    return {
+        _string_value(oracle["id"]) for oracle in _object_list(oracle_index["oracles"])
+    }
 
 
 def test_state_ledger_manifest_covers_track10_requirements() -> None:
@@ -63,7 +65,9 @@ def test_state_ledger_manifest_keeps_registry_status_explicit() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
     ingestion = _load_json_object(NZ_LEGISLATION_INGESTION_PATH)
     oracle_ids = _oracle_ids()
-    tools = {_string_value(tool["id"]): tool for tool in _object_list(manifest["tools"])}
+    tools = {
+        _string_value(tool["id"]): tool for tool in _object_list(manifest["tools"])
+    }
     adapter = ingestion["adapter"]
     assert isinstance(adapter, dict)
     adapter_items = cast(dict[str, object], adapter)
@@ -113,7 +117,10 @@ def test_state_ledger_manifest_temporal_event_contract_is_stable() -> None:
 
 def test_state_ledger_manifest_links_existing_contract_manifests() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    inputs = {_string_value(item["path"]) for item in _object_list(manifest["input_manifests"])}
+    inputs = {
+        _string_value(item["path"])
+        for item in _object_list(manifest["input_manifests"])
+    }
 
     assert inputs == {
         "data/corpus/ingestion/nz-legislation.json",
@@ -130,16 +137,26 @@ def test_state_ledger_manifest_links_existing_contract_manifests() -> None:
 
 def test_state_ledger_manifest_output_and_repository_boundaries() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    outputs = {_string_value(output["id"]): output for output in _object_list(manifest["outputs"])}
+    outputs = {
+        _string_value(output["id"]): output
+        for output in _object_list(manifest["outputs"])
+    }
     boundaries = manifest["repository_boundaries"]
     assert isinstance(boundaries, dict)
     boundary_items = cast(dict[str, object], boundaries)
 
-    assert set(outputs) == {"state_ledger_events", "temporal_policy_index", "handoff_report"}
+    assert set(outputs) == {
+        "state_ledger_events",
+        "temporal_policy_index",
+        "handoff_report",
+    }
     assert outputs["state_ledger_events"]["format"] == "jsonl"
     assert outputs["state_ledger_events"]["path"] == "data/ledger/events/<run-id>.jsonl"
     assert outputs["temporal_policy_index"]["format"] == "json"
-    assert outputs["temporal_policy_index"]["path"] == "data/ledger/indexes/temporal-policy-index.json"
+    assert (
+        outputs["temporal_policy_index"]["path"]
+        == "data/ledger/indexes/temporal-policy-index.json"
+    )
     assert outputs["handoff_report"]["format"] == "markdown"
 
     never_commit = set(_string_list(boundary_items["never_commit_globs"]))
@@ -157,7 +174,10 @@ def test_state_ledger_manifest_output_and_repository_boundaries() -> None:
 
 def test_state_ledger_manifest_has_temporal_join_keys() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    joins = {_string_value(join["id"]): join for join in _object_list(manifest["temporal_join_keys"])}
+    joins = {
+        _string_value(join["id"]): join
+        for join in _object_list(manifest["temporal_join_keys"])
+    }
 
     assert set(joins) == {
         "rulespec_module_to_corpus",
@@ -188,31 +208,51 @@ def _jsonl_objects(path: Path) -> list[dict[str, object]]:
 
 def test_state_ledger_fixture_outputs_cover_event_schemas() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    event_types = {_string_value(item["id"]): item for item in _object_list(manifest["event_types"])}
-    fixture_outputs = {_string_value(item["id"]): item for item in _object_list(manifest["fixture_outputs"])}
+    event_types = {
+        _string_value(item["id"]): item
+        for item in _object_list(manifest["event_types"])
+    }
+    fixture_outputs = {
+        _string_value(item["id"]): item
+        for item in _object_list(manifest["fixture_outputs"])
+    }
 
-    assert set(fixture_outputs) == {"state-ledger-events-smoke", "temporal-policy-index-smoke", "handoff-report-smoke"}
+    assert set(fixture_outputs) == {
+        "state-ledger-events-smoke",
+        "temporal-policy-index-smoke",
+        "handoff-report-smoke",
+    }
     for fixture in fixture_outputs.values():
         assert fixture["synthetic_only"] is True
         assert fixture["contains_raw_ledger_payload"] is False
 
-    events_path = ROOT / _string_value(fixture_outputs["state-ledger-events-smoke"]["path"])
-    index_path = ROOT / _string_value(fixture_outputs["temporal-policy-index-smoke"]["path"])
+    events_path = ROOT / _string_value(
+        fixture_outputs["state-ledger-events-smoke"]["path"]
+    )
+    index_path = ROOT / _string_value(
+        fixture_outputs["temporal-policy-index-smoke"]["path"]
+    )
     report_path = ROOT / _string_value(fixture_outputs["handoff-report-smoke"]["path"])
 
     events = _jsonl_objects(events_path)
     assert {_string_value(event["event_type"]) for event in events} == set(event_types)
-    assert {_string_value(event["event_status"]) for event in events}.issubset(set(_string_list(manifest["event_statuses"])))
+    assert {_string_value(event["event_status"]) for event in events}.issubset(
+        set(_string_list(manifest["event_statuses"]))
+    )
     for event in events:
         event_type = event_types[_string_value(event["event_type"])]
         assert set(_string_list(event_type["required_fields"])).issubset(set(event))
 
     index = _load_json_object(index_path)
     assert index["source_spine_path"] == manifest["source_spine_path"]
-    assert set(_string_list(index["event_ids"])) == {_string_value(event["event_id"]) for event in events}
+    assert set(_string_list(index["event_ids"])) == {
+        _string_value(event["event_id"]) for event in events
+    }
 
     report_text = report_path.read_text(encoding="utf-8").lower()
-    for section in _string_list(fixture_outputs["handoff-report-smoke"]["required_sections"]):
+    for section in _string_list(
+        fixture_outputs["handoff-report-smoke"]["required_sections"]
+    ):
         assert section in report_text
 
 
@@ -226,7 +266,10 @@ def test_state_ledger_manifest_records_live_validation_state() -> None:
     assert live_items["validated_against_real_workflows"] is False
     assert live_items["result"] == "blocked_missing_local_ledger_workflows"
 
-    probes = {_string_value(item["tool_id"]): item for item in _object_list(live_items["probes"])}
+    probes = {
+        _string_value(item["tool_id"]): item
+        for item in _object_list(live_items["probes"])
+    }
     assert set(probes) == {"kairos", "axiom-corpus"}
     assert probes["kairos"]["local_path_env"] == "RULESPEC_NZ_KAIROS_DIR"
     assert probes["kairos"]["status"] == "blocked_missing_local_checkout"
@@ -237,5 +280,26 @@ def test_state_ledger_manifest_records_live_validation_state() -> None:
     assert probes["axiom-corpus"]["cli_on_path"] is False
 
     blockers = set(_string_list(live_items["blockers"]))
-    assert "RULESPEC_NZ_KAIROS_DIR is not set and no adjacent kairos checkout or kairos CLI was found." in blockers
-    assert "No local axiom-corpus checkout or axiom-corpus CLI was found for live ingestion validation." in blockers
+    assert (
+        "RULESPEC_NZ_KAIROS_DIR is not set and no adjacent kairos checkout or kairos CLI was found."
+        in blockers
+    )
+    assert (
+        "No local axiom-corpus checkout or axiom-corpus CLI was found for live ingestion validation."
+        in blockers
+    )
+
+
+def test_state_ledger_deferred_work_excludes_completed_track_phases() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    deferred_work = set(_string_list(manifest["deferred_work"]))
+
+    assert (
+        "Add tiny temporal policy event fixtures for schema-level validation."
+        not in deferred_work
+    )
+    assert (
+        "Validate against real local kairos and TheAxiomFoundation axiom-corpus workflows when available."
+        not in deferred_work
+    )
+    assert deferred_work == set()

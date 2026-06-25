@@ -1,0 +1,29 @@
+{
+  "track_id": "11_upstream_pr_workflows",
+  "type": "process",
+  "status": "archived_after_review_remediation",
+  "created_at": "2026-06-23T00:00:00+10:00",
+  "updated_at": "2026-06-24T00:00:00+10:00",
+  "description": "Develop composable workflows, skills, and subagent role specs for packaging discrete upstream pull requests from RuleSpec NZ changes.",
+  "review_required": false,
+  "implementation_complete": true,
+  "review_complete": true,
+  "blockers": [],
+  "automation": {
+    "human_input_required": false,
+    "archive_when_reviewed": true,
+    "manifest": "conductor/workflows/upstream-pr/workflow.json",
+    "granularity": "discrete upstream PR slices with explicit dependency order and blockers",
+    "parallelization": [
+      "inventory",
+      "readiness",
+      "packaging"
+    ],
+    "completion_gates": [
+      "workflow manifest validates dependency order",
+      "parallel lanes declare allowed and forbidden actions",
+      "skill entrypoint requires workflow.json before PR preparation",
+      "tests validate artifact graph and automation contract"
+    ]
+  }
+}

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import cast
 
-import yaml  # pyright: ignore[reportMissingModuleSource]
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -80,7 +80,9 @@ def _source_map_track() -> dict[str, object]:
 
 
 def _citation_paths_from_jsonl(path: Path) -> set[str]:
-    records = [_load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    records = [
+        _load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()
+    ]
     return {_string_value(record["citation_path"]) for record in records}
 
 
@@ -163,7 +165,9 @@ def test_nz_superannuation_manifest_records_path_divergence() -> None:
     }
 
 
-def test_nz_superannuation_manifest_records_destination_reconciliation_decision() -> None:
+def test_nz_superannuation_manifest_records_destination_reconciliation_decision() -> (
+    None
+):
     manifest = _load_json_object(MANIFEST_PATH)
     reconciliation = cast(dict[str, object], manifest["destination_reconciliation"])
 
@@ -180,7 +184,9 @@ def test_nz_superannuation_manifest_records_destination_reconciliation_decision(
     assert _string_value(reconciliation["reason"]) != ""
 
 
-def test_nz_superannuation_oracle_fixture_matches_age_threshold_without_authority() -> None:
+def test_nz_superannuation_oracle_fixture_matches_age_threshold_without_authority() -> (
+    None
+):
     manifest = _load_json_object(MANIFEST_PATH)
     fixture_refs = _object_list(manifest["oracle_fixtures"])
     assert len(fixture_refs) == 1
@@ -193,7 +199,10 @@ def test_nz_superannuation_oracle_fixture_matches_age_threshold_without_authorit
     assert fixture["oracle_id"] == fixture_ref["oracle_id"]
     assert fixture["oracle_commit"] == fixture_ref["commit"]
     assert fixture["canonical_law"] is False
-    assert fixture["rulespec_destination"] == "nz/statutes/new_zealand_superannuation/core.yaml"
+    assert (
+        fixture["rulespec_destination"]
+        == "nz/statutes/new_zealand_superannuation/core.yaml"
+    )
 
     normalized = _object_dict(fixture["normalized_values"])
     assert _number_value(normalized["nz_super_age_threshold"]) == int(

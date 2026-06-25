@@ -1,0 +1,12 @@
+﻿{
+ "track_id": "15_openfisca_follow_on_reconciliation",
+ "type": "feature",
+ "status": "active",
+ "created_at": "2026-06-25T00:00:00+10:00",
+ "description": "Resolve deferred OpenFisca Aotearoa surfaces through official-source extraction and duplicate-aware RuleSpec reconciliation.",
+ "source_oracle_id": "openfisca-aotearoa",
+ "parent_tracks": ["13_openfisca_aotearoa_rule_incorporation"],
+ "input_artifacts": ["data/oracles/openfisca-aotearoa-rule-inventory.json", "data/coverage/openfisca-aotearoa-source-map.json", "data/coverage/openfisca-aotearoa-reconciliation.json", "data/coverage/rulespec-rule-inventory.json"],
+ "target_surfaces": ["openfisca-aotearoa-pin-reconciliation", "common-demographics-and-residence-official-source-extraction", "citizenship-immigration-official-source-extraction", "relationships-official-source-extraction", "student-allowance-official-source-extraction", "rates-rebates-official-source-extraction", "paid-parental-leave-official-source-extraction", "housing-restructuring-social-housing-official-source-extraction", "acc-weekly-compensation-official-source-extraction", "pae-ora-health-services-official-source-extraction"],
+ "blockers": ["Official-source extracts must be located before canonical encoding for deferred OpenFisca surfaces.", "Live-head fixture refresh is blocked until the pinned oracle commit is reconciled."]
+}

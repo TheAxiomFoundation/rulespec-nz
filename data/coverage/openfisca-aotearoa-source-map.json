@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-06-24",
+  "track_id": "13_openfisca_aotearoa_rule_incorporation",
+  "source_oracle_id": "openfisca-aotearoa",
+  "source_repository": "https://github.com/edithatogo/openfisca-aotearoa",
+  "oracle_index_commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+  "observed_upstream_head": "76062ffc20e40373d9cb56c8910a224236aa1e72",
+  "canonical_law": false,
+  "authority": "comparison_oracle",
+  "official_source_policy": "Canonical RuleSpec may only be encoded from official NZ legislation, regulations, or agency tables. OpenFisca Aotearoa may supply discovery notes, structural comparison, parameter comparison, and situation-test fixtures only.",
+  "pin_policy": "Use the oracle-index commit for deterministic fixtures. The live upstream HEAD mismatch is recorded and deferred to a separate pin-reconciliation task before any live-head fixture extraction.",
+  "global_blockers": [],
+  "surfaces": [
+    {
+      "id": "demographics-and-common-predicates",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Program-specific statutory definitions", "Citizenship Act 1977", "Immigration Act 2009", "Social Security Act 2018"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/demographics/"],
+      "planned_rulespec_paths": ["nz/policies/common/demographics.yaml", "nz/statutes/common/residence.yaml"],
+      "oracle_use": "predicate discovery and scenario coverage only"
+    },
+    {
+      "id": "income-tax-and-family-scheme",
+      "implementation_status": "partial_existing_reconcile",
+      "official_sources": ["Income Tax Act 2007", "Tax Administration Act 1994", "IRD individual income tax and Working for Families guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/income_tax/", "openfisca_aotearoa/parameters/taxes/income_tax/", "openfisca_aotearoa/parameters/entitlements/income_tax/", "openfisca_aotearoa/tests/income_tax/"],
+      "existing_rulespec_paths": ["nz/statutes/income_tax/schedule_1/individual_income_tax.yaml", "nz/statutes/income_tax/core/taxable_income.yaml", "nz/statutes/income_tax/credits/individual_credits.yaml", "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml", "nz/statutes/income_tax/family_scheme/eligibility.yaml", "nz/statutes/income_tax/family_scheme/tax_credits.yaml"],
+      "companion_tests": ["nz/statutes/income_tax/schedule_1/individual_income_tax.test.yaml", "nz/statutes/income_tax/core/taxable_income.test.yaml", "nz/statutes/income_tax/credits/individual_credits.test.yaml", "nz/statutes/income_tax/family_scheme/family_scheme_income.test.yaml", "nz/statutes/income_tax/family_scheme/eligibility.test.yaml", "nz/statutes/income_tax/family_scheme/tax_credits.test.yaml"],
+      "oracle_use": "tax and WFF fixture discovery after official-source scenarios are enumerated"
+    },
+    {
+      "id": "social-security-main-benefits",
+      "implementation_status": "partial_existing_reconcile",
+      "official_sources": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD rate tables and MAP guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/social_security/", "openfisca_aotearoa/parameters/social_security/", "openfisca_aotearoa/tests/social_security/"],
+      "existing_rulespec_paths": ["nz/statutes/social_security/main_benefits/rates.yaml", "nz/statutes/social_security/main_benefits/entitlement.yaml", "nz/statutes/social_security/disability_allowance/core.yaml", "nz/statutes/social_security/child_disability_allowance/core.yaml", "nz/statutes/social_security/winter_energy_payment/core.yaml"],
+      "companion_tests": ["nz/statutes/social_security/main_benefits/rates.test.yaml", "nz/statutes/social_security/main_benefits/entitlement.test.yaml", "nz/statutes/social_security/disability_allowance/core.test.yaml", "nz/statutes/social_security/child_disability_allowance/core.test.yaml", "nz/statutes/social_security/winter_energy_payment/core.test.yaml"],
+      "oracle_use": "main-benefit entitlement and historical-rate comparison fixtures"
+    },
+    {
+      "id": "accommodation-supplement",
+      "implementation_status": "partial_existing_reconcile",
+      "official_sources": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD Accommodation Supplement area and rate tables"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/social_security/accommodation_supplement/", "openfisca_aotearoa/variables/regulation/social_security_regulation/accommodation_supplement/", "openfisca_aotearoa/parameters/social_security/accommodation_supplement/", "openfisca_aotearoa/tests/social_security/accommodation_supplement/"],
+      "existing_rulespec_paths": ["nz/statutes/social_security/accommodation_supplement/core.yaml"],
+      "companion_tests": ["nz/statutes/social_security/accommodation_supplement/core.test.yaml"],
+      "oracle_use": "area/rate structure comparison after official-source case expansion"
+    },
+    {
+      "id": "acc-and-weekly-compensation",
+      "implementation_status": "partial_existing_reconcile",
+      "official_sources": ["Accident Compensation Act 2001", "Accident Compensation earners levy regulations", "ACC levy and compensation guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/acc/", "openfisca_aotearoa/parameters/acc/", "openfisca_aotearoa/tests/acc/"],
+      "existing_rulespec_paths": ["nz/regulations/acc/earners_levy.yaml"],
+      "companion_tests": ["nz/regulations/acc/earners_levy.test.yaml"],
+      "planned_rulespec_paths": ["nz/statutes/acc/weekly_compensation.yaml"],
+      "oracle_use": "earners levy comparison fixtures; weekly compensation requires official-source extraction"
+    },
+    {
+      "id": "student-allowance",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Student Allowances Regulations 1998", "Education and Training Act 2020", "Studylink guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/regulation/student_allowance/", "openfisca_aotearoa/tests/student_allowance/basic_grant.yaml"],
+      "planned_rulespec_paths": ["nz/regulations/student_allowances/basic_grant.yaml"],
+      "oracle_use": "student allowance scenario discovery after official-source implementation"
+    },
+    {
+      "id": "citizenship-and-immigration",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Citizenship Act 1977", "Immigration Act 2009", "DIA and Immigration NZ guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/citizenship/", "openfisca_aotearoa/variables/acts/immigration/", "openfisca_aotearoa/parameters/citizenship/", "openfisca_aotearoa/tests/citizenship/", "openfisca_aotearoa/tests/immigration/"],
+      "planned_rulespec_paths": ["nz/statutes/citizenship/by_grant.yaml", "nz/statutes/immigration/residence.yaml"],
+      "oracle_use": "residence and citizenship predicate fixture discovery after official-source implementation"
+    },
+    {
+      "id": "rates-rebates",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Rates Rebate Act 1973", "Rates Rebate Regulations", "DIA rates rebate guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/rates_rebates/", "openfisca_aotearoa/parameters/entitlements/rates_rebates/", "openfisca_aotearoa/tests/rates_rebates/"],
+      "planned_rulespec_paths": ["nz/statutes/rates_rebates/rates_rebate.yaml"],
+      "oracle_use": "rates rebate scenario discovery after official-source implementation"
+    },
+    {
+      "id": "parental-leave",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Parental Leave and Employment Protection Act 1987", "employment.govt.nz paid parental leave guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/parental_leave/", "openfisca_aotearoa/tests/parental_leave/"],
+      "planned_rulespec_paths": ["nz/statutes/parental_leave/paid_parental_leave.yaml"],
+      "oracle_use": "paid-parental-leave rate and eligibility smoke fixtures after official-source implementation"
+    },
+    {
+      "id": "housing-restructuring-and-social-housing",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Housing Restructuring and Tenancy Matters Act 1992", "HUD/MSD income-related rent guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/housing_restructuring/", "openfisca_aotearoa/parameters/housing_restructuring/", "openfisca_aotearoa/tests/housing_restructuring/"],
+      "planned_rulespec_paths": ["nz/statutes/housing_restructuring/income_related_rent.yaml"],
+      "oracle_use": "income-related-rent scenario discovery after official-source implementation"
+    },
+    {
+      "id": "health-and-community-services",
+      "implementation_status": "partial_existing_reconcile",
+      "official_sources": ["Health Entitlement Cards Regulations 1993", "Pae Ora (Healthy Futures) Act 2022", "health agency copayment guidance"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/pae_ora/", "openfisca_aotearoa/variables/acts/social_security/community_services_card/", "openfisca_aotearoa/parameters/entitlements/health/", "openfisca_aotearoa/tests/pae_ora/", "openfisca_aotearoa/tests/social_security/community_services_card.yaml"],
+      "existing_rulespec_paths": ["nz/regulations/health_entitlement_cards/community_services_card/core.yaml"],
+      "companion_tests": ["nz/regulations/health_entitlement_cards/community_services_card/core.test.yaml"],
+      "planned_rulespec_paths": ["nz/statutes/pae_ora/health_services.yaml"],
+      "oracle_use": "community services card comparison and Pae Ora predicate discovery"
+    },
+    {
+      "id": "relationship-status-and-family-law-predicates",
+      "implementation_status": "missing_ready_for_source_extraction",
+      "official_sources": ["Civil Union Act 2004", "Marriage Act 1955", "Property (Relationships) Act 1976", "Social Security Act 2018"],
+      "openfisca_paths": ["openfisca_aotearoa/variables/acts/civil_union/", "openfisca_aotearoa/variables/acts/marriage/", "openfisca_aotearoa/variables/acts/property_relationships/", "openfisca_aotearoa/variables/acts/social_security/relationships.py"],
+      "planned_rulespec_paths": ["nz/statutes/common/relationships.yaml"],
+      "oracle_use": "relationship predicate discovery only"
+    }
+  ],
+  "implementation_order": [
+    "income-tax-and-family-scheme",
+    "social-security-main-benefits",
+    "accommodation-supplement",
+    "acc-and-weekly-compensation",
+    "health-and-community-services",
+    "demographics-and-common-predicates",
+    "citizenship-and-immigration",
+    "relationship-status-and-family-law-predicates",
+    "student-allowance",
+    "rates-rebates",
+    "parental-leave",
+    "housing-restructuring-and-social-housing"
+  ]
+}

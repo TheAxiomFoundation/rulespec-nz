@@ -62,14 +62,23 @@ def test_income_tax_rate_manifest_matches_rulespec_source_verification() -> None
     manifest = _load_json_object(MANIFEST_PATH)
     rulespec = _load_yaml_object(RULESPEC_PATH)
 
-    source_verification = _object_dict(_object_dict(rulespec["module"])["source_verification"])
+    source_verification = _object_dict(
+        _object_dict(rulespec["module"])["source_verification"]
+    )
 
     assert manifest["track_id"] == "03_income_tax_rates"
     assert manifest["authority"] == "official_source"
     assert manifest["rulespec_module"] == RULESPEC_PATH.relative_to(ROOT).as_posix()
-    assert manifest["corpus_citation_path"] == source_verification["corpus_citation_path"]
-    assert manifest["agency_reference_urls"] == source_verification["agency_reference_urls"]
-    assert manifest["verified_values"] == _stringify_nested_keys(source_verification["values"])
+    assert (
+        manifest["corpus_citation_path"] == source_verification["corpus_citation_path"]
+    )
+    assert (
+        manifest["agency_reference_urls"]
+        == source_verification["agency_reference_urls"]
+    )
+    assert manifest["verified_values"] == _stringify_nested_keys(
+        source_verification["values"]
+    )
 
 
 def test_income_tax_rate_manifest_matches_source_map_first_batch() -> None:
@@ -111,11 +120,15 @@ def test_income_tax_rate_manifest_points_to_schedule_1_provision_extract() -> No
         _load_json_object_line(line)
         for line in provision_path.read_text(encoding="utf-8").splitlines()
     ]
-    available_paths = {_string_value(record["citation_path"]) for record in provision_records}
+    available_paths = {
+        _string_value(record["citation_path"]) for record in provision_records
+    }
     assert declared_paths <= available_paths
 
 
-def test_income_tax_rate_oracle_fixture_matches_rulespec_values_without_authority() -> None:
+def test_income_tax_rate_oracle_fixture_matches_rulespec_values_without_authority() -> (
+    None
+):
     manifest = _load_json_object(MANIFEST_PATH)
     oracle_fixtures = _object_list(manifest["oracle_fixtures"])
     assert len(oracle_fixtures) == 1
@@ -138,3 +151,26 @@ def _load_json_object_line(line: str) -> dict[str, object]:
     return cast(dict[str, object], loaded)
 
 
+def test_legacy_tax_rate_ingest_track_is_archived_as_track3_context() -> None:
+    track3 = _load_json_object(
+        ROOT / "conductor/tracks/archive/03_income_tax_rates/metadata.json"
+    )
+    legacy = _load_json_object(
+        ROOT / "conductor/tracks/archive/nz_ingest_tax_rate_20260619/metadata.json"
+    )
+    tracks_index = (ROOT / "conductor/tracks.md").read_text(encoding="utf-8")
+
+    assert legacy["track_id"] == "nz_ingest_tax_rate_20260619"
+    assert legacy["status"] == "archived_superseded"
+    assert legacy["superseded_by_track_id"] == track3["track_id"]
+    assert (
+        legacy["superseded_by_track_path"]
+        == "conductor/tracks/archive/03_income_tax_rates/"
+    )
+    superseded_ids = _string_list(track3["supersedes_track_ids"])
+    superseded_paths = _string_list(track3["superseded_track_paths"])
+
+    assert "nz_ingest_tax_rate_20260619" in superseded_ids
+    assert "conductor/tracks/archive/nz_ingest_tax_rate_20260619/" in superseded_paths
+    assert not (ROOT / "conductor/tracks/nz_ingest_tax_rate_20260619").exists()
+    assert "conductor/tracks/archive/nz_ingest_tax_rate_20260619/" in tracks_index

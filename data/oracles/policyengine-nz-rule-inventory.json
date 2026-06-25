@@ -1,0 +1,337 @@
+{
+  "generated_at": "2026-06-23",
+  "source_oracle_id": "policyengine-nz",
+  "source_repository": "https://github.com/PolicyEngine/policyengine-nz",
+  "oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "observed_upstream_head": "fbd186bd9a40633d5fc106750838b9cae40e71c3",
+  "canonical_law": false,
+  "authority": "supporting_reference",
+  "purpose": "Rule-surface inventory for incorporating PolicyEngine NZ variables, parameters, and policy tests into RuleSpec NZ without treating the supporting reference as legal authority.",
+  "counts": {
+    "variable_files": 17,
+    "parameter_files": 14,
+    "yaml_policy_tests": 3
+  },
+  "guardrails": [
+    "Use official NZ legislation, delegated instruments, and agency rate tables as canonical sources.",
+    "Use PolicyEngine NZ for discovery, smoke comparison, parameter comparison, and policy-test fixtures only.",
+    "Do not mechanically translate PolicyEngine formulas into RuleSpec.",
+    "Resolve the oracle-index pin mismatch before extracting new live-head fixtures."
+  ],
+  "source_surface_counts": {
+    "variables": {
+      "gov": 9,
+      "household": 2,
+      "input": 5,
+      "__init__.py": 1
+    },
+    "variable_gov": {
+      "ird/acc": 2,
+      "ird/income_tax": 2,
+      "ird/working_for_families": 3,
+      "msd/jobseeker": 1,
+      "msd/superannuation": 1
+    },
+    "parameters_gov": {
+      "ird/acc": 2,
+      "ird/gst": 1,
+      "ird/income_tax": 2,
+      "ird/kiwisaver": 1,
+      "ird/working_for_families": 4,
+      "msd/accommodation_supplement": 2,
+      "msd/jobseeker": 1,
+      "msd/superannuation": 1
+    },
+    "yaml_tests": {
+      "policy/baseline": 3
+    }
+  },
+  "source_modules": [
+    {
+      "path": "policyengine_nz/variables/gov/ird/income_tax/",
+      "surfaces": [
+        "taxable income",
+        "income tax"
+      ],
+      "planned_destinations": [
+        "nz/statutes/income_tax/core/taxable_income.yaml",
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/ird/income_tax/",
+      "surfaces": [
+        "income tax rates",
+        "income tax thresholds"
+      ],
+      "planned_destinations": [
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/variables/gov/ird/acc/",
+      "surfaces": [
+        "ACC liable income",
+        "ACC earners levy"
+      ],
+      "planned_destinations": [
+        "nz/regulations/acc/earners_levy.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/ird/acc/",
+      "surfaces": [
+        "ACC earners levy rate",
+        "ACC earners levy cap"
+      ],
+      "planned_destinations": [
+        "nz/regulations/acc/earners_levy.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/variables/gov/ird/working_for_families/",
+      "surfaces": [
+        "Family Tax Credit",
+        "In-Work Tax Credit",
+        "Best Start"
+      ],
+      "planned_destinations": [
+        "nz/statutes/income_tax/family_scheme/tax_credits.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/ird/working_for_families/",
+      "surfaces": [
+        "Family Tax Credit rates",
+        "Family Tax Credit income test",
+        "In-Work Tax Credit",
+        "Best Start"
+      ],
+      "planned_destinations": [
+        "nz/statutes/income_tax/family_scheme/tax_credits.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/variables/gov/msd/jobseeker/",
+      "surfaces": [
+        "Jobseeker Support"
+      ],
+      "planned_destinations": [
+        "nz/statutes/social_security/main_benefits/"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/msd/jobseeker/payment_rates.yaml",
+      "surfaces": [
+        "Jobseeker payment rates"
+      ],
+      "planned_destinations": [
+        "nz/statutes/social_security/main_benefits/rates.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/variables/gov/msd/superannuation/",
+      "surfaces": [
+        "NZ Superannuation"
+      ],
+      "planned_destinations": [
+        "nz/statutes/new_zealand_superannuation/"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/msd/superannuation/payment_rates.yaml",
+      "surfaces": [
+        "NZ Superannuation payment rates"
+      ],
+      "planned_destinations": [
+        "nz/statutes/new_zealand_superannuation/"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/msd/accommodation_supplement/",
+      "surfaces": [
+        "Accommodation Supplement income test",
+        "Accommodation Supplement payment rates"
+      ],
+      "planned_destinations": [
+        "nz/statutes/social_security/accommodation_supplement/core.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/ird/gst/rate.yaml",
+      "surfaces": [
+        "GST rate"
+      ],
+      "planned_destinations": [
+        "nz/statutes/gst/rate.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/parameters/gov/ird/kiwisaver/contribution_rates.yaml",
+      "surfaces": [
+        "KiwiSaver contribution rates"
+      ],
+      "planned_destinations": [
+        "nz/statutes/kiwisaver/contributions.yaml"
+      ]
+    },
+    {
+      "path": "policyengine_nz/tests/policy/baseline/",
+      "surfaces": [
+        "income tax baseline test",
+        "ACC levy baseline test",
+        "Working for Families baseline test"
+      ],
+      "planned_destinations": [
+        "data/oracles/fixtures/policyengine-nz/"
+      ]
+    }
+  ],
+  "rule_surfaces": [
+    {
+      "id": "income-tax",
+      "status": "partial",
+      "existing_rulespec_paths": [
+        "nz/statutes/income_tax/core/taxable_income.yaml",
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml"
+      ],
+      "planned_destinations": [
+        "nz/statutes/income_tax/"
+      ],
+      "official_source_requirements": [
+        "Income Tax Act 2007",
+        "IRD individual income tax rate guidance"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/variables/gov/ird/income_tax/",
+        "policyengine_nz/parameters/gov/ird/income_tax/",
+        "policyengine_nz/tests/policy/baseline/test_income_tax.yaml"
+      ]
+    },
+    {
+      "id": "acc-earners-levy",
+      "status": "covered_reconcile",
+      "existing_rulespec_paths": [
+        "nz/regulations/acc/earners_levy.yaml"
+      ],
+      "planned_destinations": [
+        "nz/regulations/acc/earners_levy.yaml"
+      ],
+      "official_source_requirements": [
+        "Accident Compensation (Earners' Levy) Regulations",
+        "ACC/IRD levy rate tables"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/variables/gov/ird/acc/",
+        "policyengine_nz/parameters/gov/ird/acc/",
+        "policyengine_nz/tests/policy/baseline/test_acc_levy.yaml"
+      ]
+    },
+    {
+      "id": "working-for-families",
+      "status": "partial",
+      "existing_rulespec_paths": [
+        "nz/statutes/income_tax/family_scheme/"
+      ],
+      "planned_destinations": [
+        "nz/statutes/income_tax/family_scheme/"
+      ],
+      "official_source_requirements": [
+        "Income Tax Act 2007 subparts MA-MJ",
+        "IRD Working for Families guidance"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/variables/gov/ird/working_for_families/",
+        "policyengine_nz/parameters/gov/ird/working_for_families/",
+        "policyengine_nz/tests/policy/baseline/test_working_for_families.yaml"
+      ]
+    },
+    {
+      "id": "main-benefits-jobseeker",
+      "status": "partial",
+      "existing_rulespec_paths": [
+        "nz/statutes/social_security/main_benefits/"
+      ],
+      "planned_destinations": [
+        "nz/statutes/social_security/main_benefits/"
+      ],
+      "official_source_requirements": [
+        "Social Security Act 2018",
+        "Social Security Regulations 2018",
+        "MSD Jobseeker Support rates"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/variables/gov/msd/jobseeker/",
+        "policyengine_nz/parameters/gov/msd/jobseeker/payment_rates.yaml"
+      ]
+    },
+    {
+      "id": "new-zealand-superannuation",
+      "status": "partial",
+      "existing_rulespec_paths": [
+        "nz/statutes/new_zealand_superannuation/"
+      ],
+      "planned_destinations": [
+        "nz/statutes/new_zealand_superannuation/"
+      ],
+      "official_source_requirements": [
+        "New Zealand Superannuation and Retirement Income Act 2001",
+        "MSD NZ Super rates"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/variables/gov/msd/superannuation/",
+        "policyengine_nz/parameters/gov/msd/superannuation/payment_rates.yaml"
+      ]
+    },
+    {
+      "id": "accommodation-supplement",
+      "status": "partial",
+      "existing_rulespec_paths": [
+        "nz/statutes/social_security/accommodation_supplement/core.yaml"
+      ],
+      "planned_destinations": [
+        "nz/statutes/social_security/accommodation_supplement/core.yaml"
+      ],
+      "official_source_requirements": [
+        "Social Security Act 2018",
+        "Social Security Regulations 2018",
+        "MSD Accommodation Supplement rates"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/parameters/gov/msd/accommodation_supplement/"
+      ]
+    },
+    {
+      "id": "gst",
+      "status": "covered_reconcile",
+      "existing_rulespec_paths": [
+        "nz/statutes/gst/rate.yaml"
+      ],
+      "planned_destinations": [
+        "nz/statutes/gst/rate.yaml"
+      ],
+      "official_source_requirements": [
+        "Goods and Services Tax Act 1985",
+        "IRD GST rate guidance"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/parameters/gov/ird/gst/rate.yaml"
+      ]
+    },
+    {
+      "id": "kiwisaver",
+      "status": "missing",
+      "existing_rulespec_paths": [],
+      "planned_destinations": [
+        "nz/statutes/kiwisaver/contributions.yaml"
+      ],
+      "official_source_requirements": [
+        "KiwiSaver Act 2006",
+        "IRD KiwiSaver contribution guidance"
+      ],
+      "policyengine_paths": [
+        "policyengine_nz/parameters/gov/ird/kiwisaver/contribution_rates.yaml"
+      ]
+    }
+  ]
+}

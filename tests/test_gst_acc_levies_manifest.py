@@ -68,7 +68,9 @@ def _rule_formulas_by_effective_date(path: Path, rule_name: str) -> dict[str, st
     rules = _object_list(rulespec["rules"])
     rule = next(rule for rule in rules if rule["name"] == rule_name)
     return {
-        _string_value(version["effective_from"]): _string_value(version["formula"]).strip()
+        _string_value(version["effective_from"]): _string_value(
+            version["formula"]
+        ).strip()
         for version in _object_list(rule["versions"])
     }
 
@@ -85,7 +87,9 @@ def _source_map_tracks() -> dict[str, dict[str, object]]:
 
 
 def _citation_paths_from_jsonl(path: Path) -> set[str]:
-    records = [_load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    records = [
+        _load_json_line(line) for line in path.read_text(encoding="utf-8").splitlines()
+    ]
     return {_string_value(record["citation_path"]) for record in records}
 
 
@@ -152,9 +156,7 @@ def test_gst_acc_manifest_points_to_modules_provisions_and_known_gaps() -> None:
             assert citation_path in module_text
 
     gst_module = next(
-        module
-        for module in modules
-        if module["path"] == "nz/statutes/gst/rate.yaml"
+        module for module in modules if module["path"] == "nz/statutes/gst/rate.yaml"
     )
     gst_citations = set(_string_list(gst_module["available_corpus_citation_paths"]))
     assert gst_citations == {
@@ -186,10 +188,13 @@ def test_gst_acc_oracle_fixtures_match_rulespec_values_without_authority() -> No
     assert gst_fixture["canonical_law"] is False
     assert gst_fixture["rulespec_destination"] == "nz/statutes/gst/rate.yaml"
     gst_values = _object_dict(gst_fixture["normalized_values"])
-    assert _string_value(gst_values["gst_standard_rate"]) == _rule_formulas_by_effective_date(
-        GST_RULESPEC_PATH,
-        "gst_standard_rate",
-    )["2010-10-01"]
+    assert (
+        _string_value(gst_values["gst_standard_rate"])
+        == _rule_formulas_by_effective_date(
+            GST_RULESPEC_PATH,
+            "gst_standard_rate",
+        )["2010-10-01"]
+    )
 
     acc_ref = fixture_refs_by_id["nztaxmicrosim-acc-earners-levy-2025-2027"]
     assert acc_ref["oracle_id"] == "nztaxmicrosim"

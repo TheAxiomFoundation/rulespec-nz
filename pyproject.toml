@@ -1,0 +1,103 @@
+[project]
+name = "rulespec-nz"
+version = "0.1.0"
+description = "New Zealand RuleSpec encodings and source registry."
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.12",
+  "pyyaml>=6.0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "basedpyright>=1.39.6",
+  "hypothesis>=6.153",
+  "mutmut>=3.4",
+  "pytest>=9.0",
+  "pytest-cov>=7.1",
+  "pytest-xdist>=3.8",
+  "ruff>=0.15.16",
+  "scalene>=1.5",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+  "-ra",
+  "--strict-config",
+  "--strict-markers",
+]
+testpaths = ["tests"]
+markers = [
+  "unit: fast tests for single functions, models, and configuration contracts",
+  "integration: tests that combine repository manifests or multiple modules",
+  "e2e: end-to-end repository workflow and layout checks",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+src = ["programs", "tests"]
+extend-exclude = [
+  ".git",
+  ".pytest_cache",
+  ".ruff_cache",
+  ".venv",
+  "__pycache__",
+  "rulespec-nz/target",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "COM812",
+  "D101",
+  "D203",
+  "D213",
+  "EM101",
+  "EM102",
+  "TC006",
+  "TRY003",
+  "TRY004",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"test_bindings.py" = ["D100", "INP001", "S101", "T201"]
+"tests/**/*.py" = [
+  "ANN201",
+  "C901",
+  "D100",
+  "D103",
+  "E501",
+  "I001",
+  "INP001",
+  "PERF401",
+  "PLR2004",
+  "S101",
+]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["programs"]
+
+[tool.ruff.format]
+docstring-code-format = true
+line-ending = "lf"
+
+[tool.basedpyright]
+typeCheckingMode = "strict"
+include = ["programs", "tests", "test_bindings.py"]
+exclude = [
+  ".git",
+  ".pytest_cache",
+  ".ruff_cache",
+  ".venv",
+  "__pycache__",
+  "rulespec-nz/target",
+]
+pythonVersion = "3.12"
+reportMissingTypeStubs = false
+executionEnvironments = [
+  { root = ".", extraPaths = ["C:/Users/60217257/AppData/Local/Programs/Python/Python312/Lib/site-packages"] },
+]

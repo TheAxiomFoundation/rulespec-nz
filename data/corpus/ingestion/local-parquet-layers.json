@@ -135,7 +135,6 @@
     "Keep raw Parquet exports local and promote only small, deliberate normalized JSON or JSONL artifacts."
   ],
   "deferred_work": [
-    "Add tiny synthetic Parquet or Arrow fixtures for reader smoke tests.",
     "Validate table contracts against real local corpus-legislation-nz and corpus-nz-hansard exports.",
     "Add semantic source-spec auditing over promoted normalized records."
   ]

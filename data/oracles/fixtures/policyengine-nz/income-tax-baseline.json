@@ -1,0 +1,23 @@
+{
+  "canonical_law": false,
+  "authority": "supporting_reference",
+  "source_oracle_id": "policyengine-nz",
+  "surface_id": "income-tax",
+  "oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "upstream_test_path": "policyengine_nz/tests/policy/baseline/test_income_tax.yaml",
+  "rulespec_destination": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+  "purpose": "Pinned PolicyEngine NZ baseline smoke fixture for income-tax comparison after official-source RuleSpec evaluation.",
+  "scenarios": [
+    {
+      "name": "single_adult_salary_income_tax_smoke",
+      "period": "2026",
+      "inputs": {
+        "employment_income": 70000
+      },
+      "expected_outputs": {
+        "taxable_income": 70000
+      },
+      "comparison_scope": "structure_and_rate_schedule_smoke_only"
+    }
+  ]
+}

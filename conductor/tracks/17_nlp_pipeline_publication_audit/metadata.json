@@ -1,0 +1,10 @@
+﻿{
+ "track_id": "17_nlp_pipeline_publication_audit",
+ "type": "research",
+ "status": "active",
+ "created_at": "2026-06-25T00:00:00+10:00",
+ "description": "Audit the NLP legislation pipeline and its Hugging Face, GitHub, and Zenodo publication state before using it as the preferred source spine.",
+ "source_ids": ["nlp-policy-nz", "nz-legislation", "corpus-legislation-nz"],
+ "input_artifacts": ["data/oracles/oracle-index.json", "data/corpus/ingestion/local-parquet-layers.json", "data/corpus/ingestion/nz-legislation.json", "data/coverage/rulespec-rule-inventory.json"],
+ "blockers": ["Live Hugging Face, GitHub, and Zenodo publication state has not been reverified in this repo.", "Local manifest does not yet prove which NLP extracts are canonical enough to supersede fallback CLI extraction."]
+}

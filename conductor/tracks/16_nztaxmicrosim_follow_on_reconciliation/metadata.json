@@ -1,0 +1,12 @@
+﻿{
+ "track_id": "16_nztaxmicrosim_follow_on_reconciliation",
+ "type": "feature",
+ "status": "active",
+ "created_at": "2026-06-25T00:00:00+10:00",
+ "description": "Resolve nztaxmicrosim deferred and simplified surfaces through official-source extraction and duplicate-aware RuleSpec reconciliation.",
+ "source_oracle_id": "nztaxmicrosim",
+ "parent_tracks": ["12_nztaxmicrosim_rule_incorporation"],
+ "input_artifacts": ["data/oracles/nztaxmicrosim-rule-inventory.json", "data/coverage/nztaxmicrosim-source-map.json", "data/coverage/nztaxmicrosim-reconciliation.json", "data/coverage/rulespec-rule-inventory.json"],
+ "target_surfaces": ["payroll-deductions-official-source-extraction", "paid-parental-leave-official-source-extraction", "pie-rwt-official-source-extraction", "child-support-official-formula-extraction"],
+ "blockers": ["Simplified oracle implementations must not be promoted without full official formula extraction.", "Payroll and investment-tax surfaces need official IRD table and statutory source joins before canonical encoding."]
+}

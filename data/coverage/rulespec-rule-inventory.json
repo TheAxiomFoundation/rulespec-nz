@@ -1,0 +1,423 @@
+﻿{
+    "generated_at":  "2026-06-25",
+    "jurisdiction":  "nz",
+    "purpose":  "Machine-readable inventory of encoded RuleSpec modules and duplicate or overlapping policy surfaces requiring triangulation.",
+    "authority_order":  [
+                            "official_nz_legislation",
+                            "official_nz_regulation",
+                            "official_agency_table",
+                            "nlp_official_source_extract",
+                            "pco_bulk_xml_extract",
+                            "nz_legislation_cli_fallback",
+                            "comparison_oracle",
+                            "supporting_reference"
+                        ],
+    "source_route_policy":  "Prefer NLP/corpus extracts when they retain official citation paths and publication state is verified; otherwise use PCO/data.govt.nz bulk XML extraction via axiom-corpus, then NZ legislation CLI fallback. Comparison oracles are never canonical law.",
+    "module_inventory_status":  "module_level_complete_rule_level_pending",
+    "modules":  [
+                    {
+                        "path":  "nz/regulations/acc/earners_levy.yaml",
+                        "surface_ids":  [
+                                            "regulations-acc-earners_levy.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/regulations/health_entitlement_cards/community_services_card/core.yaml",
+                        "surface_ids":  [
+                                            "regulations-health_entitlement_cards-community_services_card-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/regulations/social_security/childcare_assistance/core.yaml",
+                        "surface_ids":  [
+                                            "regulations-social_security-childcare_assistance-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/gst/rate.yaml",
+                        "surface_ids":  [
+                                            "statutes-gst-rate.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/income_tax/core/taxable_income.yaml",
+                        "surface_ids":  [
+                                            "statutes-income_tax-core-taxable_income.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/income_tax/credits/individual_credits.yaml",
+                        "surface_ids":  [
+                                            "statutes-income_tax-credits-individual_credits.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/income_tax/family_scheme/eligibility.yaml",
+                        "surface_ids":  [
+                                            "statutes-income_tax-family_scheme-eligibility.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml",
+                        "surface_ids":  [
+                                            "statutes-income_tax-family_scheme-family_scheme_income.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/income_tax/family_scheme/tax_credits.yaml",
+                        "surface_ids":  [
+                                            "statutes-income_tax-family_scheme-tax_credits.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+                        "surface_ids":  [
+                                            "statutes-income_tax-schedule_1-individual_income_tax.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/kiwisaver/contributions.yaml",
+                        "surface_ids":  [
+                                            "statutes-kiwisaver-contributions.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/new_zealand_superannuation/core.yaml",
+                        "surface_ids":  [
+                                            "statutes-new_zealand_superannuation-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/new_zealand_superannuation/special_rates.yaml",
+                        "surface_ids":  [
+                                            "statutes-new_zealand_superannuation-special_rates.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/social_security/accommodation_supplement/core.yaml",
+                        "surface_ids":  [
+                                            "statutes-social_security-accommodation_supplement-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/social_security/child_disability_allowance/core.yaml",
+                        "surface_ids":  [
+                                            "statutes-social_security-child_disability_allowance-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/social_security/disability_allowance/core.yaml",
+                        "surface_ids":  [
+                                            "statutes-social_security-disability_allowance-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/social_security/main_benefits/entitlement.yaml",
+                        "surface_ids":  [
+                                            "statutes-social_security-main_benefits-entitlement.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/social_security/main_benefits/rates.yaml",
+                        "surface_ids":  [
+                                            "statutes-social_security-main_benefits-rates.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    },
+                    {
+                        "path":  "nz/statutes/social_security/winter_energy_payment/core.yaml",
+                        "surface_ids":  [
+                                            "statutes-social_security-winter_energy_payment-core.yaml"
+                                        ],
+                        "source_families":  [
+                                                "official NZ source family pending rule-level extraction"
+                                            ],
+                        "authority":  "official_nz_legislation",
+                        "source_route":  "pco_bulk_xml_extract",
+                        "oracle_links":  [
+                                             "policyengine-nz",
+                                             "openfisca-aotearoa",
+                                             "nztaxmicrosim"
+                                         ],
+                        "triangulation_status":  "inventory_seeded"
+                    }
+                ],
+    "duplicate_clusters":  [
+                               {
+                                   "id":  "income-tax-rate-schedule",
+                                   "canonical_module":  "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+                                   "overlapping_modules":  [
+                                                               "nz/statutes/income_tax/core/taxable_income.yaml"
+                                                           ],
+                                   "source_systems":  [
+                                                          "official_nz_legislation",
+                                                          "policyengine-nz",
+                                                          "openfisca-aotearoa",
+                                                          "nztaxmicrosim"
+                                                      ],
+                                   "triangulation_method":  "Compare official Schedule 1 rates and thresholds against pinned oracle fixtures; official legislation prevails on mismatch.",
+                                   "reconciliation_status":  "triangulated_comparison_only"
+                               },
+                               {
+                                   "id":  "acc-earners-levy",
+                                   "canonical_module":  "nz/regulations/acc/earners_levy.yaml",
+                                   "overlapping_modules":  [
+
+                                                           ],
+                                   "source_systems":  [
+                                                          "official_nz_regulation",
+                                                          "policyengine-nz",
+                                                          "openfisca-aotearoa",
+                                                          "nztaxmicrosim"
+                                                      ],
+                                   "triangulation_method":  "Compare regulation rates and caps plus IRD GST-inclusive rates against pinned oracle fixtures; official regulation and agency tables prevail.",
+                                   "reconciliation_status":  "triangulated_comparison_only"
+                               },
+                               {
+                                   "id":  "working-for-families",
+                                   "canonical_module":  "nz/statutes/income_tax/family_scheme/tax_credits.yaml",
+                                   "overlapping_modules":  [
+                                                               "nz/statutes/income_tax/family_scheme/eligibility.yaml",
+                                                               "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml"
+                                                           ],
+                                   "source_systems":  [
+                                                          "official_nz_legislation",
+                                                          "policyengine-nz",
+                                                          "openfisca-aotearoa",
+                                                          "nztaxmicrosim"
+                                                      ],
+                                   "triangulation_method":  "Split eligibility, income definition, and credit amounts; official-source provisions prevail and oracle fixtures are comparison-only.",
+                                   "reconciliation_status":  "partial_oracle_reconcile"
+                               },
+                               {
+                                   "id":  "main-benefits",
+                                   "canonical_module":  "nz/statutes/social_security/main_benefits/entitlement.yaml",
+                                   "overlapping_modules":  [
+                                                               "nz/statutes/social_security/main_benefits/rates.yaml",
+                                                               "nz/statutes/social_security/winter_energy_payment/core.yaml",
+                                                               "nz/statutes/social_security/disability_allowance/core.yaml",
+                                                               "nz/statutes/social_security/child_disability_allowance/core.yaml"
+                                                           ],
+                                   "source_systems":  [
+                                                          "official_nz_legislation",
+                                                          "policyengine-nz",
+                                                          "openfisca-aotearoa",
+                                                          "nztaxmicrosim"
+                                                      ],
+                                   "triangulation_method":  "Use Act entitlement provisions and official rate tables as canonical; oracle fixtures remain comparison-only.",
+                                   "reconciliation_status":  "partial_oracle_reconcile"
+                               },
+                               {
+                                   "id":  "nz-superannuation",
+                                   "canonical_module":  "nz/statutes/new_zealand_superannuation/core.yaml",
+                                   "overlapping_modules":  [
+                                                               "nz/statutes/new_zealand_superannuation/special_rates.yaml"
+                                                           ],
+                                   "source_systems":  [
+                                                          "official_nz_legislation",
+                                                          "policyengine-nz",
+                                                          "openfisca-aotearoa",
+                                                          "nztaxmicrosim"
+                                                      ],
+                                   "triangulation_method":  "Separate core eligibility from special rates; official Act and MSD sources prevail before pinned oracle smoke comparison.",
+                                   "reconciliation_status":  "partial_oracle_reconcile"
+                               }
+                           ]
+}

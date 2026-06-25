@@ -50,7 +50,9 @@ def _string_map(value: object) -> dict[str, str]:
 
 def _oracle_ids() -> set[str]:
     oracle_index = _load_json_object(ORACLE_INDEX_PATH)
-    return {_string_value(oracle["id"]) for oracle in _object_list(oracle_index["oracles"])}
+    return {
+        _string_value(oracle["id"]) for oracle in _object_list(oracle_index["oracles"])
+    }
 
 
 def test_regression_voi_manifest_covers_track9_requirements() -> None:
@@ -71,7 +73,9 @@ def test_regression_voi_manifest_covers_track9_requirements() -> None:
 def test_regression_voi_manifest_keeps_tool_registry_status_explicit() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
     oracle_ids = _oracle_ids()
-    tools = {_string_value(tool["id"]): tool for tool in _object_list(manifest["tools"])}
+    tools = {
+        _string_value(tool["id"]): tool for tool in _object_list(manifest["tools"])
+    }
 
     assert tools["voiage"]["oracle_id"] == "voiage"
     assert tools["voiage"]["oracle_id"] in oracle_ids
@@ -89,22 +93,41 @@ def test_regression_voi_manifest_inputs_align_with_microsimulation_contract() ->
     expected_entity_tables = {
         _string_value(table["id"]) for table in _object_list(microsim["entity_tables"])
     }
-    inputs = {_string_value(item["id"]): item for item in _object_list(manifest["inputs"])}
+    inputs = {
+        _string_value(item["id"]): item for item in _object_list(manifest["inputs"])
+    }
 
-    assert set(inputs) == {"simulation_outputs", "population_weights", "scenario_metadata"}
-    assert inputs["simulation_outputs"]["source_manifest"] == str(MICROSIM_PATH.relative_to(ROOT)).replace("\\", "/")
-    assert set(_string_list(inputs["simulation_outputs"]["required_entity_tables"])) <= expected_entity_tables
+    assert set(inputs) == {
+        "simulation_outputs",
+        "population_weights",
+        "scenario_metadata",
+    }
+    assert inputs["simulation_outputs"]["source_manifest"] == str(
+        MICROSIM_PATH.relative_to(ROOT)
+    ).replace("\\", "/")
+    assert (
+        set(_string_list(inputs["simulation_outputs"]["required_entity_tables"]))
+        <= expected_entity_tables
+    )
     assert inputs["population_weights"]["required_column"] == "household_weight"
     assert inputs["scenario_metadata"]["required_key"] == "run_id"
 
 
 def test_regression_voi_manifest_output_contract_is_stable() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    outputs = {_string_value(item["id"]): item for item in _object_list(manifest["outputs"])}
+    outputs = {
+        _string_value(item["id"]): item for item in _object_list(manifest["outputs"])
+    }
 
-    assert set(outputs) == {"regression_dataset", "voi_decision_table", "summary_report"}
+    assert set(outputs) == {
+        "regression_dataset",
+        "voi_decision_table",
+        "summary_report",
+    }
 
-    regression_columns = set(_string_list(outputs["regression_dataset"]["required_columns"]))
+    regression_columns = set(
+        _string_list(outputs["regression_dataset"]["required_columns"])
+    )
     assert {
         "run_id",
         "scenario_id",
@@ -116,13 +139,20 @@ def test_regression_voi_manifest_output_contract_is_stable() -> None:
     assert outputs["regression_dataset"]["format"] == "jsonl"
 
     voi_columns = set(_string_list(outputs["voi_decision_table"]["required_columns"]))
-    assert {"decision_id", "expected_value", "expected_value_of_information"} <= voi_columns
+    assert {
+        "decision_id",
+        "expected_value",
+        "expected_value_of_information",
+    } <= voi_columns
     assert outputs["summary_report"]["format"] == "markdown"
 
 
 def test_regression_voi_manifest_records_metrics_and_boundaries() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    metrics = {_string_value(metric["id"]): metric for metric in _object_list(manifest["metrics"])}
+    metrics = {
+        _string_value(metric["id"]): metric
+        for metric in _object_list(manifest["metrics"])
+    }
     boundaries = manifest["repository_boundaries"]
     assert isinstance(boundaries, dict)
     boundary_items = cast(dict[str, object], boundaries)
@@ -145,7 +175,10 @@ def test_regression_voi_manifest_records_metrics_and_boundaries() -> None:
 
 def test_regression_voi_manifest_declares_route_order() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    routes = {_string_value(route["id"]): route for route in _object_list(manifest["pipeline_routes"])}
+    routes = {
+        _string_value(route["id"]): route
+        for route in _object_list(manifest["pipeline_routes"])
+    }
 
     assert list(routes) == ["simulation_to_regression", "regression_to_voi"]
     first_route = _string_map(routes["simulation_to_regression"]["handoff"])
@@ -154,6 +187,7 @@ def test_regression_voi_manifest_declares_route_order() -> None:
     assert first_route["to"] == "mars"
     assert second_route["from"] == "mars"
     assert second_route["to"] == "voiage"
+
 
 def _jsonl_objects(path: Path) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
@@ -168,10 +202,19 @@ def _jsonl_objects(path: Path) -> list[dict[str, object]]:
 
 def test_regression_voi_fixture_outputs_cover_output_schemas() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    outputs = {_string_value(item["id"]): item for item in _object_list(manifest["outputs"])}
-    fixture_outputs = {_string_value(item["id"]): item for item in _object_list(manifest["fixture_outputs"])}
+    outputs = {
+        _string_value(item["id"]): item for item in _object_list(manifest["outputs"])
+    }
+    fixture_outputs = {
+        _string_value(item["id"]): item
+        for item in _object_list(manifest["fixture_outputs"])
+    }
 
-    assert set(fixture_outputs) == {"regression-smoke", "voi-smoke", "summary-report-smoke"}
+    assert set(fixture_outputs) == {
+        "regression-smoke",
+        "voi-smoke",
+        "summary-report-smoke",
+    }
     for fixture in fixture_outputs.values():
         assert fixture["synthetic_only"] is True
         assert fixture["contains_raw_analysis_payload"] is False
@@ -185,7 +228,9 @@ def test_regression_voi_fixture_outputs_cover_output_schemas() -> None:
     assert len(regression_rows) == 1
     assert len(voi_rows) == 1
 
-    regression_columns = set(_string_list(outputs["regression_dataset"]["required_columns"]))
+    regression_columns = set(
+        _string_list(outputs["regression_dataset"]["required_columns"])
+    )
     voi_columns = set(_string_list(outputs["voi_decision_table"]["required_columns"]))
     assert regression_columns.issubset(set(regression_rows[0]))
     assert voi_columns.issubset(set(voi_rows[0]))
@@ -205,7 +250,10 @@ def test_regression_voi_manifest_records_live_validation_state() -> None:
     assert live_items["validated_against_real_workflows"] is False
     assert live_items["result"] == "blocked_missing_local_workflows"
 
-    probes = {_string_value(item["tool_id"]): item for item in _object_list(live_items["probes"])}
+    probes = {
+        _string_value(item["tool_id"]): item
+        for item in _object_list(live_items["probes"])
+    }
     assert set(probes) == {"mars", "voiage"}
     assert probes["mars"]["local_path_env"] == "RULESPEC_NZ_MARS_DIR"
     assert probes["mars"]["status"] == "blocked_missing_local_checkout"
@@ -216,5 +264,28 @@ def test_regression_voi_manifest_records_live_validation_state() -> None:
     assert probes["voiage"]["oracle_id"] == "voiage"
 
     blockers = set(_string_list(live_items["blockers"]))
-    assert "RULESPEC_NZ_MARS_DIR is not set and no adjacent mars checkout was found." in blockers
-    assert "RULESPEC_NZ_VOIAGE_DIR is not set and no adjacent voiage checkout was found." in blockers
+    assert (
+        "RULESPEC_NZ_MARS_DIR is not set and no adjacent mars checkout was found."
+        in blockers
+    )
+    assert (
+        "RULESPEC_NZ_VOIAGE_DIR is not set and no adjacent voiage checkout was found."
+        in blockers
+    )
+
+
+def test_regression_voi_deferred_work_excludes_completed_track_phases() -> None:
+    manifest = _load_json_object(MANIFEST_PATH)
+    deferred_work = set(_string_list(manifest["deferred_work"]))
+
+    assert (
+        "Add tiny regression and VOI fixture outputs for schema-level validation."
+        not in deferred_work
+    )
+    assert (
+        "Validate against real local mars and voiage workflows when available."
+        not in deferred_work
+    )
+    assert deferred_work == {
+        "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected."
+    }

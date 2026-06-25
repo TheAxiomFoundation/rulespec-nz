@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "workflow_id": "upstream-pr-workflow",
+  "human_input_required": false,
+  "live_submission_requires_explicit_user_request": true,
+  "default_policy": {
+    "preserve_unrelated_worktree_changes": true,
+    "prefer_repo_recorded_pins": true,
+    "oracle_authority": "comparison_only",
+    "legal_authority": "official_new_zealand_sources",
+    "blocked_live_gate_status": "blocked_with_reproduction_steps"
+  },
+  "slice_classes": [
+    {
+      "id": "legal-content",
+      "atomicity_rule": "One statute, regulation, or tightly coupled policy surface with companion tests and official provenance.",
+      "may_parallelize": true,
+      "requires": ["official-provenance", "companion-tests", "local-validation"]
+    },
+    {
+      "id": "adapter",
+      "atomicity_rule": "One ingestion, oracle-comparison, data adapter, or compatibility boundary with focused tests.",
+      "may_parallelize": true,
+      "requires": ["contract-boundary", "local-validation"]
+    },
+    {
+      "id": "tooling",
+      "atomicity_rule": "Build, lint, typecheck, CI, packaging, or workflow changes that can merge before dependent content changes.",
+      "may_parallelize": false,
+      "requires": ["repo-gates", "downstream-impact-note"]
+    },
+    {
+      "id": "docs",
+      "atomicity_rule": "Maintainer or user documentation tied to an already-contained code, data, or workflow change.",
+      "may_parallelize": true,
+      "requires": ["source-change-reference"]
+    },
+    {
+      "id": "generated",
+      "atomicity_rule": "Generated artifacts only when reviewable and reproducible from committed inputs.",
+      "may_parallelize": false,
+      "requires": ["reproducibility-note", "source-inputs"]
+    }
+  ],
+  "steps": [
+    {
+      "id": "change-inventory",
+      "path": "conductor/workflows/upstream-pr/change-inventory.md",
+      "depends_on": [],
+      "parallel_group": "inventory",
+      "outputs": ["changed-file-table", "initial-slice-candidates"],
+      "blockers": ["unclassified-file", "unrelated-dirty-file"]
+    },
+    {
+      "id": "slice-selection",
+      "path": "conductor/workflows/upstream-pr/slice-selection.md",
+      "depends_on": ["change-inventory"],
+      "parallel_group": "planning",
+      "outputs": ["ordered-pr-sequence", "dependency-order"],
+      "blockers": ["cross-boundary-slice", "slice-without-single-purpose"]
+    },
+    {
+      "id": "upstream-readiness",
+      "path": "conductor/workflows/upstream-pr/upstream-readiness.md",
+      "depends_on": ["slice-selection"],
+      "parallel_group": "readiness",
+      "outputs": ["validation-transcript", "provenance-statement", "residual-risk"],
+      "blockers": ["missing-official-provenance", "missing-companion-test", "failed-local-gate"]
+    },
+    {
+      "id": "parallel-review",
+      "path": "conductor/workflows/upstream-pr/parallel-review.md",
+      "depends_on": ["slice-selection"],
+      "parallel_group": "review",
+      "outputs": ["inventory-findings", "readiness-findings", "packaging-findings"],
+      "blockers": ["unresolved-conflicting-findings"]
+    },
+    {
+      "id": "branch-pr-prep",
+      "path": "conductor/workflows/upstream-pr/branch-pr-prep.md",
+      "depends_on": ["upstream-readiness", "parallel-review"],
+      "parallel_group": "single-threaded-submission",
+      "outputs": ["branch-name", "commit-plan", "pr-body-draft"],
+      "blockers": ["unapproved-live-submission", "unrelated-staged-file"]
+    }
+  ],
+  "parallel_lanes": [
+    {
+      "id": "inventory",
+      "agent_spec": ".agents/upstream-pr/inventory-agent.md",
+      "can_run_with": ["readiness", "packaging"],
+      "allowed_actions": ["read", "classify", "report"],
+      "forbidden_actions": ["edit", "stage", "commit", "push", "open-pr"]
+    },
+    {
+      "id": "readiness",
+      "agent_spec": ".agents/upstream-pr/provenance-readiness-agent.md",
+      "can_run_with": ["inventory", "packaging"],
+      "allowed_actions": ["read", "validate", "report"],
+      "forbidden_actions": ["stage", "commit", "push", "open-pr"]
+    },
+    {
+      "id": "packaging",
+      "agent_spec": ".agents/upstream-pr/packaging-agent.md",
+      "can_run_with": ["inventory", "readiness"],
+      "allowed_actions": ["draft", "report"],
+      "forbidden_actions": ["stage", "commit", "push", "open-pr"]
+    }
+  ],
+  "automated_completion_gates": [
+    "Every changed file is assigned to one slice or excluded with a reason.",
+    "Every slice declares dependencies and blockers.",
+    "Every legal-content slice has official New Zealand provenance and companion tests.",
+    "Every unavailable external or live gate is recorded as blocked with reproduction steps.",
+    "Local validation commands and outcomes are recorded.",
+    "Submission remains blocked unless the user explicitly asks for live push or PR creation."
+  ]
+}

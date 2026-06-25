@@ -1,16 +1,16 @@
 {
   "track_id": "01_rust_core_arrow",
-  "generated_at": "2026-06-22",
+  "generated_at": "2026-06-24",
   "coverage_threshold_percent": 90,
   "layers": {
     "native_rust": {
       "coverage_command": "cargo llvm-cov --no-default-features --summary-only --json",
       "status": "blocked",
       "threshold_met": false,
-      "blocker": "cargo llvm-cov failed on x86_64-pc-windows-gnu because rustc could not find profiler_builtins; llvm-tools-preview was already installed, indicating this toolchain lacks the required profiler runtime.",
-      "last_attempted_at": "2026-06-22",
+      "blocker": "cargo llvm-cov still fails on stable-x86_64-pc-windows-gnu because rustc cannot find profiler_builtins; llvm-tools is installed, so this GNU host toolchain lacks the required profiler runtime.",
+      "last_attempted_at": "2026-06-24",
       "evidence": [
-        "cargo llvm-cov --no-default-features --summary-only --json exited 101",
+        "cargo llvm-cov --manifest-path rulespec-nz\\Cargo.toml --no-default-features --summary-only --json exited 101 on 2026-06-24.",
         "error[E0463]: can't find crate for profiler_builtins"
       ]
     },
@@ -18,11 +18,15 @@
       "coverage_command": "cargo test --no-default-features --features python",
       "status": "blocked",
       "threshold_met": false,
-      "blocker": "The Python/PyO3 feature test path compiled but final linking failed with No space left on device before coverage could be collected.",
-      "last_attempted_at": "2026-06-22",
+      "blocker": "Python/PyO3 and MSVC coverage remain blocked on this host because Visual Studio Build Tools and Windows SDK import libraries are unavailable. stable-x86_64-pc-windows-msvc resolves link.exe to Git's Unix link.exe; forcing rust-lld avoids Git link.exe but fails because kernel32.lib, ntdll.lib, userenv.lib, ws2_32.lib, dbghelp.lib, and uuid.lib are missing.",
+      "last_attempted_at": "2026-06-24",
       "evidence": [
-        "cargo check --no-default-features --features python passed",
-        "cargo clippy --no-default-features --features python -- -D warnings passed"
+        "C: free space was 3911061504 bytes on 2026-06-24, so disk space is no longer the blocker recorded on 2026-06-23.",
+        "where link.exe resolved only C:\\Users\\60217257\\scoop\\apps\\git\\current\\usr\\bin\\link.exe.",
+        "where cl.exe, where clang-cl.exe, where lld-link.exe, and C:\\Program Files\\Microsoft Visual Studio probes found no compiler/linker installation on PATH or disk.",
+        "cargo +stable-x86_64-pc-windows-msvc test --manifest-path rulespec-nz\\Cargo.toml --no-default-features exited 101 because link.exe was Git's Unix linker.",
+        "RUSTFLAGS=-C linker=rust-lld cargo +stable-x86_64-pc-windows-msvc test --manifest-path rulespec-nz\\Cargo.toml --no-default-features exited 101 because Windows SDK import libraries were missing.",
+        "RUSTFLAGS=-C linker=rust-lld cargo +stable-x86_64-pc-windows-msvc llvm-cov --manifest-path rulespec-nz\\Cargo.toml --no-default-features --summary-only --json exited 101 because kernel32.lib, ntdll.lib, userenv.lib, ws2_32.lib, dbghelp.lib, and uuid.lib were missing."
       ]
     }
   },
@@ -37,9 +41,11 @@
     "cargo test --no-default-features --features wasm",
     "python -m pytest tests -p no:cacheprovider"
   ],
-  "coverage_status": "threshold_not_proven",
+  "coverage_status": "blocked_by_host_toolchain",
   "notes": [
-    "This artifact records reproducible commands and blocker evidence; it does not claim the Track 1 >90% coverage target is met.",
-    "Python repository coverage for non-Track-1 adapter code was measured separately at 94%, but it is not used as Track 1 PyO3 binding coverage evidence."
+    "Unused serde, serde_yaml, and chrono dependencies were removed from the Rust crate so no-default native tests compile only the Track 1 crate.",
+    "cargo test --manifest-path rulespec-nz\\Cargo.toml --no-default-features passed on 2026-06-24 after dependency pruning.",
+    "C: free space recovered to about 3.9 GB on 2026-06-24; the remaining blockers are host toolchain and Windows SDK availability, not disk space.",
+    "This artifact records current reproducible blocker evidence; it still does not claim the Track 1 >90% native Rust and Python binding coverage target is met."
   ]
 }
