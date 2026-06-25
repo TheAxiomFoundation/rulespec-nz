@@ -1,6 +1,6 @@
 ﻿## Phase 1: Pin and Source Audit
 
-- [~] Compare `oracle-index.json` OpenFisca pin with observed upstream head.
+- [x] Compare `oracle-index.json` OpenFisca pin with observed upstream head. [ba020ac]
 - [ ] Identify official Acts, regulations, agency tables, and corpus citation paths for each deferred surface.
 
 ## Phase 2: Official-source Extraction
@@ -17,4 +17,6 @@
 
 - [ ] Run focused reconciliation and inventory tests.
 - [ ] Archive only after review confirms no OpenFisca code is treated as law.
+
+
 
