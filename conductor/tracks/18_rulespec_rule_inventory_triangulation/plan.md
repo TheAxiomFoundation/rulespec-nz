@@ -12,9 +12,9 @@
 
 ## Phase 3: Reconciliation Workflow
 
-- [ ] Link duplicate clusters to OpenFisca, PolicyEngine, and nztaxmicrosim reconciliation surfaces.
-- [ ] Add conflict status fields for value, scope, and stale-oracle mismatches.
-- [ ] Require a recorded official-source decision before resolving a conflict.
+- [x] Link duplicate clusters to OpenFisca, PolicyEngine, and nztaxmicrosim reconciliation surfaces.
+- [x] Add conflict status fields for value, scope, and stale-oracle mismatches.
+- [x] Require a recorded official-source decision before resolving a conflict.
 
 ## Phase 4: Reporting
 

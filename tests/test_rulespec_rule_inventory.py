@@ -205,3 +205,100 @@ def test_rule_level_provenance_fields_present() -> None:
             assert isinstance(rule["source_family"], str), (
                 f"{module['path']}#{rule.get('name', '?')} 'source_family' must be str"
             )
+
+
+# ── Phase 3: Reconciliation Workflow ─────────────────────────────────
+
+
+def load_reconciliation(path: Path) -> dict[str, Any] | None:
+    """Load a reconciliation file if it exists."""
+    if not path.exists():
+        return None
+    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
+
+
+def test_duplicate_clusters_link_to_reconciliation_surfaces() -> None:
+    """Each duplicate cluster must link its oracle reconciliation surfaces."""
+    inventory = load_inventory()
+    recon_paths = {
+        "policyengine-nz": Path(
+            ROOT / "data/coverage/policyengine-nz-reconciliation.json"
+        ),
+        "openfisca-aotearoa": Path(
+            ROOT / "data/coverage/openfisca-aotearoa-reconciliation.json"
+        ),
+        "nztaxmicrosim": Path(
+            ROOT / "data/coverage/nztaxmicrosim-reconciliation.json"
+        ),
+    }
+    oracle_ids = {"policyengine-nz", "openfisca-aotearoa", "nztaxmicrosim"}
+    for cluster in inventory["duplicate_clusters"]:
+        assert "reconciliation_surface_links" in cluster, (
+            f"{cluster['id']} missing 'reconciliation_surface_links'"
+        )
+        links = cluster["reconciliation_surface_links"]
+        assert isinstance(links, list), f"{cluster['id']} reconciliation_surface_links must be list"
+        for link in links:
+            assert "oracle_id" in link, f"{cluster['id']} link missing oracle_id"
+            assert "surface_id" in link, f"{cluster['id']} link missing surface_id"
+            assert link["oracle_id"] in oracle_ids, (
+                f"{cluster['id']}: unknown oracle_id {link['oracle_id']}"
+            )
+            recon = load_reconciliation(recon_paths[link["oracle_id"]])
+            if recon is not None:
+                surface_ids = {s["id"] for s in recon.get("surfaces", [])}
+                assert link["surface_id"] in surface_ids, (
+                    f"{cluster['id']}: surface_id '{link['surface_id']}' "
+                    f"not found in {link['oracle_id']} reconciliation"
+                )
+
+
+def test_duplicate_clusters_declare_conflicts() -> None:
+    """Each duplicate cluster must declare known conflicts."""
+    inventory = load_inventory()
+    for cluster in inventory["duplicate_clusters"]:
+        assert "conflicts" in cluster, (
+            f"{cluster['id']} missing 'conflicts' key"
+        )
+        assert isinstance(cluster["conflicts"], list), (
+            f"{cluster['id']} conflicts must be a list"
+        )
+        for conflict in cluster["conflicts"]:
+            assert "type" in conflict, f"{cluster['id']} conflict missing 'type'"
+            assert conflict["type"] in (
+                "value_mismatch", "scope_mismatch", "stale_oracle",
+            ), f"{cluster['id']} conflict type '{conflict['type']}' invalid"
+            assert "status" in conflict, f"{cluster['id']} conflict missing 'status'"
+            assert conflict["status"] in (
+                "unresolved", "resolved_official_source",
+            ), f"{cluster['id']} conflict status '{conflict['status']}' invalid"
+
+
+def test_resolved_conflicts_record_official_source_decision() -> None:
+    """Resolved conflicts must record an official-source decision."""
+    inventory = load_inventory()
+    for cluster in inventory["duplicate_clusters"]:
+        for conflict in cluster.get("conflicts", []):
+            if conflict.get("status") == "resolved_official_source":
+                assert "official_source_decision" in conflict, (
+                    f"{cluster['id']} resolved conflict missing "
+                    "'official_source_decision'"
+                )
+                decision = conflict["official_source_decision"]
+                assert isinstance(decision, str), (
+                    f"{cluster['id']} official_source_decision must be a string"
+                )
+                assert len(decision) > 10, (
+                    f"{cluster['id']} official_source_decision too short"
+                )
+
+
+def test_all_oracle_reconciliation_files_exist() -> None:
+    """Reconciliation files for all three oracles must exist on disk."""
+    paths = [
+        ROOT / "data/coverage/policyengine-nz-reconciliation.json",
+        ROOT / "data/coverage/openfisca-aotearoa-reconciliation.json",
+        ROOT / "data/coverage/nztaxmicrosim-reconciliation.json",
+    ]
+    for p in paths:
+        assert p.exists(), f"Missing reconciliation file: {p}"
