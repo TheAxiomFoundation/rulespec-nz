@@ -1,0 +1,10 @@
+# Deferred module - companion test placeholder.
+# Official-source encoding of residence predicates is pending.
+# See extraction track: common-demographics-and-residence-official-source-extraction
+- name: deferred_placeholder
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input: {}
+  output: {}

@@ -1,7 +1,7 @@
-﻿## Phase 1: Deferred Surface Audit
+## Phase 1: Deferred Surface Audit
 
-- [ ] Recheck nztaxmicrosim surfaces against `nztaxmicrosim-source-map.json`.
-- [ ] Split each deferred surface into official-source extraction units.
+- [x] Recheck nztaxmicrosim surfaces against `nztaxmicrosim-source-map.json`.
+- [x] Split each deferred surface into official-source extraction units.
 
 ## Phase 2: Official-source Extraction
 

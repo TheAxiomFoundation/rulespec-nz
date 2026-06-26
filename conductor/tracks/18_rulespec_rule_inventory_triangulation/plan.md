@@ -6,9 +6,9 @@
 
 ## Phase 2: Rule-level Extraction
 
-- [ ] Add generated rule-name extraction from each RuleSpec YAML file.
-- [ ] Extend tests so every declared `rules[].name` is represented in the inventory.
-- [ ] Add stable identifiers for rule-level provenance and duplicate detection.
+- [x] Add generated rule-name extraction from each RuleSpec YAML file.
+- [x] Extend tests so every declared `rules[].name` is represented in the inventory.
+- [x] Add stable identifiers for rule-level provenance and duplicate detection.
 
 ## Phase 3: Reconciliation Workflow
 

@@ -1,6 +1,6 @@
 ﻿## Phase 1: Local Manifest Audit
 
-- [ ] Read oracle, local corpus, and NLP pipeline metadata.
+- [~] Read oracle, local corpus, and NLP pipeline metadata.
 - [ ] Separate verified local facts from live publication claims.
 
 ## Phase 2: Live Publication Verification
