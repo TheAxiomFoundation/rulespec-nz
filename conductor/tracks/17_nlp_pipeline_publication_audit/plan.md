@@ -1,11 +1,11 @@
-﻿## Phase 1: Local Manifest Audit
+## Phase 1: Local Manifest Audit
 
-- [~] Read oracle, local corpus, and NLP pipeline metadata.
-- [ ] Separate verified local facts from live publication claims.
+- [x] Read oracle, local corpus, and NLP pipeline metadata.
+- [x] Separate verified local facts from live publication claims.
 
 ## Phase 2: Live Publication Verification
 
-- [ ] Check GitHub heads for `nlp-policy-nz`, `corpus-legislation-nz`, and `nz-legislation`.
+- [~] Check GitHub heads for `nlp-policy-nz`, `corpus-legislation-nz`, and `nz-legislation`.
 - [ ] Check Hugging Face datasets/models/spaces tied to the NZ legislation pipeline.
 - [ ] Check Zenodo records and DOI/version state.
 

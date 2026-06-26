@@ -1,0 +1,216 @@
+{
+    "generated_at": "2026-06-25",
+    "track_id": "17_nlp_pipeline_publication_audit",
+    "jurisdiction": "nz",
+    "purpose": "Publication audit manifest recording verified local facts and live publication claims for NLP legislation pipeline sources.",
+    "pipeline_sources": {
+        "nlp-policy-nz": {
+            "id": "nlp-policy-nz",
+            "classification": "supporting_source_tool",
+            "oracle_entry": {
+                "oracle_id": "nlp-policy-nz",
+                "name": "NLP Policy NZ",
+                "url": "https://github.com/edithatogo/nlp-policy-nz",
+                "pinned_commit": "f2445bbd3f1daaae19fdff73651531253a780991",
+                "role": "Supporting NZ legislation, Hansard, committee, and policy text schemas.",
+                "coverage": [
+                    "legislation_schema",
+                    "hansard_schema",
+                    "committee_schema",
+                    "policy_nlp"
+                ],
+                "authority": "supporting_source_tool"
+            },
+            "local_facts": {
+                "oracle_entry_exists": true,
+                "local_path_recorded": "/Users/maxghenis/_axiom-worktrees/nz-oracles/nlp-policy-nz",
+                "local_clone_available": false,
+                "citation_path_retained": false
+            },
+            "publication_state": {
+                "local_extract_available": false,
+                "notes": "No local nlp-policy-nz clone present; oracle-index records remote reference only."
+            }
+        },
+        "corpus-legislation-nz": {
+            "id": "corpus-legislation-nz",
+            "classification": "normalized_official_source_mirror",
+            "oracle_entry": {
+                "oracle_id": "nz-legislation",
+                "name": "NZ Legislation CLI/MCP",
+                "url": "https://github.com/edithatogo/nz-legislation",
+                "pinned_commit": "3da8c0273c36cc536b744d528ec69d1a31e786cf",
+                "role": "Supporting source discovery and AU/NZ legislation access tooling.",
+                "coverage": [
+                    "legislation_access",
+                    "source_inventory",
+                    "mcp_tooling"
+                ],
+                "authority": "supporting_source_tool"
+            },
+            "local_facts": {
+                "parquet_layer_configured": true,
+                "local_path_env": "RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR",
+                "env_var_set": false,
+                "local_payload_available": false,
+                "adapter_contract_path": "data/corpus/ingestion/local-parquet-layers.json",
+                "canonical_source_id": "nz-legislation",
+                "legal_authority": "official_legislation"
+            },
+            "publication_state": {
+                "local_extract_available": false,
+                "notes": "corpus-legislation-nz adapter blocked: env var not set."
+            }
+        },
+        "nz-legislation": {
+            "id": "nz-legislation",
+            "classification": "supporting_source_tool",
+            "oracle_entry": {
+                "oracle_id": "nz-legislation",
+                "name": "NZ Legislation CLI/MCP",
+                "url": "https://github.com/edithatogo/nz-legislation",
+                "pinned_commit": "3da8c0273c36cc536b744d528ec69d1a31e786cf",
+                "role": "Supporting source discovery and AU/NZ legislation access tooling.",
+                "coverage": [
+                    "legislation_access",
+                    "source_inventory",
+                    "mcp_tooling"
+                ],
+                "authority": "supporting_source_tool"
+            },
+            "local_facts": {
+                "oracle_entry_exists": true,
+                "local_path_recorded": "/Users/maxghenis/_axiom-worktrees/nz-oracles/nz-legislation",
+                "local_clone_available": false,
+                "pco_bulk_xml_extraction_available": true,
+                "provisions_written": 511632,
+                "extraction_run_id": "2026-06-16-pco-latest",
+                "axiom_corpus_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd"
+            },
+            "publication_state": {
+                "local_extract_available": true,
+                "notes": "PCO bulk XML extraction completed. 511632 provisions."
+            }
+        }
+    },
+    "local_verified_facts": {
+        "parquet_layer_status": {
+            "configured": true,
+            "blocked": true,
+            "blocking_reasons": [
+                "RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR is not set.",
+                "RULESPEC_NZ_CORPUS_HANSARD_PARQUET_DIR is not set."
+            ],
+            "validated_at": "2026-06-22",
+            "status": "partial_blocked"
+        },
+        "nz_legislation_extraction": {
+            "available": true,
+            "run_id": "2026-06-16-pco-latest",
+            "provisions_written": 511632,
+            "axiom_corpus_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd",
+            "source": "PCO bulk XML via data.govt.nz",
+            "document_classes": [
+                "act",
+                "regulation",
+                "bill",
+                "sop"
+            ]
+        },
+        "oracle_pinned_commits": {
+            "nlp-policy-nz": "f2445bbd3f1daaae19fdff73651531253a780991",
+            "nz-legislation": "3da8c0273c36cc536b744d528ec69d1a31e786cf"
+        }
+    },
+    "publication_state_claims": {
+        "nlp-policy-nz": {
+            "github": {
+                "head_sha": "f2445bbd3f1daaae19fdff73651531253a780991",
+                "head_url": "https://github.com/edithatogo/nlp-policy-nz/tree/f2445bbd3f1daaae19fdff73651531253a780991"
+            },
+            "huggingface": {
+                "state": "not_verified",
+                "notes": "No HuggingFace identifier identified."
+            },
+            "zenodo": {
+                "state": "not_verified",
+                "notes": "No Zenodo DOI or version recorded."
+            }
+        },
+        "corpus-legislation-nz": {
+            "github": {
+                "head_sha": "3da8c0273c36cc536b744d528ec69d1a31e786cf",
+                "head_url": "https://github.com/edithatogo/nz-legislation/tree/3da8c0273c36cc536b744d528ec69d1a31e786cf"
+            },
+            "huggingface": {
+                "state": "not_verified",
+                "notes": "No HuggingFace identifier."
+            },
+            "zenodo": {
+                "state": "not_verified",
+                "notes": "No Zenodo DOI or version."
+            }
+        },
+        "nz-legislation": {
+            "github": {
+                "head_sha": "3da8c0273c36cc536b744d528ec69d1a31e786cf",
+                "head_url": "https://github.com/edithatogo/nz-legislation/tree/3da8c0273c36cc536b744d528ec69d1a31e786cf"
+            },
+            "huggingface": {
+                "state": "not_verified",
+                "notes": "No HuggingFace identifier."
+            },
+            "zenodo": {
+                "state": "not_verified",
+                "notes": "No Zenodo DOI or version."
+            }
+        }
+    },
+    "source_precedence": {
+        "tiers": [
+            {
+                "name": "Tier 1: Official NZ Legislation",
+                "sources": [
+                    "PCO/data.govt.nz bulk XML via axiom-corpus"
+                ],
+                "condition": "Retains official citation_path, work_id, expression_date."
+            },
+            {
+                "name": "Tier 2: NLP normalized extract",
+                "sources": [
+                    "corpus-legislation-nz Parquet",
+                    "nlp-policy-nz NLP pipeline"
+                ],
+                "condition": "Preferred when publication state verified AND citation_path intact."
+            },
+            {
+                "name": "Tier 2b: Local Parquet layer",
+                "sources": [
+                    "corpus-legislation-nz via RULESPEC_NZ_CORPUS_LEGISLATION_PARQUET_DIR"
+                ],
+                "condition": "Used when env var set and Parquet files present."
+            },
+            {
+                "name": "Tier 3: PCO bulk XML fallback",
+                "sources": [
+                    "axiom-corpus extract-nz-legislation"
+                ],
+                "condition": "Fallback when NLP extracts stale or unavailable."
+            },
+            {
+                "name": "Tier 4: NZ legislation CLI",
+                "sources": [
+                    "nz-legislation CLI/MCP tooling"
+                ],
+                "condition": "Last-resort fallback."
+            }
+        ],
+        "nlp_vs_cli_decision": "NLP/corpus extracts are preferred when publication state is verified AND extracts retain official citation paths. Otherwise fallback via PCO bulk XML then NZ legislation CLI.",
+        "fallback": "PCO/data.govt.nz bulk XML via axiom-corpus extract-nz-legislation; nz-legislation CLI/MCP as final fallback."
+    },
+    "inventory_integration": {
+        "status": "seeded",
+        "notes": "authority_order includes nlp_official_source_extract above pco_bulk_xml_extract and cli_fallback.",
+        "modules_with_nlp_route": []
+    }
+}

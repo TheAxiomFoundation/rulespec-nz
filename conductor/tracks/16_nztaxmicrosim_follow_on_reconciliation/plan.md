@@ -10,7 +10,7 @@
 
 ## Phase 3: Triangulation and Encoding
 
-- [ ] Compare nztaxmicrosim values against PolicyEngine NZ and OpenFisca where overlapping.
+- [~] Compare nztaxmicrosim values against PolicyEngine NZ and OpenFisca where overlapping.
 - [ ] Encode only official-source-backed rules.
 - [ ] Record duplicate clusters and conflict dispositions in `rulespec-rule-inventory.json`.
 
@@ -18,3 +18,4 @@
 
 - [ ] Run focused tests and update reconciliation manifests.
 - [ ] Archive only after review confirms no simplified oracle logic was promoted as law.
+
