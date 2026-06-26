@@ -302,3 +302,116 @@ def test_all_oracle_reconciliation_files_exist() -> None:
     ]
     for p in paths:
         assert p.exists(), f"Missing reconciliation file: {p}"
+
+
+# ── Phase 4: Reporting ───────────────────────────────────────────────
+
+
+SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
+
+
+def load_scorecard() -> dict[str, Any] | None:
+    if SCORECARD_PATH.exists():
+        return cast(dict[str, Any], json.loads(SCORECARD_PATH.read_text(encoding="utf-8")))
+    return None
+
+
+def test_scorecard_exists() -> None:
+    """A compact completion scorecard must be generated from the inventory."""
+    scorecard = load_scorecard()
+    assert scorecard is not None, (
+        f"Scorecard not found at {SCORECARD_PATH}. Run scripts/phase4_scorecard.py"
+    )
+
+
+def test_scorecard_has_summary_fields() -> None:
+    """Scorecard must contain summary metrics."""
+    scorecard = load_scorecard()
+    assert scorecard is not None
+    required = {
+        "generated_at", "jurisdiction", "total_modules",
+        "modules_with_rules", "modules_deferred", "total_rules",
+        "total_duplicate_clusters", "total_conflicts",
+        "resolved_conflicts", "unresolved_conflicts",
+    }
+    missing = required - set(scorecard)
+    assert not missing, f"Scorecard missing fields: {missing}"
+
+
+def test_scorecard_counts_agree_with_inventory() -> None:
+    """Scorecard module/rule counts must match the inventory."""
+    inventory = load_inventory()
+    scorecard = load_scorecard()
+    assert scorecard is not None
+
+    total_modules = len(inventory["modules"])
+    modules_with_rules = sum(
+        1 for m in inventory["modules"] if m.get("rules")
+    )
+    modules_deferred = sum(
+        1 for m in inventory["modules"]
+        if not m.get("rules") or len(m.get("rules", [])) == 0
+    )
+    total_rules = sum(
+        len(m.get("rules", [])) for m in inventory["modules"]
+    )
+
+    assert scorecard["total_modules"] == total_modules, (
+        f"total_modules mismatch: {scorecard['total_modules']} vs {total_modules}"
+    )
+    assert scorecard["modules_with_rules"] == modules_with_rules
+    assert scorecard["modules_deferred"] == modules_deferred
+    assert scorecard["total_rules"] == total_rules
+
+
+def test_scorecard_duplicate_cluster_counts_match() -> None:
+    """Scorecard conflict counts must match inventory clusters."""
+    inventory = load_inventory()
+    scorecard = load_scorecard()
+    assert scorecard is not None
+
+    total_clusters = len(inventory["duplicate_clusters"])
+    total_conflicts = sum(
+        len(c.get("conflicts", [])) for c in inventory["duplicate_clusters"]
+    )
+    resolved = sum(
+        1 for c in inventory["duplicate_clusters"]
+        for cf in c.get("conflicts", [])
+        if cf.get("status") == "resolved_official_source"
+    )
+    unresolved = sum(
+        1 for c in inventory["duplicate_clusters"]
+        for cf in c.get("conflicts", [])
+        if cf.get("status") == "unresolved"
+    )
+
+    assert scorecard["total_duplicate_clusters"] == total_clusters
+    assert scorecard["total_conflicts"] == total_conflicts
+    assert scorecard["resolved_conflicts"] == resolved
+    assert scorecard["unresolved_conflicts"] == unresolved
+
+
+def test_scorecard_has_status_view() -> None:
+    """Scorecard must include a status view for each module."""
+    scorecard = load_scorecard()
+    assert scorecard is not None
+    assert "status_view" in scorecard, "Scorecard missing 'status_view'"
+    view = scorecard["status_view"]
+    assert isinstance(view, dict), "status_view must be a dict"
+
+    required_categories = {"encoded", "deferred", "blocked"}
+    present = set(view)
+    missing = required_categories - present
+    # extracted-not-encoded is optional
+    assert not missing, f"status_view missing categories: {missing}"
+
+    for category, modules in view.items():
+        assert isinstance(modules, list), (
+            f"status_view.{category} must be a list"
+        )
+        for mod in modules:
+            if isinstance(mod, str):
+                assert (ROOT / mod).exists(), f"status_view.{category}: {mod} not found"
+            elif isinstance(mod, dict):
+                assert "path" in mod, f"status_view.{category} item missing 'path'"
+                assert (ROOT / mod["path"]).exists(), f"status_view.{category}: {mod['path']} not found"

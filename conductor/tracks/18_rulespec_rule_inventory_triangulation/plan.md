@@ -18,5 +18,5 @@
 
 ## Phase 4: Reporting
 
-- [ ] Generate a compact completion scorecard from the inventory.
-- [ ] Add a status view for encoded, extracted-not-encoded, deferred, and blocked surfaces.
+- [x] Generate a compact completion scorecard from the inventory.
+- [x] Add a status view for encoded, extracted-not-encoded, deferred, and blocked surfaces.
