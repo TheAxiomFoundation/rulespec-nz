@@ -1,0 +1,74 @@
+- name: cs_rate_parameters
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/child_support/core_formula#cs_child_support_rate_one_child: 0.18
+    nz:statutes/child_support/core_formula#cs_child_support_rate_two_children: 0.26
+    nz:statutes/child_support/core_formula#cs_child_support_rate_three_or_more_children: 0.33
+    nz:statutes/child_support/core_formula#cs_living_allowance_percentage: 0.1845
+
+- name: cs_minimum_and_maximum_rates_2025
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/child_support/core_formula#cs_maximum_child_support_annual_rate: 43217.04
+    nz:statutes/child_support/core_formula#cs_minimum_child_support_annual_rate: 1368.84
+
+- name: cs_minimum_and_maximum_rates_2026
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input: {}
+  output:
+    nz:statutes/child_support/core_formula#cs_maximum_child_support_annual_rate: 44303.40
+    nz:statutes/child_support/core_formula#cs_minimum_child_support_annual_rate: 1402.56
+
+- name: cs_child_support_income_calculation
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 80000
+  output:
+    nz:statutes/child_support/core_formula#cs_child_support_income: 65240
+
+- name: cs_annual_entitlement_one_child
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_income: 65240
+    nz:statutes/child_support/core_formula#input.cs_applicable_child_support_rate: 0.18
+  output:
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 11743.20
+
+- name: cs_annual_entitlement_applies_minimum
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_income: 5000
+    nz:statutes/child_support/core_formula#input.cs_applicable_child_support_rate: 0.18
+  output:
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 1368.84
+
+- name: cs_annual_entitlement_capped_at_maximum
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_income: 500000
+    nz:statutes/child_support/core_formula#input.cs_applicable_child_support_rate: 0.18
+  output:
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 43217.04

@@ -1,0 +1,90 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Parental Leave and Employment Protection Act 1987 Part 3 and Inland Revenue
+    paid parental leave (PPL) rate guidance define the entitlement and payment
+    rates for paid parental leave in New Zealand. The weekly PPL rate is the
+    lower of the employee's average weekly earnings and the maximum PPL rate.
+    Duration is up to 26 weeks.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/1987/0129/part/3
+      - nz/statute/act/public/1987/0129/section/71A
+      - nz/statute/act/public/1987/0129/section/71B
+      - nz/agency/ird/paid-parental-leave-rates
+      - nz/agency/employment-nz/paid-parental-leave
+    agency_reference_urls:
+      - https://www.ird.govt.nz/paid-parental-leave
+      - https://www.employment.govt.nz/leave-and-holidays/paid-parental-leave
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: ppl_entitlement_weeks
+    kind: parameter
+    dtype: Count
+    source: Parental Leave and Employment Protection Act 1987 s 71A
+    versions:
+      - effective_from: '2020-07-01'
+        formula: |-
+          26
+  - name: ppl_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Parental Leave and Employment Protection Act 1987 s 71B; IRD paid parental leave rate guidance
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          753.10
+      - effective_from: '2026-07-01'
+        formula: |-
+          780.10
+      - effective_from: '2027-07-01'
+        formula: |-
+          807.50
+  - name: ppl_entitlement_for_employee
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Parental Leave and Employment Protection Act 1987 s 71B
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          if ppl_employee_is_eligible:
+              min(
+                  max(0, ppl_employees_average_weekly_earnings),
+                  ppl_maximum_weekly_rate
+              )
+          else:
+              0
+  - name: ppl_total_entitlement
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Parental Leave and Employment Protection Act 1987 s 71A, s 71B
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          ppl_entitlement_for_employee * ppl_entitlement_weeks
+  - name: ppl_employed_eligibility_months
+    kind: parameter
+    dtype: Count
+    source: Parental Leave and Employment Protection Act 1987 s 71
+    versions:
+      - effective_from: '2020-07-01'
+        formula: |-
+          12
+  - name: ppl_hours_per_week_minimum
+    kind: parameter
+    dtype: Count
+    source: Parental Leave and Employment Protection Act 1987 s 71
+    versions:
+      - effective_from: '2020-07-01'
+        formula: |-
+          10

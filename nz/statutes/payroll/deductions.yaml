@@ -1,0 +1,80 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 PAYE provisions and Inland Revenue payroll deduction
+    tables define the aggregation of all deductions that employers must withhold
+    from salary or wages. This module assembles the individual statutory
+    deduction components (income tax, ACC earners levy, KiwiSaver, student loan)
+    into a total PAYE deduction amount.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/section/RD3
+      - nz/statute/act/public/2007/0097/section/RD4
+      - nz/statute/act/public/2007/0097/section/RD5
+      - nz/agency/ird/paye-deduction-tables
+    agency_reference_urls:
+      - https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay
+      - https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay/paye-and-kiwisaver-deductions
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: paye_income_tax_component
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 subpart RD; IRD PAYE tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          paye_income_tax_on_taxable_portion_of_earnings
+  - name: paye_acc_levy_component
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations; IRD ACC levy rates
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          acc_standard_earners_levy_including_gst
+  - name: paye_kiwisaver_employee_component
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: KiwiSaver Act 2006 s 64; IRD KiwiSaver deduction guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          kiwisaver_employee_deduction
+  - name: paye_student_loan_component
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Student Loan Scheme Act 2011 s 22; IRD student loan deduction tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          student_loan_annual_deduction
+  - name: paye_total_deduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 subpart RD; IRD PAYE deduction tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          paye_income_tax_component
+          + paye_acc_levy_component
+          + paye_kiwisaver_employee_component
+          + paye_student_loan_component

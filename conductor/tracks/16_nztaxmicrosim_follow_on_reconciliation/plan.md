@@ -5,8 +5,8 @@
 
 ## Phase 2: Official-source Extraction
 
-- [ ] Extract KiwiSaver, student loan, and PAYE deduction source tables where not already covered.
-- [ ] Extract paid parental leave, PIE/RWT, and child-support formulas from official sources.
+- [x] Extract KiwiSaver, student loan, and PAYE deduction source tables where not already covered.
+- [x] Extract paid parental leave, PIE/RWT, and child-support formulas from official sources.
 
 ## Phase 3: Triangulation and Encoding
 

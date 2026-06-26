@@ -1,14 +1,10 @@
-﻿# Project Tracks
+# Project Tracks
 
 This file tracks all major tracks for the project. Each track has its own detailed plan in its respective folder.
 
 ---
 
 ## Active Tracks
-
-## Track 18: RuleSpec Rule Inventory and Triangulation
-*Status: active*
-*Link: [./conductor/tracks/18_rulespec_rule_inventory_triangulation/](./conductor/tracks/18_rulespec_rule_inventory_triangulation/)*
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: active*
@@ -23,6 +19,9 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 18: RuleSpec Rule Inventory and Triangulation
+*Status: archived after clean review*
+*Link: [./conductor/tracks/archive/18_rulespec_rule_inventory_triangulation/](./conductor/tracks/archive/18_rulespec_rule_inventory_triangulation/)*
 
 ## Track 14: PolicyEngine NZ Rule Incorporation
 *Status: archived after review remediation*

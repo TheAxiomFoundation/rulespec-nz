@@ -1,0 +1,122 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Child Support Act 1991 and Inland Revenue child support formula guidance
+    define the core child support formula parameters. The formula uses a living
+    allowance, basic child support percentage, and multi-child allocation rules.
+    NOTE: The full formula with shared care, multi-parent, and variation
+    provisions requires comprehensive extraction beyond this core module.
+    The nztaxmicrosim oracle child-support function is explicitly simplified
+    and excluded as canonical authority.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/1991/0142/part/3
+      - nz/statute/act/public/1991/0142/schedule/1
+      - nz/statute/act/public/1991/0142/schedule/2
+      - nz/agency/ird/child-support-formula
+    agency_reference_urls:
+      - https://www.ird.govt.nz/child-support
+      - https://www.ird.govt.nz/child-support/working-out-child-support
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: cs_living_allowance_percentage
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 schedule 1
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.1845
+  - name: cs_child_support_rate_standard
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 s 40; schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.18
+  - name: cs_child_support_rate_one_child
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.18
+  - name: cs_child_support_rate_two_children
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.26
+  - name: cs_child_support_rate_three_or_more_children
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.33
+  - name: cs_maximum_child_support_annual_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Child Support Act 1991 schedule 1
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          43217.04
+      - effective_from: '2026-04-01'
+        formula: |-
+          44303.40
+      - effective_from: '2027-04-01'
+        formula: |-
+          45303.60
+  - name: cs_minimum_child_support_annual_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Child Support Act 1991 schedule 1
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          1368.84
+      - effective_from: '2026-04-01'
+        formula: |-
+          1402.56
+      - effective_from: '2027-04-01'
+        formula: |-
+          1435.08
+  - name: cs_child_support_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Child Support Act 1991 schedule 1
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          max(0, cs_liable_parents_taxable_income - (cs_liable_parents_taxable_income * cs_living_allowance_percentage))
+  - name: cs_annual_child_support_entitlement
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Child Support Act 1991 schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          min(
+              max(
+                  cs_child_support_income * cs_applicable_child_support_rate,
+                  cs_minimum_child_support_annual_rate
+              ),
+              cs_maximum_child_support_annual_rate
+          )
