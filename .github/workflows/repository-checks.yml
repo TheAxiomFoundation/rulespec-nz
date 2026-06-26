@@ -12,5 +12,5 @@ jobs:
     secrets: inherit
     with:
       validate-roots: auto
-      run-generated-guard: false
+      run-generated-guard: true
 

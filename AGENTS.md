@@ -1,5 +1,8 @@
 # rulespec-nz Agent Notes
 
+> ⚠️ **Single source of truth for agent instructions.**
+> `CLAUDE.md` and `GEMINI.md` both reference this file. Edit here, not in copies.
+
 This repo stores New Zealand RuleSpec source registry materials, oracle references, and encoded policy rules.
 
 ## Do
