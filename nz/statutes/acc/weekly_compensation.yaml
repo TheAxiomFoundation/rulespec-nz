@@ -1,0 +1,17 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Accident Compensation Act 2001 and ACC weekly compensation guidelines
+    define the earnings-based weekly compensation for injured employees.
+    Official-source encoding pending for weekly earnings definitions,
+    abatement rates, and entitlement periods.
+  status: deferred
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2001/0049/part/2
+      - nz/agency/acc/weekly-compensation
+    agency_reference_urls:
+      - https://www.acc.co.nz/cover/weekly-compensation
+    oracle_links:
+      - openfisca-aotearoa
+rules: []

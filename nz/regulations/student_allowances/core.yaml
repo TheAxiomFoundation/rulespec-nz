@@ -1,0 +1,19 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Student Allowances Regulations 1998 (SR 1998/277) and StudyLink/Tertiary
+    Education Commission policy define the core student allowance eligibility
+    and payment parameters. Official-source encoding is pending for means
+    testing, parental income thresholds, and age-based rates.
+  status: deferred
+  source_verification:
+    corpus_citation_paths:
+      - nz/regulation/1998/0277
+      - nz/statute/act/public/2011/0067
+      - nz/agency/tec/student-allowances
+    agency_reference_urls:
+      - https://www.studylink.govt.nz/student-allowance
+      - https://www.tec.govt.nz/funding/funding-and-performance/funding/funding-for-providers/student-allowances
+    oracle_links:
+      - openfisca-aotearoa
+rules: []

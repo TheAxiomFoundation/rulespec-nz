@@ -2,9 +2,9 @@
     "generated_at": "2026-06-26",
     "jurisdiction": "nz",
     "purpose": "Compact completion scorecard for RuleSpec rule inventory and triangulation",
-    "total_modules": 30,
+    "total_modules": 35,
     "modules_with_rules": 25,
-    "modules_deferred": 5,
+    "modules_deferred": 10,
     "total_rules": 567,
     "total_duplicate_clusters": 5,
     "total_conflicts": 7,
@@ -34,8 +34,15 @@
         ],
         "deferred": [
             "nz/policies/common/demographics.yaml",
+            "nz/regulations/student_allowances/core.yaml",
+            "nz/statutes/acc/weekly_compensation.yaml",
+            "nz/statutes/citizenship/by_grant.yaml",
             "nz/statutes/common/relationships.yaml",
-            "nz/statutes/common/residence.yaml"
+            "nz/statutes/common/residence.yaml",
+            "nz/statutes/housing_restructuring/income_related_rent.yaml",
+            "nz/statutes/immigration/residence.yaml",
+            "nz/statutes/pae_ora/health_services.yaml",
+            "nz/statutes/rates_rebates/rates_rebate.yaml"
         ],
         "blocked": []
     }

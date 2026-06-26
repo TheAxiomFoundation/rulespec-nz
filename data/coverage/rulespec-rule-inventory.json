@@ -3976,6 +3976,96 @@
             ],
             "triangulation_status": "inventory_seeded",
             "rules": []
+        },
+        {
+            "path": "nz/regulations/student_allowances/core.yaml",
+            "surface_ids": [
+                "nz/regulations/student_allowances/core"
+            ],
+            "source_families": [
+                "nz_regulations_student_allowances_core"
+            ],
+            "authority": "official_nz_legislation",
+            "source_route": "pco_bulk_xml_extract",
+            "oracle_links": [
+                "nztaxmicrosim",
+                "openfisca-aotearoa",
+                "policyengine-nz"
+            ],
+            "triangulation_status": "inventory_seeded",
+            "rules": []
+        },
+        {
+            "path": "nz/statutes/acc/weekly_compensation.yaml",
+            "surface_ids": [
+                "nz/statutes/acc/weekly_compensation"
+            ],
+            "source_families": [
+                "nz_statutes_acc_weekly_compensation"
+            ],
+            "authority": "official_nz_legislation",
+            "source_route": "pco_bulk_xml_extract",
+            "oracle_links": [
+                "nztaxmicrosim",
+                "openfisca-aotearoa",
+                "policyengine-nz"
+            ],
+            "triangulation_status": "inventory_seeded",
+            "rules": []
+        },
+        {
+            "path": "nz/statutes/housing_restructuring/income_related_rent.yaml",
+            "surface_ids": [
+                "nz/statutes/housing_restructuring/income_related_rent"
+            ],
+            "source_families": [
+                "nz_statutes_housing_restructuring_income_related_rent"
+            ],
+            "authority": "official_nz_legislation",
+            "source_route": "pco_bulk_xml_extract",
+            "oracle_links": [
+                "nztaxmicrosim",
+                "openfisca-aotearoa",
+                "policyengine-nz"
+            ],
+            "triangulation_status": "inventory_seeded",
+            "rules": []
+        },
+        {
+            "path": "nz/statutes/pae_ora/health_services.yaml",
+            "surface_ids": [
+                "nz/statutes/pae_ora/health_services"
+            ],
+            "source_families": [
+                "nz_statutes_pae_ora_health_services"
+            ],
+            "authority": "official_nz_legislation",
+            "source_route": "pco_bulk_xml_extract",
+            "oracle_links": [
+                "nztaxmicrosim",
+                "openfisca-aotearoa",
+                "policyengine-nz"
+            ],
+            "triangulation_status": "inventory_seeded",
+            "rules": []
+        },
+        {
+            "path": "nz/statutes/rates_rebates/rates_rebate.yaml",
+            "surface_ids": [
+                "nz/statutes/rates_rebates/rates_rebate"
+            ],
+            "source_families": [
+                "nz_statutes_rates_rebates_rates_rebate"
+            ],
+            "authority": "official_nz_legislation",
+            "source_route": "pco_bulk_xml_extract",
+            "oracle_links": [
+                "nztaxmicrosim",
+                "openfisca-aotearoa",
+                "policyengine-nz"
+            ],
+            "triangulation_status": "inventory_seeded",
+            "rules": []
         }
     ],
     "duplicate_clusters": [

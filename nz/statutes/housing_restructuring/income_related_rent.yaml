@@ -1,0 +1,18 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Housing Restructuring and Tenancy Matters Act 1992 and Kainga Ora/HUD
+    income-related rent (IRR) guidance define the rent-setting rules for
+    social housing tenants. Official-source encoding pending for income
+    definitions, rent percentage, and deductions.
+  status: deferred
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/1992/0069
+      - nz/agency/hud/income-related-rent
+      - nz/agency/kainga-ora/income-related-rent
+    agency_reference_urls:
+      - https://www.kaingaora.govt.nz/tenants/rent-and-bills/income-related-rent
+    oracle_links:
+      - openfisca-aotearoa
+rules: []

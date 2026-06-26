@@ -1,0 +1,17 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Rates Rebate Act 1973 and Department of Internal Affairs rates rebate
+    guidance define the income-based rates rebate scheme for residential
+    ratepayers. Official-source encoding pending for income thresholds,
+    abatement rates, and maximum rebate amounts.
+  status: deferred
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/1973/0055
+      - nz/agency/dia/rates-rebates
+    agency_reference_urls:
+      - https://www.govt.nz/browse/housing-and-property/getting-help-with-housing/rates-rebate
+    oracle_links:
+      - openfisca-aotearoa
+rules: []
