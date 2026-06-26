@@ -3,6 +3,7 @@
 Tests verify that each extraction unit identified in the manifest has a
 corresponding RuleSpec YAML module with companion test file.
 """
+
 from __future__ import annotations
 # pyright: reportUnknownMemberType=false, reportUntypedFunctionDecorator=false
 
@@ -55,15 +56,9 @@ def test_every_rulespec_yaml_has_required_sections() -> None:
         assert "format: rulespec/v1" in content, (
             f"{unit['target_path']} missing format declaration"
         )
-        assert "module:" in content, (
-            f"{unit['target_path']} missing module section"
-        )
-        assert "units:" in content, (
-            f"{unit['target_path']} missing units section"
-        )
-        assert "rules:" in content, (
-            f"{unit['target_path']} missing rules section"
-        )
+        assert "module:" in content, f"{unit['target_path']} missing module section"
+        assert "units:" in content, f"{unit['target_path']} missing units section"
+        assert "rules:" in content, f"{unit['target_path']} missing rules section"
 
 
 @pytest.mark.unit
