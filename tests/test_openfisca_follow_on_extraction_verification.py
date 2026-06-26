@@ -38,7 +38,9 @@ DEFERRED_SURFACE_IDS = [
 @pytest.mark.unit
 def test_extraction_verification_file_exists() -> None:
     """The extraction verification document must exist."""
-    assert EXTRACTION_PATH.exists(), "Extraction verification missing; run Phase 2 of Track 15."
+    assert EXTRACTION_PATH.exists(), (
+        "Extraction verification missing; run Phase 2 of Track 15."
+    )
 
 
 @pytest.mark.unit
@@ -69,9 +71,12 @@ def test_each_verification_has_required_fields() -> None:
         assert entry["sources"], "sources required"
         for src in entry["sources"]:
             assert src["source_name"], "source_name required"
-            assert src["pco_status"] in ("exact_match", "exact_match_via_amendments", "related_matches", "not_found"), (
-                f"Unknown pco_status: {src['pco_status']}"
-            )
+            assert src["pco_status"] in (
+                "exact_match",
+                "exact_match_via_amendments",
+                "related_matches",
+                "not_found",
+            ), f"Unknown pco_status: {src['pco_status']}"
 
 
 @pytest.mark.unit
@@ -127,4 +132,6 @@ def test_all_blockers_are_documented() -> None:
     doc = load_json(EXTRACTION_PATH)
     for entry in doc["verification_results"]:
         blockers = entry.get("blockers", [])
-        assert isinstance(blockers, list), f"blockers must be a list for {entry['surface_id']}"
+        assert isinstance(blockers, list), (
+            f"blockers must be a list for {entry['surface_id']}"
+        )

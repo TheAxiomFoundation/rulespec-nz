@@ -43,8 +43,7 @@ def deferred_surface_ids_from_source_map() -> set[str]:
 
 @pytest.mark.unit
 def test_deferred_surfaces_match_between_reconciliation_and_source_map() -> None:
-    """Every deferred surface in reconciliation must also be present
-    and marked missing in the source map."""
+    """Every deferred surface in reconciliation must also be present and marked missing in the source map."""
     rec_deferred = deferred_surface_ids_from_reconciliation()
     map_deferred = deferred_surface_ids_from_source_map()
     assert rec_deferred == map_deferred, (
@@ -54,8 +53,7 @@ def test_deferred_surfaces_match_between_reconciliation_and_source_map() -> None
 
 @pytest.mark.unit
 def test_each_deferred_surface_has_planned_rulespec_destinations() -> None:
-    """Every deferred/missing surface in the source map must list
-    planned rulespec paths and official sources."""
+    """Every deferred/missing surface in the source map must list planned rulespec paths and official sources."""
     source_map = load_json(SOURCE_MAP_PATH)
     for surface in source_map["surfaces"]:
         if not surface["implementation_status"].startswith("missing"):
@@ -67,13 +65,14 @@ def test_each_deferred_surface_has_planned_rulespec_destinations() -> None:
             f"{surface['id']} missing official_sources"
         )
         for path in surface["planned_rulespec_paths"]:
-            assert path.startswith("nz/"), f"{surface['id']} path not in nz/ root: {path}"
+            assert path.startswith("nz/"), (
+                f"{surface['id']} path not in nz/ root: {path}"
+            )
 
 
 @pytest.mark.unit
 def test_deferred_surfaces_have_corresponding_oracle_inventory_entries() -> None:
-    """Each deferred surface must appear in the nztaxmicrosim rule inventory
-    with status 'missing' and reference planned destinations."""
+    """Each deferred surface must appear in the nztaxmicrosim rule inventory with status missing and reference planned destinations."""
     inventory = load_json(INVENTORY_PATH)
     inventory_surfaces = {s["id"]: s for s in inventory["rule_surfaces"]}
     source_map = load_json(SOURCE_MAP_PATH)
@@ -97,8 +96,7 @@ def test_deferred_surfaces_have_corresponding_oracle_inventory_entries() -> None
 
 @pytest.mark.unit
 def test_deferred_surfaces_identify_oracle_limitations() -> None:
-    """Oracle limitations must be documented for surfaces whose oracle
-    logic is simplified and cannot be encoded canonically."""
+    """Oracle limitations must be documented for surfaces whose oracle logic is simplified and cannot be encoded canonically."""
     inventory = load_json(INVENTORY_PATH)
     inventory_surfaces = {s["id"]: s for s in inventory["rule_surfaces"]}
     source_map = load_json(SOURCE_MAP_PATH)
@@ -119,6 +117,8 @@ def test_deferred_surfaces_identify_oracle_limitations() -> None:
             assert any("simplified" in str(b).lower() for b in blockers), (
                 f"{sid} blockers should reference simplified oracle logic"
             )
+
+
 # --- Task 2: Extraction Unit Manifest Tests ---
 
 EXTRACTION_MANIFEST_PATH = (
@@ -147,9 +147,7 @@ def test_extraction_manifest_covers_all_deferred_surfaces() -> None:
 
 @pytest.mark.unit
 def test_each_extraction_unit_has_target_path_and_source() -> None:
-    """Each extraction unit must specify its rulespec target path
-    and the official source it extracts from. Target paths must be
-    within the nz/ root and correspond to planned destinations."""
+    """Each extraction unit must specify its rulespec target path, official source, and kind. Target paths must be within nz/ root."""
     manifest = load_json(EXTRACTION_MANIFEST_PATH)
     for unit in manifest["extraction_units"]:
         assert unit.get("target_path"), f"{unit['surface_id']} missing target_path"
@@ -163,8 +161,7 @@ def test_each_extraction_unit_has_target_path_and_source() -> None:
 
 @pytest.mark.unit
 def test_extraction_units_are_not_simplified_oracle_promotions() -> None:
-    """Every extraction unit must confirm no simplified oracle logic
-    is promoted as canonical."""
+    """Every extraction unit must confirm no simplified oracle logic is promoted as canonical."""
     manifest = load_json(EXTRACTION_MANIFEST_PATH)
     for unit in manifest["extraction_units"]:
         note = unit.get("oracle_constraint", "")

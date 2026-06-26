@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_LOCATOR_PATH = (
     ROOT / "data" / "coverage" / "openfisca-aotearoa-source-locator.json"
 )
-RECONCILIATION_PATH = ROOT / "data" / "coverage" / "openfisca-aotearoa-reconciliation.json"
+RECONCILIATION_PATH = (
+    ROOT / "data" / "coverage" / "openfisca-aotearoa-reconciliation.json"
+)
 INVENTORY_PATH = ROOT / "data" / "oracles" / "openfisca-aotearoa-rule-inventory.json"
 JsonMap = dict[str, Any]
 
@@ -93,6 +95,8 @@ def test_source_locator_consistent_with_inventory() -> None:
     assert locator_ids.issubset(inventoried_ids), (
         f"Unknown surfaces: {locator_ids - inventoried_ids}"
     )
+
+
 @pytest.mark.unit
 def test_each_deferred_surface_has_required_fields() -> None:
     """Each deferred surface entry must have all required fields."""

@@ -12,7 +12,9 @@ INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 
 
 def load_inventory() -> dict[str, Any]:
-    return cast(dict[str, Any], json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig")))
+    return cast(
+        dict[str, Any], json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig"))
+    )
 
 
 def non_test_rulespec_paths() -> set[str]:
@@ -154,8 +156,7 @@ def test_stable_rule_identifiers_are_unique() -> None:
             else:
                 ids.append(f"{module['path']}:no_name")
     assert len(ids) == len(set(ids)), (
-        f"Duplicate rule identifiers found: "
-        f"{[i for i in set(ids) if ids.count(i) > 1]}"
+        f"Duplicate rule identifiers found: {[i for i in set(ids) if ids.count(i) > 1]}"
     )
 
 
@@ -227,9 +228,7 @@ def test_duplicate_clusters_link_to_reconciliation_surfaces() -> None:
         "openfisca-aotearoa": Path(
             ROOT / "data/coverage/openfisca-aotearoa-reconciliation.json"
         ),
-        "nztaxmicrosim": Path(
-            ROOT / "data/coverage/nztaxmicrosim-reconciliation.json"
-        ),
+        "nztaxmicrosim": Path(ROOT / "data/coverage/nztaxmicrosim-reconciliation.json"),
     }
     oracle_ids = {"policyengine-nz", "openfisca-aotearoa", "nztaxmicrosim"}
     for cluster in inventory["duplicate_clusters"]:
@@ -237,7 +236,9 @@ def test_duplicate_clusters_link_to_reconciliation_surfaces() -> None:
             f"{cluster['id']} missing 'reconciliation_surface_links'"
         )
         links = cluster["reconciliation_surface_links"]
-        assert isinstance(links, list), f"{cluster['id']} reconciliation_surface_links must be list"
+        assert isinstance(links, list), (
+            f"{cluster['id']} reconciliation_surface_links must be list"
+        )
         for link in links:
             assert "oracle_id" in link, f"{cluster['id']} link missing oracle_id"
             assert "surface_id" in link, f"{cluster['id']} link missing surface_id"
@@ -257,20 +258,21 @@ def test_duplicate_clusters_declare_conflicts() -> None:
     """Each duplicate cluster must declare known conflicts."""
     inventory = load_inventory()
     for cluster in inventory["duplicate_clusters"]:
-        assert "conflicts" in cluster, (
-            f"{cluster['id']} missing 'conflicts' key"
-        )
+        assert "conflicts" in cluster, f"{cluster['id']} missing 'conflicts' key"
         assert isinstance(cluster["conflicts"], list), (
             f"{cluster['id']} conflicts must be a list"
         )
         for conflict in cluster["conflicts"]:
             assert "type" in conflict, f"{cluster['id']} conflict missing 'type'"
             assert conflict["type"] in (
-                "value_mismatch", "scope_mismatch", "stale_oracle",
+                "value_mismatch",
+                "scope_mismatch",
+                "stale_oracle",
             ), f"{cluster['id']} conflict type '{conflict['type']}' invalid"
             assert "status" in conflict, f"{cluster['id']} conflict missing 'status'"
             assert conflict["status"] in (
-                "unresolved", "resolved_official_source",
+                "unresolved",
+                "resolved_official_source",
             ), f"{cluster['id']} conflict status '{conflict['status']}' invalid"
 
 
@@ -312,7 +314,9 @@ SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
 
 def load_scorecard() -> dict[str, Any] | None:
     if SCORECARD_PATH.exists():
-        return cast(dict[str, Any], json.loads(SCORECARD_PATH.read_text(encoding="utf-8")))
+        return cast(
+            dict[str, Any], json.loads(SCORECARD_PATH.read_text(encoding="utf-8"))
+        )
     return None
 
 
@@ -329,10 +333,16 @@ def test_scorecard_has_summary_fields() -> None:
     scorecard = load_scorecard()
     assert scorecard is not None
     required = {
-        "generated_at", "jurisdiction", "total_modules",
-        "modules_with_rules", "modules_deferred", "total_rules",
-        "total_duplicate_clusters", "total_conflicts",
-        "resolved_conflicts", "unresolved_conflicts",
+        "generated_at",
+        "jurisdiction",
+        "total_modules",
+        "modules_with_rules",
+        "modules_deferred",
+        "total_rules",
+        "total_duplicate_clusters",
+        "total_conflicts",
+        "resolved_conflicts",
+        "unresolved_conflicts",
     }
     missing = required - set(scorecard)
     assert not missing, f"Scorecard missing fields: {missing}"
@@ -345,16 +355,13 @@ def test_scorecard_counts_agree_with_inventory() -> None:
     assert scorecard is not None
 
     total_modules = len(inventory["modules"])
-    modules_with_rules = sum(
-        1 for m in inventory["modules"] if m.get("rules")
-    )
+    modules_with_rules = sum(1 for m in inventory["modules"] if m.get("rules"))
     modules_deferred = sum(
-        1 for m in inventory["modules"]
+        1
+        for m in inventory["modules"]
         if not m.get("rules") or len(m.get("rules", [])) == 0
     )
-    total_rules = sum(
-        len(m.get("rules", [])) for m in inventory["modules"]
-    )
+    total_rules = sum(len(m.get("rules", [])) for m in inventory["modules"])
 
     assert scorecard["total_modules"] == total_modules, (
         f"total_modules mismatch: {scorecard['total_modules']} vs {total_modules}"
@@ -375,12 +382,14 @@ def test_scorecard_duplicate_cluster_counts_match() -> None:
         len(c.get("conflicts", [])) for c in inventory["duplicate_clusters"]
     )
     resolved = sum(
-        1 for c in inventory["duplicate_clusters"]
+        1
+        for c in inventory["duplicate_clusters"]
         for cf in c.get("conflicts", [])
         if cf.get("status") == "resolved_official_source"
     )
     unresolved = sum(
-        1 for c in inventory["duplicate_clusters"]
+        1
+        for c in inventory["duplicate_clusters"]
         for cf in c.get("conflicts", [])
         if cf.get("status") == "unresolved"
     )
@@ -406,12 +415,12 @@ def test_scorecard_has_status_view() -> None:
     assert not missing, f"status_view missing categories: {missing}"
 
     for category, modules in view.items():
-        assert isinstance(modules, list), (
-            f"status_view.{category} must be a list"
-        )
+        assert isinstance(modules, list), f"status_view.{category} must be a list"
         for mod in modules:
             if isinstance(mod, str):
                 assert (ROOT / mod).exists(), f"status_view.{category}: {mod} not found"
             elif isinstance(mod, dict):
                 assert "path" in mod, f"status_view.{category} item missing 'path'"
-                assert (ROOT / mod["path"]).exists(), f"status_view.{category}: {mod['path']} not found"
+                assert (ROOT / mod["path"]).exists(), (
+                    f"status_view.{category}: {mod['path']} not found"
+                )
