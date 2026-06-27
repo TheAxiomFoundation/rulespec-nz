@@ -30,15 +30,16 @@ def test_canonical_rule_id_happy_paths(path_str: str, rule_name: str, expected: 
 
 
 @pytest.mark.parametrize(
-    "path_str",
+    "path_str,expected_match",
     [
-        "",
-        "file.yaml",
-        "only_one_part",
-        "/",
+        ("", "Path string must have at least two parts"),
+        ("file.yaml", "Path string must have at least two parts"),
+        ("only_one_part", "Path string must have at least two parts"),
+        ("/", "Path string must be relative"),
+        ("/nz/social_security/benefit.yaml", "Path string must be relative"),
     ]
 )
-def test_canonical_rule_id_edge_cases(path_str: str) -> None:
-    """Test ValueError is raised for invalid paths."""
-    with pytest.raises(ValueError, match=r"Path string must have at least two parts"):
+def test_canonical_rule_id_edge_cases(path_str: str, expected_match: str) -> None:
+    """Test ValueError is raised for invalid or absolute paths."""
+    with pytest.raises(ValueError, match=expected_match):
         canonical_rule_id(path_str, "my_rule")
