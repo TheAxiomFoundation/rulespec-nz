@@ -7,15 +7,15 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Active Tracks
 
 ## Track 17: NLP Pipeline and Publication Audit
-*Status: active*
-*Link: [./conductor/tracks/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
+*Status: archived after clean review*
+*Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
 
 ## Track 16: nztaxmicrosim Follow-on Reconciliation
-*Status: active*
-*Link: [./conductor/tracks/16_nztaxmicrosim_follow_on_reconciliation/](./conductor/tracks/16_nztaxmicrosim_follow_on_reconciliation/)*
+*Status: archived after clean review*
+*Link: [./conductor/tracks/archive/16_nztaxmicrosim_follow_on_reconciliation/](./conductor/tracks/16_nztaxmicrosim_follow_on_reconciliation/)*
 
 ## Track 15: OpenFisca Follow-on Reconciliation
-*Status: active*
+*Status: archived after clean review*
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks

@@ -8,8 +8,9 @@ on:
 
 jobs:
   validate:
-    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@589811b853533c2942750fcc82351de9a6d94131
-    secrets: inherit
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@main
+    secrets:
+      AXIOM_ENCODE_APPLY_SIGNING_KEY: ${{ secrets.AXIOM_ENCODE_APPLY_SIGNING_KEY }}
     with:
       validate-roots: auto
       run-generated-guard: true
