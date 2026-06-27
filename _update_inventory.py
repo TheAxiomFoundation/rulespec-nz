@@ -51,6 +51,7 @@ def main():
             continue
 
         payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+        payload = payload or {}
         rules = extract_rule_info(payload, rel_path)
         sv = payload.get("module", {}).get("source_verification", {})
         corpus_paths = sv.get("corpus_citation_paths", [])
