@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # pyright: reportUnknownArgumentType=false, reportUnknownMemberType=false, reportUnknownVariableType=false
 
+import functools
 import json
 import re
 from pathlib import Path
@@ -24,6 +25,7 @@ DISALLOWED_GENERIC_RULE_NAMES = {
 }
 
 
+@functools.cache
 def jurisdiction_dirs() -> list[Path]:
     return sorted(
         child
@@ -34,6 +36,7 @@ def jurisdiction_dirs() -> list[Path]:
     )
 
 
+@functools.cache
 def rulespec_content_roots() -> list[Path]:
     return [
         jurisdiction / marker
@@ -72,6 +75,7 @@ def apply_gap_ratchet(section: str, found: list[str]) -> list[str]:
     return problems
 
 
+@functools.cache
 def iter_repo_files() -> list[Path]:
     files: list[Path] = []
     for path in ROOT.rglob("*"):
@@ -82,6 +86,7 @@ def iter_repo_files() -> list[Path]:
     return sorted(files)
 
 
+@functools.cache
 def iter_rulespec_files() -> list[Path]:
     files: list[Path] = []
     for root in rulespec_content_roots():
