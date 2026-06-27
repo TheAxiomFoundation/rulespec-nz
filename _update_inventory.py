@@ -1,16 +1,16 @@
 """Script to add new RuleSpec modules to the rule inventory."""
+
 import json
 from pathlib import Path
 
 import yaml
 
-ROOT = Path(r'C:\Users\60217257\OneDrive - Flinders\repos\legal-nz\rulespec-nz')
+ROOT = Path(__file__).parent
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
 
 
-def extract_rule_info(path, rel_path):
-    payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+def extract_rule_info(payload, rel_path):
     rules = payload.get("rules", [])
     result = []
     for r in rules:
@@ -24,12 +24,14 @@ def extract_rule_info(path, rel_path):
         prefix = rel_path.split("/")[0]
         target = "/".join(rel_path.replace(".yaml", "").split("/")[1:])
         stable_id = f"{prefix}:{target}#{name}"
-        result.append({
-            "id": stable_id,
-            "name": name,
-            "kind": kind,
-            "source_family": source_family,
-        })
+        result.append(
+            {
+                "id": stable_id,
+                "name": name,
+                "kind": kind,
+                "source_family": source_family,
+            }
+        )
     return result
 
 
@@ -51,8 +53,9 @@ def main():
         if not path.exists():
             continue
 
-        rules = extract_rule_info(path, rel_path)
         payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+        payload = payload or {}
+        rules = extract_rule_info(payload, rel_path)
         sv = payload.get("module", {}).get("source_verification", {})
         corpus_paths = sv.get("corpus_citation_paths", [])
         if corpus_paths:
@@ -84,7 +87,9 @@ def main():
     if SCORECARD_PATH.exists():
         sc = json.loads(SCORECARD_PATH.read_text(encoding="utf-8-sig"))
         sc["total_modules"] = len(inventory["modules"])
-        sc["modules_with_rules"] = sum(1 for m in inventory["modules"] if m.get("rules"))
+        sc["modules_with_rules"] = sum(
+            1 for m in inventory["modules"] if m.get("rules")
+        )
         sc["total_rules"] = sum(len(m.get("rules", [])) for m in inventory["modules"])
         SCORECARD_PATH.write_text(
             json.dumps(sc, indent=4, ensure_ascii=False), encoding="utf-8"

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 import json
 from pathlib import Path
 from typing import Any, cast
@@ -11,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 
 
+@functools.cache
 def load_inventory() -> dict[str, Any]:
     return cast(
         dict[str, Any], json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig"))

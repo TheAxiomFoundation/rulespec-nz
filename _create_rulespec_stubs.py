@@ -1,8 +1,9 @@
-import os
+from pathlib import Path
 
-base = r'C:\Users\60217257\OneDrive - Flinders\repos\legal-nz\rulespec-nz'
+base = Path(__file__).parent
 
-files['policies/common/demographics.yaml'] = """format: rulespec/v1
+files = {}
+files["policies/common/demographics.yaml"] = """format: rulespec/v1
 module:
   summary: |-
     Common demographic predicates used across NZ benefit and tax programs.
@@ -18,4 +19,3 @@ module:
       - nztaxmicrosim
 rules: []
 """
-files = {}

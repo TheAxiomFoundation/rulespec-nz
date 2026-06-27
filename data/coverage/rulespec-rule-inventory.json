@@ -3602,43 +3602,43 @@
                     "id": "nz:statutes/student_loan/repayments#student_loan_repayment_rate",
                     "name": "student_loan_repayment_rate",
                     "kind": "parameter",
-                    "source_family": "repayments"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/student_loan/repayments#student_loan_annual_repayment_threshold",
                     "name": "student_loan_annual_repayment_threshold",
                     "kind": "parameter",
-                    "source_family": "repayments"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/student_loan/repayments#student_loan_weekly_repayment_threshold",
                     "name": "student_loan_weekly_repayment_threshold",
                     "kind": "derived",
-                    "source_family": "repayments"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/student_loan/repayments#student_loan_fortnightly_repayment_threshold",
                     "name": "student_loan_fortnightly_repayment_threshold",
                     "kind": "derived",
-                    "source_family": "repayments"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/student_loan/repayments#student_loan_monthly_repayment_threshold",
                     "name": "student_loan_monthly_repayment_threshold",
                     "kind": "derived",
-                    "source_family": "repayments"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/student_loan/repayments#student_loan_annual_deduction",
                     "name": "student_loan_annual_deduction",
                     "kind": "derived",
-                    "source_family": "repayments"
+                    "source_family": "computed"
                 },
                 {
                     "id": "nz:statutes/student_loan/repayments#student_loan_weekly_deduction",
                     "name": "student_loan_weekly_deduction",
                     "kind": "derived",
-                    "source_family": "repayments"
+                    "source_family": "income_tax"
                 }
             ]
         },
@@ -3663,31 +3663,31 @@
                     "id": "nz:statutes/payroll/deductions#paye_income_tax_component",
                     "name": "paye_income_tax_component",
                     "kind": "derived",
-                    "source_family": "deductions"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/payroll/deductions#paye_acc_levy_component",
                     "name": "paye_acc_levy_component",
                     "kind": "derived",
-                    "source_family": "deductions"
+                    "source_family": "acc_earners_levy"
                 },
                 {
                     "id": "nz:statutes/payroll/deductions#paye_kiwisaver_employee_component",
                     "name": "paye_kiwisaver_employee_component",
                     "kind": "derived",
-                    "source_family": "deductions"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/payroll/deductions#paye_student_loan_component",
                     "name": "paye_student_loan_component",
                     "kind": "derived",
-                    "source_family": "deductions"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/payroll/deductions#paye_total_deduction",
                     "name": "paye_total_deduction",
                     "kind": "derived",
-                    "source_family": "deductions"
+                    "source_family": "income_tax"
                 }
             ]
         },
@@ -3712,37 +3712,37 @@
                     "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_entitlement_weeks",
                     "name": "ppl_entitlement_weeks",
                     "kind": "parameter",
-                    "source_family": "paid_parental_leave"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate",
                     "name": "ppl_maximum_weekly_rate",
                     "kind": "parameter",
-                    "source_family": "paid_parental_leave"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_entitlement_for_employee",
                     "name": "ppl_entitlement_for_employee",
                     "kind": "derived",
-                    "source_family": "paid_parental_leave"
+                    "source_family": "computed"
                 },
                 {
                     "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_total_entitlement",
                     "name": "ppl_total_entitlement",
                     "kind": "derived",
-                    "source_family": "paid_parental_leave"
+                    "source_family": "computed"
                 },
                 {
                     "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_employed_eligibility_months",
                     "name": "ppl_employed_eligibility_months",
                     "kind": "parameter",
-                    "source_family": "paid_parental_leave"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_hours_per_week_minimum",
                     "name": "ppl_hours_per_week_minimum",
                     "kind": "parameter",
-                    "source_family": "paid_parental_leave"
+                    "source_family": "statutory_parameter"
                 }
             ]
         },
@@ -3767,43 +3767,43 @@
                     "id": "nz:statutes/income_tax/investment/pie#pie_rate_10_5",
                     "name": "pie_rate_10_5",
                     "kind": "parameter",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/investment/pie#pie_rate_17_5",
                     "name": "pie_rate_17_5",
                     "kind": "parameter",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/investment/pie#pie_rate_28",
                     "name": "pie_rate_28",
                     "kind": "parameter",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_low",
                     "name": "pie_two_year_lookback_taxable_income_threshold_low",
                     "kind": "parameter",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_high",
                     "name": "pie_two_year_lookback_taxable_income_threshold_high",
                     "kind": "parameter",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/investment/pie#pie_determined_pir_rate",
                     "name": "pie_determined_pir_rate",
                     "kind": "derived",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/investment/pie#pie_tax_on_income",
                     "name": "pie_tax_on_income",
                     "kind": "derived",
-                    "source_family": "pie"
+                    "source_family": "income_tax"
                 }
             ]
         },
@@ -3828,43 +3828,43 @@
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_10_5",
                     "name": "rwt_rate_10_5",
                     "kind": "parameter",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_17_5",
                     "name": "rwt_rate_17_5",
                     "kind": "parameter",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_30",
                     "name": "rwt_rate_30",
                     "kind": "parameter",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_33",
                     "name": "rwt_rate_33",
                     "kind": "parameter",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_39",
                     "name": "rwt_rate_39",
                     "kind": "parameter",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate",
                     "name": "rwt_applicable_rate",
                     "kind": "derived",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 },
                 {
                     "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_withholding_amount",
                     "name": "rwt_withholding_amount",
                     "kind": "derived",
-                    "source_family": "resident_withholding_tax"
+                    "source_family": "income_tax"
                 }
             ]
         },
@@ -3889,55 +3889,55 @@
                     "id": "nz:statutes/child_support/core_formula#cs_living_allowance_percentage",
                     "name": "cs_living_allowance_percentage",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_standard",
                     "name": "cs_child_support_rate_standard",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_one_child",
                     "name": "cs_child_support_rate_one_child",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_two_children",
                     "name": "cs_child_support_rate_two_children",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_three_or_more_children",
                     "name": "cs_child_support_rate_three_or_more_children",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_maximum_child_support_annual_rate",
                     "name": "cs_maximum_child_support_annual_rate",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_minimum_child_support_annual_rate",
                     "name": "cs_minimum_child_support_annual_rate",
                     "kind": "parameter",
-                    "source_family": "core_formula"
+                    "source_family": "statutory_parameter"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_child_support_income",
                     "name": "cs_child_support_income",
                     "kind": "derived",
-                    "source_family": "core_formula"
+                    "source_family": "computed"
                 },
                 {
                     "id": "nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement",
                     "name": "cs_annual_child_support_entitlement",
                     "kind": "derived",
-                    "source_family": "core_formula"
+                    "source_family": "computed"
                 }
             ]
         },
