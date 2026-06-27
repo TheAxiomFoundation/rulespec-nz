@@ -27,7 +27,11 @@ def canonical_rule_id(path_str: str, rule_name: str) -> str:
 def extract_rules(path: Path) -> list[dict[str, Any]]:
     """Extract rule metadata from a RuleSpec YAML file."""
     payload = cast(dict[str, Any], yaml.safe_load(path.read_text()) or {})
+    if not isinstance(payload, dict):
+        payload = {}
     rules = cast(list[dict[str, Any]], payload.get("rules") or [])
+    if not isinstance(rules, list):
+        rules = []
     result: list[dict[str, Any]] = []
     for rule in rules:
         if not isinstance(rule, dict) or not rule.get("name"):
