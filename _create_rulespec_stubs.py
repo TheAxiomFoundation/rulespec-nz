@@ -2,6 +2,8 @@ import os
 
 base = r'C:\Users\60217257\OneDrive - Flinders\repos\legal-nz\rulespec-nz'
 
+files = {}
+
 files['policies/common/demographics.yaml'] = """format: rulespec/v1
 module:
   summary: |-
@@ -18,4 +20,3 @@ module:
       - nztaxmicrosim
 rules: []
 """
-files = {}
