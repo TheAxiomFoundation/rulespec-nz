@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # pyright: reportUnknownArgumentType=false, reportUnknownMemberType=false, reportUnknownVariableType=false
 
+import functools
 import json
 import re
 from functools import cache
@@ -25,6 +26,7 @@ DISALLOWED_GENERIC_RULE_NAMES = {
 }
 
 
+@functools.cache
 def jurisdiction_dirs() -> list[Path]:
     return sorted(
         child
@@ -35,6 +37,7 @@ def jurisdiction_dirs() -> list[Path]:
     )
 
 
+@functools.cache
 def rulespec_content_roots() -> list[Path]:
     return [
         jurisdiction / marker
