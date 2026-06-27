@@ -11,7 +11,6 @@ from typing import Any, cast
 
 import yaml
 
-
 ROOT = Path(__file__).resolve().parents[1]
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 
@@ -19,6 +18,10 @@ INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 def canonical_rule_id(path_str: str, rule_name: str) -> str:
     """Generate a stable identifier for a rule in a module."""
     path_obj = Path(path_str)
+    if path_obj.is_absolute():
+        raise ValueError(f"Path string must be relative, got absolute path: {path_str!r}")
+    if len(path_obj.parts) < 2:
+        raise ValueError(f"Path string must have at least two parts, got: {path_str!r}")
     prefix = path_obj.parts[0]
     target = Path(*path_obj.parts[1:]).with_suffix("").as_posix()
     return f"{prefix}:{target}#{rule_name}"

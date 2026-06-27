@@ -22,7 +22,7 @@
       "last_attempted_at": "2026-06-24",
       "evidence": [
         "C: free space was 3911061504 bytes on 2026-06-24, so disk space is no longer the blocker recorded on 2026-06-23.",
-        "where link.exe resolved only C:\\Users\\60217257\\scoop\\apps\\git\\current\\usr\\bin\\link.exe.",
+        "where link.exe resolved only C:\\path\\to\\scoop\\apps\\git\\current\\usr\\bin\\link.exe.",
         "where cl.exe, where clang-cl.exe, where lld-link.exe, and C:\\Program Files\\Microsoft Visual Studio probes found no compiler/linker installation on PATH or disk.",
         "cargo +stable-x86_64-pc-windows-msvc test --manifest-path rulespec-nz\\Cargo.toml --no-default-features exited 101 because link.exe was Git's Unix linker.",
         "RUSTFLAGS=-C linker=rust-lld cargo +stable-x86_64-pc-windows-msvc test --manifest-path rulespec-nz\\Cargo.toml --no-default-features exited 101 because Windows SDK import libraries were missing.",
