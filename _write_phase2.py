@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 obj = {
   "track_id": "15_openfisca_follow_on_reconciliation",
@@ -101,7 +102,7 @@ obj = {
   }
 }
 
-path = r"C:\Users\60217257\OneDrive - Flinders\repos\legal-nz\rulespec-nz\data\coverage\openfisca-aotearoa-extraction-verification.json"
+path = Path(__file__).parent / "data" / "coverage" / "openfisca-aotearoa-extraction-verification.json"
 with open(path, "w", encoding="utf-8") as f:
     json.dump(obj, f, indent=2)
 print(f"Written {path}")

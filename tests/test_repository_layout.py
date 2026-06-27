@@ -234,6 +234,7 @@ def test_no_disallowed_roots_or_yaml_fixtures() -> None:
         for path in iter_repo_files()
         if path.suffix in {".yaml", ".yml"}
         and path.relative_to(ROOT).parts[0] not in allowed
+            and path.name != ".pre-commit-config.yaml"
     ]
 
     assert disallowed_roots == []

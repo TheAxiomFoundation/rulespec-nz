@@ -10,7 +10,6 @@ from datetime import date
 from pathlib import Path
 from typing import Any, cast
 
-
 ROOT = Path(__file__).resolve().parents[1]
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
