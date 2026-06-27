@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # pyright: reportUnknownArgumentType=false, reportUnknownMemberType=false, reportUnknownVariableType=false
 
+import functools
 import json
 import re
 from pathlib import Path
@@ -49,6 +50,7 @@ def allowed_yaml_roots() -> set[str]:
         "programs",
         "known-dangling.yaml",
         "known-validation-gaps.yaml",
+        ".pre-commit-config.yaml",
         *(d.name for d in jurisdiction_dirs()),
     }
 
@@ -72,6 +74,7 @@ def apply_gap_ratchet(section: str, found: list[str]) -> list[str]:
     return problems
 
 
+@functools.cache
 def iter_repo_files() -> list[Path]:
     files: list[Path] = []
     for path in ROOT.rglob("*"):
@@ -82,6 +85,7 @@ def iter_repo_files() -> list[Path]:
     return sorted(files)
 
 
+@functools.cache
 def iter_rulespec_files() -> list[Path]:
     files: list[Path] = []
     for root in rulespec_content_roots():
