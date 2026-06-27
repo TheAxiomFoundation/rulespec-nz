@@ -1,4 +1,5 @@
 """Script to add new RuleSpec modules to the rule inventory."""
+
 import json
 from pathlib import Path
 
@@ -23,12 +24,14 @@ def extract_rule_info(payload, rel_path):
         prefix = rel_path.split("/")[0]
         target = "/".join(rel_path.replace(".yaml", "").split("/")[1:])
         stable_id = f"{prefix}:{target}#{name}"
-        result.append({
-            "id": stable_id,
-            "name": name,
-            "kind": kind,
-            "source_family": source_family,
-        })
+        result.append(
+            {
+                "id": stable_id,
+                "name": name,
+                "kind": kind,
+                "source_family": source_family,
+            }
+        )
     return result
 
 
@@ -84,7 +87,9 @@ def main():
     if SCORECARD_PATH.exists():
         sc = json.loads(SCORECARD_PATH.read_text(encoding="utf-8-sig"))
         sc["total_modules"] = len(inventory["modules"])
-        sc["modules_with_rules"] = sum(1 for m in inventory["modules"] if m.get("rules"))
+        sc["modules_with_rules"] = sum(
+            1 for m in inventory["modules"] if m.get("rules")
+        )
         sc["total_rules"] = sum(len(m.get("rules", [])) for m in inventory["modules"])
         SCORECARD_PATH.write_text(
             json.dumps(sc, indent=4, ensure_ascii=False), encoding="utf-8"
