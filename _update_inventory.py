@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(r'C:\Users\60217257\OneDrive - Flinders\repos\legal-nz\rulespec-nz')
+ROOT = Path(__file__).resolve().parent
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
 
