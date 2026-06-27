@@ -6,6 +6,7 @@ source-precedence decisions, and inventory integration.
 
 from __future__ import annotations
 
+import functools
 import json
 from pathlib import Path
 from typing import Any, cast
@@ -40,6 +41,7 @@ def load_audit_manifest() -> dict[str, Any]:
     )
 
 
+@functools.cache
 def load_inventory() -> dict[str, Any]:
     return cast(
         dict[str, Any],
