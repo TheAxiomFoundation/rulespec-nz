@@ -1,0 +1,38 @@
+{
+  "track_id": "22_social_security_main_benefits_income_tests",
+  "track_number": 22,
+  "title": "Social Security Act main benefits and income tests",
+  "status": "planned_after_track_21_and_foundation_gates",
+  "jurisdiction": "nz",
+  "backlog_id": "social-security-main-benefits",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/35",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "blocked_on_foundation_gates_and_track_21",
+    "sequence_order": 6,
+    "policy_family": "Social Security main benefits"
+  },
+  "priority": 1,
+  "sequence_order": 6,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "Social Security Act 2018",
+      "Social Security Regulations 2018",
+      "official MSD/Work and Income benefit rate tables"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "official source/corpus citation paths",
+    "benefit rate table source manifests",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}
