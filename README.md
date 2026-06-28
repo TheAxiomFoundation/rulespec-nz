@@ -15,6 +15,8 @@ This repository is the full-country Aotearoa New Zealand RuleSpec workspace. It 
 
 The detailed tax-benefit intake map is `data/coverage/tax-benefit-source-map.json`. It links each priority track to official source families, pinned comparison files, and first RuleSpec encoding batches.
 
+The wider Axiom integration boundary for this NZ workspace is documented in `docs/axiom-ecosystem-integration.md`.
+
 ## Initial References
 
 The first reference set is intentionally broad:
