@@ -1,0 +1,51 @@
+- name: weekly_compensation_uses_eighty_percent_replacement_rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_weekly_earnings: 1000
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_entitled: true
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_full_time_earner_qualifies_for_minimum: false
+  output:
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_base_amount: 800
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_weekly_payable: 800
+
+- name: weekly_compensation_applies_full_time_minimum_rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_weekly_earnings: 500
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_entitled: true
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_full_time_earner_qualifies_for_minimum: true
+  output:
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_base_amount: 400
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_minimum_floor: 766.4
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_weekly_payable: 766.4
+
+- name: weekly_compensation_is_capped_at_maximum_rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_weekly_earnings: 4000
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_entitled: true
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_full_time_earner_qualifies_for_minimum: true
+  output:
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_base_amount: 3200
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_weekly_payable: 2418.55
+
+- name: weekly_compensation_returns_zero_when_not_entitled
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_weekly_earnings: 1000
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_entitled: false
+    nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_full_time_earner_qualifies_for_minimum: true
+  output:
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_weekly_payable: 0

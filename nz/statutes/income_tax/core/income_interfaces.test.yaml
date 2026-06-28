@@ -1,0 +1,67 @@
+- name: annualized_amount_over_days_preserves_full_year_amount
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_amount: 3650
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_days: 365
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_days_in_year: 365
+    nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_days: 3650
+
+- name: annualized_amount_over_days_scales_partial_period
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_amount: 1830
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_days: 183
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_days: 3650
+
+- name: annualized_amount_over_days_returns_zero_when_period_is_zero
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_amount: 5000
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_days: 0
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_days: 0
+
+- name: annualized_amount_over_weeks_preserves_full_year_amount
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_amount: 5200
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_weeks: 52
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_weeks_in_year: 52
+    nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_weeks: 5200
+
+- name: annualized_amount_over_weeks_scales_partial_period
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_amount: 1300
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_weeks: 13
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_weeks: 5200
+
+- name: annualized_amount_over_weeks_returns_zero_when_period_is_zero
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_amount: 5000
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_weeks: 0
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_weeks: 0

@@ -1,0 +1,32 @@
+{
+  "track_id": "24_acc_levies_income_supports",
+  "track_number": 24,
+  "title": "ACC levies and income support surfaces",
+  "status": "in_progress_first_implementation_slice",
+  "backlog_id": "levies-acc",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/37",
+  "sequence_order": 8,
+  "policy_family": "ACC levies and income supports",
+  "dependencies": [
+    {
+      "kind": "upstream_issue",
+      "reference": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/30",
+      "description": "Track 23 income interfaces"
+    },
+    {
+      "kind": "upstream_issue",
+      "reference": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/31",
+      "description": "ACC source extraction and foundation gate"
+    },
+    {
+      "kind": "upstream_issue",
+      "reference": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/32",
+      "description": "Oracle pinning and comparison gate"
+    },
+    {
+      "kind": "track",
+      "reference": "../23_income_interfaces",
+      "description": "Shared income interfaces"
+    }
+  ]
+}

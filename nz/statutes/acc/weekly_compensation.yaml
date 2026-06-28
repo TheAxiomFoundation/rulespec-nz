@@ -1,0 +1,113 @@
+format: rulespec/v1
+module:
+  summary: |-
+    ACC weekly compensation replacement-rate surface for New Zealand. This
+    first slice captures the core weekly payment rate, the minimum weekly rate
+    for full-time earners, and the weekly cap used to bound payable amounts.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2001/0049/section/1-DLM104544
+      - nz/statute/act/public/2001/0049/section/1-DLM105480
+      - nz/statute/act/public/2001/0049/section/1-DLM106145
+      - nz/statute/act/public/2001/0049/section/1-DLM7211415
+      - nz/statute/act/public/2001/0049/section/1-DLM99497
+      - nz/statute/act/public/2001/0049/section/1-LMS473
+      - nz/statute/act/public/2001/0049/section/1-LMS479
+    agency_reference_urls:
+      - https://www.acc.co.nz/
+      - https://www.ird.govt.nz/
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: acc_weekly_compensation_weekly_earnings
+    kind: input
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Track 23 income interfaces
+  - name: acc_weekly_compensation_entitled
+    kind: input
+    entity: Person
+    dtype: Boolean
+    period: Week
+    source: Accident Compensation Act 2001 weekly compensation entitlement predicates
+  - name: acc_weekly_compensation_full_time_earner_qualifies_for_minimum
+    kind: input
+    entity: Person
+    dtype: Boolean
+    period: Week
+    source: ACC client payment notice and weekly compensation guidance
+  - name: acc_weekly_compensation_replacement_rate
+    kind: parameter
+    dtype: Rate
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.8
+  - name: acc_weekly_compensation_full_time_minimum_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: ACC client payment notice
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          766.40
+  - name: acc_weekly_compensation_maximum_weekly_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: ACC client payment notice
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          2418.55
+  - name: acc_weekly_compensation_base_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, acc_weekly_compensation_weekly_earnings) * acc_weekly_compensation_replacement_rate
+  - name: acc_weekly_compensation_minimum_floor
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC client payment notice
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if acc_weekly_compensation_full_time_earner_qualifies_for_minimum:
+              acc_weekly_compensation_full_time_minimum_rate
+          else:
+              0
+  - name: acc_weekly_compensation_weekly_payable
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC weekly compensation guidance; ACC client payment notice
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if acc_weekly_compensation_entitled:
+              min(
+                  acc_weekly_compensation_maximum_weekly_rate,
+                  max(
+                      acc_weekly_compensation_base_amount,
+                      acc_weekly_compensation_minimum_floor
+                  )
+              )
+          else:
+              0
