@@ -124,6 +124,48 @@
     nz:statutes/social_security/main_benefits/entitlement#jobseeker_no_or_minimum_income_requirement: holds
     nz:statutes/social_security/main_benefits/entitlement#jobseeker_not_ineligible: holds
 
+- name: jobseeker_dependent_child_holds_at_age_20
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_new_zealand_citizen: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_residence_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_after_citizen_or_resident: 3
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_refugee_or_protected_person: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_reciprocity_country: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_before_application: 0
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_regulations_treat_person_as_meeting_residence_requirement: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_unlawfully_resident_or_present_in_new_zealand: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_only_temporary_entry_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_section_205_override_applies: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_another_main_benefit: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_new_zealand_superannuation: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_veterans_pension: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_in_full_time_employment: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_losing_earnings_through_health_condition_or_injury: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_available_for_and_seeking_full_time_employment: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_willing_and_able_to_undertake_full_time_employment: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_taken_reasonable_steps_to_find_full_time_employment: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_would_satisfy_available_for_work_but_for_work_test_exemption_circumstances: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_health_condition_injury_or_disability_limits_capacity_to_seek_or_undertake_work: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_has_dependent_child: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_applicant_age: 20
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_has_no_income: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_income_less_than_zero_rate_cutout: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_temporary_income_reduces_rate_to_zero_but_otherwise_entitled: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_full_time_student: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_section_25_discretionary_student_eligibility: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_unemployed_due_to_strike: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_unemployed_or_on_leave_for_employment_related_training: false
+  output:
+    nz:statutes/social_security/main_benefits/entitlement#jobseeker_age_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#jobseeker_no_or_minimum_income_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#jobseeker_not_ineligible: holds
+    nz:statutes/social_security/main_benefits/entitlement#entitled_to_jobseeker_support: holds
+
 - name: sole_parent_entitlement_single_parent
   period:
     period_kind: tax_year
@@ -168,6 +210,47 @@
     nz:statutes/social_security/main_benefits/entitlement#sole_parent_age_requirement: holds
     nz:statutes/social_security/main_benefits/entitlement#entitled_to_sole_parent_support: holds
     nz:statutes/social_security/main_benefits/entitlement#sole_parent_support_expires_when_youngest_child_turns_age_limit: holds
+
+- name: sole_parent_entitlement_age_boundary_passes_at_20
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_new_zealand_citizen: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_residence_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_after_citizen_or_resident: 5
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_refugee_or_protected_person: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_reciprocity_country: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_before_application: 0
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_regulations_treat_person_as_meeting_residence_requirement: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_unlawfully_resident_or_present_in_new_zealand: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_only_temporary_entry_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_section_205_override_applies: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_another_main_benefit: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_new_zealand_superannuation: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_veterans_pension: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_is_single: true
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_spouse_or_partner_died: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_marriage_or_civil_union_dissolved: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_living_apart_and_lost_or_lacks_partner_support: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_lost_regular_support_due_to_partner_sentence_conditions: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_is_mother_or_father_or_child_regarded_as_child: true
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_caring_for_dependent_children_under_age_limit: 1
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_split_care_situation_applies: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_split_care_entitlement_allocated_to_person: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_split_care_court_order_exception_applies: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_applicant_age: 20
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_receiving_sole_parent_support: false
+    nz:statutes/social_security/main_benefits/entitlement#input.sole_parent_youngest_dependent_child_age: 13
+  output:
+    nz:statutes/social_security/main_benefits/entitlement#sole_parent_relationship_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#sole_parent_child_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#sole_parent_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#sole_parent_split_care_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#sole_parent_age_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#entitled_to_sole_parent_support: holds
 
 - name: sole_parent_split_care_allocation_failure
   period:
@@ -256,6 +339,28 @@
     nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_or_blind_requirement: not_holds
     nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_or_blind_age_requirement: not_holds
     nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_or_blind_not_ineligible: not_holds
+
+- name: supported_living_restricted_work_capacity_passes_at_14_hours
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_restricting_condition_expected_to_continue_required_period: true
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_terminal_condition: false
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_regular_open_employment_capacity_hours_per_week: 14
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_capacity_restricted_by_health_condition_injury_or_disability: true
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_totally_blind: false
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_applicant_age: 16
+    nz:statutes/social_security/main_benefits/entitlement#input.supported_living_restricted_capacity_or_blindness_self_inflicted_to_qualify: false
+  output:
+    nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_work_capacity_permanent: holds
+    nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_work_capacity_severe: holds
+    nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_work_capacity: holds
+    nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_or_blind_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_or_blind_age_requirement: holds
+    nz:statutes/social_security/main_benefits/entitlement#supported_living_restricted_or_blind_not_ineligible: holds
+    nz:statutes/social_security/main_benefits/entitlement#entitled_to_supported_living_payment_restricted_or_blind: holds
 
 - name: supported_living_caring_entitlement_and_temporary_continuation
   period:

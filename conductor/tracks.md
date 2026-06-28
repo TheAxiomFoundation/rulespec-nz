@@ -6,6 +6,18 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
+## Track 23: Income Interfaces
+*Status: planned before Track 24 and foundation gates*
+*Link: [./tracks/23_income_interfaces/](./tracks/23_income_interfaces/)*
+
+## Track 24: ACC Levies and Income Support Surfaces
+*Status: planned after Track 23 and foundation gates*
+*Link: [./tracks/24_acc_levies_income_supports/](./tracks/24_acc_levies_income_supports/)*
+
+## Track 25: Social Security Act main benefits and income tests
+*Status: planned after Track 24 and foundation gates*
+*Link: [./tracks/25_social_security_main_benefits/](./tracks/25_social_security_main_benefits/)*
+
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
 *Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
@@ -82,5 +94,3 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Track 12: nztaxmicrosim Rule Incorporation
 *Status: archived after review remediation*
 *Link: [./conductor/tracks/archive/12_nztaxmicrosim_rule_incorporation/](./conductor/tracks/archive/12_nztaxmicrosim_rule_incorporation/)*
-
-

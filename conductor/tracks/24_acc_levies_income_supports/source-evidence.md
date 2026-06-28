@@ -45,6 +45,6 @@
 
 ## Residual Risk
 
-- Interpretation questions: income interface with Track 23 tax definitions.
+- Interpretation questions: income interface with Track 23 shared income interfaces.
 - Missing official evidence: source citation paths pending.
 - Blockers: foundation gates #30, #31, #32; Track 23 income interfaces.

@@ -1,0 +1,79 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Shared income-interface helpers for downstream NZ income-tax, family
+    support, welfare, and ACC surfaces. This module centralises the period
+    conversion primitives that are repeatedly used by annualised benefit and
+    tax-credit calculations: days in a tax year, weeks in a tax year, and the
+    safe annualisation of period amounts over day- or week-based entitlement
+    windows.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/section/BC-2
+      - nz/statute/act/public/2007/0097/section/BC-3
+      - nz/statute/act/public/2007/0097/section/MB-2
+      - nz/statute/act/public/2007/0097/section/MD-3
+      - nz/statute/act/public/2007/0097/section/ME-3
+      - nz/statute/act/public/2007/0097/section/MG-2
+      - nz/statute/act/public/2007/0097/section/MG-3
+    agency_reference_urls:
+      - https://www.ird.govt.nz/working-for-families/types/family-tax-credit
+      - https://www.ird.govt.nz/working-for-families/types/in-work-tax-credit
+      - https://www.ird.govt.nz/working-for-families/types/best-start
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: income_tax_days_in_year
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 ss BC 2, MD 3, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          365
+  - name: income_tax_weeks_in_year
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act 2007 ss MD 10 and ME 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          52
+  - name: income_tax_annualized_amount_over_days
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss BC 2, MD 3, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_period_days > 0:
+              (
+                  income_tax_period_amount
+                  * income_tax_days_in_year
+                  / income_tax_period_days
+              )
+          else:
+              0
+  - name: income_tax_annualized_amount_over_weeks
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MD 10 and ME 1
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_period_weeks > 0:
+              (
+                  income_tax_period_amount
+                  * income_tax_weeks_in_year
+                  / income_tax_period_weeks
+              )
+          else:
+              0
