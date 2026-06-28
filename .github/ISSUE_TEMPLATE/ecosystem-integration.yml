@@ -1,0 +1,32 @@
+name: Ecosystem integration
+description: Track integration between rulespec-nz and wider Axiom repositories or products.
+title: "[ecosystem]: "
+labels: ["ecosystem-integration"]
+body:
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Axiom surface
+      options:
+        - axiom-corpus
+        - axiom-encode
+        - axiom-rules-engine
+        - axiom-oracles
+        - axiom-foundation.org / app
+        - sibling rulespec repository
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Ownership boundary
+      description: State what belongs in rulespec-nz and what belongs in the other repository or product.
+    validations:
+      required: true
+  - type: textarea
+    id: followup
+    attributes:
+      label: Follow-up
+      description: List required repository changes, issues, PRs, or docs updates.
+    validations:
+      required: false
