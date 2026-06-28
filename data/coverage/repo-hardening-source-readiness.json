@@ -1,0 +1,64 @@
+{
+  "track_id": "19_repo_hardening_and_source_readiness",
+  "generated_at": "2026-06-28",
+  "jurisdiction": "nz",
+  "scope": "repo_quality_and_source_readiness",
+  "status": "reviewed_ready",
+  "quality_gates": {
+    "tooling_files": [
+      "pyproject.toml",
+      "pixi.toml",
+      "Makefile"
+    ],
+    "required_pixi_tasks": [
+      "lint",
+      "format-check",
+      "typecheck",
+      "test",
+      "test-unit",
+      "test-integration",
+      "test-e2e",
+      "rust-test",
+      "quality"
+    ],
+    "pytest_markers": [
+      "unit",
+      "integration",
+      "e2e"
+    ],
+    "strict_typing": "basedpyright strict"
+  },
+  "ci_readiness": {
+    "workflow": ".github/workflows/repository-checks.yml",
+    "reusable_validation_workflow": "TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@589811b853533c2942750fcc82351de9a6d94131",
+    "roadmap_check_command": "python scripts/nz_full_country_roadmap_sync.py --check",
+    "status": "configured"
+  },
+  "source_readiness": {
+    "source_map": "data/coverage/tax-benefit-source-map.json",
+    "backlog": "data/coverage/full-country-backlog.json",
+    "current_blockers_expected": [],
+    "pco_corpus_locator": {
+      "run_id": "2026-06-16-pco-latest",
+      "path": "data/corpus/inventory/nz/tax-benefit-pco-locators.json",
+      "axiom_corpus_ref": "d7c53d21a6616e15e2e4e5176267ae93622b79bd",
+      "minimum_source_files": 20000,
+      "minimum_provisions": 500000
+    },
+    "agency_inventory_statuses": [
+      "ready_for_agency_inventory"
+    ],
+    "required_source_statuses": [
+      "pco_corpus_located",
+      "ready_for_agency_inventory"
+    ]
+  },
+  "review": {
+    "conductor_review_equivalent": [
+      "tests/test_quality_tooling_config.py",
+      "tests/test_repository_layout.py",
+      "tests/test_repo_hardening_source_readiness.py"
+    ],
+    "decision": "archive_after_clean_review"
+  }
+}
