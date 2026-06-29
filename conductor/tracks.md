@@ -7,7 +7,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Active Tracks
 
 ## Track 23: Income Interfaces
-*Status: planned before Track 24 and foundation gates*
+*Status: completed; packaged review ready*
 *Link: [./tracks/23_income_interfaces/](./tracks/23_income_interfaces/)*
 
 ## Track 24: ACC Levies and Income Support Surfaces

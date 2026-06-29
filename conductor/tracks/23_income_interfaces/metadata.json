@@ -2,13 +2,13 @@
   "track_id": "23_income_interfaces",
   "track_number": 23,
   "title": "Income Interfaces",
-  "status": "in_progress_first_implementation_slice",
+  "status": "packaged_review_ready",
   "jurisdiction": "nz",
   "backlog_id": "income-interfaces",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/48",
   "github_project": {
     "url": "https://github.com/users/edithatogo/projects/1",
-    "status": "blocked_on_foundation_gates_and_track_24",
+    "status": "ready_for_review",
     "sequence_order": 7,
     "policy_family": "Shared income interfaces"
   },
