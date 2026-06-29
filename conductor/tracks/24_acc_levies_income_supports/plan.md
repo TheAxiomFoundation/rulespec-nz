@@ -16,4 +16,4 @@
 
 - [x] Add levy-year boundary tests for the published 2025, 2026, and 2027 standard earners' levy schedule.
 - [x] Add levy-year boundary tests for the low self-employed minimum formula.
-- [ ] Capture any additional levy-source notes needed for the next ACC slice.
+- [x] Capture any additional levy-source notes needed for the next ACC slice.

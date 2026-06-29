@@ -126,6 +126,18 @@
     nz:regulations/acc/earners_levy#acc_weekly_compensation_purchase_multiplier: 1.25
     nz:regulations/acc/earners_levy#acc_weekly_compensation_purchase_levy_excluding_gst: 1140
 
+- name: weekly_compensation_purchase_2025
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_self_employed_purchases_weekly_compensation: true
+    nz:regulations/acc/earners_levy#input.acc_agreed_weekly_compensation_purchased_annual_amount: 60000
+  output:
+    nz:regulations/acc/earners_levy#acc_weekly_compensation_purchase_multiplier: 1.25
+    nz:regulations/acc/earners_levy#acc_weekly_compensation_purchase_levy_excluding_gst: 1140
+
 - name: weekly_compensation_purchase_not_made
   period:
     period_kind: tax_year
@@ -143,6 +155,20 @@
     name: calendar_day
     start: '2026-06-16'
     end: '2026-06-16'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_invoice_issued_to_self_employed_person_for_acc_act_purposes: true
+    nz:regulations/acc/earners_levy#input.acc_invoice_includes_earners_levy: true
+    nz:regulations/acc/earners_levy#input.acc_self_employed_invoice_acc_levy_amount: 40
+  output:
+    nz:regulations/acc/earners_levy#acc_self_employed_invoice_exempt_amount: 40
+    nz:regulations/acc/earners_levy#acc_self_employed_invoice_levy_payable_after_exempt_amount: 0
+
+- name: self_employed_invoice_exempt_amount_applies_2025
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2025-06-16'
+    end: '2025-06-16'
   input:
     nz:regulations/acc/earners_levy#input.acc_invoice_issued_to_self_employed_person_for_acc_act_purposes: true
     nz:regulations/acc/earners_levy#input.acc_invoice_includes_earners_levy: true
