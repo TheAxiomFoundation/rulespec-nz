@@ -5,7 +5,7 @@
 - Track id: `24_acc_levies_income_supports`
 - Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/37
 - Policy family: ACC levies and income supports
-- Implementation PR: pending
+- Implementation PR: https://github.com/TheAxiomFoundation/rulespec-nz/pull/51
 
 ## Official Source Family
 

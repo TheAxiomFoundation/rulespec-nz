@@ -7,7 +7,7 @@
 
 ## Phase 1: ACC weekly compensation first slice
 
-- [~] Encode the first ACC weekly compensation RuleSpec surface under `nz/statutes/acc/`.
-- [ ] Add tests for entitlement, low-income minimum, and cap behaviour.
-- [ ] Record the source evidence for the implemented slice.
-- [ ] Update the track registry status once the slice is complete.
+- [x] Encode the first ACC weekly compensation RuleSpec surface under `nz/statutes/acc/`.
+- [x] Add tests for entitlement, low-income minimum, and cap behaviour.
+- [x] Record the source evidence for the implemented slice.
+- [x] Update the track registry status once the slice is complete.
