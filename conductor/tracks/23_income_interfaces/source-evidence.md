@@ -3,9 +3,9 @@
 ## Track
 
 - Track id: `23_income_interfaces`
-- Upstream issue: pending
+- Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/48
 - Policy family: shared income interfaces
-- Implementation PR: pending
+- Implementation PR: https://github.com/TheAxiomFoundation/rulespec-nz/pull/50
 
 ## Official Source Family
 
@@ -33,11 +33,13 @@
 
 - `nz/statutes/income_tax/core/income_interfaces.yaml`
 - `nz/statutes/income_tax/core/income_interfaces.test.yaml`
+- `nz/statutes/income_tax/core/taxable_income.yaml`
+- `nz/statutes/income_tax/core/taxable_income.test.yaml`
 
 ## Companion Tests
 
 - Scenario families: wage, salary, self-employment, annualisation, bridge, and period-conversion cases.
-- Expected outputs: pending.
+- Expected outputs: annualisation conversions, weekly/fortnightly/monthly bridge conversions, and shared taxable-income primitives.
 - Edge cases: partial periods, negative adjustments, and date-boundary transitions.
 - Historical/date-effective cases: required.
 

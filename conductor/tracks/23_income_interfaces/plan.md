@@ -19,12 +19,12 @@
 
 ## Phase 3: RuleSpec Encoding
 
-- [ ] Encode the shared income-base definitions and bridge surfaces.
-- [ ] Add period conversion helpers where downstream tracks need them.
+- [x] Encode the shared income-base definitions and bridge surfaces.
+- [x] Add period conversion helpers where downstream tracks need them.
 - [ ] Keep entitlement logic out of this track unless it is a shared primitive.
 
 ## Phase 4: Tests and Upstream Packaging
 
-- [ ] Add companion `.test.yaml` fixtures.
+- [x] Add companion `.test.yaml` fixtures.
 - [ ] Compare against pinned oracle/reference outputs as non-authoritative checks.
 - [ ] Prepare reviewable legal-content PR slices.

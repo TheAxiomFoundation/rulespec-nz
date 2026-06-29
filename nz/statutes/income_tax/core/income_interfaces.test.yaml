@@ -65,3 +65,27 @@
     nz:statutes/income_tax/core/income_interfaces#input.income_tax_period_weeks: 0
   output:
     nz:statutes/income_tax/core/income_interfaces#income_tax_annualized_amount_over_weeks: 0
+
+- name: annual_amount_bridges_to_weekly_fortnightly_and_monthly_amounts
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_annual_amount: 12000
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_weekly_amount_from_annual_amount: 230.76923076923077
+    nz:statutes/income_tax/core/income_interfaces#income_tax_fortnightly_amount_from_annual_amount: 461.53846153846155
+    nz:statutes/income_tax/core/income_interfaces#income_tax_monthly_amount_from_annual_amount: 1000
+
+- name: annual_amount_bridge_returns_zero_when_annual_amount_is_zero
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/income_interfaces#input.income_tax_annual_amount: 0
+  output:
+    nz:statutes/income_tax/core/income_interfaces#income_tax_weekly_amount_from_annual_amount: 0
+    nz:statutes/income_tax/core/income_interfaces#income_tax_fortnightly_amount_from_annual_amount: 0
+    nz:statutes/income_tax/core/income_interfaces#income_tax_monthly_amount_from_annual_amount: 0

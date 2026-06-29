@@ -77,3 +77,45 @@ rules:
               )
           else:
               0
+  - name: income_tax_weekly_amount_from_annual_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_annual_amount > 0:
+              income_tax_annual_amount / income_tax_weeks_in_year
+          else:
+              0
+  - name: income_tax_fortnightly_amount_from_annual_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Fortnight
+    unit: NZD
+    source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_annual_amount > 0:
+              income_tax_annual_amount / 26
+          else:
+              0
+  - name: income_tax_monthly_amount_from_annual_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: NZD
+    source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_annual_amount > 0:
+              income_tax_annual_amount / 12
+          else:
+              0
