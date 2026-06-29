@@ -6,9 +6,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
-## Track 23: Income Interfaces
-*Status: completed; packaged review ready*
-*Link: [./tracks/23_income_interfaces/](./tracks/23_income_interfaces/)*
 
 ## Track 24: ACC Levies and Income Support Surfaces
 *Status: planned after Track 23 and foundation gates*
@@ -49,7 +46,9 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Status: archived after clean review*
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
-## Archived Tracks
+## Archived Tracks`r`n## Track 23: Income Interfaces
+*Status: archived after clean review*
+*Link: [./tracks/archive/23_income_interfaces/](./tracks/archive/23_income_interfaces/)*
 ## Track 18: RuleSpec Rule Inventory and Triangulation
 *Status: archived after clean review*
 *Link: [./conductor/tracks/archive/18_rulespec_rule_inventory_triangulation/](./conductor/tracks/archive/18_rulespec_rule_inventory_triangulation/)*
