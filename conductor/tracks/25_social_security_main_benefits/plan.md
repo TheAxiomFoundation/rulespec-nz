@@ -28,4 +28,4 @@
 
 - [x] Add companion `.test.yaml` fixtures.
 - [ ] Compare against pinned oracle/reference outputs as non-authoritative checks.
-- [ ] Prepare reviewable legal-content PR slices.
+- [x] Prepare reviewable legal-content PR slices.

@@ -5,7 +5,7 @@
 - Track id: `25_social_security_main_benefits`
 - Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/49
 - Policy family: social security main benefits
-- Implementation PR: pending
+- Implementation PR: https://github.com/TheAxiomFoundation/rulespec-nz/pull/51
 
 ## Official Source Family
 
@@ -39,6 +39,7 @@
 
 - `nz/statutes/social_security/main_benefits/rates.test.yaml`
 - `nz/statutes/social_security/main_benefits/entitlement.test.yaml`
+- Implementation PR 51 also carries the ACC track scaffold and weekly-compensation slice, so the review must be read as a combined branch package.
 
 ## Companion Tests
 
