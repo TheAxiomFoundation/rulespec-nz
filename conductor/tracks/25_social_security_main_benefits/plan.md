@@ -15,8 +15,8 @@
 
 ## Phase 2: Source Inventory
 
-- [ ] Locate the Social Security Act provisions and any 2026 rate orders or MSD guidance.
-- [ ] Record corpus citation paths or source manifests.
+- [x] Locate the Social Security Act provisions and any 2026 rate orders or MSD guidance.
+- [x] Record corpus citation paths or source manifests.
 
 ## Phase 3: RuleSpec Encoding
 

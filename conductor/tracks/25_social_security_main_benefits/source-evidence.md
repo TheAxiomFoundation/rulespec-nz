@@ -11,8 +11,13 @@
 
 - Act, regulation, order, or official agency table: Social Security Act 2018; Social Security (Rates of Benefits and Allowances) Order 2026; official MSD guidance.
 - Administering agency: MSD.
-- Source status: pending foundation gate #31.
-- Publication state checked: pending.
+- Source status: source inventory recorded for the 2026 main-benefit surface.
+- Publication state checked: yes.
+- Core official references:
+  - https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2026/36/en/latest/
+  - https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2026/36/en/2026-03-02B.pdf
+  - https://www.msd.govt.nz/about-msd-and-our-work/publications-resources/statistics/benefit/2026/benefit-fact-sheet-snapshot-march-2026.pdf
+  - https://www.msd.govt.nz/what-we-can-do/community/carers/guide-for-carers/money/financial-support/supported-living-payment.html
 
 ## Corpus Evidence
 
