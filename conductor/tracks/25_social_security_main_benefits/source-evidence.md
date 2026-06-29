@@ -3,7 +3,7 @@
 ## Track
 
 - Track id: `25_social_security_main_benefits`
-- Upstream issue: pending
+- Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/49
 - Policy family: social security main benefits
 - Implementation PR: pending
 
@@ -37,8 +37,8 @@
 ## Companion Tests
 
 - Scenario families: entitlement, single-parent, supported-living, and income-test cases.
-- Expected outputs: pending.
-- Edge cases: threshold crossings and rate-order transitions.
+- Expected outputs: entitlement holds / not_holds predicates, weekly rates, income-test reductions, and Supported Living Payment blind subsidy.
+- Edge cases: threshold crossings, rate-order transitions, branch coverage for standard jobseeker and partnered supported-living paths, long-term residential care halving, and blind subsidy caps.
 - Historical/date-effective cases: required.
 
 ## Oracle Comparison

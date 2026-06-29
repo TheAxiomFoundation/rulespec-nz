@@ -8,9 +8,10 @@
 
 ## Phase 1: Coverage Gap Inventory
 
-- [ ] Compare current Social Security outputs against the `social-security-main-benefits` backlog.
-- [ ] Identify missing entitlement, rate, and income-test surfaces.
-- [ ] Create or link the upstream tracking issue.
+- [x] Compare current Social Security outputs against the `social-security-main-benefits` backlog.
+- [x] Identify missing entitlement, rate, and income-test surfaces.
+- [x] Create or link the upstream tracking issue.
+- [x] Add branch-coverage tests for the standard jobseeker no-children rate and the partnered supported-living super/veterans rate.
 
 ## Phase 2: Source Inventory
 
