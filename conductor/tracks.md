@@ -10,9 +10,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 
-## Track 29: NZ Superannuation and veteran pension surfaces
-*Status: planned after personal income tax gap-fill and the foundation gates*
-*Link: [./tracks/29_nz_superannuation_veteran_pension/](./tracks/29_nz_superannuation_veteran_pension/)*
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
@@ -27,6 +24,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 29: NZ Superannuation and veteran pension surfaces
+*Status: archived after clean review*
+*Link: [./tracks/archive/29_nz_superannuation_veteran_pension/](./tracks/archive/29_nz_superannuation_veteran_pension/)*
+
 ## Track 28: Personal income tax gap-fill
 *Status: archived after clean review*
 *Link: [./tracks/archive/28_personal_income_tax_gap_fill/](./tracks/archive/28_personal_income_tax_gap_fill/)*

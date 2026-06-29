@@ -1,0 +1,40 @@
+{
+  "track_id": "29_nz_superannuation_veteran_pension",
+  "track_number": 29,
+  "title": "NZ Superannuation and veteran pension surfaces",
+  "status": "archived_after_clean_review",
+  "jurisdiction": "nz",
+  "backlog_id": "superannuation",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/52",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "archived",
+    "sequence_order": 13,
+    "policy_family": "NZ Superannuation and veteran pension"
+  },
+  "priority": 2,
+  "sequence_order": 13,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "New Zealand Superannuation and Retirement Income Act 2001",
+      "Veterans' Support Act 2014",
+      "official MSD rate tables"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "Track 25 social security main benefits and income tests",
+    "Track 28 personal income tax gap-fill",
+    "official source/corpus citation paths",
+    "NZ Super source manifests",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}
