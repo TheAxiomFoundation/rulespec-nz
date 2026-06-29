@@ -41,6 +41,7 @@
 - `nz/statutes/social_security/main_benefits/entitlement.test.yaml`
 - Implementation PR 51 also carries the ACC track scaffold and weekly-compensation slice, so the review must be read as a combined branch package.
 - Oracle comparison draft: `conductor/tracks/25_social_security_main_benefits/oracle-comparison-draft.md`
+- Pinned-manifest draft: `conductor/tracks/25_social_security_main_benefits/oracle-manifest-draft.json`
 
 ## Companion Tests
 
@@ -56,6 +57,7 @@
 - Comparison role: non-authoritative only.
 - Known divergences: pending.
 - Upstream comparison guidance: https://github.com/TheAxiomFoundation/rulespec-nz/issues/32#issuecomment-4828717845
+- Local pinned-manifest skeleton: `conductor/tracks/25_social_security_main_benefits/oracle-manifest-draft.json`
 
 ## Residual Risk
 

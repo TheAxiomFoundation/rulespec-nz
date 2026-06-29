@@ -1,0 +1,47 @@
+{
+  "track_id": "25_social_security_main_benefits",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/32",
+  "purpose": "Draft pinned comparison-manifest skeleton for non-authoritative oracle reconciliation.",
+  "authority": "non_authoritative",
+  "status": "blocked_pending_upstream_pins",
+  "oracle_targets": [
+    {
+      "id": "nztaxmicrosim",
+      "commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+      "coverage": ["main_benefits", "accommodation_supplement", "working_for_families", "income_tax", "acc_earners_levy"]
+    },
+    {
+      "id": "openfisca-aotearoa",
+      "commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+      "coverage": ["social_security", "jobseeker_support", "sole_parent_support", "supported_living_payment", "accommodation_supplement"]
+    }
+  ],
+  "comparison_cases": [
+    "jobseeker_entitlement_standard_unemployed_adult",
+    "jobseeker_full_time_student_without_discretionary_eligibility_is_ineligible",
+    "jobseeker_single_standard_no_children_uses_income_test_3",
+    "jobseeker_single_under_25_without_children_uses_income_test_3",
+    "sole_parent_entitlement_single_parent",
+    "supported_living_restricted_work_capacity_entitlement",
+    "supported_living_caring_entitlement_and_temporary_continuation",
+    "supported_living_single_under_18_without_children_uses_income_test_1",
+    "supported_living_partnered_with_super_or_veterans_without_children_uses_income_test_2"
+  ],
+  "outcome_fields": [
+    "entitlement_holds",
+    "entitlement_not_holds",
+    "gross_weekly_rates",
+    "weekly_income_test_reductions",
+    "net_weekly_payments",
+    "blind_subsidy_amounts"
+  ],
+  "blocked_by": [
+    "upstream issue #32 pinned comparison manifests",
+    "local manifest ingestion pipeline not yet wired to authoritative pins"
+  ],
+  "notes": [
+    "This draft is for reconciliation only and does not assert law.",
+    "Accommodation Supplement remains separate from the main-benefits track.",
+    "Oracle/reference comparison remains non-authoritative until upstream publishes pinned manifests."
+  ]
+}
