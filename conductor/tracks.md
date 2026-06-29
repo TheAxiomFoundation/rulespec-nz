@@ -33,6 +33,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Status: planned after family-support and housing surfaces*
 *Link: [./tracks/28_personal_income_tax_gap_fill/](./tracks/28_personal_income_tax_gap_fill/)*
 
+## Track 29: NZ Superannuation and veteran pension surfaces
+*Status: planned after personal income tax gap-fill and the foundation gates*
+*Link: [./tracks/29_nz_superannuation_veteran_pension/](./tracks/29_nz_superannuation_veteran_pension/)*
+
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
 *Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
