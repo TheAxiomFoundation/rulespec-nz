@@ -235,6 +235,21 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           max(0, income_tax_schedular_income - income_tax_schedular_income_deductions)
+  - name: income_tax_shared_income_bridge_total
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 shared income bridge; aggregation of employment, activity, and schedular income components
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              income_tax_employment_income_included
+              + income_tax_activity_income_included
+              + income_tax_schedular_income_included
+          )
   - name: income_tax_non_filing_taxpayer_liability
     kind: derived
     entity: Person

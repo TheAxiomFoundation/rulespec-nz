@@ -168,6 +168,24 @@
   output:
     nz:statutes/income_tax/core/taxable_income#income_tax_schedular_income_included: 0
 
+- name: shared_income_bridge_total_combines_included_components
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_employment_income: 72000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_employment_deductions: 5000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_activity_income: 12000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_activity_deductions: 9000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_schedular_income: 10000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_schedular_income_deductions: 1500
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_employment_income_included: 67000
+    nz:statutes/income_tax/core/taxable_income#income_tax_activity_income_included: 3000
+    nz:statutes/income_tax/core/taxable_income#income_tax_schedular_income_included: 8500
+    nz:statutes/income_tax/core/taxable_income#income_tax_shared_income_bridge_total: 78500
+
 - name: general_permission_allows_assessable_income_deduction
   period:
     period_kind: tax_year

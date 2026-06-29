@@ -25,6 +25,7 @@
 - [x] Add the shared activity-income bridge for business/self-employment inputs.
 - [x] Add the shared employment-income bridge for salary and wage inputs.
 - [x] Add the shared schedular-income bridge for withholding-style inputs.
+- [x] Add a combined shared-income bridge total for downstream consumers.
 - [ ] Keep entitlement logic out of this track unless it is a shared primitive.
 
 ## Phase 4: Tests and Upstream Packaging
