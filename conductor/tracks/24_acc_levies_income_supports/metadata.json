@@ -2,7 +2,7 @@
   "track_id": "24_acc_levies_income_supports",
   "track_number": 24,
   "title": "ACC levies and income support surfaces",
-  "status": "in_progress_first_implementation_slice",
+  "status": "completed_first_implementation_slice",
   "backlog_id": "levies-acc",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/37",
   "sequence_order": 8,
