@@ -23,6 +23,7 @@
 - [x] Add period conversion helpers where downstream tracks need them.
 - [x] Add loss carry-over primitives where downstream tracks need them.
 - [x] Add the shared activity-income bridge for business/self-employment inputs.
+- [x] Add the shared employment-income bridge for salary and wage inputs.
 - [ ] Keep entitlement logic out of this track unless it is a shared primitive.
 
 ## Phase 4: Tests and Upstream Packaging

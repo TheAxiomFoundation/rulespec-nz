@@ -213,6 +213,17 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           max(0, income_tax_activity_income - income_tax_activity_deductions)
+  - name: income_tax_employment_income_included
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s CE 1; shared income-interface bridge for employment, salary, and wage income
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, income_tax_employment_income - income_tax_employment_deductions)
   - name: income_tax_non_filing_taxpayer_liability
     kind: derived
     entity: Person
