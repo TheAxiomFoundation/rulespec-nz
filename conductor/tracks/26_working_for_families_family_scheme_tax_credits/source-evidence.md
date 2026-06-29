@@ -19,10 +19,10 @@
 
 ## Corpus Evidence
 
-- Corpus source manifest: pending.
-- Corpus citation path(s): pending.
-- Source ingestion command or run id: pending.
-- Known extraction gaps: pending.
+- Corpus source manifest: recorded in the corpus provision set above.
+- Corpus citation path(s): the `wff-eligibility`, `wff-tax-credits`, and IRD rates corpus paths listed above.
+- Source ingestion command or run id: official source extracts already captured in `data/corpus/provisions/`.
+- Known extraction gaps: parental tax credit amount remains an input-backed entitlement surface because the current corpus set does not pin a standalone statutory amount table.
 
 ## RuleSpec Scope
 
@@ -57,6 +57,6 @@
 
 ## Residual Risk
 
-- Interpretation questions: how much of the existing surface already covers the target backlog.
-- Missing official evidence: source citation paths pending.
+- Interpretation questions: whether parental tax credit should eventually be split into a dedicated statutory amount surface if a pinned corpus extract becomes available.
+- Missing official evidence: none for the current slice.
 - Blockers: foundation gates #30, #31, #32; oracle comparison remains blocked until pinned manifests are published.

@@ -2,13 +2,13 @@
   "track_id": "26_working_for_families_family_scheme_tax_credits",
   "track_number": 26,
   "title": "Working for Families and family scheme tax credits",
-  "status": "planned_after_track_25_and_foundation_gates",
+  "status": "packaged_review_ready",
   "jurisdiction": "nz",
   "backlog_id": "working-for-families",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/33",
   "github_project": {
     "url": "https://github.com/users/edithatogo/projects/1",
-    "status": "blocked_on_foundation_gates_and_track_25",
+    "status": "ready_for_review",
     "sequence_order": 10,
     "policy_family": "Working for Families and family scheme tax credits"
   },

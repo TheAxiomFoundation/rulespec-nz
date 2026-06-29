@@ -2,8 +2,9 @@ format: rulespec/v1
 module:
   summary: |-
     Income Tax Act 2007 Part M sets the core Working for Families tax-credit
-    calculations. Sections MD 1 to MD 3 calculate the abating WFF credit and
-    family tax credit, section MD 10 calculates the in-work tax credit, section
+    calculations. Sections MD 1 to MD 3 calculate the abating WFF credit,
+    including family tax credit, in-work or child tax credit, and parental tax
+    credit ordering, section MD 10 calculates the in-work tax credit, section
     MD 13 calculates family-credit abatement, section ME 1 calculates the
     minimum family tax credit, section ME 3 defines net family scheme income for
     that credit, and sections MG 1 to MG 3 calculate Best Start and its separate
@@ -252,6 +253,17 @@ rules:
               wff_family_credit_abatement
               + max(0, parental_tax_credit_additional_abatement)
           )
+  - name: parental_tax_credit_before_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss MD 1 and MD 2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, parental_tax_credit_for_entitlement_period)
   - name: family_tax_credit_after_abatement
     kind: derived
     entity: Family
@@ -316,7 +328,7 @@ rules:
         formula: |-
           max(
               0,
-              max(0, parental_tax_credit_for_entitlement_period)
+              parental_tax_credit_before_abatement
               - wff_abatement_remaining_after_in_work_or_child_tax_credit
               - max(0, parental_tax_credit_additional_abatement)
           )
@@ -334,7 +346,7 @@ rules:
               0,
               family_tax_credit_before_abatement
               + wff_in_work_or_child_tax_credit_before_abatement
-              + max(0, parental_tax_credit_for_entitlement_period)
+              + parental_tax_credit_before_abatement
               - wff_total_credit_abatement
           )
   - name: best_start_tax_credit_prescribed_amount
