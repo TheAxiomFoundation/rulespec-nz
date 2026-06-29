@@ -27,5 +27,6 @@
 ## Phase 4: Tests and Upstream Packaging
 
 - [x] Add companion `.test.yaml` fixtures.
+- [x] Draft oracle comparison manifest skeleton for issue #32.
 - [ ] Compare against pinned oracle/reference outputs as non-authoritative checks. (Blocked on upstream issue #32 pinned manifests.)
 - [x] Prepare reviewable legal-content PR slices.
