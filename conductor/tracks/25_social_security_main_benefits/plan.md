@@ -22,10 +22,10 @@
 
 - [x] Fill main-benefit entitlement gaps.
 - [x] Add rate and income-test coverage where missing.
-- [ ] Keep accommodation support separate from main-benefit logic.
+- [x] Keep accommodation support separate from main-benefit logic.
 
 ## Phase 4: Tests and Upstream Packaging
 
-- [ ] Add companion `.test.yaml` fixtures.
+- [x] Add companion `.test.yaml` fixtures.
 - [ ] Compare against pinned oracle/reference outputs as non-authoritative checks.
 - [ ] Prepare reviewable legal-content PR slices.

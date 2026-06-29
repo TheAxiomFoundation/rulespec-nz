@@ -33,6 +33,7 @@
 - Definitions: main-benefit eligibility and rate bridge primitives.
 - Eligibility predicates: main-benefit entitlement and income-test conditions.
 - Date-effective surfaces: benefit rates and income-test changes by effective date.
+- Accommodation Supplement remains in its separate module at `nz/statutes/social_security/accommodation_supplement/core.yaml`.
 
 ## Current Implementation Slice
 
