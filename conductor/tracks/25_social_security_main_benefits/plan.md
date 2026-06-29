@@ -27,5 +27,5 @@
 ## Phase 4: Tests and Upstream Packaging
 
 - [x] Add companion `.test.yaml` fixtures.
-- [ ] Compare against pinned oracle/reference outputs as non-authoritative checks.
+- [ ] Compare against pinned oracle/reference outputs as non-authoritative checks. (Blocked on upstream issue #32 pinned manifests.)
 - [x] Prepare reviewable legal-content PR slices.

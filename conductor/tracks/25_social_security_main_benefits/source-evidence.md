@@ -54,9 +54,10 @@
 - Pinned SHA or version: pending foundation gate #32.
 - Comparison role: non-authoritative only.
 - Known divergences: pending.
+- Upstream comparison guidance: https://github.com/TheAxiomFoundation/rulespec-nz/issues/32#issuecomment-4828717845
 
 ## Residual Risk
 
 - Interpretation questions: how much of the existing surface already covers the target backlog.
 - Missing official evidence: source citation paths pending.
-- Blockers: foundation gates #30, #31, #32; linkage to upstream issue pending.
+- Blockers: foundation gates #30, #31, #32; oracle comparison remains blocked until pinned manifests are published.
