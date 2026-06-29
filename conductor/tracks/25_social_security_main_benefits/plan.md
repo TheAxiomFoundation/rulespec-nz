@@ -21,7 +21,7 @@
 ## Phase 3: RuleSpec Encoding
 
 - [ ] Fill main-benefit entitlement gaps.
-- [ ] Add rate and income-test coverage where missing.
+- [x] Add rate and income-test coverage where missing.
 - [ ] Keep accommodation support separate from main-benefit logic.
 
 ## Phase 4: Tests and Upstream Packaging

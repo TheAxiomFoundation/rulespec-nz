@@ -43,7 +43,7 @@
 
 - Scenario families: entitlement, single-parent, supported-living, and income-test cases.
 - Expected outputs: entitlement holds / not_holds predicates, weekly rates, income-test reductions, and Supported Living Payment blind subsidy.
-- Edge cases: threshold crossings, rate-order transitions, branch coverage for standard jobseeker and partnered supported-living paths, long-term residential care halving, and blind subsidy caps.
+- Edge cases: threshold crossings, rate-order transitions, branch coverage for standard jobseeker, under-25 jobseeker, partnered supported-living, and under-18 supported-living paths, long-term residential care halving, and blind subsidy caps.
 - Historical/date-effective cases: required.
 
 ## Oracle Comparison

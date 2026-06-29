@@ -73,6 +73,24 @@
     nz:statutes/social_security/main_benefits/rates#jobseeker_support_weekly_income_test_reduction: 28
     nz:statutes/social_security/main_benefits/rates#jobseeker_support_net_weekly_payment: 344.55
 
+- name: jobseeker_single_under_25_without_children_uses_income_test_3
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_single: true
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_applicant_age: 24
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_living_with_parent: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_benefit_commenced_on_or_after_1998_07_01: true
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_dependent_children_count: 0
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_transferred_2013_no_dependent_children: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_total_income: 200
+  output:
+    nz:statutes/social_security/main_benefits/rates#jobseeker_support_gross_weekly_rate: 324.5
+    nz:statutes/social_security/main_benefits/rates#jobseeker_support_weekly_income_test_reduction: 28
+    nz:statutes/social_security/main_benefits/rates#jobseeker_support_net_weekly_payment: 296.5
+
 - name: jobseeker_partnered_partner_on_main_benefit_uses_income_test_4
   period:
     period_kind: tax_year
@@ -127,6 +145,27 @@
     nz:statutes/social_security/main_benefits/rates#supported_living_payment_full_income_test_weekly_reduction: 48
     nz:statutes/social_security/main_benefits/rates#supported_living_payment_weekly_income_test_reduction: 48
     nz:statutes/social_security/main_benefits/rates#supported_living_payment_net_weekly_payment: 376.60
+
+- name: supported_living_single_under_18_without_children_uses_income_test_1
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_single: true
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_applicant_age: 17
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_dependent_children_count: 0
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_restricted_or_blind: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_totally_blind: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_beneficiary_personal_earnings: 0
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_total_income: 300
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partnered_long_term_residential_care_halving_applies: false
+  output:
+    nz:statutes/social_security/main_benefits/rates#supported_living_payment_schedule_weekly_rate_before_residential_care_halving: 355.87
+    nz:statutes/social_security/main_benefits/rates#supported_living_payment_gross_weekly_rate: 355.87
+    nz:statutes/social_security/main_benefits/rates#supported_living_payment_full_income_test_weekly_reduction: 48
+    nz:statutes/social_security/main_benefits/rates#supported_living_payment_weekly_income_test_reduction: 48
+    nz:statutes/social_security/main_benefits/rates#supported_living_payment_net_weekly_payment: 307.87
 
 - name: supported_living_partnered_main_benefit_rate_halves_for_long_term_residential_care
   period:
