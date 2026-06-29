@@ -119,3 +119,39 @@ rules:
               income_tax_annual_amount / 12
           else:
               0
+  - name: income_tax_annualized_amount_over_fortnights
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_period_fortnights > 0:
+              (
+                  income_tax_period_amount
+                  * 26
+                  / income_tax_period_fortnights
+              )
+          else:
+              0
+  - name: income_tax_annualized_amount_over_months
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if income_tax_period_months > 0:
+              (
+                  income_tax_period_amount
+                  * 12
+                  / income_tax_period_months
+              )
+          else:
+              0
