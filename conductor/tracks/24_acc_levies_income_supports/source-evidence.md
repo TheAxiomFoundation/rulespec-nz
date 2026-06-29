@@ -38,7 +38,7 @@
 
 - Scenario families: employee, self-employed, low-income, maximum-liable-earnings, weekly compensation.
 - Expected outputs: replacement rate, minimum weekly compensation, cap, and zero-payment when ineligible.
-- Edge cases: threshold crossings, GST-inclusive/exclusive rates, levy year transitions.
+- Edge cases: threshold crossings, GST-inclusive/exclusive rates, levy year transitions, and published levy-year boundaries for 2025, 2026, and 2027.
 - Historical/date-effective cases: required.
 
 ## Oracle Comparison

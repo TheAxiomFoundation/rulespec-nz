@@ -1,3 +1,17 @@
+- name: standard_2025_earnings_below_cap
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_earnings_for_earners_levy: 100000
+  output:
+    nz:regulations/acc/earners_levy#acc_earners_levy_rate_excluding_gst: 0.0145
+    nz:regulations/acc/earners_levy#acc_earners_levy_rate_including_gst: 0.0167
+    nz:regulations/acc/earners_levy#acc_earners_levy_maximum_earnings: 152790
+    nz:regulations/acc/earners_levy#acc_standard_earners_levy_excluding_gst: 1450
+    nz:regulations/acc/earners_levy#acc_standard_earners_levy_including_gst: 1670
+
 - name: standard_2026_earnings_below_cap
   period:
     period_kind: tax_year
@@ -34,6 +48,46 @@
   output:
     nz:regulations/acc/earners_levy#acc_standard_earners_levy_excluding_gst: 0
     nz:regulations/acc/earners_levy#acc_standard_earners_levy_including_gst: 0
+
+- name: low_self_employed_minimum_levy_2025
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_self_employed_more_than_30_hours_per_week: true
+    nz:regulations/acc/earners_levy#input.acc_self_employed_earnings_for_earners_levy: 40000
+    nz:regulations/acc/earners_levy#input.acc_employee_earnings_for_low_self_employed_formula: 0
+  output:
+    nz:regulations/acc/earners_levy#acc_low_self_employed_minimum_earnings: 49365
+    nz:regulations/acc/earners_levy#acc_low_self_employed_minimum_levy_excluding_gst: 715.7925
+
+- name: standard_2027_earnings_above_cap
+  period:
+    period_kind: tax_year
+    start: '2027-04-01'
+    end: '2028-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_earnings_for_earners_levy: 200000
+  output:
+    nz:regulations/acc/earners_levy#acc_earners_levy_rate_excluding_gst: 0.0159
+    nz:regulations/acc/earners_levy#acc_earners_levy_rate_including_gst: 0.0183
+    nz:regulations/acc/earners_levy#acc_earners_levy_maximum_earnings: 160244
+    nz:regulations/acc/earners_levy#acc_standard_earners_levy_excluding_gst: 2547.88
+    nz:regulations/acc/earners_levy#acc_standard_earners_levy_including_gst: 2932.47
+
+- name: low_self_employed_minimum_levy_2027
+  period:
+    period_kind: tax_year
+    start: '2027-04-01'
+    end: '2028-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_self_employed_more_than_30_hours_per_week: true
+    nz:regulations/acc/earners_levy#input.acc_self_employed_earnings_for_earners_levy: 40000
+    nz:regulations/acc/earners_levy#input.acc_employee_earnings_for_low_self_employed_formula: 10000
+  output:
+    nz:regulations/acc/earners_levy#acc_low_self_employed_minimum_earnings: 51632
+    nz:regulations/acc/earners_levy#acc_low_self_employed_minimum_levy_excluding_gst: 661.9488
 
 - name: low_self_employed_minimum_levy_2026
   period:

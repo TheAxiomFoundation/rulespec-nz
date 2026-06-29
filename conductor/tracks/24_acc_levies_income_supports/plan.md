@@ -11,3 +11,9 @@
 - [x] Add tests for entitlement, low-income minimum, and cap behaviour.
 - [x] Record the source evidence for the implemented slice.
 - [x] Update the track registry status once the slice is complete.
+
+## Phase 2: ACC earners' levy boundary coverage
+
+- [x] Add levy-year boundary tests for the published 2025, 2026, and 2027 standard earners' levy schedule.
+- [x] Add levy-year boundary tests for the low self-employed minimum formula.
+- [ ] Capture any additional levy-source notes needed for the next ACC slice.
