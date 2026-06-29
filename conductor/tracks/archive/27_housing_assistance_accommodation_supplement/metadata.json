@@ -1,0 +1,40 @@
+{
+  "track_id": "27_housing_assistance_accommodation_supplement",
+  "track_number": 27,
+  "title": "Housing assistance, especially Accommodation Supplement",
+  "status": "archived_after_clean_review",
+  "jurisdiction": "nz",
+  "backlog_id": "housing-assistance",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/34",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "archived",
+    "sequence_order": 11,
+    "policy_family": "Housing assistance and Accommodation Supplement"
+  },
+  "priority": 1,
+  "sequence_order": 11,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "Social Security Act 2018",
+      "Social Security Regulations 2018",
+      "official MSD Accommodation Supplement guidance and rate tables"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "Track 25 social security main benefits and income tests",
+    "Track 26 Working for Families and family scheme tax credits",
+    "official source/corpus citation paths",
+    "Accommodation Supplement source manifests",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}

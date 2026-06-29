@@ -10,10 +10,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 
-## Track 27: Housing assistance, especially Accommodation Supplement
-*Status: planned after the family-scheme track and social-security boundary work*
-*Link: [./tracks/27_housing_assistance_accommodation_supplement/](./tracks/27_housing_assistance_accommodation_supplement/)*
-
 ## Track 28: Personal income tax gap-fill
 *Status: planned after family-support and housing surfaces*
 *Link: [./tracks/28_personal_income_tax_gap_fill/](./tracks/28_personal_income_tax_gap_fill/)*
@@ -35,6 +31,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 27: Housing assistance, especially Accommodation Supplement
+*Status: archived after clean review*
+*Link: [./tracks/archive/27_housing_assistance_accommodation_supplement/](./tracks/archive/27_housing_assistance_accommodation_supplement/)*
+
 ## Track 26: Working for Families and family scheme tax credits
 *Status: archived after clean review*
 *Link: [./tracks/archive/26_working_for_families_family_scheme_tax_credits/](./tracks/archive/26_working_for_families_family_scheme_tax_credits/)*
