@@ -8,7 +8,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 
 ## Track 25: Social Security Act main benefits and income tests
-*Status: active main-benefits track; depends on Track 24, upstream gates #31/#32, and NLP pipeline ingestion*
+*Status: implemented and ready for review; depends on Track 24, upstream gates #31/#32, and NLP pipeline ingestion*
 *Link: [./tracks/25_social_security_main_benefits/](./tracks/25_social_security_main_benefits/)*
 
 ## Planned Next Legislation Tracks
