@@ -102,6 +102,28 @@
     nz:statutes/income_tax/core/taxable_income#income_tax_unused_tax_loss_carry_forward: 0
     nz:statutes/income_tax/core/taxable_income#taxable_income: 3000
 
+- name: activity_income_included_from_business_or_self_employment
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_activity_income: 12000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_activity_deductions: 9000
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_activity_income_included: 3000
+
+- name: activity_income_included_returns_zero_when_deductions_exceed_income
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_activity_income: 6000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_activity_deductions: 8000
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_activity_income_included: 0
+
 - name: general_permission_allows_assessable_income_deduction
   period:
     period_kind: tax_year

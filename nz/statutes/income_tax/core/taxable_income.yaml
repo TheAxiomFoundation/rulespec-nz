@@ -202,6 +202,17 @@ rules:
               max(0, income_tax_available_tax_loss)
               - max(0, income_tax_net_income)
           )
+  - name: income_tax_activity_income_included
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s MB 3; shared income-interface bridge for business and self-employment activity income
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, income_tax_activity_income - income_tax_activity_deductions)
   - name: income_tax_non_filing_taxpayer_liability
     kind: derived
     entity: Person
