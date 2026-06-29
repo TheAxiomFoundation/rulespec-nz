@@ -39,7 +39,7 @@
 ## Companion Tests
 
 - Scenario families: wage, salary, self-employment, annualisation, bridge, and period-conversion cases.
-- Expected outputs: annualisation conversions, weekly/fortnightly/monthly bridge conversions, and shared taxable-income primitives.
+- Expected outputs: annualisation conversions, weekly/fortnightly/monthly bridge conversions, shared taxable-income primitives, and loss carry-over offsets.
 - Edge cases: partial periods, negative adjustments, and date-boundary transitions.
 - Historical/date-effective cases: required.
 

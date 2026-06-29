@@ -56,6 +56,8 @@
     nz:statutes/income_tax/core/taxable_income#income_tax_annual_total_deduction: 12000
     nz:statutes/income_tax/core/taxable_income#income_tax_net_income: 32000
     nz:statutes/income_tax/core/taxable_income#income_tax_net_loss: 0
+    nz:statutes/income_tax/core/taxable_income#income_tax_tax_loss_offset_applied: 5000
+    nz:statutes/income_tax/core/taxable_income#income_tax_unused_tax_loss_carry_forward: 0
     nz:statutes/income_tax/core/taxable_income#taxable_income: 27000
 
 - name: annual_total_deductions_above_income_create_net_loss_and_zero_taxable_income
@@ -75,7 +77,30 @@
     nz:statutes/income_tax/core/taxable_income#income_tax_annual_total_deduction: 12000
     nz:statutes/income_tax/core/taxable_income#income_tax_net_income: 0
     nz:statutes/income_tax/core/taxable_income#income_tax_net_loss: 2000
+    nz:statutes/income_tax/core/taxable_income#income_tax_tax_loss_offset_applied: 0
+    nz:statutes/income_tax/core/taxable_income#income_tax_unused_tax_loss_carry_forward: 0
     nz:statutes/income_tax/core/taxable_income#taxable_income: 0
+
+- name: available_tax_loss_exceeds_net_income_carries_forward_residual
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_total_income_allocated_to_corresponding_income_year: 20000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_exempt_income_allocated_to_corresponding_income_year: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_excluded_income_allocated_to_corresponding_income_year: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_non_residents_foreign_sourced_income_allocated_to_corresponding_income_year: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_deductions_allocated_to_corresponding_income_year: 5000
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_available_tax_loss: 12000
+  output:
+    nz:statutes/income_tax/core/taxable_income#income_tax_annual_gross_income: 20000
+    nz:statutes/income_tax/core/taxable_income#income_tax_annual_total_deduction: 5000
+    nz:statutes/income_tax/core/taxable_income#income_tax_net_income: 15000
+    nz:statutes/income_tax/core/taxable_income#income_tax_net_loss: 0
+    nz:statutes/income_tax/core/taxable_income#income_tax_tax_loss_offset_applied: 12000
+    nz:statutes/income_tax/core/taxable_income#income_tax_unused_tax_loss_carry_forward: 0
+    nz:statutes/income_tax/core/taxable_income#taxable_income: 3000
 
 - name: general_permission_allows_assessable_income_deduction
   period:
