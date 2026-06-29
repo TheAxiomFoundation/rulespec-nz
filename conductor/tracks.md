@@ -8,7 +8,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 
 ## Track 24: ACC Levies and Income Support Surfaces
-*Status: planned after Track 23 and foundation gates*
+*Status: completed; packaged review ready*
 *Link: [./tracks/24_acc_levies_income_supports/](./tracks/24_acc_levies_income_supports/)*
 
 ## Track 25: Social Security Act main benefits and income tests
@@ -112,3 +112,4 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Track 12: nztaxmicrosim Rule Incorporation
 *Status: archived after review remediation*
 *Link: [./conductor/tracks/archive/12_nztaxmicrosim_rule_incorporation/](./conductor/tracks/archive/12_nztaxmicrosim_rule_incorporation/)*
+
