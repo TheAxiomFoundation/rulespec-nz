@@ -124,6 +124,46 @@
     nz:statutes/social_security/main_benefits/entitlement#jobseeker_no_or_minimum_income_requirement: holds
     nz:statutes/social_security/main_benefits/entitlement#jobseeker_not_ineligible: holds
 
+- name: jobseeker_full_time_student_without_discretionary_eligibility_is_ineligible
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_new_zealand_citizen: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_residence_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_after_citizen_or_resident: 3
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_refugee_or_protected_person: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_reciprocity_country: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_before_application: 0
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_regulations_treat_person_as_meeting_residence_requirement: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_unlawfully_resident_or_present_in_new_zealand: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_only_temporary_entry_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_section_205_override_applies: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_another_main_benefit: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_new_zealand_superannuation: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_veterans_pension: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_in_full_time_employment: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_losing_earnings_through_health_condition_or_injury: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_available_for_and_seeking_full_time_employment: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_willing_and_able_to_undertake_full_time_employment: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_taken_reasonable_steps_to_find_full_time_employment: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_would_satisfy_available_for_work_but_for_work_test_exemption_circumstances: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_health_condition_injury_or_disability_limits_capacity_to_seek_or_undertake_work: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_has_dependent_child: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_applicant_age: 30
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_has_no_income: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_income_less_than_zero_rate_cutout: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_temporary_income_reduces_rate_to_zero_but_otherwise_entitled: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_full_time_student: true
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_section_25_discretionary_student_eligibility: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_unemployed_due_to_strike: false
+    nz:statutes/social_security/main_benefits/entitlement#input.jobseeker_unemployed_or_on_leave_for_employment_related_training: false
+  output:
+    nz:statutes/social_security/main_benefits/entitlement#jobseeker_not_ineligible: not_holds
+    nz:statutes/social_security/main_benefits/entitlement#entitled_to_jobseeker_support: not_holds
+
 - name: jobseeker_dependent_child_holds_at_age_20
   period:
     period_kind: tax_year

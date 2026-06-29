@@ -20,7 +20,7 @@
 
 ## Phase 3: RuleSpec Encoding
 
-- [ ] Fill main-benefit entitlement gaps.
+- [x] Fill main-benefit entitlement gaps.
 - [x] Add rate and income-test coverage where missing.
 - [ ] Keep accommodation support separate from main-benefit logic.
 
