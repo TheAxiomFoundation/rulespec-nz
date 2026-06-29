@@ -21,25 +21,17 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 
-## Track 33: Working for Families and family scheme tax credits
-*Status: planned next family-scheme coverage after income interfaces and benefit surfaces*
-*Link: issue #33 and future track folder*
+## Track 26: Working for Families and family scheme tax credits
+*Status: planned next family-scheme coverage after Track 25 and the foundation gates*
+*Link: [./tracks/26_working_for_families_family_scheme_tax_credits/](./tracks/26_working_for_families_family_scheme_tax_credits/)*
 
-## Track 34: Housing assistance, especially Accommodation Supplement
-*Status: planned after main-benefits boundaries and oracle reconciliation*
+## Track 27: Housing assistance, especially Accommodation Supplement
+*Status: planned after the family-scheme track and social-security boundary work*
 *Link: issue #34 and future track folder*
 
-## Track 35: Social Security Act main benefits and income tests
-*Status: already represented by Track 25; issue #35 remains the upstream implementation anchor*
-*Link: issue #35 and Track 25 folder*
-
-## Track 36: Personal income tax gap-fill
-*Status: planned after shared income interfaces and family-support surfaces*
+## Track 28: Personal income tax gap-fill
+*Status: planned after family-support and housing surfaces*
 *Link: issue #36 and future track folder*
-
-## Track 37: ACC levies and income support surfaces
-*Status: already represented by Track 24; issue #37 remains the upstream implementation anchor*
-*Link: issue #37 and Track 24 folder*
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
