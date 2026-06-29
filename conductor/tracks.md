@@ -31,7 +31,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Track 28: Personal income tax gap-fill
 *Status: planned after family-support and housing surfaces*
-*Link: issue #36 and future track folder*
+*Link: [./tracks/28_personal_income_tax_gap_fill/](./tracks/28_personal_income_tax_gap_fill/)*
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
