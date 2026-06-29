@@ -14,8 +14,10 @@ module:
       - nz/statute/act/public/2001/0049/section/1-LMS473
       - nz/statute/act/public/2001/0049/section/1-LMS479
     agency_reference_urls:
-      - https://www.acc.co.nz/
-      - https://www.ird.govt.nz/
+      - https://www.acc.co.nz/im-injured/financial-support/weekly-compensation
+      - https://www.acc.co.nz/im-injured/financial-support/weekly-compensation/calculating-weekly-compensation-for-employees
+      - https://www.acc.co.nz/newsroom/stories/changes-to-client-payments-from-1-april-2026
+      - https://www.acc.co.nz/newsroom/stories/changes-to-client-payments-from-1-july-2025
 units:
   - name: NZD
     kind: currency
@@ -39,7 +41,7 @@ rules:
     entity: Person
     dtype: Boolean
     period: Week
-    source: ACC client payment notice and weekly compensation guidance
+    source: ACC weekly compensation guidance; ACC client payment notices
   - name: acc_weekly_compensation_replacement_rate
     kind: parameter
     dtype: Rate
@@ -52,7 +54,7 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: ACC client payment notice
+    source: ACC client payment notice from 1 April 2026
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -61,9 +63,9 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: ACC client payment notice
+    source: ACC client payment notice from 1 July 2025
     versions:
-      - effective_from: '2026-04-01'
+      - effective_from: '2025-07-01'
         formula: |-
           2418.55
   - name: acc_weekly_compensation_base_amount

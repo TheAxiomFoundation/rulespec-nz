@@ -11,7 +11,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./tracks/23_income_interfaces/](./tracks/23_income_interfaces/)*
 
 ## Track 24: ACC Levies and Income Support Surfaces
-*Status: planned after Track 23 and foundation gates*
+*Status: in progress first implementation slice after Track 23 and foundation gates*
 *Link: [./tracks/24_acc_levies_income_supports/](./tracks/24_acc_levies_income_supports/)*
 
 ## Track 25: Social Security Act main benefits and income tests

@@ -13,6 +13,11 @@
 - Administering agency: ACC; Inland Revenue.
 - Source status: first implementation slice in progress.
 - Publication state checked: yes, for the first weekly compensation slice.
+- Core ACC references used:
+  - https://www.acc.co.nz/im-injured/financial-support/weekly-compensation
+  - https://www.acc.co.nz/im-injured/financial-support/weekly-compensation/calculating-weekly-compensation-for-employees
+  - https://www.acc.co.nz/newsroom/stories/changes-to-client-payments-from-1-april-2026
+  - https://www.acc.co.nz/newsroom/stories/changes-to-client-payments-from-1-july-2025
 
 ## Corpus Evidence
 
