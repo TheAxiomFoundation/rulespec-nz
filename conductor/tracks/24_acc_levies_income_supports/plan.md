@@ -17,3 +17,9 @@
 - [x] Add levy-year boundary tests for the published 2025, 2026, and 2027 standard earners' levy schedule.
 - [x] Add levy-year boundary tests for the low self-employed minimum formula.
 - [x] Capture any additional levy-source notes needed for the next ACC slice.
+
+## Phase 3: ACC levy constant-branch carrythrough
+
+- [x] Add weekly-compensation purchase coverage for the 2025 and 2027 tax years.
+- [x] Add self-employed invoice exemption coverage for the 2025 and 2027 calendar days.
+- [x] Record any follow-on ACC levy questions that remain after the constant-branch checks.
