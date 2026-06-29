@@ -7,10 +7,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Active Tracks
 
 
-## Track 24: ACC Levies and Income Support Surfaces
-*Status: completed; packaged review ready*
-*Link: [./tracks/24_acc_levies_income_supports/](./tracks/24_acc_levies_income_supports/)*
-
 ## Track 25: Social Security Act main benefits and income tests
 *Status: active main-benefits track; depends on Track 24, upstream gates #31/#32, and NLP pipeline ingestion*
 *Link: [./tracks/25_social_security_main_benefits/](./tracks/25_social_security_main_benefits/)*
