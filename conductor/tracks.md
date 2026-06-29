@@ -10,10 +10,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 
-## Track 26: Working for Families and family scheme tax credits
-*Status: planned next family-scheme coverage after Track 25 and the foundation gates*
-*Link: [./tracks/26_working_for_families_family_scheme_tax_credits/](./tracks/26_working_for_families_family_scheme_tax_credits/)*
-
 ## Track 27: Housing assistance, especially Accommodation Supplement
 *Status: planned after the family-scheme track and social-security boundary work*
 *Link: [./tracks/27_housing_assistance_accommodation_supplement/](./tracks/27_housing_assistance_accommodation_supplement/)*
@@ -39,6 +35,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 26: Working for Families and family scheme tax credits
+*Status: archived after clean review*
+*Link: [./tracks/archive/26_working_for_families_family_scheme_tax_credits/](./tracks/archive/26_working_for_families_family_scheme_tax_credits/)*
+
 ## Track 25: Social Security Act main benefits and income tests
 *Status: archived after clean review*
 *Link: [./tracks/archive/25_social_security_main_benefits/](./tracks/archive/25_social_security_main_benefits/)*
