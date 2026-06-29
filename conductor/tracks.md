@@ -27,7 +27,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Track 27: Housing assistance, especially Accommodation Supplement
 *Status: planned after the family-scheme track and social-security boundary work*
-*Link: issue #34 and future track folder*
+*Link: [./tracks/27_housing_assistance_accommodation_supplement/](./tracks/27_housing_assistance_accommodation_supplement/)*
 
 ## Track 28: Personal income tax gap-fill
 *Status: planned after family-support and housing surfaces*
