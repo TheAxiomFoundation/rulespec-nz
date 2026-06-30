@@ -9,6 +9,11 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
+*Roadmap proposal: [./roadmap.md](./roadmap.md)*
+
+## Track 30: Student support and StudyLink surfaces
+*Status: planned next student-support track after Track 29 and the foundation gates*
+*Link: [./tracks/30_student_support_studylink/](./tracks/30_student_support_studylink/)*
 
 
 ## Track 17: NLP Pipeline and Publication Audit
