@@ -1,0 +1,37 @@
+{
+  "track_id": "34_residency_citizenship_and_immigration_predicates",
+  "track_number": 34,
+  "title": "Residency, citizenship, and immigration predicates",
+  "status": "planned_next_legislation_track",
+  "jurisdiction": "nz",
+  "backlog_id": "residency-citizenship-immigration",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/59",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "planned",
+    "sequence_order": 18,
+    "policy_family": "Residency, citizenship, and immigration predicates"
+  },
+  "priority": 3,
+  "sequence_order": 18,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "Citizenship Act 1977",
+      "Immigration Act 2009",
+      "program-specific residence tests"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "official source/corpus citation paths",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}

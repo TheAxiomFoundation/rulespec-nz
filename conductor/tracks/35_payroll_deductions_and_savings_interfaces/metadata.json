@@ -1,0 +1,39 @@
+{
+  "track_id": "35_payroll_deductions_and_savings_interfaces",
+  "track_number": 35,
+  "title": "Payroll deductions and savings interfaces",
+  "status": "planned_next_legislation_track",
+  "jurisdiction": "nz",
+  "backlog_id": "payroll-savings-deductions",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/60",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "planned",
+    "sequence_order": 19,
+    "policy_family": "Payroll deductions and savings interfaces"
+  },
+  "priority": 3,
+  "sequence_order": 19,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "KiwiSaver Act 2006",
+      "Student Loan Scheme Act 2011",
+      "PAYE rules and guidance"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "Track 23 income interfaces",
+    "Track 28 personal income tax gap-fill",
+    "official source/corpus citation paths",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}

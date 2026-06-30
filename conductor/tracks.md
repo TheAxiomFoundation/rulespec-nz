@@ -11,6 +11,30 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
 
+## Track 31: Childcare, disability, and health-related assistance
+*Status: planned next legislation track*
+*Link: [./tracks/31_childcare_disability_and_health_related_assistance/](./tracks/31_childcare_disability_and_health_related_assistance/)*
+
+## Track 32: Paid parental leave, child support, and family-related payments
+*Status: planned next legislation track*
+*Link: [./tracks/32_paid_parental_leave_child_support_family_payments/](./tracks/32_paid_parental_leave_child_support_family_payments/)*
+
+## Track 33: Rates rebates and local-government-adjacent assistance
+*Status: planned next legislation track*
+*Link: [./tracks/33_rates_rebates_and_local_government_assistance/](./tracks/33_rates_rebates_and_local_government_assistance/)*
+
+## Track 34: Residency, citizenship, and immigration predicates
+*Status: planned next legislation track*
+*Link: [./tracks/34_residency_citizenship_and_immigration_predicates/](./tracks/34_residency_citizenship_and_immigration_predicates/)*
+
+## Track 35: Payroll deductions and savings interfaces
+*Status: planned next legislation track*
+*Link: [./tracks/35_payroll_deductions_and_savings_interfaces/](./tracks/35_payroll_deductions_and_savings_interfaces/)*
+
+## Track 36: GST and indirect-tax interfaces
+*Status: planned next legislation track*
+*Link: [./tracks/36_gst_and_indirect_tax_interfaces/](./tracks/36_gst_and_indirect_tax_interfaces/)*
+
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*

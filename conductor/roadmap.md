@@ -6,31 +6,42 @@ tax-surface modules rather than re-encoding shared primitives.
 
 ## Recommended order
 
-1. Student support and StudyLink surfaces.
-2. Paid parental leave surfaces.
-3. Child support surfaces.
-4. Residual payroll, filing, and deduction integration gaps.
+1. Childcare, disability, and health-related assistance.
+2. Paid parental leave, child support, and family-related payments.
+3. Rates rebates and local-government-adjacent assistance.
+4. Residency, citizenship, and immigration predicates.
+5. Payroll deductions and savings interfaces.
+6. GST and indirect-tax interfaces.
 
 ## Rationale
 
-- Student support is the clearest open legal family in the current backlog and
-  already has deferred module scaffolding in the tree.
+- Childcare, disability, and health-related assistance is the clearest remaining
+  MSD family in the current backlog and reuses the existing social-security
+  primitives.
 - Paid parental leave and child support are separate legal families in the
   backlog and are both explicitly identified as oracle-backed gaps.
-- Residual payroll and deduction integration should come after those families
-  because they rely on the shared income and withholding primitives that are
-  already in place.
+- Rates rebates, residency predicates, payroll deductions, and GST each sit in
+  separate source families that should stay isolated from one another.
 
 ## Dependency notes
 
-- Student support should reuse [Track 23](./tracks/archive/23_income_interfaces/)
-  and [Track 28](./tracks/archive/28_personal_income_tax_gap_fill/) as shared
-  income inputs.
-- Paid parental leave should reuse the income interface work and the existing
-  payroll deduction surfaces where applicable.
-- Child support should reuse the same income interfaces and the shared tax
-  input plumbing, but keep the formula logic in its own source family.
+- Childcare/disability assistance should reuse [Track 25](./tracks/archive/25_social_security_main_benefits/)
+  and [Track 23](./tracks/archive/23_income_interfaces/) as shared inputs.
+- Paid parental leave and child support should reuse the income interface work
+  and the existing payroll deduction surfaces where applicable.
+- Rates rebates should reuse the personal-income-tax gap-fill work for income
+  inputs.
+- Residency predicates should stay as a shared predicate layer for benefits and
+  tax programs.
+- Payroll deductions should reuse the shared income interfaces and tax-surface
+  plumbing.
+- GST should remain isolated as an indirect-tax surface with minimal coupling.
 
-## Suggested next conductor track
+## Suggested next conductor tracks
 
-- Track 30: Student support and StudyLink surfaces.
+- Track 31: Childcare, disability, and health-related assistance.
+- Track 32: Paid parental leave, child support, and family-related payments.
+- Track 33: Rates rebates and local-government-adjacent assistance.
+- Track 34: Residency, citizenship, and immigration predicates.
+- Track 35: Payroll deductions and savings interfaces.
+- Track 36: GST and indirect-tax interfaces.

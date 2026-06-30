@@ -1,0 +1,40 @@
+{
+  "track_id": "31_childcare_disability_and_health_related_assistance",
+  "track_number": 31,
+  "title": "Childcare, disability, and health-related assistance",
+  "status": "planned_next_legislation_track",
+  "jurisdiction": "nz",
+  "backlog_id": "childcare-and-disability",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/56",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "planned",
+    "sequence_order": 15,
+    "policy_family": "Childcare, disability, and health-related assistance"
+  },
+  "priority": 2,
+  "sequence_order": 15,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "Social Security Act 2018",
+      "Social Security Regulations 2018",
+      "Pae Ora (Healthy Futures) Act 2022",
+      "MSD assistance guidance"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "Track 25 social security main benefits and income tests",
+    "Track 23 income interfaces",
+    "official source/corpus citation paths",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}
