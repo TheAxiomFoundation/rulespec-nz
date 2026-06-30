@@ -1,10 +1,154 @@
-# Deferred module - companion test placeholder.
-# Official-source encoding of student allowance rules is pending.
-# See extraction track: student-allowance-official-source-extraction
-- name: deferred_placeholder
+- name: single_under_24_home_full_rate
   period:
     period_kind: tax_year
     start: '2026-04-01'
     end: '2027-03-31'
-  input: {}
-  output: {}
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 20
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 0
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: true
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 321.64
+    nz:regulations/student_allowances/core#student_allowance_annual_allowance: 16725.28
+
+- name: single_under_24_away_full_rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 20
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 0
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: false
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 378.64
+
+- name: single_away_student_income_abatement
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 20
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 0
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: false
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 15600
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 363.34
+
+- name: at_home_parental_income_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 20
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 0
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: true
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 75822.34
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 300
+
+- name: couple_earning_partner_away
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 22
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: true
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 25
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: false
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 30000
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 276.89
+
+- name: children_dependent_partner
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 22
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: true
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 25
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: true
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: true
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: false
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 10000
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 820.69
+
+- name: independent_circumstances_single
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/student_allowances/core#input.student_allowance_student_age: 25
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 0
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: true
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: true
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 30000
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
+  output:
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 378.64

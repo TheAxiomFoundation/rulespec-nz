@@ -11,10 +11,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
 
-## Track 30: Student support and StudyLink surfaces
-*Status: planned next student-support track after Track 29 and the foundation gates*
-*Link: [./tracks/30_student_support_studylink/](./tracks/30_student_support_studylink/)*
-
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
@@ -29,6 +25,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 30: Student support and StudyLink surfaces
+*Status: archived after clean review*
+*Link: [./tracks/archive/30_student_support_studylink/](./tracks/archive/30_student_support_studylink/)*
+
 ## Track 29: NZ Superannuation and veteran pension surfaces
 *Status: archived after clean review*
 *Link: [./tracks/archive/29_nz_superannuation_veteran_pension/](./tracks/archive/29_nz_superannuation_veteran_pension/)*

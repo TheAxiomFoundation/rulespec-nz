@@ -1,7 +1,7 @@
 # Next Roadmap Proposal
 
-This repo has no active conductor tracks left. The next work should be staged as
-small, source-grounded families that reuse the existing income-interface and
+This repo has no active conductor tracks left. The next work should be staged
+as small, source-grounded families that reuse the existing income-interface and
 tax-surface modules rather than re-encoding shared primitives.
 
 ## Recommended order
@@ -34,4 +34,3 @@ tax-surface modules rather than re-encoding shared primitives.
 ## Suggested next conductor track
 
 - Track 30: Student support and StudyLink surfaces.
-

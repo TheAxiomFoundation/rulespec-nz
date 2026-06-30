@@ -1,11 +1,11 @@
 format: rulespec/v1
 module:
   summary: |-
-    Student Allowances Regulations 1998 (SR 1998/277) and StudyLink/Tertiary
-    Education Commission policy define the core student allowance eligibility
-    and payment parameters. Official-source encoding is pending for means
-    testing, parental income thresholds, and age-based rates.
-  status: deferred
+    Student Allowances Regulations 1998 (SR 1998/277), the Education and
+    Training Act 2020, and official StudyLink guidance define the current
+    student allowance rate, partner, and parental-income surfaces encoded
+    here.
+  status: active
   source_verification:
     corpus_citation_paths:
       - nz/regulation/1998/0277
@@ -13,7 +13,607 @@ module:
       - nz/agency/tec/student-allowances
     agency_reference_urls:
       - https://www.studylink.govt.nz/student-allowance
+      - https://www.studylink.govt.nz/products/rates/calculators/parental-income-calculator.html
+      - https://www.studylink.govt.nz/products/rates/calculators/student-allowance-rate-calculator.html
       - https://www.tec.govt.nz/funding/funding-and-performance/funding/funding-for-providers/student-allowances
     oracle_links:
       - openfisca-aotearoa
-rules: []
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: student_allowance_parents_living_apart_abatement
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          3400
+  - name: student_allowance_other_dependent_students_abatement
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          7000
+  - name: student_allowance_parental_income_lower_limit
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          72108.92
+  - name: student_allowance_parental_income_upper_limit_at_home
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          131701.81
+  - name: student_allowance_parental_income_upper_limit_away
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          141451.55
+  - name: student_allowance_parental_income_abatement_threshold_at_home
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          75822.34
+  - name: student_allowance_parental_income_abatement_threshold_away
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          85603.54
+  - name: student_allowance_weekly_basic_allowance_at_home
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          321.64
+  - name: student_allowance_weekly_basic_allowance_away
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          378.64
+  - name: student_allowance_weekly_student_income_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          284.70
+  - name: student_allowance_partner_income_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          569.40
+  - name: student_allowance_independent_circumstances_gross_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          378.64
+  - name: student_allowance_age_24_plus_home_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          367.25
+  - name: student_allowance_age_24_plus_away_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          435.67
+  - name: student_allowance_single_under_24_home_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          321.64
+  - name: student_allowance_single_under_24_away_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          378.64
+  - name: student_allowance_couple_home_earning_partner_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          221.14
+  - name: student_allowance_couple_away_earning_partner_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          276.89
+  - name: student_allowance_couple_dependent_partner_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          779.99
+  - name: student_allowance_single_with_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          624.21
+  - name: student_allowance_at_home_with_earning_partner_and_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          258.65
+  - name: student_allowance_away_with_earning_partner_and_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          318.40
+  - name: student_allowance_with_children_dependent_partner_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          820.69
+  - name: student_allowance_tax_rate_1
+    kind: parameter
+    dtype: Rate
+    source: StudyLink student-abated-net-allowance calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.105
+  - name: student_allowance_tax_rate_2
+    kind: parameter
+    dtype: Rate
+    source: StudyLink student-abated-net-allowance calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.175
+  - name: student_allowance_annual_parental_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_parents_living_apart:
+              max(
+                  0,
+                  student_allowance_parent1_annual_income
+                  + student_allowance_parent2_annual_income
+                  - student_allowance_parents_living_apart_abatement
+                  - student_allowance_dependent_students_count
+                    * student_allowance_other_dependent_students_abatement
+              )
+          else:
+              max(
+                  0,
+                  student_allowance_parent1_annual_income
+                  + student_allowance_parent2_annual_income
+                  - student_allowance_dependent_students_count
+                    * student_allowance_other_dependent_students_abatement
+              )
+  - name: student_allowance_weekly_student_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance calculators
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          student_allowance_student_annual_income / 52
+  - name: student_allowance_weekly_partner_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance calculators
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_has_recognised_partner > 0:
+              student_allowance_partner_annual_income / 52
+          else:
+              0
+  - name: student_allowance_combined_weekly_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance calculators
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          student_allowance_weekly_student_income + student_allowance_weekly_partner_income
+  - name: student_allowance_has_recognised_partner
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_has_partner and (
+              student_allowance_partner_age >= 24
+              or student_allowance_has_children
+          ):
+              1
+          else:
+              0
+  - name: student_allowance_lives_at_home
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_has_recognised_partner > 0:
+              if student_allowance_lives_with_partner:
+                  1
+              else:
+                  0
+          else:
+              if student_allowance_lives_at_parental_home:
+                  1
+              else:
+                  0
+  - name: student_allowance_has_earning_partner
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              student_allowance_has_recognised_partner > 0
+              and student_allowance_combined_weekly_income
+              > student_allowance_partner_income_threshold
+          ):
+              1
+          else:
+              0
+  - name: student_allowance_has_dependent_partner
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if (
+              student_allowance_has_recognised_partner > 0
+              and student_allowance_combined_weekly_income
+              <= student_allowance_partner_income_threshold
+          ):
+              1
+          else:
+              0
+  - name: student_allowance_single_student_no_children_gross
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_student_age >= 18 and student_allowance_student_age <= 23:
+              if student_allowance_lives_at_home > 0:
+                  student_allowance_single_under_24_home_rate
+              else:
+                  student_allowance_single_under_24_away_rate
+          else:
+              if student_allowance_is_independent_circumstances:
+                  student_allowance_independent_circumstances_gross_rate
+              else:
+                  if student_allowance_student_age >= 24 and student_allowance_lives_at_home > 0:
+                      student_allowance_age_24_plus_home_rate
+                  else:
+                      if student_allowance_student_age >= 24 and student_allowance_lives_at_home <= 0:
+                          student_allowance_age_24_plus_away_rate
+                      else:
+                          0
+  - name: student_allowance_couple_no_children_gross
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_lives_at_home > 0:
+              if student_allowance_has_earning_partner > 0:
+                  student_allowance_couple_home_earning_partner_rate
+              else:
+                  if student_allowance_has_dependent_partner > 0:
+                      student_allowance_couple_dependent_partner_rate
+                  else:
+                      0
+          else:
+              if student_allowance_has_earning_partner > 0:
+                  student_allowance_couple_away_earning_partner_rate
+              else:
+                  if student_allowance_has_dependent_partner > 0:
+                      student_allowance_couple_dependent_partner_rate
+                  else:
+                      0
+  - name: student_allowance_students_with_children_gross
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_has_recognised_partner <= 0 and student_allowance_has_children:
+              student_allowance_single_with_children_rate
+          else:
+              if student_allowance_lives_at_home > 0:
+                  if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
+                      student_allowance_at_home_with_earning_partner_and_children_rate
+                  else:
+                      if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
+                          student_allowance_with_children_dependent_partner_rate
+                      else:
+                          0
+              else:
+                  if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
+                      student_allowance_away_with_earning_partner_and_children_rate
+                  else:
+                      if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
+                          student_allowance_with_children_dependent_partner_rate
+                      else:
+                          0
+  - name: student_allowance_weekly_gross_allowance
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink student allowance rate calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_has_children:
+              student_allowance_students_with_children_gross
+          else:
+              if student_allowance_has_recognised_partner > 0:
+                  student_allowance_couple_no_children_gross
+              else:
+                  student_allowance_single_student_no_children_gross
+  - name: student_allowance_abated_weekly_allowance_at_home
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_annual_parental_income <= student_allowance_parental_income_lower_limit:
+              student_allowance_weekly_basic_allowance_at_home
+          else:
+              if (
+                  student_allowance_annual_parental_income
+                  > student_allowance_parental_income_abatement_threshold_at_home
+              ):
+                  max(
+                      0,
+                      student_allowance_weekly_basic_allowance_at_home
+                      - (
+                          (
+                              student_allowance_parental_income_abatement_threshold_at_home
+                              - student_allowance_parental_income_lower_limit
+                          )
+                          * 0.3030303
+                          + (
+                              student_allowance_annual_parental_income
+                              - student_allowance_parental_income_abatement_threshold_at_home
+                          )
+                          * 0.2793296
+                      ) / 52
+                  )
+              else:
+                  max(
+                      0,
+                      student_allowance_weekly_basic_allowance_at_home
+                      - (
+                          0.3030303
+                          * (
+                              student_allowance_annual_parental_income
+                              - student_allowance_parental_income_lower_limit
+                          )
+                          / 52
+                      )
+                  )
+  - name: student_allowance_abated_weekly_allowance_away
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_annual_parental_income <= student_allowance_parental_income_lower_limit:
+              student_allowance_weekly_basic_allowance_away
+          else:
+              if (
+                  student_allowance_annual_parental_income
+                  > student_allowance_parental_income_abatement_threshold_away
+              ):
+                  max(
+                      0,
+                      student_allowance_weekly_basic_allowance_away
+                      - (
+                          (
+                              student_allowance_parental_income_abatement_threshold_away
+                              - student_allowance_parental_income_lower_limit
+                          )
+                          * 0.3030303
+                          + (
+                              student_allowance_annual_parental_income
+                              - student_allowance_parental_income_abatement_threshold_away
+                          )
+                          * 0.2793296
+                      ) / 52
+                  )
+              else:
+                  max(
+                      0,
+                      student_allowance_weekly_basic_allowance_away
+                      - (
+                          0.3030303
+                          * (
+                              student_allowance_annual_parental_income
+                              - student_allowance_parental_income_lower_limit
+                          )
+                          / 52
+                      )
+                  )
+  - name: student_allowance_weekly_allowance
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if student_allowance_lives_at_home > 0:
+              if (
+                  student_allowance_annual_parental_income
+                  > student_allowance_parental_income_upper_limit_at_home
+              ):
+                  0
+              else:
+                  max(
+                      0,
+                      student_allowance_abated_weekly_allowance_at_home
+                      - max(
+                          0,
+                          student_allowance_weekly_student_income
+                          - student_allowance_weekly_student_income_threshold
+                      )
+                  )
+          else:
+              if (
+                  student_allowance_annual_parental_income
+                  > student_allowance_parental_income_upper_limit_away
+              ):
+                  0
+              else:
+                  max(
+                      0,
+                      student_allowance_abated_weekly_allowance_away
+                      - max(
+                          0,
+                          student_allowance_weekly_student_income
+                          - student_allowance_weekly_student_income_threshold
+                      )
+                  )
+  - name: student_allowance_annual_allowance
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: StudyLink parental-income calculator
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          student_allowance_weekly_allowance * 52
