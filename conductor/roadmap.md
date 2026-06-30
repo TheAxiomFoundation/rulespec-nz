@@ -45,3 +45,22 @@ tax-surface modules rather than re-encoding shared primitives.
 - Track 34: Residency, citizenship, and immigration predicates.
 - Track 35: Payroll deductions and savings interfaces.
 - Track 36: GST and indirect-tax interfaces.
+
+## Additional small support tracks
+
+Keep these narrow. They are not legislation conversion work; they harden the
+research and provenance layer around the existing corpus.
+
+1. Track 38: Corpus citation pinning and provenance QA.
+2. Track 37: Oracle comparison and historical rule reconciliation.
+3. Track 39: Dynamic simulation and research extensions.
+
+## Additional dependency notes
+
+- Track 38 should land before Track 37 so the comparison harness can rely on
+  pinned corpus citations and provenance checks.
+- Track 39 should remain last so research work does not block the core
+  legislation backlog.
+- The NLP pipeline remains useful for source extraction, but these support
+  tracks should continue to assume official PCO/data.govt.nz citation paths are
+  available even if NLP is still in progress.

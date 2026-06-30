@@ -36,6 +36,23 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./tracks/36_gst_and_indirect_tax_interfaces/](./tracks/36_gst_and_indirect_tax_interfaces/)*
 
 
+## Additional Small Support Tracks
+*Sequencing: provenance QA first, then oracle comparison, then research extensions.*
+*These tracks are intentionally narrow and stay separate from legislation conversion.*
+
+## Track 38: Corpus citation pinning and provenance QA
+*Status: planned next support track*
+*Link: [./tracks/38_corpus_citation_pinning_and_provenance_qa/](./tracks/38_corpus_citation_pinning_and_provenance_qa/)*
+
+## Track 37: Oracle comparison and historical rule reconciliation
+*Status: planned next support track*
+*Link: [./tracks/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/37_oracle_comparison_and_historical_rule_reconciliation/)*
+
+## Track 39: Dynamic simulation and research extensions
+*Status: planned next support track*
+*Link: [./tracks/39_dynamic_simulation_and_research_extensions/](./tracks/39_dynamic_simulation_and_research_extensions/)*
+
+
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
 *Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
