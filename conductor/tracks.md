@@ -6,6 +6,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
+## Track 38: Corpus citation pinning and provenance QA
+*Status: implemented pending review*
+*Link: [./tracks/38_corpus_citation_pinning_and_provenance_qa/](./tracks/38_corpus_citation_pinning_and_provenance_qa/)*
+
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
@@ -13,10 +17,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Additional Small Support Tracks
 *Sequencing: provenance QA first, then oracle comparison, then research extensions.*
 *These tracks are intentionally narrow and stay separate from legislation conversion.*
-
-## Track 38: Corpus citation pinning and provenance QA
-*Status: planned next support track*
-*Link: [./tracks/38_corpus_citation_pinning_and_provenance_qa/](./tracks/38_corpus_citation_pinning_and_provenance_qa/)*
 
 ## Track 39: Dynamic simulation and research extensions
 *Status: planned next support track*
