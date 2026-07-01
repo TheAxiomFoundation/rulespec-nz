@@ -11,10 +11,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
 
-## Track 35: Payroll deductions and savings interfaces
-*Status: planned next legislation track*
-*Link: [./tracks/35_payroll_deductions_and_savings_interfaces/](./tracks/35_payroll_deductions_and_savings_interfaces/)*
-
 ## Track 36: GST and indirect-tax interfaces
 *Status: planned next legislation track*
 *Link: [./tracks/36_gst_and_indirect_tax_interfaces/](./tracks/36_gst_and_indirect_tax_interfaces/)*
@@ -54,6 +50,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 35: Payroll deductions and savings interfaces
+*Status: archived after clean review*
+*Link: [./tracks/archive/35_payroll_deductions_and_savings_interfaces/](./tracks/archive/35_payroll_deductions_and_savings_interfaces/)*
+
 ## Track 34: Residency, citizenship, and immigration predicates
 *Status: archived after clean review*
 *Link: [./tracks/archive/34_residency_citizenship_and_immigration_predicates/](./tracks/archive/34_residency_citizenship_and_immigration_predicates/)*

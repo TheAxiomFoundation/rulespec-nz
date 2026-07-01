@@ -8,9 +8,9 @@ module:
     deduction tables employers use for PAYE-style student loan deductions.
   source_verification:
     corpus_citation_paths:
-      - nz/statute/act/public/2011/0070/section/22
-      - nz/statute/act/public/2011/0070/section/27
-      - nz/statute/act/public/2011/0070/schedule/1
+      - nz/statute/act/public/2011/0062/section/22
+      - nz/statute/act/public/2011/0062/section/27
+      - nz/statute/act/public/2011/0062/schedule/1
       - nz/regulation/secondary/ird/student-loan-repayment-thresholds
       - nz/agency/ird/student-loan-repayment-deductions
     agency_reference_urls:
