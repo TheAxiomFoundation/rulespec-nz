@@ -1,0 +1,26 @@
+name: Oracle parity
+description: Track comparison-only oracle reconciliation for NZ RuleSpec outputs.
+title: "[oracle-parity]: "
+labels: ["oracle-parity"]
+body:
+  - type: input
+    id: oracle
+    attributes:
+      label: Oracle or comparison reference
+      description: Identify the pinned comparison source, model, or fixture.
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Non-authoritative boundary
+      description: Explain how the oracle is used as a check, not legal authority.
+    validations:
+      required: true
+  - type: textarea
+    id: scenarios
+    attributes:
+      label: Scenarios and expected results
+      description: List comparison scenarios, divergences, and interpretation questions.
+    validations:
+      required: true

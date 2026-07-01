@@ -1,0 +1,33 @@
+name: Legal content
+description: Track a statute, regulation, or policy surface for NZ RuleSpec encoding.
+title: "[legal-content]: "
+labels: ["legislation"]
+body:
+  - type: input
+    id: source-family
+    attributes:
+      label: Official source family
+      description: Name the Act, regulation, order, agency table, or official source family.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: List the rules, parameters, definitions, and eligibility predicates in scope.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Provenance
+      description: Record corpus citation paths or official source manifests. Do not cite oracle code as law.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Companion tests
+      description: Identify expected `.test.yaml` fixtures or missing test cases.
+    validations:
+      required: true

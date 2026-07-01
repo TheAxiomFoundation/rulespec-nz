@@ -1,0 +1,26 @@
+name: Source readiness
+description: Track official NZ source ingestion or coverage-manifest readiness.
+title: "[source-readiness]: "
+labels: ["source-readiness"]
+body:
+  - type: input
+    id: source
+    attributes:
+      label: Official source or corpus lane
+      description: Identify the PCO, agency, or corpus source lane.
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Expected artifacts
+      description: List source maps, locators, manifests, or citation paths that should exist.
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blockers
+      description: Record API, parser, publication-state, or source-availability blockers.
+    validations:
+      required: false
