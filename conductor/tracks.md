@@ -52,6 +52,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Status: planned next support track*
 *Link: [./tracks/39_dynamic_simulation_and_research_extensions/](./tracks/39_dynamic_simulation_and_research_extensions/)*
 
+## Track 40: Repository quality, CI, and automation hardening
+*Status: planned next support track*
+*Link: [./tracks/40_repo_quality_ci_automation_20260701/](./tracks/40_repo_quality_ci_automation_20260701/)*
+
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
