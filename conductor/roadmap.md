@@ -6,12 +6,11 @@ tax-surface modules rather than re-encoding shared primitives.
 
 ## Recommended order
 
-1. Childcare, disability, and health-related assistance.
-2. Paid parental leave, child support, and family-related payments.
-3. Rates rebates and local-government-adjacent assistance.
-4. Residency, citizenship, and immigration predicates.
-5. Payroll deductions and savings interfaces.
-6. GST and indirect-tax interfaces.
+1. Paid parental leave, child support, and family-related payments.
+2. Rates rebates and local-government-adjacent assistance.
+3. Residency, citizenship, and immigration predicates.
+4. Payroll deductions and savings interfaces.
+5. GST and indirect-tax interfaces.
 
 ## Rationale
 
@@ -39,7 +38,6 @@ tax-surface modules rather than re-encoding shared primitives.
 
 ## Suggested next conductor tracks
 
-- Track 31: Childcare, disability, and health-related assistance.
 - Track 32: Paid parental leave, child support, and family-related payments.
 - Track 33: Rates rebates and local-government-adjacent assistance.
 - Track 34: Residency, citizenship, and immigration predicates.
@@ -64,5 +62,7 @@ research and provenance layer around the existing corpus.
 - The NLP pipeline remains useful for source extraction, but these support
   tracks should continue to assume official PCO/data.govt.nz citation paths are
   available even if NLP is still in progress.
+- Track 31 childcare, disability, and health-related assistance is archived,
+  so the next open legislation track is Track 32.
 - GitHub issue #46 is the roadmap ledger mirror for this repo; keep its body and
   the project item fields aligned with the project-ledger conventions.
