@@ -2,13 +2,13 @@
   "track_id": "32_paid_parental_leave_child_support_family_payments",
   "track_number": 32,
   "title": "Paid parental leave, child support, and family-related payments",
-  "status": "planned_next_legislation_track",
+  "status": "archived_after_clean_review",
   "jurisdiction": "nz",
   "backlog_id": "family-payments-and-leave",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/57",
   "github_project": {
     "url": "https://github.com/users/edithatogo/projects/1",
-    "status": "planned",
+    "status": "archived",
     "sequence_order": 16,
     "policy_family": "Paid parental leave, child support, and family-related payments"
   },

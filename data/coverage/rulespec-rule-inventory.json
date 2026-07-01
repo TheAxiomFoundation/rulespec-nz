@@ -1207,13 +1207,43 @@
                     "kind": "derived",
                     "source_family": "core_formula"
                 },
-                {
-                    "id": "nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement",
-                    "name": "cs_annual_child_support_entitlement",
-                    "kind": "derived",
-                    "source_family": "core_formula"
-                }
-            ]
+            {
+              "id": "nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement",
+              "name": "cs_annual_child_support_entitlement",
+              "kind": "derived",
+              "source_family": "core_formula"
+            },
+            {
+              "id": "nz:statutes/child_support/core_formula#cs_applicable_child_support_rate",
+              "name": "cs_applicable_child_support_rate",
+              "kind": "derived",
+              "source_family": "core_formula"
+            },
+            {
+              "id": "nz:statutes/child_support/core_formula#cs_receiving_carer_meets_formula_care_threshold",
+              "name": "cs_receiving_carer_meets_formula_care_threshold",
+              "kind": "derived",
+              "source_family": "core_formula"
+            },
+            {
+              "id": "nz:statutes/child_support/core_formula#cs_liable_parent_is_formula_assessment_liable",
+              "name": "cs_liable_parent_is_formula_assessment_liable",
+              "kind": "derived",
+              "source_family": "core_formula"
+            },
+            {
+              "id": "nz:statutes/child_support/core_formula#cs_formula_assessment_applies",
+              "name": "cs_formula_assessment_applies",
+              "kind": "derived",
+              "source_family": "core_formula"
+            },
+            {
+              "id": "nz:statutes/child_support/core_formula#cs_annual_child_support_payable",
+              "name": "cs_annual_child_support_payable",
+              "kind": "derived",
+              "source_family": "core_formula"
+            }
+          ]
         },
         {
             "path": "nz/statutes/citizenship/by_grant.yaml",
@@ -2991,13 +3021,37 @@
                     "kind": "parameter",
                     "source_family": "paid_parental_leave"
                 },
-                {
-                    "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_hours_per_week_minimum",
-                    "name": "ppl_hours_per_week_minimum",
-                    "kind": "parameter",
-                    "source_family": "paid_parental_leave"
-                }
-            ]
+            {
+              "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_hours_per_week_minimum",
+              "name": "ppl_hours_per_week_minimum",
+              "kind": "parameter",
+              "source_family": "paid_parental_leave"
+            },
+            {
+              "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_transfer_entitlement_available",
+              "name": "ppl_transfer_entitlement_available",
+              "kind": "derived",
+              "source_family": "paid_parental_leave"
+            },
+            {
+              "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_entitlement_weeks",
+              "name": "ppl_transferred_entitlement_weeks",
+              "kind": "derived",
+              "source_family": "paid_parental_leave"
+            },
+            {
+              "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_weekly_rate",
+              "name": "ppl_transferred_weekly_rate",
+              "kind": "derived",
+              "source_family": "paid_parental_leave"
+            },
+            {
+              "id": "nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_total_entitlement",
+              "name": "ppl_transferred_total_entitlement",
+              "kind": "derived",
+              "source_family": "paid_parental_leave"
+            }
+          ]
         },
         {
             "path": "nz/statutes/payroll/deductions.yaml",

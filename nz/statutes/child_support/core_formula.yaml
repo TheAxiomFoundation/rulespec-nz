@@ -14,6 +14,8 @@ module:
       - nz/statute/act/public/1991/0142/schedule/1
       - nz/statute/act/public/1991/0142/schedule/2
       - nz/agency/ird/child-support-formula
+      - nz/agency/ird/child-support/overview
+      - nz/agency/ird/child-support/types/formula-assessment/sharing-care
     agency_reference_urls:
       - https://www.ird.govt.nz/child-support
       - https://www.ird.govt.nz/child-support/working-out-child-support
@@ -113,10 +115,77 @@ rules:
     versions:
       - effective_from: '2020-04-01'
         formula: |-
-          min(
-              max(
-                  cs_child_support_income * cs_applicable_child_support_rate,
-                  cs_minimum_child_support_annual_rate
-              ),
-              cs_maximum_child_support_annual_rate
+            min(
+                max(
+                    cs_child_support_income * cs_applicable_child_support_rate,
+                    cs_minimum_child_support_annual_rate
+                ),
+                cs_maximum_child_support_annual_rate
+            )
+  - name: cs_applicable_child_support_rate
+    kind: derived
+    entity: Person
+    dtype: Rate
+    period: Year
+    source: Child Support Act 1991 schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          if cs_child_support_qualifying_children_count <= 1:
+              cs_child_support_rate_one_child
+          else:
+              if cs_child_support_qualifying_children_count == 2:
+                  cs_child_support_rate_two_children
+              else:
+                  cs_child_support_rate_three_or_more_children
+  - name: cs_receiving_carer_meets_formula_care_threshold
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Child Support Act 1991 s 5; IRD sharing care guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          cs_child_support_child_care_percent_with_receiving_carer >= 35
+  - name: cs_liable_parent_is_formula_assessment_liable
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Child Support Act 1991 ss 4, 5, and 8; IRD child support overview
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          (
+              cs_liable_parent_is_parent_of_child
+              and cs_liable_parent_is_nz_resident_or_agreement_country
+              and not cs_liable_parent_lives_with_receiving_carer
           )
+  - name: cs_formula_assessment_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Child Support Act 1991 ss 4, 5, and 8; IRD child support overview
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          (
+              cs_receiving_carer_meets_formula_care_threshold
+              and cs_liable_parent_is_formula_assessment_liable
+          )
+  - name: cs_annual_child_support_payable
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Child Support Act 1991 ss 4, 5, and 8; schedule 1; schedule 2
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          if cs_formula_assessment_applies:
+              cs_annual_child_support_entitlement
+          else:
+              0
