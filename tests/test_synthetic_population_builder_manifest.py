@@ -13,25 +13,25 @@ BACKLOG_PATH = ROOT / "data/coverage/full-country-backlog.json"
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -41,11 +41,11 @@ def _string_value(value: object) -> str:
 
 def _string_map(value: object) -> dict[str, str]:
     assert isinstance(value, dict)
-    raw = cast(dict[object, object], value)
+    raw = cast("dict[object, object]", value)
     for key, item in raw.items():
         assert isinstance(key, str)
         assert isinstance(item, str)
-    return cast(dict[str, str], raw)
+    return cast("dict[str, str]", raw)
 
 
 def _backlog_track_ids() -> set[str]:
@@ -149,8 +149,8 @@ def test_synthetic_population_builder_privacy_and_repository_boundaries() -> Non
     repository = manifest["repository_boundaries"]
     assert isinstance(privacy, dict)
     assert isinstance(repository, dict)
-    privacy_items = cast(dict[str, object], privacy)
-    repository_items = cast(dict[str, object], repository)
+    privacy_items = cast("dict[str, object]", privacy)
+    repository_items = cast("dict[str, object]", repository)
 
     assert privacy_items["population_type"] == "synthetic_only"
     assert privacy_items["raw_personal_data_allowed"] is False
@@ -173,9 +173,9 @@ def _jsonl_objects(path: Path) -> list[dict[str, object]]:
 
 
 def _load_json_line(line: str) -> dict[str, object]:
-    loaded = cast(object, json.loads(line))
+    loaded = cast("object", json.loads(line))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas() -> (
@@ -206,14 +206,14 @@ def test_synthetic_population_builder_fixture_smoke_data_covers_entity_schemas()
         row = rows_by_table[table_id]
         assert row["fixture_id"] == fixture_ref["fixture_id"]
         assert row["synthetic_only"] is True
-        values = cast(dict[str, object], row["values"])
+        values = cast("dict[str, object]", row["values"])
         assert set(_string_map(table["columns"])) <= set(values)
         assert _string_value(table["primary_key"]) in values
 
 
 def test_synthetic_population_builder_records_live_generator_validation_state() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
-    live_validation = cast(dict[str, object], manifest["live_generator_validation"])
+    live_validation = cast("dict[str, object]", manifest["live_generator_validation"])
 
     assert live_validation["validated_at"] == "2026-06-22"
     assert live_validation["status"] == "partial_blocked"
@@ -255,5 +255,5 @@ def test_synthetic_population_builder_deferred_work_excludes_completed_track_pha
         not in deferred_work
     )
     assert deferred_work == {
-        "Add calibration diagnostics before any country-scale simulation run."
+        "Add calibration diagnostics before any country-scale simulation run.",
     }

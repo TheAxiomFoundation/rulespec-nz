@@ -22,6 +22,8 @@ JsonObject = dict[str, object]
 
 
 class OracleManifest(TypedDict):
+    """Pinned metadata for the comparison oracle."""
+
     id: str
     name: str
     url: str
@@ -29,6 +31,8 @@ class OracleManifest(TypedDict):
 
 
 class OpenFiscaTrackManifest(TypedDict):
+    """Track-level metadata for OpenFisca comparison surfaces."""
+
     track_id: str
     role: str
     files: list[str]
@@ -39,11 +43,15 @@ class OpenFiscaTrackManifest(TypedDict):
 
 
 class PromotedOutputBoundary(TypedDict):
+    """Limits for promoting comparison outputs into repository fixtures."""
+
     standalone_yaml_fixtures_allowed: bool
     allowed_roots: list[str]
 
 
 class FixtureExtractionSchema(TypedDict):
+    """Rules governing fixture extraction from comparison snippets."""
+
     source_oracle_id: str
     source_commit: str
     canonical_law: bool
@@ -54,6 +62,8 @@ class FixtureExtractionSchema(TypedDict):
 
 
 class OpenFiscaSnippet(TypedDict, total=False):
+    """Externally selected OpenFisca source snippet."""
+
     source_kind: str
     source_path: str
     track_id: str
@@ -63,6 +73,8 @@ class OpenFiscaSnippet(TypedDict, total=False):
 
 
 class FixtureCandidate(TypedDict):
+    """Normalized fixture candidate produced from a validated snippet."""
+
     fixture_id: str
     source_kind: str
     source_path: str
@@ -76,6 +88,8 @@ class FixtureCandidate(TypedDict):
 
 
 class OpenFiscaReferenceManifest(TypedDict):
+    """Top-level manifest for the OpenFisca comparison oracle."""
+
     adapter: str
     canonical_law: bool
     authority: str
@@ -115,38 +129,38 @@ class FixtureCandidateModel(BaseModel):
 
 
 def _load_json_object(path: Path) -> JsonObject:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     if not isinstance(loaded, dict):
         msg = f"Expected JSON object in {path}"
-        raise ValueError(msg)
-    return cast(JsonObject, loaded)
+        raise TypeError(msg)
+    return cast("JsonObject", loaded)
 
 
 def _object_list(value: object, label: str) -> list[JsonObject]:
     if not isinstance(value, list):
         msg = f"Expected list for {label}"
-        raise ValueError(msg)
+        raise TypeError(msg)
     objects: list[JsonObject] = []
-    for index, item in enumerate(cast(list[object], value)):
+    for index, item in enumerate(cast("list[object]", value)):
         if not isinstance(item, dict):
             msg = f"Expected object for {label}[{index}]"
-            raise ValueError(msg)
-        objects.append(cast(JsonObject, item))
+            raise TypeError(msg)
+        objects.append(cast("JsonObject", item))
     return objects
 
 
 def _string_value(value: object, label: str) -> str:
     if not isinstance(value, str):
         msg = f"Expected string for {label}"
-        raise ValueError(msg)
+        raise TypeError(msg)
     return value
 
 
 def _object_value(value: object, label: str) -> JsonObject:
     if not isinstance(value, dict):
         msg = f"Expected object for {label}"
-        raise ValueError(msg)
-    return cast(JsonObject, value)
+        raise TypeError(msg)
+    return cast("JsonObject", value)
 
 
 def _string_list(value: object, label: str) -> list[str]:
@@ -159,8 +173,8 @@ def _string_list(value: object, label: str) -> list[str]:
 def _object_or_list_items(value: object, label: str) -> list[object]:
     if not isinstance(value, list):
         msg = f"Expected list for {label}"
-        raise ValueError(msg)
-    return cast(list[object], value)
+        raise TypeError(msg)
+    return cast("list[object]", value)
 
 
 def _find_openfisca_oracle(oracle_index: JsonObject) -> OracleManifest:
@@ -179,7 +193,8 @@ def _find_openfisca_oracle(oracle_index: JsonObject) -> OracleManifest:
 def _rulespec_destinations(track: JsonObject, track_id: str) -> list[str]:
     destinations: list[str] = []
     for batch in _object_list(
-        track.get("first_rule_batches", []), f"{track_id}.first_rule_batches"
+        track.get("first_rule_batches", []),
+        f"{track_id}.first_rule_batches",
     ):
         destination = batch.get("destination")
         if isinstance(destination, str):
@@ -188,14 +203,16 @@ def _rulespec_destinations(track: JsonObject, track_id: str) -> list[str]:
 
 
 def _openfisca_tracks(
-    source_map: JsonObject, oracle: OracleManifest
+    source_map: JsonObject,
+    oracle: OracleManifest,
 ) -> list[OpenFiscaTrackManifest]:
     tracks: list[OpenFiscaTrackManifest] = []
     for track in _object_list(source_map.get("tracks", []), "tracks"):
         track_id = _string_value(track.get("track_id"), "track.track_id")
         rulespec_destinations = _rulespec_destinations(track, track_id)
         for oracle_surface in _object_list(
-            track.get("oracle_surfaces", []), f"{track_id}.oracle_surfaces"
+            track.get("oracle_surfaces", []),
+            f"{track_id}.oracle_surfaces",
         ):
             if oracle_surface.get("oracle_id") != OPENFISCA_ORACLE_ID:
                 continue
@@ -207,13 +224,14 @@ def _openfisca_tracks(
                         f"{track_id}.role",
                     ),
                     "files": _string_list(
-                        oracle_surface.get("files", []), f"{track_id}.files"
+                        oracle_surface.get("files", []),
+                        f"{track_id}.files",
                     ),
                     "source_commit": oracle["commit"],
                     "rulespec_destinations": rulespec_destinations,
                     "canonical_law": False,
                     "authority": "comparison_oracle",
-                }
+                },
             )
     return tracks
 
@@ -254,7 +272,8 @@ def _fixture_extraction_schema(oracle: OracleManifest) -> FixtureExtractionSchem
 
 
 def _track_by_id(
-    manifest: OpenFiscaReferenceManifest, track_id: str
+    manifest: OpenFiscaReferenceManifest,
+    track_id: str,
 ) -> OpenFiscaTrackManifest:
     for track in manifest["tracks"]:
         if track["track_id"] == track_id:
@@ -283,16 +302,17 @@ def _validated_snippet(snippet: Mapping[str, object], index: int) -> OpenFiscaSn
     except ValueError as error:
         msg = f"Invalid OpenFisca snippet[{index}]: {error}"
         raise ValueError(msg) from error
-    return cast(OpenFiscaSnippet, model.model_dump(exclude_none=True))
+    return cast("OpenFiscaSnippet", model.model_dump(exclude_none=True))
 
 
 def _validated_candidate(candidate: FixtureCandidate) -> FixtureCandidate:
     model = FixtureCandidateModel.model_validate(candidate)
-    return cast(FixtureCandidate, model.model_dump())
+    return cast("FixtureCandidate", model.model_dump())
 
 
 def build_openfisca_fixture_candidates(
-    manifest: OpenFiscaReferenceManifest, snippets: Sequence[Mapping[str, object]]
+    manifest: OpenFiscaReferenceManifest,
+    snippets: Sequence[Mapping[str, object]],
 ) -> list[FixtureCandidate]:
     """Normalize selected OpenFisca snippets into comparison fixture candidates.
 
@@ -305,13 +325,15 @@ def build_openfisca_fixture_candidates(
     for index, raw_snippet in enumerate(snippets):
         snippet = _validated_snippet(raw_snippet, index)
         source_kind = _string_value(
-            snippet.get("source_kind"), f"snippet[{index}].source_kind"
+            snippet.get("source_kind"),
+            f"snippet[{index}].source_kind",
         )
         if source_kind not in schema["allowed_source_kinds"]:
             msg = f"Unsupported OpenFisca source_kind: {source_kind}"
             raise ValueError(msg)
         source_path = _string_value(
-            snippet.get("source_path"), f"snippet[{index}].source_path"
+            snippet.get("source_path"),
+            f"snippet[{index}].source_path",
         )
         track_id = _string_value(snippet.get("track_id"), f"snippet[{index}].track_id")
         track = _track_by_id(manifest, track_id)
@@ -347,7 +369,7 @@ def build_openfisca_reference_manifest(root: Path) -> OpenFiscaReferenceManifest
     """
     oracle_index = _load_json_object(root / "data" / "oracles" / "oracle-index.json")
     source_map = _load_json_object(
-        root / "data" / "coverage" / "tax-benefit-source-map.json"
+        root / "data" / "coverage" / "tax-benefit-source-map.json",
     )
     oracle = _find_openfisca_oracle(oracle_index)
     tracks = _openfisca_tracks(source_map, oracle)

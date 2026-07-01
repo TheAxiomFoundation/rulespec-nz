@@ -154,7 +154,7 @@ def test_openfisca_fixture_dry_run_rejects_unexpected_snippet_fields() -> None:
                     "track_id": "tax-personal-income",
                     "value": 0.105,
                     "canonical_law": True,
-                }
+                },
             ],
         )
 

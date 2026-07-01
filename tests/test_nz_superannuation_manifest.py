@@ -14,42 +14,42 @@ SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_json_line(line: str) -> dict[str, object]:
-    loaded = cast(object, json.loads(line))
+    loaded = cast("object", json.loads(line))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_yaml_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
+    loaded = cast("object", yaml.safe_load(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_dict(value: object) -> dict[str, object]:
     assert isinstance(value, dict)
-    return cast(dict[str, object], value)
+    return cast("dict[str, object]", value)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -76,7 +76,8 @@ def _source_map_track() -> dict[str, object]:
     for track in tracks:
         if track["track_id"] == "superannuation":
             return track
-    raise AssertionError("superannuation source-map track missing")
+    msg = "superannuation source-map track missing"
+    raise AssertionError(msg)
 
 
 def _citation_paths_from_jsonl(path: Path) -> set[str]:
@@ -110,10 +111,10 @@ def test_nz_superannuation_manifest_matches_source_map_batch() -> None:
         source_batch = source_by_id[batch_id]
         assert manifest_batch["destination"] == source_batch["destination"]
         assert _string_list(manifest_batch["source_requirements"]) == _string_list(
-            source_batch["source_requirements"]
+            source_batch["source_requirements"],
         )
         assert _string_list(manifest_batch["oracle_checks"]) == _string_list(
-            source_batch["oracle_checks"]
+            source_batch["oracle_checks"],
         )
 
 
@@ -169,7 +170,7 @@ def test_nz_superannuation_manifest_records_destination_reconciliation_decision(
     None
 ):
     manifest = _load_json_object(MANIFEST_PATH)
-    reconciliation = cast(dict[str, object], manifest["destination_reconciliation"])
+    reconciliation = cast("dict[str, object]", manifest["destination_reconciliation"])
 
     assert reconciliation["decision"] == "keep_split_modules"
     assert reconciliation["compatibility_wrapper_added"] is False
@@ -206,7 +207,7 @@ def test_nz_superannuation_oracle_fixture_matches_age_threshold_without_authorit
 
     normalized = _object_dict(fixture["normalized_values"])
     assert _number_value(normalized["nz_super_age_threshold"]) == int(
-        _rule_formula(CORE_RULESPEC_PATH, "nz_super_age_threshold")
+        _rule_formula(CORE_RULESPEC_PATH, "nz_super_age_threshold"),
     )
 
     scenarios = _object_list(fixture["scenario_outputs"])

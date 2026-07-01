@@ -15,7 +15,7 @@ JsonMap = dict[str, Any]
 
 
 def load_json(path: Path) -> JsonMap:
-    return cast(JsonMap, json.loads(path.read_text(encoding="utf-8")))
+    return cast("JsonMap", json.loads(path.read_text(encoding="utf-8")))
 
 
 def load_source_map() -> JsonMap:
@@ -89,10 +89,10 @@ def test_kiwisaver_is_implemented_from_official_sources_not_policyengine() -> No
         in kiwisaver["official_sources"]
     )
     assert kiwisaver["existing_rulespec_paths"] == [
-        "nz/statutes/kiwisaver/contributions.yaml"
+        "nz/statutes/kiwisaver/contributions.yaml",
     ]
     assert kiwisaver["companion_tests"] == [
-        "nz/statutes/kiwisaver/contributions.test.yaml"
+        "nz/statutes/kiwisaver/contributions.test.yaml",
     ]
     assert kiwisaver["oracle_use"] == "supporting contribution-rate discovery only"
 

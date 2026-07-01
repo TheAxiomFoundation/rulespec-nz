@@ -13,25 +13,25 @@ NZ_LEGISLATION_INGESTION_PATH = ROOT / "data/corpus/ingestion/nz-legislation.jso
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -70,7 +70,7 @@ def test_state_ledger_manifest_keeps_registry_status_explicit() -> None:
     }
     adapter = ingestion["adapter"]
     assert isinstance(adapter, dict)
-    adapter_items = cast(dict[str, object], adapter)
+    adapter_items = cast("dict[str, object]", adapter)
 
     assert tools["kairos"]["oracle_id"] == "kairos"
     assert tools["kairos"]["oracle_id"] in oracle_ids
@@ -143,7 +143,7 @@ def test_state_ledger_manifest_output_and_repository_boundaries() -> None:
     }
     boundaries = manifest["repository_boundaries"]
     assert isinstance(boundaries, dict)
-    boundary_items = cast(dict[str, object], boundaries)
+    boundary_items = cast("dict[str, object]", boundaries)
 
     assert set(outputs) == {
         "state_ledger_events",
@@ -185,13 +185,13 @@ def test_state_ledger_manifest_has_temporal_join_keys() -> None:
         "policy_event_to_analysis_run",
     }
     assert {"citation_path", "artifact_path", "commit_sha"} <= set(
-        _string_list(joins["rulespec_module_to_corpus"]["keys"])
+        _string_list(joins["rulespec_module_to_corpus"]["keys"]),
     )
     assert {"citation_path", "effective_from", "effective_to"} <= set(
-        _string_list(joins["source_version_to_effective_interval"]["keys"])
+        _string_list(joins["source_version_to_effective_interval"]["keys"]),
     )
     assert {"run_id", "scenario_id", "commit_sha"} <= set(
-        _string_list(joins["policy_event_to_analysis_run"]["keys"])
+        _string_list(joins["policy_event_to_analysis_run"]["keys"]),
     )
 
 
@@ -200,9 +200,9 @@ def _jsonl_objects(path: Path) -> list[dict[str, object]]:
     for line in path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
-        loaded = cast(object, json.loads(line))
+        loaded = cast("object", json.loads(line))
         assert isinstance(loaded, dict)
-        rows.append(cast(dict[str, object], loaded))
+        rows.append(cast("dict[str, object]", loaded))
     return rows
 
 
@@ -227,17 +227,17 @@ def test_state_ledger_fixture_outputs_cover_event_schemas() -> None:
         assert fixture["contains_raw_ledger_payload"] is False
 
     events_path = ROOT / _string_value(
-        fixture_outputs["state-ledger-events-smoke"]["path"]
+        fixture_outputs["state-ledger-events-smoke"]["path"],
     )
     index_path = ROOT / _string_value(
-        fixture_outputs["temporal-policy-index-smoke"]["path"]
+        fixture_outputs["temporal-policy-index-smoke"]["path"],
     )
     report_path = ROOT / _string_value(fixture_outputs["handoff-report-smoke"]["path"])
 
     events = _jsonl_objects(events_path)
     assert {_string_value(event["event_type"]) for event in events} == set(event_types)
     assert {_string_value(event["event_status"]) for event in events}.issubset(
-        set(_string_list(manifest["event_statuses"]))
+        set(_string_list(manifest["event_statuses"])),
     )
     for event in events:
         event_type = event_types[_string_value(event["event_type"])]
@@ -251,7 +251,7 @@ def test_state_ledger_fixture_outputs_cover_event_schemas() -> None:
 
     report_text = report_path.read_text(encoding="utf-8").lower()
     for section in _string_list(
-        fixture_outputs["handoff-report-smoke"]["required_sections"]
+        fixture_outputs["handoff-report-smoke"]["required_sections"],
     ):
         assert section in report_text
 
@@ -260,7 +260,7 @@ def test_state_ledger_manifest_records_live_validation_state() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
     live = manifest["live_validation"]
     assert isinstance(live, dict)
-    live_items = cast(dict[str, object], live)
+    live_items = cast("dict[str, object]", live)
 
     assert live_items["checked_at"] == "2026-06-22"
     assert live_items["validated_against_real_workflows"] is False

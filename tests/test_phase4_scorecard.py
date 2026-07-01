@@ -8,13 +8,16 @@ from scripts.phase4_scorecard import generate_scorecard
 import scripts.phase4_scorecard as phase4
 
 
-def test_generate_scorecard_empty(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_generate_scorecard_empty(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     inventory_path = tmp_path / "inventory.json"
     scorecard_path = tmp_path / "scorecard.json"
 
     inventory_data = {
         "modules": [],
-        "duplicate_clusters": []
+        "duplicate_clusters": [],
     }
     inventory_path.write_text(json.dumps(inventory_data), encoding="utf-8-sig")
 
@@ -41,7 +44,10 @@ def test_generate_scorecard_empty(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     assert written_data == scorecard
 
 
-def test_generate_scorecard_happy_path(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_generate_scorecard_happy_path(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     inventory_path = tmp_path / "inventory.json"
     scorecard_path = tmp_path / "scorecard.json"
 
@@ -49,30 +55,30 @@ def test_generate_scorecard_happy_path(tmp_path: Path, monkeypatch: pytest.Monke
         "modules": [
             {
                 "path": "mod1",
-                "rules": [{"id": "r1"}, {"id": "r2"}]
+                "rules": [{"id": "r1"}, {"id": "r2"}],
             },
             {
                 "path": "mod2",
-                "rules": []
+                "rules": [],
             },
             {
-                "path": "mod3"
+                "path": "mod3",
                 # missing "rules" entirely
-            }
+            },
         ],
         "duplicate_clusters": [
             {
                 "conflicts": [
                     {"status": "resolved_official_source"},
-                    {"status": "unresolved"}
-                ]
+                    {"status": "unresolved"},
+                ],
             },
             {
                 "conflicts": [
-                    {"status": "other"}
-                ]
-            }
-        ]
+                    {"status": "other"},
+                ],
+            },
+        ],
     }
     inventory_path.write_text(json.dumps(inventory_data), encoding="utf-8-sig")
 
@@ -96,7 +102,9 @@ def test_generate_scorecard_happy_path(tmp_path: Path, monkeypatch: pytest.Monke
     assert scorecard["status_view"]["deferred"] == sorted(["mod2", "mod3"])
     assert scorecard["status_view"]["blocked"] == []
 
-    assert scorecard["generated_at"] == str(datetime.datetime.now(tz=datetime.UTC).date())
+    assert scorecard["generated_at"] == str(
+        datetime.datetime.now(tz=datetime.UTC).date(),
+    )
 
     # Check that file was written correctly
     assert scorecard_path.exists()

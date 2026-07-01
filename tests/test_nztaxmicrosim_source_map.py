@@ -15,7 +15,7 @@ JsonMap = dict[str, Any]
 
 
 def load_json(path: Path) -> JsonMap:
-    return cast(JsonMap, json.loads(path.read_text(encoding="utf-8")))
+    return cast("JsonMap", json.loads(path.read_text(encoding="utf-8")))
 
 
 def load_source_map() -> JsonMap:
@@ -95,7 +95,7 @@ def test_simplified_oracle_logic_is_blocked_from_canonical_encoding() -> None:
     assert "blockers" in surfaces["investment-and-withholding-tax"]
     assert "blockers" in surfaces["child-support"]
     assert "simplified" in " ".join(
-        surfaces["investment-and-withholding-tax"]["blockers"]
+        surfaces["investment-and-withholding-tax"]["blockers"],
     )
     assert "simplified" in " ".join(surfaces["child-support"]["blockers"])
 

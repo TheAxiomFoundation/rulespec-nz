@@ -14,36 +14,36 @@ SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_yaml_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
+    loaded = cast("object", yaml.safe_load(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_dict(value: object) -> dict[str, object]:
     assert isinstance(value, dict)
-    return cast(dict[str, object], value)
+    return cast("dict[str, object]", value)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -53,7 +53,7 @@ def _string_value(value: object) -> str:
 
 def _stringify_nested_keys(value: object) -> object:
     if isinstance(value, dict):
-        items = cast(dict[object, object], value)
+        items = cast("dict[object, object]", value)
         return {str(key): _stringify_nested_keys(item) for key, item in items.items()}
     return value
 
@@ -63,7 +63,7 @@ def test_income_tax_rate_manifest_matches_rulespec_source_verification() -> None
     rulespec = _load_yaml_object(RULESPEC_PATH)
 
     source_verification = _object_dict(
-        _object_dict(rulespec["module"])["source_verification"]
+        _object_dict(rulespec["module"])["source_verification"],
     )
 
     assert manifest["track_id"] == "03_income_tax_rates"
@@ -77,7 +77,7 @@ def test_income_tax_rate_manifest_matches_rulespec_source_verification() -> None
         == source_verification["agency_reference_urls"]
     )
     assert manifest["verified_values"] == _stringify_nested_keys(
-        source_verification["values"]
+        source_verification["values"],
     )
 
 
@@ -146,17 +146,17 @@ def test_income_tax_rate_oracle_fixture_matches_rulespec_values_without_authorit
 
 
 def _load_json_object_line(line: str) -> dict[str, object]:
-    loaded = cast(object, json.loads(line))
+    loaded = cast("object", json.loads(line))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def test_legacy_tax_rate_ingest_track_is_archived_as_track3_context() -> None:
     track3 = _load_json_object(
-        ROOT / "conductor/tracks/archive/03_income_tax_rates/metadata.json"
+        ROOT / "conductor/tracks/archive/03_income_tax_rates/metadata.json",
     )
     legacy = _load_json_object(
-        ROOT / "conductor/tracks/archive/nz_ingest_tax_rate_20260619/metadata.json"
+        ROOT / "conductor/tracks/archive/nz_ingest_tax_rate_20260619/metadata.json",
     )
     tracks_index = (ROOT / "conductor/tracks.md").read_text(encoding="utf-8")
 

@@ -36,7 +36,7 @@ PUBLICATION_PLATFORMS = {"github", "huggingface", "zenodo"}
 
 def load_audit_manifest() -> dict[str, Any]:
     return cast(
-        dict[str, Any],
+        "dict[str, Any]",
         json.loads(AUDIT_MANIFEST_PATH.read_text(encoding="utf-8-sig")),
     )
 
@@ -44,14 +44,14 @@ def load_audit_manifest() -> dict[str, Any]:
 @functools.cache
 def load_inventory() -> dict[str, Any]:
     return cast(
-        dict[str, Any],
+        "dict[str, Any]",
         json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig")),
     )
 
 
 def load_oracle_index() -> dict[str, Any]:
     return cast(
-        dict[str, Any],
+        "dict[str, Any]",
         json.loads(ORACLE_INDEX_PATH.read_text(encoding="utf-8-sig")),
     )
 
@@ -319,7 +319,7 @@ def test_oracle_index_has_nlp_related_sources() -> None:
 
 def test_local_parquet_layers_references_nlp_sources() -> None:
     layers = cast(
-        dict[str, Any],
+        "dict[str, Any]",
         json.loads(
             PARQUET_LAYERS_PATH.read_text(encoding="utf-8-sig"),
         ),

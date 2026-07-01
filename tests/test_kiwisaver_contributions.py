@@ -15,7 +15,7 @@ YamlMap = dict[str, Any]
 
 
 def load_yaml(path: Path) -> YamlMap:
-    return cast(YamlMap, yaml.safe_load(path.read_text(encoding="utf-8")))
+    return cast("YamlMap", yaml.safe_load(path.read_text(encoding="utf-8")))
 
 
 @pytest.mark.integration
@@ -57,14 +57,15 @@ def test_kiwisaver_rulespec_contains_expected_rate_progression() -> None:
         {"effective_from": "2028-04-01", "formula": "0.04"},
     ]
     assert rules["kiwisaver_government_contribution_match_rate"]["versions"] == [
-        {"effective_from": "2025-07-01", "formula": "0.25"}
+        {"effective_from": "2025-07-01", "formula": "0.25"},
     ]
 
 
 @pytest.mark.integration
 def test_kiwisaver_companion_tests_cover_minimums_cap_and_negative_income() -> None:
     cases = cast(
-        list[YamlMap], yaml.safe_load(KIWISAVER_TEST_PATH.read_text(encoding="utf-8"))
+        "list[YamlMap]",
+        yaml.safe_load(KIWISAVER_TEST_PATH.read_text(encoding="utf-8")),
     )
     names = {case["name"] for case in cases}
 

@@ -1,7 +1,6 @@
 import json
 import pytest
 from pathlib import Path
-from typing import Any
 
 from scripts.phase3_reconciliation_workflow import update_clusters
 
@@ -12,29 +11,34 @@ def mock_inventory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         "duplicate_clusters": [
             {
                 "id": "income-tax-rate-schedule",
-                "other_field": "test_value"
+                "other_field": "test_value",
             },
             {
                 "id": "main-benefits",
-                "other_field": "test_value_3"
+                "other_field": "test_value_3",
             },
             {
                 "id": "unknown-cluster-id",
-                "other_field": "test_value_2"
-            }
-        ]
+                "other_field": "test_value_2",
+            },
+        ],
     }
 
     fake_inventory_path = tmp_path / "rulespec-rule-inventory.json"
     fake_inventory_path.write_text(json.dumps(inventory_data), encoding="utf-8")
 
-    monkeypatch.setattr("scripts.phase3_reconciliation_workflow.INVENTORY_PATH", fake_inventory_path)
+    monkeypatch.setattr(
+        "scripts.phase3_reconciliation_workflow.INVENTORY_PATH",
+        fake_inventory_path,
+    )
     return fake_inventory_path
 
 
-def test_update_clusters_logic(mock_inventory: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_update_clusters_logic(
+    mock_inventory: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test that update_clusters modifies the inventory and prints the summary."""
-
     update_clusters()
 
     # Verify the output
@@ -55,7 +59,9 @@ def test_update_clusters_logic(mock_inventory: Path, capsys: pytest.CaptureFixtu
     assert known_cluster["reconciliation_status"] == "triangulated_with_conflicts"
     assert "reconciliation_surface_links" in known_cluster
     assert len(known_cluster["reconciliation_surface_links"]) > 0
-    assert known_cluster["reconciliation_surface_links"][0]["surface_id"] == "income-tax"
+    assert (
+        known_cluster["reconciliation_surface_links"][0]["surface_id"] == "income-tax"
+    )
     assert "conflicts" in known_cluster
     assert len(known_cluster["conflicts"]) == 1
     assert known_cluster["conflicts"][0]["status"] == "resolved_official_source"
@@ -65,7 +71,9 @@ def test_update_clusters_logic(mock_inventory: Path, capsys: pytest.CaptureFixtu
     assert mb_cluster["reconciliation_status"] == "triangulated_with_conflicts"
     assert "reconciliation_surface_links" in mb_cluster
     assert len(mb_cluster["conflicts"]) == 2
-    assert any(c["status"] == "resolved_official_source" for c in mb_cluster["conflicts"])
+    assert any(
+        c["status"] == "resolved_official_source" for c in mb_cluster["conflicts"]
+    )
     assert any(c["status"] == "unresolved" for c in mb_cluster["conflicts"])
 
     unknown_cluster = clusters[2]

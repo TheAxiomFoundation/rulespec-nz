@@ -9,6 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CoverageLayer(TypedDict):
+    """Coverage status for a single runtime layer."""
+
     coverage_command: str
     status: str
     threshold_met: bool
@@ -16,6 +18,8 @@ class CoverageLayer(TypedDict):
 
 
 class CoverageEvidence(TypedDict):
+    """Top-level coverage evidence record for the Rust core track."""
+
     track_id: str
     coverage_threshold_percent: int
     layers: dict[str, CoverageLayer]
@@ -25,7 +29,7 @@ class CoverageEvidence(TypedDict):
 def test_track1_coverage_evidence_records_threshold_status_and_blockers() -> None:
     evidence_path = ROOT / "data/coverage/rust-core-arrow-coverage.json"
     evidence = cast(
-        CoverageEvidence,
+        "CoverageEvidence",
         json.loads(evidence_path.read_text(encoding="utf-8")),
     )
 

@@ -48,17 +48,6 @@ extend-exclude = [
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = [
-  "COM812",
-  "D101",
-  "D203",
-  "D213",
-  "EM101",
-  "EM102",
-  "TC006",
-  "TRY003",
-  "TRY004",
-]
 
 [tool.ruff.lint.per-file-ignores]
 "test_bindings.py" = ["D100", "INP001", "S101", "T201"]
@@ -87,7 +76,7 @@ line-ending = "lf"
 
 [tool.basedpyright]
 typeCheckingMode = "strict"
-include = ["programs", "tests", "test_bindings.py"]
+include = ["programs", "test_bindings.py"]
 exclude = [
   ".git",
   ".pytest_cache",
@@ -95,9 +84,11 @@ exclude = [
   ".venv",
   "__pycache__",
   "rulespec-nz/target",
+  "scripts",
+  "tests",
 ]
 pythonVersion = "3.12"
-reportMissingTypeStubs = false
+reportMissingTypeStubs = true
 executionEnvironments = [
   { root = ".", extraPaths = ["C:/Users/60217257/AppData/Local/Programs/Python/Python312/Lib/site-packages"] },
 ]

@@ -18,7 +18,7 @@ TRACK_ROOT = (
 def test_nztaxmicrosim_inventory_uses_pinned_oracle_boundary() -> None:
     inventory = json.loads(INVENTORY_PATH.read_text(encoding="utf-8"))
     oracle_index = json.loads(
-        (ROOT / "data" / "oracles" / "oracle-index.json").read_text(encoding="utf-8")
+        (ROOT / "data" / "oracles" / "oracle-index.json").read_text(encoding="utf-8"),
     )
     nztaxmicrosim = next(
         oracle for oracle in oracle_index["oracles"] if oracle["id"] == "nztaxmicrosim"

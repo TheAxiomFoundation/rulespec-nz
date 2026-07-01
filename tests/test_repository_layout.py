@@ -54,7 +54,6 @@ def allowed_yaml_roots() -> set[str]:
         ".pre-commit-config.yaml",
         "known-dangling.yaml",
         "known-validation-gaps.yaml",
-        ".pre-commit-config.yaml",
         *(d.name for d in jurisdiction_dirs()),
     }
 
@@ -134,7 +133,7 @@ def test_json_manifests_parse() -> None:
 
 def test_treasury_emtr_snapshot_schema() -> None:
     snapshot = json.loads(
-        (ROOT / "data/oracles/treasury-emtr-snapshot.json").read_text()
+        (ROOT / "data/oracles/treasury-emtr-snapshot.json").read_text(),
     )
 
     assert snapshot["oracle"]["id"] == "treasury-income-explorer"
@@ -143,7 +142,7 @@ def test_treasury_emtr_snapshot_schema() -> None:
 
     output_columns = snapshot["generator"]["output_columns"]
     assert {"Net_Income", "EMTR", "PTR", "AS_Amount", "WFF_abated"}.issubset(
-        output_columns
+        output_columns,
     )
     sampled_wages = snapshot["generator"]["sampled_weekly_gross_wage"]
     assert sampled_wages == [0, 160, 250, 370, 555, 740, 1000, 1500]
@@ -171,11 +170,11 @@ def test_treasury_emtr_snapshot_schema() -> None:
 
 def test_tax_benefit_source_map_references_known_ids() -> None:
     source_map = json.loads(
-        (ROOT / "data/coverage/tax-benefit-source-map.json").read_text()
+        (ROOT / "data/coverage/tax-benefit-source-map.json").read_text(),
     )
     backlog = json.loads((ROOT / "data/coverage/full-country-backlog.json").read_text())
     source_spine = json.loads(
-        (ROOT / "data/corpus/inventory/nz/source-spine.json").read_text()
+        (ROOT / "data/corpus/inventory/nz/source-spine.json").read_text(),
     )
     oracle_index = json.loads((ROOT / "data/oracles/oracle-index.json").read_text())
 
@@ -238,7 +237,7 @@ def test_no_disallowed_roots_or_yaml_fixtures() -> None:
         for path in iter_repo_files()
         if path.suffix in {".yaml", ".yml"}
         and path.relative_to(ROOT).parts[0] not in allowed
-            and path.name != ".pre-commit-config.yaml"
+        and path.name != ".pre-commit-config.yaml"
     ]
 
     assert disallowed_roots == []
@@ -289,17 +288,17 @@ def test_rulespec_files_use_rulespec_v1_shape() -> None:
         for index, rule in enumerate(rules):
             if not isinstance(rule, dict):
                 invalid.append(
-                    f"{path.relative_to(ROOT)}: rules[{index}] is not a mapping"
+                    f"{path.relative_to(ROOT)}: rules[{index}] is not a mapping",
                 )
                 continue
             for key in ("name", "kind"):
                 if key not in rule:
                     invalid.append(
-                        f"{path.relative_to(ROOT)}: rules[{index}] missing {key}"
+                        f"{path.relative_to(ROOT)}: rules[{index}] missing {key}",
                     )
             if rule.get("kind") in {"parameter", "derived"} and "versions" not in rule:
                 invalid.append(
-                    f"{path.relative_to(ROOT)}: rules[{index}] missing versions"
+                    f"{path.relative_to(ROOT)}: rules[{index}] missing versions",
                 )
 
     invalid_paths = sorted({item.split(":", 1)[0] for item in invalid})
@@ -325,7 +324,7 @@ def test_rulespec_rules_have_source_metadata() -> None:
                 missing.append(f"{path.relative_to(ROOT)}: {name} missing source")
             if not module_source_locator:
                 missing.append(
-                    f"{path.relative_to(ROOT)}: {name} missing source locator"
+                    f"{path.relative_to(ROOT)}: {name} missing source locator",
                 )
 
     assert missing == []
@@ -343,11 +342,11 @@ def test_rulespec_files_use_corpus_source_locators() -> None:
                     legacy.append(f"{path.relative_to(ROOT)}: module.source_url")
                 source_verification = module.get("source_verification")
                 if isinstance(source_verification, dict) and source_verification.get(
-                    "source_url"
+                    "source_url",
                 ):
                     legacy.append(
                         f"{path.relative_to(ROOT)}: "
-                        "module.source_verification.source_url"
+                        "module.source_verification.source_url",
                     )
             rules = payload.get("rules")
             if isinstance(rules, list):

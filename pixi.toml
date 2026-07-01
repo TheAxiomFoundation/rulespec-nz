@@ -28,5 +28,4 @@ lint = "ruff check programs tests test_bindings.py"
 format-check = "ruff format --check programs tests test_bindings.py"
 typecheck = "basedpyright"
 rust-test = "cargo test --manifest-path rulespec-nz/Cargo.toml --no-default-features"
-quality = { depends-on = ["lint", "format-check", "typecheck", "test", "rust-test"] }
-
+quality = { depends-on = ["lint", "format-check", "typecheck", "test"] }

@@ -15,7 +15,8 @@ INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 @functools.cache
 def load_inventory() -> dict[str, Any]:
     return cast(
-        dict[str, Any], json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig"))
+        "dict[str, Any]",
+        json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig")),
     )
 
 
@@ -29,8 +30,8 @@ def non_test_rulespec_paths() -> set[str]:
 
 def rulespec_rule_names(path: Path) -> list[dict[str, str]]:
     """Extract rule name and kind from a RuleSpec YAML file."""
-    payload = cast(dict[str, Any], yaml.safe_load(path.read_text()) or {})
-    rules = cast(list[dict[str, Any]], payload.get("rules") or [])
+    payload = cast("dict[str, Any]", yaml.safe_load(path.read_text()) or {})
+    rules = cast("list[dict[str, Any]]", payload.get("rules") or [])
     return [
         {"name": str(rule["name"]), "kind": str(rule.get("kind", "unknown"))}
         for rule in rules
@@ -217,7 +218,7 @@ def load_reconciliation(path: Path) -> dict[str, Any] | None:
     """Load a reconciliation file if it exists."""
     if not path.exists():
         return None
-    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
+    return cast("dict[str, Any]", json.loads(path.read_text(encoding="utf-8")))
 
 
 def test_duplicate_clusters_link_to_reconciliation_surfaces() -> None:
@@ -225,10 +226,10 @@ def test_duplicate_clusters_link_to_reconciliation_surfaces() -> None:
     inventory = load_inventory()
     recon_paths = {
         "policyengine-nz": Path(
-            ROOT / "data/coverage/policyengine-nz-reconciliation.json"
+            ROOT / "data/coverage/policyengine-nz-reconciliation.json",
         ),
         "openfisca-aotearoa": Path(
-            ROOT / "data/coverage/openfisca-aotearoa-reconciliation.json"
+            ROOT / "data/coverage/openfisca-aotearoa-reconciliation.json",
         ),
         "nztaxmicrosim": Path(ROOT / "data/coverage/nztaxmicrosim-reconciliation.json"),
     }
@@ -317,7 +318,8 @@ SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
 def load_scorecard() -> dict[str, Any] | None:
     if SCORECARD_PATH.exists():
         return cast(
-            dict[str, Any], json.loads(SCORECARD_PATH.read_text(encoding="utf-8"))
+            "dict[str, Any]",
+            json.loads(SCORECARD_PATH.read_text(encoding="utf-8")),
         )
     return None
 

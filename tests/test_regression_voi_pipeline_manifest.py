@@ -13,25 +13,25 @@ MICROSIM_PATH = ROOT / "data/microsimulation/synthetic-population-builder.json"
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -41,11 +41,11 @@ def _string_value(value: object) -> str:
 
 def _string_map(value: object) -> dict[str, str]:
     assert isinstance(value, dict)
-    raw = cast(dict[object, object], value)
+    raw = cast("dict[object, object]", value)
     for key, item in raw.items():
         assert isinstance(key, str)
         assert isinstance(item, str)
-    return cast(dict[str, str], raw)
+    return cast("dict[str, str]", raw)
 
 
 def _oracle_ids() -> set[str]:
@@ -103,7 +103,7 @@ def test_regression_voi_manifest_inputs_align_with_microsimulation_contract() ->
         "scenario_metadata",
     }
     assert inputs["simulation_outputs"]["source_manifest"] == str(
-        MICROSIM_PATH.relative_to(ROOT)
+        MICROSIM_PATH.relative_to(ROOT),
     ).replace("\\", "/")
     assert (
         set(_string_list(inputs["simulation_outputs"]["required_entity_tables"]))
@@ -126,7 +126,7 @@ def test_regression_voi_manifest_output_contract_is_stable() -> None:
     }
 
     regression_columns = set(
-        _string_list(outputs["regression_dataset"]["required_columns"])
+        _string_list(outputs["regression_dataset"]["required_columns"]),
     )
     assert {
         "run_id",
@@ -155,7 +155,7 @@ def test_regression_voi_manifest_records_metrics_and_boundaries() -> None:
     }
     boundaries = manifest["repository_boundaries"]
     assert isinstance(boundaries, dict)
-    boundary_items = cast(dict[str, object], boundaries)
+    boundary_items = cast("dict[str, object]", boundaries)
 
     assert set(metrics) == {"net_income_delta", "emtr_delta", "voi_evpi"}
     assert metrics["net_income_delta"]["unit"] == "NZD"
@@ -194,9 +194,9 @@ def _jsonl_objects(path: Path) -> list[dict[str, object]]:
     for line in path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
-        loaded = cast(object, json.loads(line))
+        loaded = cast("object", json.loads(line))
         assert isinstance(loaded, dict)
-        rows.append(cast(dict[str, object], loaded))
+        rows.append(cast("dict[str, object]", loaded))
     return rows
 
 
@@ -229,7 +229,7 @@ def test_regression_voi_fixture_outputs_cover_output_schemas() -> None:
     assert len(voi_rows) == 1
 
     regression_columns = set(
-        _string_list(outputs["regression_dataset"]["required_columns"])
+        _string_list(outputs["regression_dataset"]["required_columns"]),
     )
     voi_columns = set(_string_list(outputs["voi_decision_table"]["required_columns"]))
     assert regression_columns.issubset(set(regression_rows[0]))
@@ -244,7 +244,7 @@ def test_regression_voi_manifest_records_live_validation_state() -> None:
     manifest = _load_json_object(MANIFEST_PATH)
     live = manifest["live_validation"]
     assert isinstance(live, dict)
-    live_items = cast(dict[str, object], live)
+    live_items = cast("dict[str, object]", live)
 
     assert live_items["checked_at"] == "2026-06-22"
     assert live_items["validated_against_real_workflows"] is False
@@ -287,5 +287,5 @@ def test_regression_voi_deferred_work_excludes_completed_track_phases() -> None:
         not in deferred_work
     )
     assert deferred_work == {
-        "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected."
+        "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected.",
     }

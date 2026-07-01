@@ -15,42 +15,42 @@ SOURCE_MAP_PATH = ROOT / "data/coverage/tax-benefit-source-map.json"
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_json_line(line: str) -> dict[str, object]:
-    loaded = cast(object, json.loads(line))
+    loaded = cast("object", json.loads(line))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_yaml_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
+    loaded = cast("object", yaml.safe_load(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_dict(value: object) -> dict[str, object]:
     assert isinstance(value, dict)
-    return cast(dict[str, object], value)
+    return cast("dict[str, object]", value)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -69,7 +69,7 @@ def _rule_formulas_by_effective_date(path: Path, rule_name: str) -> dict[str, st
     rule = next(rule for rule in rules if rule["name"] == rule_name)
     return {
         _string_value(version["effective_from"]): _string_value(
-            version["formula"]
+            version["formula"],
         ).strip()
         for version in _object_list(rule["versions"])
     }
@@ -114,10 +114,10 @@ def test_gst_acc_manifest_matches_source_map_batches() -> None:
         source_batch = expected_batches[batch_id]
         assert manifest_batch["destination"] == source_batch["destination"]
         assert _string_list(manifest_batch["source_requirements"]) == _string_list(
-            source_batch["source_requirements"]
+            source_batch["source_requirements"],
         )
         assert _string_list(manifest_batch["oracle_checks"]) == _string_list(
-            source_batch["oracle_checks"]
+            source_batch["oracle_checks"],
         )
 
 
@@ -166,7 +166,7 @@ def test_gst_acc_manifest_points_to_modules_provisions_and_known_gaps() -> None:
     }
     assert _string_list(gst_module["unresolved_corpus_citation_paths"]) == []
     assert "nz/statute/act/public/1985/0141/section/10" not in _string_list(
-        manifest["known_corpus_gaps"]
+        manifest["known_corpus_gaps"],
     )
 
 

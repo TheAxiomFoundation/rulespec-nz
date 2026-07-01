@@ -15,7 +15,7 @@ JsonMap = dict[str, Any]
 
 
 def load_json(path: Path) -> JsonMap:
-    return cast(JsonMap, json.loads(path.read_text(encoding="utf-8")))
+    return cast("JsonMap", json.loads(path.read_text(encoding="utf-8")))
 
 
 @pytest.mark.unit
@@ -66,7 +66,7 @@ def test_supporting_fixtures_are_non_authoritative_and_pinned() -> None:
         assert payload["oracle_index_commit"] == reconciliation["oracle_index_commit"]
         assert payload["rulespec_destination"] == fixture["rulespec_destination"]
         assert payload["upstream_test_path"].startswith(
-            "policyengine_nz/tests/policy/baseline/"
+            "policyengine_nz/tests/policy/baseline/",
         )
         assert payload["scenarios"], fixture["surface_id"]
         for scenario in payload["scenarios"]:

@@ -22,7 +22,7 @@ TRACK_ROOT = (
 def test_openfisca_inventory_records_pin_mismatch_and_oracle_boundary() -> None:
     inventory = json.loads(INVENTORY_PATH.read_text(encoding="utf-8"))
     oracle_index = json.loads(
-        (ROOT / "data" / "oracles" / "oracle-index.json").read_text(encoding="utf-8")
+        (ROOT / "data" / "oracles" / "oracle-index.json").read_text(encoding="utf-8"),
     )
     openfisca = next(
         oracle

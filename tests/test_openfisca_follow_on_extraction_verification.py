@@ -19,7 +19,7 @@ JsonMap = dict[str, Any]
 
 
 def load_json(path: Path) -> JsonMap:
-    return cast(JsonMap, json.loads(path.read_text(encoding="utf-8-sig")))
+    return cast("JsonMap", json.loads(path.read_text(encoding="utf-8-sig")))
 
 
 DEFERRED_SURFACE_IDS = [

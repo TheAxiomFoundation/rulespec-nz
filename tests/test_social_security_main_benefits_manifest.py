@@ -16,37 +16,37 @@ ENTITLEMENT_RULESPEC_PATH = (
 
 
 def _load_json_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, json.loads(path.read_text(encoding="utf-8")))
+    loaded = cast("object", json.loads(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_yaml_object(path: Path) -> dict[str, object]:
-    loaded = cast(object, yaml.safe_load(path.read_text(encoding="utf-8")))
+    loaded = cast("object", yaml.safe_load(path.read_text(encoding="utf-8")))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _load_json_line(line: str) -> dict[str, object]:
-    loaded = cast(object, json.loads(line))
+    loaded = cast("object", json.loads(line))
     assert isinstance(loaded, dict)
-    return cast(dict[str, object], loaded)
+    return cast("dict[str, object]", loaded)
 
 
 def _object_list(value: object) -> list[dict[str, object]]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, dict)
-    return cast(list[dict[str, object]], items)
+    return cast("list[dict[str, object]]", items)
 
 
 def _string_list(value: object) -> list[str]:
     assert isinstance(value, list)
-    items = cast(list[object], value)
+    items = cast("list[object]", value)
     for item in items:
         assert isinstance(item, str)
-    return cast(list[str], items)
+    return cast("list[str]", items)
 
 
 def _string_value(value: object) -> str:
@@ -77,7 +77,8 @@ def _source_map_track() -> dict[str, object]:
     for track in tracks:
         if track["track_id"] == "social-security-main-benefits":
             return track
-    raise AssertionError("social-security-main-benefits source-map track missing")
+    msg = "social-security-main-benefits source-map track missing"
+    raise AssertionError(msg)
 
 
 def _citation_paths_from_jsonl(path: Path) -> set[str]:
@@ -106,10 +107,10 @@ def test_social_security_manifest_matches_source_map_batches() -> None:
         source_batch = source_by_id[batch_id]
         assert manifest_batch["destination"] == source_batch["destination"]
         assert _string_list(manifest_batch["source_requirements"]) == _string_list(
-            source_batch["source_requirements"]
+            source_batch["source_requirements"],
         )
         assert _string_list(manifest_batch["oracle_checks"]) == _string_list(
-            source_batch["oracle_checks"]
+            source_batch["oracle_checks"],
         )
 
 
@@ -203,7 +204,7 @@ def test_social_security_main_benefit_oracle_fixture_matches_entitlement_constan
     )
 
     formulas = _rule_formulas_by_name(ENTITLEMENT_RULESPEC_PATH)
-    normalized = cast(dict[str, object], fixture["normalized_values"])
+    normalized = cast("dict[str, object]", fixture["normalized_values"])
 
     assert (
         _number_value(normalized["jobseeker_minimum_age_without_dependent_child"])
