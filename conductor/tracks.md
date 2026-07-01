@@ -6,11 +6,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
-## Track 37: Oracle comparison and historical rule reconciliation
-*Status: implemented pending review*
-*Link: [./tracks/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/37_oracle_comparison_and_historical_rule_reconciliation/)*
-
-
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
@@ -32,6 +27,12 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./tracks/40_repo_quality_ci_automation_20260701/](./tracks/40_repo_quality_ci_automation_20260701/)*
 
 
+## Archived Tracks
+## Track 37: Oracle comparison and historical rule reconciliation
+*Status: archived after clean review*
+*Link: [./tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/)*
+
+
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
 *Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
@@ -44,7 +45,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Status: archived after clean review*
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
-## Archived Tracks
 ## Track 36: GST and indirect-tax interfaces
 *Status: archived after clean review*
 *Link: [./tracks/archive/36_gst_and_indirect_tax_interfaces/](./tracks/archive/36_gst_and_indirect_tax_interfaces/)*

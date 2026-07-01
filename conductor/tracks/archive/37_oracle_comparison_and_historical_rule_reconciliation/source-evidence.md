@@ -5,7 +5,7 @@
 - Track id: `37_oracle_comparison_and_historical_rule_reconciliation`
 - Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/62
 - Policy family: Oracle comparison and historical rule reconciliation
-- Implementation status: implemented pending review.
+- Implementation status: archived after clean review.
 
 ## Official Source Family
 
