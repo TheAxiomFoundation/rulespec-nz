@@ -1,9 +1,9 @@
 from __future__ import annotations
+
 # pyright: reportUnknownMemberType=false, reportUntypedFunctionDecorator=false
 
 import json
 from pathlib import Path
-from typing import Any
 
 import pytest
 import yaml
@@ -11,22 +11,24 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data" / "coverage" / "corpus-citation-provenance-qa.json"
-INVENTORY_PATH = ROOT / "data" / "corpus" / "inventory" / "nz" / "tax-benefit-pco-locators.json"
+INVENTORY_PATH = (
+    ROOT / "data" / "corpus" / "inventory" / "nz" / "tax-benefit-pco-locators.json"
+)
 
 
-def _load_json(path: Path) -> dict[str, Any]:
+def _load_json(path: Path) -> dict[str, object]:
     loaded = json.loads(path.read_text(encoding="utf-8"))
     assert isinstance(loaded, dict)
     return loaded
 
 
-def _load_yaml(path: Path) -> dict[str, Any]:
+def _load_yaml(path: Path) -> dict[str, object]:
     loaded = yaml.safe_load(path.read_text(encoding="utf-8"))
     assert isinstance(loaded, dict)
     return loaded
 
 
-def _collect_string_values(value: Any) -> set[str]:
+def _collect_string_values(value: object) -> set[str]:
     collected: set[str] = set()
     if isinstance(value, str):
         collected.add(value)
@@ -42,9 +44,7 @@ def _collect_string_values(value: Any) -> set[str]:
 def _inventory_citation_paths() -> set[str]:
     inventory = _load_json(INVENTORY_PATH)
     return {
-        value
-        for value in _collect_string_values(inventory)
-        if value.startswith("nz/")
+        value for value in _collect_string_values(inventory) if value.startswith("nz/")
     }
 
 
@@ -55,7 +55,10 @@ def test_provenance_manifest_is_pinned_and_reviewable() -> None:
     assert manifest["track_id"] == "38_corpus_citation_pinning_and_provenance_qa"
     assert manifest["status"] == "implemented_pending_review"
     assert manifest["scope"] == "provenance_only"
-    assert manifest["source_inventory_path"] == "data/corpus/inventory/nz/tax-benefit-pco-locators.json"
+    assert (
+        manifest["source_inventory_path"]
+        == "data/corpus/inventory/nz/tax-benefit-pco-locators.json"
+    )
     assert manifest["provenance_checks"] == [
         "module_source_verification_matches_manifest",
         "corpus_inventory_contains_every_pinned_path",
@@ -79,5 +82,5 @@ def test_pinned_citations_exist_in_modules_and_inventory() -> None:
         assert test_path.exists(), citation_set["test_path"]
         assert pinned_paths <= inventory_paths
         assert pinned_paths <= set(
-            module["module"]["source_verification"]["corpus_citation_paths"]
+            module["module"]["source_verification"]["corpus_citation_paths"],
         )

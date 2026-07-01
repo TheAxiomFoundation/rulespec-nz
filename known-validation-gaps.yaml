@@ -1,4 +1,26 @@
 missing_companion_tests: []
 shape_issues: []
 uncovered_derived_rules: []
-
+# Tracked in https://github.com/TheAxiomFoundation/rulespec-nz/issues/68.
+validate_failures:
+  - nz/policies/common/demographics.yaml
+  - nz/regulations/student_allowances/core.yaml
+  - nz/statutes/acc/weekly_compensation.yaml
+  - nz/statutes/child_support/core_formula.yaml
+  - nz/statutes/citizenship/by_grant.yaml
+  - nz/statutes/common/relationships.yaml
+  - nz/statutes/common/residence.yaml
+  - nz/statutes/gst/rate.yaml
+  - nz/statutes/housing_restructuring/income_related_rent.yaml
+  - nz/statutes/immigration/residence.yaml
+  - nz/statutes/income_tax/core/income_interfaces.yaml
+  - nz/statutes/income_tax/family_scheme/tax_credits.yaml
+  - nz/statutes/income_tax/investment/pie.yaml
+  - nz/statutes/income_tax/withholding/resident_withholding_tax.yaml
+  - nz/statutes/kiwisaver/contributions.yaml
+  - nz/statutes/pae_ora/health_services.yaml
+  - nz/statutes/parental_leave/paid_parental_leave.yaml
+  - nz/statutes/payroll/deductions.yaml
+  - nz/statutes/rates_rebates/rates_rebate.yaml
+  - nz/statutes/social_security/main_benefits/entitlement.yaml
+  - nz/statutes/student_loan/repayments.yaml

@@ -14,7 +14,7 @@ MANIFEST_PATH = ROOT / "data" / "coverage" / "repo-hardening-source-readiness.js
 
 
 def load_json(path: Path) -> dict[str, Any]:
-    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8-sig")))
+    return cast("dict[str, Any]", json.loads(path.read_text(encoding="utf-8-sig")))
 
 
 @pytest.mark.unit
@@ -48,9 +48,10 @@ def test_ci_readiness_records_live_workflow_checks() -> None:
     workflow = yaml.safe_load(workflow_path.read_text(encoding="utf-8"))
 
     jobs = workflow["jobs"]
-    assert jobs["validate"]["uses"] == manifest["ci_readiness"][
-        "reusable_validation_workflow"
-    ]
+    assert (
+        jobs["validate"]["uses"]
+        == manifest["ci_readiness"]["reusable_validation_workflow"]
+    )
     assert (
         jobs["roadmap-coverage"]["steps"][1]["run"]
         == manifest["ci_readiness"]["roadmap_check_command"]
@@ -63,9 +64,10 @@ def test_source_readiness_matches_source_map_and_backlog() -> None:
     source_map = load_json(ROOT / manifest["source_readiness"]["source_map"])
     backlog = load_json(ROOT / manifest["source_readiness"]["backlog"])
 
-    assert source_map["current_blockers"] == manifest["source_readiness"][
-        "current_blockers_expected"
-    ]
+    assert (
+        source_map["current_blockers"]
+        == manifest["source_readiness"]["current_blockers_expected"]
+    )
 
     source_map_track_ids = {track["track_id"] for track in source_map["tracks"]}
     backlog_track_ids = {track["id"] for track in backlog["tracks"]}

@@ -22,7 +22,10 @@ RECONCILIATION_PATHS = {
     / "data"
     / "coverage"
     / "openfisca-aotearoa-reconciliation.json",
-    "policyengine-nz": ROOT / "data" / "coverage" / "policyengine-nz-reconciliation.json",
+    "policyengine-nz": ROOT
+    / "data"
+    / "coverage"
+    / "policyengine-nz-reconciliation.json",
 }
 
 
@@ -42,7 +45,9 @@ def test_oracle_comparison_manifests_are_pinned_and_non_authoritative() -> None:
 
 
 @pytest.mark.unit
-def test_oracle_comparison_track_evidence_points_to_the_reconciliation_workflow() -> None:
+def test_oracle_comparison_track_evidence_points_to_the_reconciliation_workflow() -> (
+    None
+):
     source_evidence = SOURCE_EVIDENCE_PATH.read_text(encoding="utf-8")
 
     assert "scripts/phase3_reconciliation_workflow.py" in source_evidence

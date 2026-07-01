@@ -56,7 +56,9 @@ def test_archived_track_registry_entries_point_to_archive() -> None:
         status = entry.group("status").lower()
         href = entry.group("href")
         if "archived" in status:
-            assert "/archive/" in href, f"Archived track link is outside archive: {href}"
+            assert "/archive/" in href, (
+                f"Archived track link is outside archive: {href}"
+            )
 
 
 @pytest.mark.unit
