@@ -1,4 +1,5 @@
 .DS_Store
+.coverage
 .pytest_cache/
 .ruff_cache/
 .tmp/
@@ -8,4 +9,3 @@ __pycache__/
 *.pyd
 target/
 rulespec-nz/target/
-

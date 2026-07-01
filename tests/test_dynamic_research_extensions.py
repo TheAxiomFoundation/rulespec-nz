@@ -32,7 +32,10 @@ def test_dynamic_research_manifest_is_pinned_and_research_only() -> None:
         "keeps_live_workflows_external_and_optional",
     ]
     assert manifest["linked_repository_contracts"][0]["id"] == "regression-voi-pipeline"
-    assert manifest["linked_repository_contracts"][1]["id"] == "state-ledger-temporal-policy"
+    assert (
+        manifest["linked_repository_contracts"][1]["id"]
+        == "state-ledger-temporal-policy"
+    )
 
 
 @pytest.mark.unit

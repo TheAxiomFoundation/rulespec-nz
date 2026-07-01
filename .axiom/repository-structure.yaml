@@ -1,40 +1,102 @@
 version: 1
 allowed_root_directories:
+  - .agents
   - .axiom
+  - .codex
   - .github
+  - conductor
   - data
+  - docs
   - nz
+  - programs
+  - rulespec-nz
+  - scripts
   - tests
 allowed_root_files:
+  - .editorconfig
+  - .gitattributes
   - .gitignore
+  - .pre-commit-config.yaml
+  - AGENTS.md
   - CLAUDE.md
+  - CONTRIBUTING.md
+  - GEMINI.md
+  - LICENSE
+  - Makefile
   - README.md
+  - _create_rulespec_stubs.py
+  - _update_inventory.py
+  - _write_phase2.py
+  - conftest.py
   - known-validation-gaps.yaml
+  - pixi.lock
+  - pixi.toml
+  - pyproject.toml
+  - test_bindings.py
+  - uv.lock
   - variables.toml
 path_rules:
+  - patterns:
+      - ".agents/**"
+    allow_extensions:
+      - ".md"
   - patterns:
       - ".axiom/**"
     allow_extensions:
       - ".toml"
       - ".yaml"
   - patterns:
+      - ".codex/**"
+    allow_extensions:
+      - ".json"
+      - ".md"
+      - ".toml"
+  - patterns:
       - ".github/**"
     allow_extensions:
+      - ".md"
       - ".yml"
       - ".yaml"
+    allow_filenames:
+      - CODEOWNERS
+  - patterns:
+      - "conductor/**"
+    allow_extensions:
+      - ".json"
+      - ".md"
   - patterns:
       - "data/**"
     allow_extensions:
       - ".json"
       - ".jsonl"
+      - ".md"
       - ".yaml"
       - ".yml"
+  - patterns:
+      - "docs/**"
+    allow_extensions:
+      - ".md"
   - patterns:
       - "nz/**"
     allow_extensions:
       - ".yaml"
     allow_filenames:
       - ".gitkeep"
+  - patterns:
+      - "programs/**"
+    allow_extensions:
+      - ".py"
+  - patterns:
+      - "rulespec-nz/**"
+    allow_extensions:
+      - ".rs"
+      - ".toml"
+    allow_filenames:
+      - Cargo.lock
+  - patterns:
+      - "scripts/**"
+    allow_extensions:
+      - ".py"
   - patterns:
       - "tests/**"
     allow_extensions:
