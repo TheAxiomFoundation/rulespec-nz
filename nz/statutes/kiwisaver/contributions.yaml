@@ -11,7 +11,6 @@ module:
       - nz/statute/act/public/2006/0040/section/64
       - nz/statute/act/public/2006/0040/section/101B
       - nz/statute/act/public/2006/0040/schedule/1
-      - nz/statute/act/public/2025/budget-measures/kiwisaver
       - nz/agency/ird/kiwisaver-contribution-rates
     agency_reference_urls:
       - https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/growing-my-kiwisaver/making-contributions
