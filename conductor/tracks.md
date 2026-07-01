@@ -5,7 +5,9 @@ This file tracks all major tracks for the project. Each track has its own detail
 ---
 
 ## Active Tracks
- 
+
+No active tracks.
+
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
@@ -14,86 +16,88 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Sequencing: provenance QA first, then oracle comparison, then research extensions.*
 *These tracks are intentionally narrow and stay separate from legislation conversion.*
 
+## Archived Tracks
+
 ## Track 39: Dynamic simulation and research extensions
 *Status: archived after clean review*
-*Link: [./tracks/archive/39_dynamic_simulation_and_research_extensions/](./tracks/archive/39_dynamic_simulation_and_research_extensions/)*
+*Link: [./conductor/tracks/archive/39_dynamic_simulation_and_research_extensions/](./conductor/tracks/archive/39_dynamic_simulation_and_research_extensions/)*
 
 ## Track 40: Repository quality, CI, and automation hardening
 *Status: archived after clean review*
-*Link: [./tracks/archive/40_repo_quality_ci_automation_20260701/](./tracks/archive/40_repo_quality_ci_automation_20260701/)*
+*Link: [./conductor/tracks/archive/40_repo_quality_ci_automation_20260701/](./conductor/tracks/archive/40_repo_quality_ci_automation_20260701/)*
 
 ## Track 37: Oracle comparison and historical rule reconciliation
 *Status: archived after clean review*
-*Link: [./tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/)*
+*Link: [./conductor/tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/](./conductor/tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/)*
 
 ## Track 38: Corpus citation pinning and provenance QA
 *Status: archived after clean review*
-*Link: [./tracks/archive/38_corpus_citation_pinning_and_provenance_qa/](./tracks/archive/38_corpus_citation_pinning_and_provenance_qa/)*
+*Link: [./conductor/tracks/archive/38_corpus_citation_pinning_and_provenance_qa/](./conductor/tracks/archive/38_corpus_citation_pinning_and_provenance_qa/)*
 
 
 ## Track 17: NLP Pipeline and Publication Audit
 *Status: archived after clean review*
-*Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/17_nlp_pipeline_publication_audit/)*
+*Link: [./conductor/tracks/archive/17_nlp_pipeline_publication_audit/](./conductor/tracks/archive/17_nlp_pipeline_publication_audit/)*
 
 ## Track 16: nztaxmicrosim Follow-on Reconciliation
 *Status: archived after clean review*
-*Link: [./conductor/tracks/archive/16_nztaxmicrosim_follow_on_reconciliation/](./conductor/tracks/16_nztaxmicrosim_follow_on_reconciliation/)*
+*Link: [./conductor/tracks/archive/16_nztaxmicrosim_follow_on_reconciliation/](./conductor/tracks/archive/16_nztaxmicrosim_follow_on_reconciliation/)*
 
 ## Track 15: OpenFisca Follow-on Reconciliation
 *Status: archived after clean review*
-*Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
+*Link: [./conductor/tracks/archive/15_openfisca_follow_on_reconciliation/](./conductor/tracks/archive/15_openfisca_follow_on_reconciliation/)*
 
 ## Track 36: GST and indirect-tax interfaces
 *Status: archived after clean review*
-*Link: [./tracks/archive/36_gst_and_indirect_tax_interfaces/](./tracks/archive/36_gst_and_indirect_tax_interfaces/)*
+*Link: [./conductor/tracks/archive/36_gst_and_indirect_tax_interfaces/](./conductor/tracks/archive/36_gst_and_indirect_tax_interfaces/)*
 
 ## Track 35: Payroll deductions and savings interfaces
 *Status: archived after clean review*
-*Link: [./tracks/archive/35_payroll_deductions_and_savings_interfaces/](./tracks/archive/35_payroll_deductions_and_savings_interfaces/)*
+*Link: [./conductor/tracks/archive/35_payroll_deductions_and_savings_interfaces/](./conductor/tracks/archive/35_payroll_deductions_and_savings_interfaces/)*
 
 ## Track 34: Residency, citizenship, and immigration predicates
 *Status: archived after clean review*
-*Link: [./tracks/archive/34_residency_citizenship_and_immigration_predicates/](./tracks/archive/34_residency_citizenship_and_immigration_predicates/)*
+*Link: [./conductor/tracks/archive/34_residency_citizenship_and_immigration_predicates/](./conductor/tracks/archive/34_residency_citizenship_and_immigration_predicates/)*
 
 ## Track 33: Rates rebates and local-government-adjacent assistance
 *Status: archived after clean review*
-*Link: [./tracks/archive/33_rates_rebates_and_local_government_assistance/](./tracks/archive/33_rates_rebates_and_local_government_assistance/)*
+*Link: [./conductor/tracks/archive/33_rates_rebates_and_local_government_assistance/](./conductor/tracks/archive/33_rates_rebates_and_local_government_assistance/)*
 
 ## Track 32: Paid parental leave, child support, and family-related payments
 *Status: archived after clean review*
-*Link: [./tracks/archive/32_paid_parental_leave_child_support_family_payments/](./tracks/archive/32_paid_parental_leave_child_support_family_payments/)*
+*Link: [./conductor/tracks/archive/32_paid_parental_leave_child_support_family_payments/](./conductor/tracks/archive/32_paid_parental_leave_child_support_family_payments/)*
 
 ## Track 31: Childcare, disability, and health-related assistance
 *Status: archived after clean review*
-*Link: [./tracks/archive/31_childcare_disability_and_health_related_assistance/](./tracks/archive/31_childcare_disability_and_health_related_assistance/)*
+*Link: [./conductor/tracks/archive/31_childcare_disability_and_health_related_assistance/](./conductor/tracks/archive/31_childcare_disability_and_health_related_assistance/)*
 
 ## Track 30: Student support and StudyLink surfaces
 *Status: archived after clean review*
-*Link: [./tracks/archive/30_student_support_studylink/](./tracks/archive/30_student_support_studylink/)*
+*Link: [./conductor/tracks/archive/30_student_support_studylink/](./conductor/tracks/archive/30_student_support_studylink/)*
 
 ## Track 29: NZ Superannuation and veteran pension surfaces
 *Status: archived after clean review*
-*Link: [./tracks/archive/29_nz_superannuation_veteran_pension/](./tracks/archive/29_nz_superannuation_veteran_pension/)*
+*Link: [./conductor/tracks/archive/29_nz_superannuation_veteran_pension/](./conductor/tracks/archive/29_nz_superannuation_veteran_pension/)*
 
 ## Track 28: Personal income tax gap-fill
 *Status: archived after clean review*
-*Link: [./tracks/archive/28_personal_income_tax_gap_fill/](./tracks/archive/28_personal_income_tax_gap_fill/)*
+*Link: [./conductor/tracks/archive/28_personal_income_tax_gap_fill/](./conductor/tracks/archive/28_personal_income_tax_gap_fill/)*
 
 ## Track 27: Housing assistance, especially Accommodation Supplement
 *Status: archived after clean review*
-*Link: [./tracks/archive/27_housing_assistance_accommodation_supplement/](./tracks/archive/27_housing_assistance_accommodation_supplement/)*
+*Link: [./conductor/tracks/archive/27_housing_assistance_accommodation_supplement/](./conductor/tracks/archive/27_housing_assistance_accommodation_supplement/)*
 
 ## Track 26: Working for Families and family scheme tax credits
 *Status: archived after clean review*
-*Link: [./tracks/archive/26_working_for_families_family_scheme_tax_credits/](./tracks/archive/26_working_for_families_family_scheme_tax_credits/)*
+*Link: [./conductor/tracks/archive/26_working_for_families_family_scheme_tax_credits/](./conductor/tracks/archive/26_working_for_families_family_scheme_tax_credits/)*
 
 ## Track 25: Social Security Act main benefits and income tests
 *Status: archived after clean review*
-*Link: [./tracks/archive/25_social_security_main_benefits/](./tracks/archive/25_social_security_main_benefits/)*
+*Link: [./conductor/tracks/archive/25_social_security_main_benefits/](./conductor/tracks/archive/25_social_security_main_benefits/)*
 
 ## Track 23: Income Interfaces
 *Status: archived after clean review*
-*Link: [./tracks/archive/23_income_interfaces/](./tracks/archive/23_income_interfaces/)*
+*Link: [./conductor/tracks/archive/23_income_interfaces/](./conductor/tracks/archive/23_income_interfaces/)*
 ## Track 18: RuleSpec Rule Inventory and Triangulation
 *Status: archived after clean review*
 *Link: [./conductor/tracks/archive/18_rulespec_rule_inventory_triangulation/](./conductor/tracks/archive/18_rulespec_rule_inventory_triangulation/)*
@@ -157,4 +161,3 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Track 12: nztaxmicrosim Rule Incorporation
 *Status: archived after review remediation*
 *Link: [./conductor/tracks/archive/12_nztaxmicrosim_rule_incorporation/](./conductor/tracks/archive/12_nztaxmicrosim_rule_incorporation/)*
-
