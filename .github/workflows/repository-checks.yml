@@ -14,10 +14,3 @@ jobs:
     with:
       validate-roots: auto
       run-generated-guard: true
-
-  roadmap-coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check roadmap coverage state
-        run: python scripts/nz_full_country_roadmap_sync.py --check

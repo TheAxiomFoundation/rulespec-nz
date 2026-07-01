@@ -1,0 +1,16 @@
+name: Roadmap Coverage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  roadmap-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check roadmap coverage state
+        run: python scripts/nz_full_country_roadmap_sync.py --check

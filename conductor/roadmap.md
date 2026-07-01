@@ -64,3 +64,5 @@ research and provenance layer around the existing corpus.
 - The NLP pipeline remains useful for source extraction, but these support
   tracks should continue to assume official PCO/data.govt.nz citation paths are
   available even if NLP is still in progress.
+- GitHub issue #46 is the roadmap ledger mirror for this repo; keep its body and
+  the project item fields aligned with the project-ledger conventions.
