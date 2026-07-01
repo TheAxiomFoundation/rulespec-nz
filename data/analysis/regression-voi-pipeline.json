@@ -1,0 +1,215 @@
+{
+  "pipeline_id": "regression-voi-pipeline",
+  "track_id": "09_regression_voi_pipeline",
+  "authority": "adapter_contract",
+  "jurisdiction": "nz",
+  "mode": "read_only_external_analysis_tools",
+  "purpose": "Repository-side contract for routing RuleSpec simulation outputs into mars regression workflows and voiage value-of-information analysis without committing raw analysis payloads.",
+  "tools": [
+    {
+      "id": "mars",
+      "name": "MARS regression workflow",
+      "status": "expected_local_external",
+      "oracle_id": null,
+      "registry_gap": "not_pinned_in_oracle_index",
+      "local_path_env": "RULESPEC_NZ_MARS_DIR",
+      "role": "Regression and diagnostics layer for simulation output deltas before decision-analysis handoff.",
+      "never_commit_payloads": true
+    },
+    {
+      "id": "voiage",
+      "name": "VOIage value-of-information workflow",
+      "status": "pinned_research_oracle",
+      "oracle_id": "voiage",
+      "local_path_env": "RULESPEC_NZ_VOIAGE_DIR",
+      "role": "Decision-analysis and value-of-information layer consuming regression summaries and uncertainty outputs.",
+      "never_commit_payloads": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "simulation_outputs",
+      "source_manifest": "data/microsimulation/synthetic-population-builder.json",
+      "required_entity_tables": [
+        "persons",
+        "households",
+        "benefit_units"
+      ],
+      "required_columns": [
+        "person_id",
+        "household_id",
+        "benefit_unit_id",
+        "scenario_id",
+        "run_id",
+        "net_income",
+        "emtr"
+      ]
+    },
+    {
+      "id": "population_weights",
+      "source_manifest": "data/microsimulation/synthetic-population-builder.json",
+      "required_column": "household_weight"
+    },
+    {
+      "id": "scenario_metadata",
+      "source_manifest": "data/microsimulation/synthetic-population-builder.json",
+      "required_key": "run_id"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "regression_dataset",
+      "format": "jsonl",
+      "path_template": "data/analysis/fixtures/regression-<run-id>.jsonl",
+      "required_columns": [
+        "run_id",
+        "scenario_id",
+        "person_id",
+        "household_weight",
+        "baseline_net_income",
+        "reform_net_income",
+        "net_income_delta",
+        "baseline_emtr",
+        "reform_emtr",
+        "emtr_delta"
+      ]
+    },
+    {
+      "id": "voi_decision_table",
+      "format": "jsonl",
+      "path_template": "data/analysis/fixtures/voi-<run-id>.jsonl",
+      "required_columns": [
+        "run_id",
+        "decision_id",
+        "scenario_id",
+        "expected_value",
+        "expected_value_of_information",
+        "uncertainty_source"
+      ]
+    },
+    {
+      "id": "summary_report",
+      "format": "markdown",
+      "path_template": "data/analysis/reports/<run-id>.md",
+      "required_sections": [
+        "scenario set",
+        "regression diagnostics",
+        "value of information",
+        "known limitations"
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "net_income_delta",
+      "unit": "NZD",
+      "definition": "Reform net income minus baseline net income at the observation grain."
+    },
+    {
+      "id": "emtr_delta",
+      "unit": "rate",
+      "definition": "Reform effective marginal tax rate minus baseline effective marginal tax rate."
+    },
+    {
+      "id": "voi_evpi",
+      "unit": "NZD",
+      "definition": "Expected value of perfect information for the selected decision or scenario family."
+    }
+  ],
+  "pipeline_routes": [
+    {
+      "id": "simulation_to_regression",
+      "handoff": {
+        "from": "rulespec-nz",
+        "to": "mars"
+      },
+      "transport": "arrow_or_jsonl",
+      "status": "contract_only"
+    },
+    {
+      "id": "regression_to_voi",
+      "handoff": {
+        "from": "mars",
+        "to": "voiage"
+      },
+      "transport": "jsonl_or_arrow_summary",
+      "status": "contract_only"
+    }
+  ],
+  "repository_boundaries": {
+    "never_commit_globs": [
+      "**/*.parquet",
+      "**/*.arrow",
+      "data/analysis/local/**",
+      "data/analysis/raw/**",
+      "data/analysis/runs/**"
+    ],
+    "allowed_promoted_outputs": [
+      "data/analysis/*.json",
+      "data/analysis/fixtures/*.jsonl",
+      "data/analysis/fixtures/*.json",
+      "data/analysis/reports/*.md"
+    ]
+  },
+  "deferred_work": [
+    "Pin mars in data/oracles/oracle-index.json when a repository, commit, and role are selected."
+  ],
+  "fixture_outputs": [
+    {
+      "id": "regression-smoke",
+      "output_id": "regression_dataset",
+      "path": "data/analysis/fixtures/regression-smoke.jsonl",
+      "format": "jsonl",
+      "synthetic_only": true,
+      "contains_raw_analysis_payload": false
+    },
+    {
+      "id": "voi-smoke",
+      "output_id": "voi_decision_table",
+      "path": "data/analysis/fixtures/voi-smoke.jsonl",
+      "format": "jsonl",
+      "synthetic_only": true,
+      "contains_raw_analysis_payload": false
+    },
+    {
+      "id": "summary-report-smoke",
+      "output_id": "summary_report",
+      "path": "data/analysis/reports/smoke.md",
+      "format": "markdown",
+      "synthetic_only": true,
+      "contains_raw_analysis_payload": false
+    }
+  ],
+  "live_validation": {
+    "checked_at": "2026-06-22",
+    "validated_against_real_workflows": false,
+    "result": "blocked_missing_local_workflows",
+    "probes": [
+      {
+        "tool_id": "mars",
+        "local_path_env": "RULESPEC_NZ_MARS_DIR",
+        "env_value_present": false,
+        "adjacent_checkout_present": false,
+        "oracle_id": null,
+        "status": "blocked_missing_local_checkout"
+      },
+      {
+        "tool_id": "voiage",
+        "local_path_env": "RULESPEC_NZ_VOIAGE_DIR",
+        "env_value_present": false,
+        "adjacent_checkout_present": false,
+        "oracle_id": "voiage",
+        "status": "blocked_missing_local_checkout"
+      }
+    ],
+    "blockers": [
+      "RULESPEC_NZ_MARS_DIR is not set and no adjacent mars checkout was found.",
+      "RULESPEC_NZ_VOIAGE_DIR is not set and no adjacent voiage checkout was found."
+    ],
+    "next_validation_steps": [
+      "Set RULESPEC_NZ_MARS_DIR to a local mars checkout before running regression workflow validation.",
+      "Set RULESPEC_NZ_VOIAGE_DIR to a local voiage checkout before running VOI workflow validation.",
+      "Keep raw live analysis outputs under data/analysis/local, data/analysis/raw, or data/analysis/runs and promote only schema-safe summaries."
+    ]
+  }
+}

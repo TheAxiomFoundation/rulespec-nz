@@ -1,0 +1,31 @@
+[workspace]
+name = "rulespec-nz"
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[dependencies]
+python = ">=3.12"
+pydantic = ">=2.12"
+pyyaml = ">=6.0.3"
+pytest = ">=9.0"
+pytest-cov = ">=7.1"
+hypothesis = ">=6.153"
+ruff = ">=0.15.16"
+basedpyright = ">=1.39.6"
+rust = ">=1.96"
+
+[pypi-dependencies]
+mutmut = ">=3.4"
+pytest-xdist = ">=3.8"
+scalene = ">=1.5"
+
+[tasks]
+test-unit = "pytest -m unit -q -p no:cacheprovider"
+test-integration = "pytest -m integration -q -p no:cacheprovider"
+test-e2e = "pytest -m e2e -q -p no:cacheprovider"
+test = "pytest -q -p no:cacheprovider"
+lint = "ruff check programs tests test_bindings.py"
+format-check = "ruff format --check programs tests test_bindings.py"
+typecheck = "basedpyright"
+rust-test = "cargo test --manifest-path rulespec-nz/Cargo.toml --no-default-features"
+quality = { depends-on = ["lint", "format-check", "typecheck", "test", "rust-test"] }

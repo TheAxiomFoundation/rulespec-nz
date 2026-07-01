@@ -1,7 +1,11 @@
 .DS_Store
 .pytest_cache/
 .ruff_cache/
+.tmp/
 .venv/
 __pycache__/
 *.pyc
+*.pyd
+target/
+rulespec-nz/target/
 

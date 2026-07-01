@@ -1,0 +1,94 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Immigration residence provisions from the Immigration Act 2009. This module
+    encodes the visa-class and lawful-presence predicates that feed fiscal
+    residency checks.
+  status: active
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2009/0051
+    oracle_links:
+      - openfisca-aotearoa
+rules:
+  - name: immigration_new_zealand_citizen
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009 s 13
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          immigration_new_zealand_citizen_input
+  - name: immigration_residence_class_visa_holder
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          immigration_residence_class_visa_holder_input
+  - name: immigration_temporary_entry_class_visa_holder
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          immigration_temporary_entry_class_visa_holder_input
+  - name: immigration_entitled_to_be_in_new_zealand_indefinitely
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009 and Citizenship Act 1977
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          immigration_entitled_to_be_in_new_zealand_indefinitely_input
+  - name: immigration_may_be_in_new_zealand_lawfully
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              immigration_new_zealand_citizen
+              or immigration_residence_class_visa_holder
+              or immigration_temporary_entry_class_visa_holder
+          )
+  - name: immigration_resident_or_citizen_path
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009 and Social Security Act 2018
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              immigration_new_zealand_citizen
+              or immigration_residence_class_visa_holder
+          )
+  - name: immigration_temporary_only
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Immigration Act 2009
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              immigration_temporary_entry_class_visa_holder
+              and not immigration_new_zealand_citizen
+              and not immigration_residence_class_visa_holder
+          )

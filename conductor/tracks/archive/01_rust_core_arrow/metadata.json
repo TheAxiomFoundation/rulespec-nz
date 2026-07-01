@@ -1,0 +1,14 @@
+{
+  "track_id": "01_rust_core_arrow",
+  "type": "feature",
+  "status": "archived_blocked",
+  "created_at": "2026-06-19T16:18:00Z",
+  "updated_at": "2026-06-24T00:00:00+10:00",
+  "archived_at": "2026-06-23T00:00:00Z",
+  "description": "Establish a Rust-based core for 'rulespec-nz' exposed to Python via PyO3 and utilizing zero-copy Apache Arrow/Polars data passing.",
+  "archive_reason": "Track 1 blocker remediation removed unused native Rust dependencies and refreshed coverage evidence. Native no-default Rust tests pass, and the stale disk-space blocker is cleared, but the >90% native and Python binding coverage gate remains blocked by this host's GNU profiler_builtins gap and missing MSVC/Windows SDK linker stack.",
+  "blockers": [
+    "native Rust coverage blocked by GNU profiler_builtins absence",
+    "Python/PyO3 and MSVC coverage blocked by missing Visual Studio Build Tools or Windows SDK import libraries"
+  ]
+}

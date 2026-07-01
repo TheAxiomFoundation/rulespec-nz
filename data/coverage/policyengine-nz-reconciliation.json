@@ -1,0 +1,133 @@
+{
+  "generated_at": "2026-06-24",
+  "track_id": "14_policyengine_nz_rule_incorporation",
+  "status": "implemented_pending_review",
+  "source_oracle_id": "policyengine-nz",
+  "oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "observed_upstream_head": "fbd186bd9a40633d5fc106750838b9cae40e71c3",
+  "canonical_law": false,
+  "authority": "supporting_reference",
+  "blockers": [],
+  "closeout_policy": "All PolicyEngine NZ surfaces have been either reconciled to existing official-source RuleSpec coverage, implemented from official sources, approved as supporting-reference fixtures, or deferred to a pin-reconciliation task before live-head fixture extraction. No PolicyEngine formula, parameter, or YAML policy test is treated as legal authority.",
+  "pin_reconciliation": {
+    "current_oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+    "observed_upstream_head": "fbd186bd9a40633d5fc106750838b9cae40e71c3",
+    "decision": "retain_current_pin_for_deterministic_supporting_fixtures",
+    "follow_on_track": "policyengine-nz-pin-reconciliation"
+  },
+  "approved_supporting_fixtures": [
+    {
+      "fixture": "data/oracles/fixtures/policyengine-nz/income-tax-baseline.json",
+      "rulespec_destination": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+      "surface_id": "income-tax"
+    },
+    {
+      "fixture": "data/oracles/fixtures/policyengine-nz/acc-levy-baseline.json",
+      "rulespec_destination": "nz/regulations/acc/earners_levy.yaml",
+      "surface_id": "acc-earners-levy"
+    },
+    {
+      "fixture": "data/oracles/fixtures/policyengine-nz/working-for-families-baseline.json",
+      "rulespec_destination": "nz/statutes/income_tax/family_scheme/tax_credits.yaml",
+      "surface_id": "working-for-families"
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "income-tax",
+      "closeout_status": "implemented_existing_official_source_partial_supporting_reconcile",
+      "rulespec_paths": [
+        "nz/statutes/income_tax/core/taxable_income.yaml",
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/income_tax/core/taxable_income.test.yaml",
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.test.yaml"
+      ],
+      "fixture_status": "approved_supporting_reference_fixture"
+    },
+    {
+      "id": "acc-earners-levy",
+      "closeout_status": "implemented_existing_official_source",
+      "rulespec_paths": [
+        "nz/regulations/acc/earners_levy.yaml"
+      ],
+      "companion_tests": [
+        "nz/regulations/acc/earners_levy.test.yaml"
+      ],
+      "fixture_status": "approved_supporting_reference_fixture"
+    },
+    {
+      "id": "working-for-families",
+      "closeout_status": "implemented_existing_official_source_partial_supporting_reconcile",
+      "rulespec_paths": [
+        "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml",
+        "nz/statutes/income_tax/family_scheme/eligibility.yaml",
+        "nz/statutes/income_tax/family_scheme/tax_credits.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/income_tax/family_scheme/family_scheme_income.test.yaml",
+        "nz/statutes/income_tax/family_scheme/eligibility.test.yaml",
+        "nz/statutes/income_tax/family_scheme/tax_credits.test.yaml"
+      ],
+      "fixture_status": "approved_supporting_reference_fixture"
+    },
+    {
+      "id": "main-benefits-jobseeker",
+      "closeout_status": "implemented_existing_official_source_partial_supporting_reconcile",
+      "rulespec_paths": [
+        "nz/statutes/social_security/main_benefits/rates.yaml",
+        "nz/statutes/social_security/main_benefits/entitlement.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/social_security/main_benefits/rates.test.yaml",
+        "nz/statutes/social_security/main_benefits/entitlement.test.yaml"
+      ],
+      "fixture_status": "not_extracted_no_legal_blocker"
+    },
+    {
+      "id": "new-zealand-superannuation",
+      "closeout_status": "implemented_existing_official_source_partial_supporting_reconcile",
+      "rulespec_paths": [
+        "nz/statutes/new_zealand_superannuation/core.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/new_zealand_superannuation/core.test.yaml"
+      ],
+      "fixture_status": "not_extracted_no_legal_blocker"
+    },
+    {
+      "id": "accommodation-supplement",
+      "closeout_status": "implemented_existing_official_source_partial_supporting_reconcile",
+      "rulespec_paths": [
+        "nz/statutes/social_security/accommodation_supplement/core.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/social_security/accommodation_supplement/core.test.yaml"
+      ],
+      "fixture_status": "not_extracted_no_legal_blocker"
+    },
+    {
+      "id": "gst",
+      "closeout_status": "implemented_existing_official_source",
+      "rulespec_paths": [
+        "nz/statutes/gst/rate.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/gst/rate.test.yaml"
+      ],
+      "fixture_status": "not_extracted_no_legal_blocker"
+    },
+    {
+      "id": "kiwisaver",
+      "closeout_status": "implemented_new_official_source",
+      "rulespec_paths": [
+        "nz/statutes/kiwisaver/contributions.yaml"
+      ],
+      "companion_tests": [
+        "nz/statutes/kiwisaver/contributions.test.yaml"
+      ],
+      "fixture_status": "not_extracted_no_legal_blocker"
+    }
+  ]
+}

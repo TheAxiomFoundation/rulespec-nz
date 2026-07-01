@@ -1,0 +1,36 @@
+{
+  "track_id": "14_policyengine_nz_rule_incorporation",
+  "type": "feature",
+  "status": "archived_after_review_remediation",
+  "created_at": "2026-06-23T00:00:00+10:00",
+  "updated_at": "2026-06-24T00:00:00+10:00",
+  "description": "Incorporate all relevant PolicyEngine NZ rule, parameter, and policy-test surfaces into RuleSpec NZ using official NZ sources as canonical authority.",
+  "source_oracle_id": "policyengine-nz",
+  "oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "observed_upstream_head": "fbd186bd9a40633d5fc106750838b9cae40e71c3",
+  "implementation_complete": true,
+  "review_required": false,
+  "review_complete": true,
+  "blockers": [],
+  "artifacts": [
+    "data/oracles/policyengine-nz-rule-inventory.json",
+    "data/coverage/policyengine-nz-source-map.json",
+    "data/coverage/policyengine-nz-reconciliation.json",
+    "nz/statutes/kiwisaver/contributions.yaml",
+    "nz/statutes/kiwisaver/contributions.test.yaml",
+    "tests/test_policyengine_nz_rule_inventory.py",
+    "tests/test_policyengine_nz_source_map.py",
+    "tests/test_policyengine_nz_reconciliation.py",
+    "tests/test_kiwisaver_contributions.py",
+    "data/oracles/fixtures/policyengine-nz/income-tax-baseline.json",
+    "data/oracles/fixtures/policyengine-nz/acc-levy-baseline.json",
+    "data/oracles/fixtures/policyengine-nz/working-for-families-baseline.json"
+  ],
+  "follow_on_tracks": [
+    "policyengine-nz-pin-reconciliation",
+    "policyengine-nz-live-head-fixture-refresh",
+    "working-for-families-supporting-fixture-expansion",
+    "jobseeker-supporting-fixture-expansion",
+    "accommodation-supplement-supporting-fixture-expansion"
+  ]
+}

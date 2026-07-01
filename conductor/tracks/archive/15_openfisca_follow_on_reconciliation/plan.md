@@ -10,13 +10,10 @@
 
 ## Phase 3: RuleSpec and Reconciliation
 
-- [x] Add or extend RuleSpec modules and companion `.test.yaml` files.
-- [x] Update `rulespec-rule-inventory.json` with source families, oracle links, and duplicate clusters.
+- [ ] Add or extend RuleSpec modules and companion `.test.yaml` files.
+- [ ] Update `rulespec-rule-inventory.json` with source families, oracle links, and duplicate clusters.
 
 ## Phase 4: Validation
 
-- [x] Run focused reconciliation and inventory tests.
-- [x] Archive only after review confirms no OpenFisca code is treated as law.
-
-
-
+- [ ] Run focused reconciliation and inventory tests.
+- [ ] Archive only after review confirms no OpenFisca code is treated as law.

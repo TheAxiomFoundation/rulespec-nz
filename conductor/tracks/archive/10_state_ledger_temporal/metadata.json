@@ -1,0 +1,9 @@
+{
+  "track_id": "10_state_ledger_temporal",
+  "title": "State Ledger and Temporal Policy Ledger Integrations",
+  "status": "archived",
+  "created_at": "2026-06-20",
+  "updated_at": "2026-06-23",
+  "archived_at": "2026-06-23",
+  "archive_reason": "Conductor review fixed the missing Phase 1 plan commit hash, added a deferred-work regression guard, and confirmed the temporal state ledger contract, fixture outputs, registry boundaries, and blocked live-validation record pass focused gates."
+}

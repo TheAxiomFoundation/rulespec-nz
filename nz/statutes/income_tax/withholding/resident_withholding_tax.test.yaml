@@ -1,0 +1,84 @@
+- name: rwt_rate_parameters
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_10_5: 0.105
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_17_5: 0.175
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_30: 0.30
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_33: 0.33
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_39: 0.39
+
+- name: rwt_rate_for_lowest_tax_bracket
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.105
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.105
+
+- name: rwt_rate_for_mid_tax_bracket
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.30
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.30
+
+- name: rwt_rate_for_highest_tax_bracket
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.39
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.39
+
+- name: rwt_notified_rate_takes_precedence
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: true
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_notified_rate: 0.175
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.39
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.175
+
+- name: rwt_exemption_certificate_zero_rate
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: true
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.33
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0
+
+- name: rwt_withholding_amount_calculation
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_gross_interest_and_dividends: 10000
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_applicable_rate: 0.33
+  output:
+    nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_withholding_amount: 3300

@@ -1,0 +1,93 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 subpart HM (PIE provisions) and Inland Revenue
+    prescribed investor rate (PIR) guidance define the tax on portfolio
+    investment entity (PIE) income. The PIR depends on the investor's taxable
+    income from the two preceding tax years (two-year lookback) and their
+    PIE income type (savings, withdrawal, etc.). Current PIR rates are 10.5%,
+    17.5%, and 28%.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/subpart/HM
+      - nz/statute/act/public/2007/0097/section/HM6
+      - nz/statute/act/public/2007/0097/schedule/1/part/B
+      - nz/agency/ird/pir-rates-kiwisaver-pie
+    agency_reference_urls:
+      - https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/your-pir-prescribed-investor-rate
+      - https://www.ird.govt.nz/investing/pie-tax
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: pie_rate_10_5
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.105
+  - name: pie_rate_17_5
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.175
+  - name: pie_rate_28
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.28
+  - name: pie_two_year_lookback_taxable_income_threshold_low
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 section HM 6; IRD PIR guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          14000
+  - name: pie_two_year_lookback_taxable_income_threshold_high
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 section HM 6; IRD PIR guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          48000
+  - name: pie_determined_pir_rate
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: Income Tax Act 2007 section HM 6; IRD PIR determination rules
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          if pir_has_notified_pie_scheme_of_pir:
+              pir_notified_rate
+          else:
+              if two_year_lookback_taxable_income < pie_two_year_lookback_taxable_income_threshold_low:
+                  pie_rate_10_5
+              elif two_year_lookback_taxable_income < pie_two_year_lookback_taxable_income_threshold_high:
+                  pie_rate_17_5
+              else:
+                  pie_rate_28
+  - name: pie_tax_on_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 subpart HM
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          max(0, pie_taxable_income) * pie_determined_pir_rate

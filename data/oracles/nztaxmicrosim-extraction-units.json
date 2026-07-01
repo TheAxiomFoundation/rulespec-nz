@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-06-25",
+  "track_id": "16_nztaxmicrosim_follow_on_reconciliation",
+  "source_oracle_id": "nztaxmicrosim",
+  "purpose": "Official-source extraction units for deferred nztaxmicrosim surfaces. Each unit maps one deferred surface to canonical RuleSpec path(s) with source authority.",
+  "extraction_units": [
+    {
+      "surface_id": "payroll-deductions",
+      "target_path": "nz/statutes/student_loan/repayments.yaml",
+      "kind": "statutory_repayment_table",
+      "official_source": "Student Loan Scheme Act 2011; IRD student loan repayment deduction tables",
+      "oracle_constraint": "nztaxmicrosim payroll_deductions.py used for discovery only; canonical rates from Student Loan Scheme Act and IRD tables."
+    },
+    {
+      "surface_id": "payroll-deductions",
+      "target_path": "nz/statutes/payroll/deductions.yaml",
+      "kind": "paye_deduction_aggregator",
+      "official_source": "Income Tax Act 2007 PAYE provisions; IRD payroll deduction tables",
+      "oracle_constraint": "nztaxmicrosim payroll_deductions.py wrappers used for discovery only; canonical PAYE aggregation from Income Tax Act and IRD tables."
+    },
+    {
+      "surface_id": "paid-parental-leave",
+      "target_path": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+      "kind": "entitlement_and_rate_formula",
+      "official_source": "Parental Leave and Employment Protection Act 1987; IRD paid parental leave rate guidance",
+      "oracle_constraint": "nztaxmicrosim benefits.py paid_parental_leave function used for discovery only; canonical formula from Parental Leave Act and IRD rates."
+    },
+    {
+      "surface_id": "investment-and-withholding-tax",
+      "target_path": "nz/statutes/income_tax/investment/pie.yaml",
+      "kind": "prescribed_investor_rate_tax",
+      "official_source": "Income Tax Act 2007 PIE provisions; IRD PIR rate guidance",
+      "oracle_constraint": "nztaxmicrosim investment_tax.py PIE logic is simplified and lacks full two-year PIR lookback; canonical encoding requires full official formula extraction."
+    },
+    {
+      "surface_id": "investment-and-withholding-tax",
+      "target_path": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+      "kind": "resident_withholding_tax_rate_table",
+      "official_source": "Income Tax Act 2007 RWT provisions; IRD RWT rate guidance",
+      "oracle_constraint": "nztaxmicrosim tax_calculator.py RWT logic used for discovery only; canonical RWT rates from Income Tax Act and IRD guidance."
+    },
+    {
+      "surface_id": "child-support",
+      "target_path": "nz/statutes/child_support/core_formula.yaml",
+      "kind": "child_support_formula",
+      "official_source": "Child Support Act 1991; IRD child support formula guidance",
+      "oracle_constraint": "nztaxmicrosim benefits.py child_support function is explicitly simplified and cannot be encoded canonically; full official formula extraction required."
+    }
+  ]
+}

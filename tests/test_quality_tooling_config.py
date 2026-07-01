@@ -36,7 +36,7 @@ def test_runtime_cli_and_pytest_goblin_are_not_configured_without_need() -> None
         [
             *pyproject["project"]["dependencies"],
             *pyproject["project"]["optional-dependencies"]["dev"],
-        ]
+        ],
     )
 
     assert "typer" not in dependencies
@@ -56,10 +56,3 @@ def test_pixi_tasks_cover_quality_and_test_granularity() -> None:
         "test",
         "rust-test",
     ]
-
-
-@pytest.mark.unit
-def test_makefile_quality_gate_matches_pixi_quality_task() -> None:
-    makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
-
-    assert "quality: lint format-check typecheck test rust-test" in makefile

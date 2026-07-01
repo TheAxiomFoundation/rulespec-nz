@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-07-01",
+  "track_id": "38_corpus_citation_pinning_and_provenance_qa",
+  "status": "implemented_pending_review",
+  "jurisdiction": "nz",
+  "scope": "provenance_only",
+  "source_inventory_path": "data/corpus/inventory/nz/tax-benefit-pco-locators.json",
+  "provenance_policy": "Pinned corpus citation paths must appear in both the target RuleSpec source_verification blocks and the corpus inventory; comparison oracles remain non-authoritative.",
+  "pinned_citation_sets": [
+    {
+      "source_family": "GST and indirect tax",
+      "module_path": "nz/statutes/gst/rate.yaml",
+      "test_path": "nz/statutes/gst/rate.test.yaml",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/10",
+        "nz/statute/act/public/1985/0141/section/12",
+        "nz/statute/act/public/2018/0004"
+      ]
+    },
+    {
+      "source_family": "ACC earners' levy",
+      "module_path": "nz/regulations/acc/earners_levy.yaml",
+      "test_path": "nz/regulations/acc/earners_levy.test.yaml",
+      "corpus_citation_paths": [
+        "nz/regulation/regulation/public/2025/0018/regulation/4",
+        "nz/regulation/regulation/public/2025/0018/regulation/5",
+        "nz/regulation/regulation/public/2025/0018/regulation/6",
+        "nz/regulation/regulation/public/2025/0018/regulation/7",
+        "nz/regulation/regulation/public/2025/0018/regulation/8",
+        "nz/regulation/regulation/public/2025/0018/regulation/9"
+      ]
+    },
+    {
+      "source_family": "Working for Families family scheme income",
+      "module_path": "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml",
+      "test_path": "nz/statutes/income_tax/family_scheme/family_scheme_income.test.yaml",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/2007/0097/section/MB-1",
+        "nz/statute/act/public/2007/0097/section/MB-2",
+        "nz/statute/act/public/2007/0097/section/MB-3",
+        "nz/statute/act/public/2007/0097/section/MB-4"
+      ]
+    },
+    {
+      "source_family": "Working for Families eligibility",
+      "module_path": "nz/statutes/income_tax/family_scheme/eligibility.yaml",
+      "test_path": "nz/statutes/income_tax/family_scheme/eligibility.test.yaml",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/2007/0097/section/MC-2",
+        "nz/statute/act/public/2007/0097/section/MC-3",
+        "nz/statute/act/public/2007/0097/section/MC-4",
+        "nz/statute/act/public/2007/0097/section/MC-5"
+      ]
+    },
+    {
+      "source_family": "Social Security main-benefit entitlement",
+      "module_path": "nz/statutes/social_security/main_benefits/entitlement.yaml",
+      "test_path": "nz/statutes/social_security/main_benefits/entitlement.test.yaml",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/2018/0032/section/16",
+        "nz/statute/act/public/2018/0032/section/18",
+        "nz/statute/act/public/2018/0032/section/19",
+        "nz/statute/act/public/2018/0032/section/20"
+      ]
+    }
+  ],
+  "provenance_checks": [
+    "module_source_verification_matches_manifest",
+    "corpus_inventory_contains_every_pinned_path",
+    "tracked_paths_remain_narrow_and_reviewable"
+  ],
+  "residual_risk": [
+    "Future tracks may add more corpus citation paths as official-source extraction expands.",
+    "Comparison oracles remain non-authoritative and are intentionally out of scope."
+  ]
+}

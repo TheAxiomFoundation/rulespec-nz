@@ -1,0 +1,55 @@
+# Companion tests for Citizenship Act 1977 section 8 and section 9 routes.
+- name: section_8_grant_eligible_at_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_section_8_total_days_in_qualifying_period: 1350
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_section_8_minimum_days_in_any_qualifying_year: 240
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_entitled_to_be_in_new_zealand_indefinitely: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_good_character: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_understands_basic_english: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_intends_to_reside_in_new_zealand: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_under_16_or_child_of_citizen_by_descent: false
+  output:
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_presence_requirement_met: holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_indefinite_entitlement_requirement_met: holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_character_and_language_requirements_met: holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_standard_eligibility: holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_eligible: holds
+
+- name: section_8_fails_below_presence_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_section_8_total_days_in_qualifying_period: 1349
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_section_8_minimum_days_in_any_qualifying_year: 240
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_entitled_to_be_in_new_zealand_indefinitely: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_good_character: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_understands_basic_english: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_intends_to_reside_in_new_zealand: true
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_under_16_or_child_of_citizen_by_descent: false
+  output:
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_presence_requirement_met: not_holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_standard_eligibility: not_holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_eligible: not_holds
+
+- name: section_9_special_case_eligible_without_residence_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_section_8_total_days_in_qualifying_period: 0
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_section_8_minimum_days_in_any_qualifying_year: 0
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_entitled_to_be_in_new_zealand_indefinitely: false
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_good_character: false
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_understands_basic_english: false
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_intends_to_reside_in_new_zealand: false
+    nz:statutes/citizenship/by_grant#input.citizenship_by_grant_under_16_or_child_of_citizen_by_descent: true
+  output:
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_section_9_special_case: holds
+    nz:statutes/citizenship/by_grant#citizenship_by_grant_eligible: holds

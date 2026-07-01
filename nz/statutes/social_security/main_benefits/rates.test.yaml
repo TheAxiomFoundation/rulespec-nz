@@ -11,6 +11,32 @@
     nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_3_weekly_reduction: 98
     nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_4_weekly_reduction: 49
 
+- name: income_tests_have_no_reduction_at_lower_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/rates#input.main_benefit_income_test_assessable_income: 160
+  output:
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_1_weekly_reduction: 0
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_2_weekly_reduction: 0
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_3_weekly_reduction: 0
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_4_weekly_reduction: 0
+
+- name: income_tests_apply_lower_band_only_at_upper_threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/main_benefits/rates#input.main_benefit_income_test_assessable_income: 250
+  output:
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_1_weekly_reduction: 27
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_2_weekly_reduction: 13.5
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_3_weekly_reduction: 63
+    nz:statutes/social_security/main_benefits/rates#main_benefit_income_test_4_weekly_reduction: 31.5
+
 - name: jobseeker_single_under_20_living_with_parent_uses_income_test_3
   period:
     period_kind: tax_year

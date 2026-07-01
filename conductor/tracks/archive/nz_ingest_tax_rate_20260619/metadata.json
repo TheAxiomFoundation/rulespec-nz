@@ -1,0 +1,12 @@
+{
+  "track_id": "nz_ingest_tax_rate_20260619",
+  "type": "feature",
+  "status": "archived_superseded",
+  "created_at": "2026-06-19T16:15:00Z",
+  "updated_at": "2026-06-24T00:00:00+10:00",
+  "description": "Ingest official NZ legislation XML sources using the `axiom-corpus` API adapter and establish the first verified RuleSpec modules for Income Tax Act rate schedules.",
+  "superseded_by_track_id": "03_income_tax_rates",
+  "archived_at": "2026-06-24T00:00:00+10:00",
+  "archive_reason": "Superseded by numbered Track 3 income tax rate schedule implementation; retained as historical context in the archive.",
+  "superseded_by_track_path": "conductor/tracks/archive/03_income_tax_rates/"
+}

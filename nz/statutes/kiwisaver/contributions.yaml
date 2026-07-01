@@ -1,0 +1,115 @@
+format: rulespec/v1
+module:
+  summary: |-
+    KiwiSaver Act 2006 and Inland Revenue contribution guidance set the
+    core employee, employer, and Crown contribution settings used for
+    contribution-rate comparison against PolicyEngine NZ. PolicyEngine NZ is
+    used only as supporting-reference discovery; canonical values here are
+    recorded against official statutory and agency sources.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2006/0040/section/64
+      - nz/statute/act/public/2006/0040/section/101B
+      - nz/statute/act/public/2006/0040/schedule/1
+      - nz/agency/ird/kiwisaver-contribution-rates
+    agency_reference_urls:
+      - https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/growing-my-kiwisaver/making-contributions
+      - https://www.ird.govt.nz/kiwisaver/kiwisaver-employers/employer-contributions-to-kiwisaver-and-complying-funds
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: kiwisaver_employee_minimum_contribution_rate
+    kind: parameter
+    dtype: Rate
+    source: KiwiSaver Act 2006; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver contribution guidance
+    versions:
+      - effective_from: '2007-07-01'
+        formula: |-
+          0.03
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.035
+      - effective_from: '2028-04-01'
+        formula: |-
+          0.04
+  - name: kiwisaver_employee_elective_contribution_rates
+    kind: parameter_set
+    dtype: Rate
+    source: KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance
+    versions:
+      - effective_from: '2026-04-01'
+        values:
+          - 0.035
+          - 0.04
+          - 0.06
+          - 0.08
+          - 0.10
+  - name: kiwisaver_employer_minimum_contribution_rate
+    kind: parameter
+    dtype: Rate
+    source: KiwiSaver Act 2006 s 101B; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver employer guidance
+    versions:
+      - effective_from: '2008-04-01'
+        formula: |-
+          0.03
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.035
+      - effective_from: '2028-04-01'
+        formula: |-
+          0.04
+  - name: kiwisaver_government_contribution_match_rate
+    kind: parameter
+    dtype: Rate
+    source: KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          0.25
+  - name: kiwisaver_government_contribution_member_payment_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: KiwiSaver Act 2006 schedule 1; Inland Revenue KiwiSaver government contribution guidance
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          1042.86
+  - name: kiwisaver_government_contribution_maximum
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          kiwisaver_government_contribution_member_payment_threshold
+          * kiwisaver_government_contribution_match_rate
+  - name: kiwisaver_employee_deduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, kiwisaver_gross_salary_or_wages)
+          * kiwisaver_selected_employee_contribution_rate
+  - name: kiwisaver_minimum_employer_contribution
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: KiwiSaver Act 2006 s 101B; Inland Revenue KiwiSaver employer guidance
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(0, kiwisaver_gross_salary_or_wages)
+          * kiwisaver_employer_minimum_contribution_rate

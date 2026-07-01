@@ -1,0 +1,9 @@
+{
+  "track_id": "06_nz_superannuation",
+  "title": "Legislation Ingestion - New Zealand Superannuation Act",
+  "status": "archived",
+  "created_at": "2026-06-20",
+  "updated_at": "2026-06-23",
+  "archived_at": "2026-06-23",
+  "archive_reason": "Conductor review removed a stale basedpyright suppression and confirmed the official-source manifest, path-divergence reconciliation, provision traces, and comparison-only OpenFisca eligibility fixture gates pass."
+}

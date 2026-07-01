@@ -1,0 +1,180 @@
+{
+  "track_id": "15_openfisca_follow_on_reconciliation",
+  "generated_at": "2026-06-26",
+  "purpose": "Maps every deferred OpenFisca Aotearoa surface to its official NZ legislation, regulations, agency tables, and corpus citation paths. This locator is the canonical reference for Phase 2 official-source extraction.",
+  "pin_reconciliation": {
+    "oracle_id": "openfisca-aotearoa",
+    "current_pin": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+    "upstream_head": "76062ffc20e40373d9cb56c8910a224236aa1e72",
+    "decision": "retain_pin_for_deterministic_fixtures",
+    "follow_on_track": "openfisca-aotearoa-pin-reconciliation"
+  },
+  "deferred_surfaces": [
+    {
+      "surface_id": "demographics-and-common-predicates",
+      "surface_name": "Common Demographic and Residence Predicates",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Citizenship Act 1977",
+        "Immigration Act 2009",
+        "Social Security Act 2018",
+        "Program-specific statutory definitions"
+      ],
+      "planned_rulespec_paths": [
+        "nz/policies/common/demographics.yaml",
+        "nz/statutes/common/residence.yaml"
+      ],
+      "extraction_track": "common-demographics-and-residence-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/1977/0061",
+        "nz/statute/act/public/2009/0051",
+        "nz/statute/act/public/2018/0032"
+      ]
+    },
+    {
+      "surface_id": "citizenship-and-immigration",
+      "surface_name": "Citizenship by Grant and Immigration Residence",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Citizenship Act 1977",
+        "Immigration Act 2009",
+        "DIA citizenship guidance",
+        "Immigration NZ residence instructions"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/citizenship/by_grant.yaml",
+        "nz/statutes/immigration/residence.yaml"
+      ],
+      "extraction_track": "citizenship-immigration-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/1977/0061",
+        "nz/statute/act/public/2009/0051"
+      ]
+    },
+    {
+      "surface_id": "relationship-status-and-family-law-predicates",
+      "surface_name": "Relationship Status and Family Law Predicates",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Civil Union Act 2004",
+        "Marriage Act 1955",
+        "Property (Relationships) Act 1976",
+        "Social Security Act 2018"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/common/relationships.yaml"
+      ],
+      "extraction_track": "relationships-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/2004/0102",
+        "nz/statute/act/public/1955/0092",
+        "nz/statute/act/public/1976/0166",
+        "nz/statute/act/public/2018/0032"
+      ]
+    },
+    {
+      "surface_id": "student-allowance",
+      "surface_name": "Student Allowance",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Student Allowances Regulations 1998",
+        "Education and Training Act 2020",
+        "StudyLink guidance"
+      ],
+      "planned_rulespec_paths": [
+        "nz/regulations/student_allowances/basic_grant.yaml"
+      ],
+      "extraction_track": "student-allowance-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/regulation/regulation/public/1998/0277",
+        "nz/statute/act/public/2020/0038"
+      ]
+    },
+    {
+      "surface_id": "rates-rebates",
+      "surface_name": "Rates Rebates",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Rates Rebate Act 1973",
+        "Rates Rebate Regulations",
+        "DIA rates rebate guidance"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/rates_rebates/rates_rebate.yaml"
+      ],
+      "extraction_track": "rates-rebates-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/1973/0005",
+        "nz/regulation/regulation/public/1973/0260"
+      ]
+    },
+    {
+      "surface_id": "parental-leave",
+      "surface_name": "Paid Parental Leave",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Parental Leave and Employment Protection Act 1987",
+        "Employment.govt.nz paid parental leave guidance"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/parental_leave/paid_parental_leave.yaml"
+      ],
+      "extraction_track": "paid-parental-leave-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/1987/0129"
+      ]
+    },
+    {
+      "surface_id": "housing-restructuring-and-social-housing",
+      "surface_name": "Housing Restructuring and Social Housing",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Housing Restructuring and Tenancy Matters Act 1992",
+        "MSD income-related rent guidance",
+        "Kāinga Ora operational policy"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/housing_restructuring/income_related_rent.yaml"
+      ],
+      "extraction_track": "housing-restructuring-social-housing-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/1992/0076"
+      ]
+    },
+    {
+      "surface_id": "acc-and-weekly-compensation",
+      "surface_name": "ACC Weekly Compensation",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Accident Compensation Act 2001",
+        "ACC weekly compensation and entitlement guidance",
+        "ACC levy rates and earners account table"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/acc/weekly_compensation.yaml"
+      ],
+      "extraction_track": "acc-weekly-compensation-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/2001/0049"
+      ]
+    },
+    {
+      "surface_id": "health-and-community-services",
+      "surface_name": "Pae Ora Health Services",
+      "status": "deferred_to_official_source_extraction",
+      "official_sources": [
+        "Pae Ora (Healthy Futures) Act 2022",
+        "Health Entitlement Cards Regulations 1993",
+        "Ministry of Health service coverage guidance"
+      ],
+      "planned_rulespec_paths": [
+        "nz/statutes/pae_ora/health_services.yaml"
+      ],
+      "extraction_track": "pae-ora-health-services-official-source-extraction",
+      "corpus_citation_paths": [
+        "nz/statute/act/public/2022/0030",
+        "nz/regulation/regulation/public/1993/0169"
+      ]
+    }
+  ]
+}

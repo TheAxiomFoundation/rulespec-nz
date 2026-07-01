@@ -1,0 +1,24 @@
+{
+  "fixture_id": "policyengine-nz-gst-rate-2025",
+  "oracle_id": "policyengine-nz",
+  "oracle_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "oracle_source_path": "policyengine_nz/parameters/gov/ird/gst/rate.yaml",
+  "canonical_law": false,
+  "rulespec_destination": "nz/statutes/gst/rate.yaml",
+  "comparison_scope": "standard GST rate parameter",
+  "source_snapshot": {
+    "values": {
+      "2022-04-01": "0.15",
+      "2023-04-01": "0.15",
+      "2024-04-01": "0.15",
+      "2025-04-01": "0.15"
+    }
+  },
+  "normalized_values": {
+    "gst_standard_rate": "0.15"
+  },
+  "notes": [
+    "This is a comparison-only oracle fixture extracted from the pinned PolicyEngine NZ commit; it is not legal authority.",
+    "The official PCO corpus citations and IRD agency reference in the RuleSpec module remain the source of legal authority."
+  ]
+}

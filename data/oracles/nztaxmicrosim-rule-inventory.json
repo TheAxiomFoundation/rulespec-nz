@@ -1,0 +1,188 @@
+{
+  "generated_at": "2026-06-23",
+  "source_oracle_id": "nztaxmicrosim",
+  "source_repository": "https://github.com/edithatogo/nztaxmicrosim",
+  "source_commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+  "canonical_law": false,
+  "authority": "comparison_oracle",
+  "purpose": "Rule-surface inventory for incorporating nztaxmicrosim coverage into RuleSpec NZ without treating oracle code as legal authority.",
+  "guardrails": [
+    "Use official NZ legislation, delegated instruments, and agency rate tables as canonical sources.",
+    "Use nztaxmicrosim for discovery, fixture extraction, historical comparison, and regression parity only.",
+    "Do not mechanically translate placeholder or simplified oracle code into RuleSpec."
+  ],
+  "source_modules": [
+    {
+      "path": "src/tax_rules.py",
+      "surfaces": ["ACC levy rule wrapper", "KiwiSaver contribution", "student loan repayment", "income tax", "IETC"],
+      "notes": "Rule registry wrappers over calculations and TaxCalculator methods."
+    },
+    {
+      "path": "src/tax_calculator.py",
+      "surfaces": ["income tax", "IETC", "RWT", "FamilyBoost", "EITC-style experimental credit", "PIE tax", "donation credit", "EMTR"],
+      "notes": "Contains simplified EMTR helper and delegates to core calculation modules."
+    },
+    {
+      "path": "src/tax_credits.py",
+      "surfaces": ["IETC", "donation credit", "FamilyBoost", "EITC-style experimental credit"],
+      "notes": "Credit functions require official source mapping before canonical RuleSpec."
+    },
+    {
+      "path": "src/wff_rules.py",
+      "surfaces": ["WFF income gross-up", "maximum WFF entitlements", "shared care", "abatement", "calibration", "final FTC/IWTC/BSTC/MFTC outputs"],
+      "notes": "Contains explicit placeholder/example values; use for workflow discovery only until verified against official WFF sources."
+    },
+    {
+      "path": "src/wff_logic.py",
+      "surfaces": ["Working for Families logic helpers"],
+      "notes": "Requires separate source extraction before canonical encoding."
+    },
+    {
+      "path": "src/benefit_rules.py",
+      "surfaces": ["Jobseeker Support", "Disability Allowance", "MFTC", "IWTC", "FTC", "BSTC", "Winter Energy Payment", "Sole Parent Support", "Supported Living Payment", "Accommodation Supplement"],
+      "notes": "Rule registry wrappers over benefit calculation functions."
+    },
+    {
+      "path": "src/benefits.py",
+      "surfaces": ["main benefit abatement", "Jobseeker Support", "Sole Parent Support", "Supported Living Payment", "Accommodation Supplement", "paid parental leave", "child support", "Winter Energy Payment", "BSTC", "FTC", "IWTC", "MFTC", "Disability Allowance"],
+      "notes": "Child support is explicitly simplified in source comments and cannot be canonical without official formula extraction."
+    },
+    {
+      "path": "src/acc_levy.py",
+      "surfaces": ["ACC earners levy", "income tax plus ACC payroll deduction aggregation"],
+      "notes": "Current RuleSpec already has ACC earners levy coverage; use for reconciliation and historical fixture checks."
+    },
+    {
+      "path": "src/payroll_deductions.py",
+      "surfaces": ["KiwiSaver employee contribution", "student loan repayment"],
+      "notes": "New RuleSpec destination expected under payroll, student loan, or KiwiSaver statutory roots after official source mapping."
+    },
+    {
+      "path": "src/investment_tax.py",
+      "surfaces": ["PIE prescribed investor rate tax"],
+      "notes": "Source comments flag simplified one-year PIR logic; official two-year lookback must be extracted before canonical encoding."
+    },
+    {
+      "path": "src/historical_data.py",
+      "surfaces": ["historical personal tax parameter records"],
+      "notes": "Use as historical comparison data after validating against official historical rate sources."
+    },
+    {
+      "path": "src/historic_tax_search.py",
+      "surfaces": ["historical tax search"],
+      "notes": "Discovery/search helper rather than direct RuleSpec law."
+    },
+    {
+      "path": "src/data/nz_personal_tax_rules.json",
+      "surfaces": ["personal tax rules data"],
+      "notes": "Pinned data surface for comparison snapshots; do not copy as legal authority."
+    },
+    {
+      "path": "src/data/nz_personal_tax_full.json",
+      "surfaces": ["full personal tax history data"],
+      "notes": "Pinned data surface for comparison snapshots; official historical source checks required."
+    },
+    {
+      "path": "src/data/parameters.db",
+      "surfaces": ["SQLite parameter store"],
+      "notes": "Large binary/source parameter store; inspect into derived manifests rather than committing copies."
+    }
+  ],
+  "rule_surfaces": [
+    {
+      "id": "personal-income-tax-history",
+      "status": "partially_covered",
+      "existing_rulespec_paths": [
+        "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
+        "nz/statutes/income_tax/core/taxable_income.yaml"
+      ],
+      "planned_destinations": ["nz/statutes/income_tax/schedule_1/individual_income_tax.yaml"],
+      "official_source_requirements": ["Income Tax Act 2007 Schedule 1", "historical income tax amendment legislation", "IRD historical rates"],
+      "oracle_modules": ["src/tax_rules.py", "src/tax_calculator.py", "src/historical_data.py", "src/data/nz_personal_tax_rules.json", "src/data/nz_personal_tax_full.json"]
+    },
+    {
+      "id": "individual-tax-credits",
+      "status": "partially_covered",
+      "existing_rulespec_paths": ["nz/statutes/income_tax/credits/individual_credits.yaml"],
+      "planned_destinations": ["nz/statutes/income_tax/credits/individual_credits.yaml"],
+      "official_source_requirements": ["Income Tax Act 2007 subparts LA, LC, and LD", "IRD donation credit and IETC guidance"],
+      "oracle_modules": ["src/tax_calculator.py", "src/tax_credits.py"]
+    },
+    {
+      "id": "working-for-families",
+      "status": "partially_covered",
+      "existing_rulespec_paths": [
+        "nz/statutes/income_tax/family_scheme/family_scheme_income.yaml",
+        "nz/statutes/income_tax/family_scheme/eligibility.yaml",
+        "nz/statutes/income_tax/family_scheme/tax_credits.yaml"
+      ],
+      "planned_destinations": ["nz/statutes/income_tax/family_scheme/"],
+      "official_source_requirements": ["Income Tax Act 2007 subparts MA-MJ", "IRD Working for Families and Best Start rate tables"],
+      "oracle_modules": ["src/wff_rules.py", "src/wff_logic.py", "src/benefit_rules.py", "src/benefits.py"],
+      "oracle_limitations": ["src/wff_rules.py contains placeholder/example values and calibration placeholders."]
+    },
+    {
+      "id": "main-benefits-and-supplements",
+      "status": "partially_covered",
+      "existing_rulespec_paths": [
+        "nz/statutes/social_security/main_benefits/rates.yaml",
+        "nz/statutes/social_security/main_benefits/entitlement.yaml",
+        "nz/statutes/social_security/accommodation_supplement/core.yaml",
+        "nz/statutes/social_security/disability_allowance/core.yaml",
+        "nz/statutes/social_security/winter_energy_payment/core.yaml"
+      ],
+      "planned_destinations": ["nz/statutes/social_security/"],
+      "official_source_requirements": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD rate tables and MAP guidance"],
+      "oracle_modules": ["src/benefit_rules.py", "src/benefits.py"]
+    },
+    {
+      "id": "acc-earners-levy",
+      "status": "covered_reconcile",
+      "existing_rulespec_paths": ["nz/regulations/acc/earners_levy.yaml"],
+      "planned_destinations": ["nz/regulations/acc/earners_levy.yaml"],
+      "official_source_requirements": ["Accident Compensation (Earners' Levy) Regulations", "ACC/IRD levy rate tables"],
+      "oracle_modules": ["src/acc_levy.py", "src/tax_rules.py"]
+    },
+    {
+      "id": "payroll-deductions",
+      "status": "missing",
+      "existing_rulespec_paths": [],
+      "planned_destinations": [
+        "nz/statutes/kiwisaver/contributions.yaml",
+        "nz/statutes/student_loan/repayments.yaml",
+        "nz/statutes/payroll/deductions.yaml"
+      ],
+      "official_source_requirements": ["KiwiSaver Act 2006", "Student Loan Scheme Act 2011", "Income Tax Act 2007 PAYE provisions", "IRD deduction tables"],
+      "oracle_modules": ["src/payroll_deductions.py", "src/tax_rules.py"]
+    },
+    {
+      "id": "investment-and-withholding-tax",
+      "status": "missing",
+      "existing_rulespec_paths": [],
+      "planned_destinations": [
+        "nz/statutes/income_tax/investment/pie.yaml",
+        "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml"
+      ],
+      "official_source_requirements": ["Income Tax Act 2007 PIE and RWT provisions", "IRD PIR and RWT rate guidance"],
+      "oracle_modules": ["src/investment_tax.py", "src/tax_calculator.py"],
+      "oracle_limitations": ["PIE logic in the oracle is explicitly simplified and lacks full two-year lookback treatment."]
+    },
+    {
+      "id": "paid-parental-leave",
+      "status": "missing",
+      "existing_rulespec_paths": [],
+      "planned_destinations": ["nz/statutes/parental_leave/paid_parental_leave.yaml"],
+      "official_source_requirements": ["Parental Leave and Employment Protection Act 1987", "agency paid parental leave rate guidance"],
+      "oracle_modules": ["src/benefits.py", "src/parameters.py"]
+    },
+    {
+      "id": "child-support",
+      "status": "missing",
+      "existing_rulespec_paths": [],
+      "planned_destinations": ["nz/statutes/child_support/core_formula.yaml"],
+      "official_source_requirements": ["Child Support Act 1991", "IRD child support formula guidance"],
+      "oracle_modules": ["src/benefits.py", "src/parameters.py"],
+      "oracle_limitations": ["Child support function is explicitly simplified and does not reflect the full official formula."]
+    }
+  ]
+}

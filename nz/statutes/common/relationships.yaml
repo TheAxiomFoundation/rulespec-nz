@@ -1,0 +1,17 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Relationship status and family law predicates used across NZ benefit and
+    tax programs. Official-source encoding pending from Civil Union Act 2004,
+    Marriage Act 1955, Property (Relationships) Act 1976, and Social Security
+    Act 2018 definitions.
+  status: deferred
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2004/0102
+      - nz/statute/act/public/1955/0092
+      - nz/statute/act/public/1976/0166
+      - nz/statute/act/public/2018/0032
+    oracle_links:
+      - openfisca-aotearoa
+rules: []

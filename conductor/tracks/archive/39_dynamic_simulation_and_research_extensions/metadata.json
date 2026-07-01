@@ -1,0 +1,47 @@
+{
+  "track_id": "39_dynamic_simulation_and_research_extensions",
+  "track_number": 39,
+  "title": "Dynamic simulation and research extensions",
+  "status": "archived_after_clean_review",
+  "jurisdiction": "nz",
+  "backlog_id": "dynamic-and-research-extensions",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/64",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "archived",
+    "sequence_order": 23,
+    "policy_family": "Dynamic simulation and research extensions"
+  },
+  "priority": 5,
+  "sequence_order": 23,
+  "scope": "research",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "Axiom research stack",
+      "Kairos",
+      "voiage",
+      "lifecourse",
+      "innovate"
+    ],
+    "oracle_role": "research_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "Track 38 corpus citation pinning and provenance QA",
+    "Track 37 oracle comparison and historical rule reconciliation",
+    "should reuse the existing RuleSpec surfaces and shared income interfaces where relevant"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ],
+  "implementation_complete": true,
+  "review_required": false,
+  "review_complete": true,
+  "artifacts": [
+    "data/analysis/dynamic-research-extensions.json",
+    "tests/test_dynamic_research_extensions.py"
+  ]
+}

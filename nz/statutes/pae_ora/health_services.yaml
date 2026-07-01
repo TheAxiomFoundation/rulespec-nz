@@ -1,0 +1,17 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Pae Ora (Healthy Futures) Act 2022 and associated health agency guidance
+    define the statutory health service entitlements and population health
+    responsibilities in New Zealand. Official-source encoding pending for
+    service coverage, eligibility, and funding provisions.
+  status: deferred
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2022/0030
+      - nz/agency/health-nz/pae-ora
+    agency_reference_urls:
+      - https://www.health.govt.nz/pae-ora
+    oracle_links:
+      - openfisca-aotearoa
+rules: []

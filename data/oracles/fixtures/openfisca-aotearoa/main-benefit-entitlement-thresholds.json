@@ -1,0 +1,29 @@
+{
+  "fixture_id": "openfisca-aotearoa-main-benefit-entitlement-thresholds",
+  "oracle_id": "openfisca-aotearoa",
+  "oracle_commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+  "oracle_source_paths": [
+    "openfisca_aotearoa/parameters/entitlements/social_security/jobseeker_support/age_threshold_without_dependent_child.yaml",
+    "openfisca_aotearoa/parameters/entitlements/social_security/jobseeker_support/age_threshold_other.yaml",
+    "openfisca_aotearoa/parameters/entitlements/social_security/sole_parent_support/age_threshold.yaml",
+    "openfisca_aotearoa/parameters/entitlements/social_security/sole_parent_support/youngest_child_age_threshold.yaml",
+    "openfisca_aotearoa/parameters/entitlements/social_security/supported_living_payment/age_threshold.yaml"
+  ],
+  "canonical_law": false,
+  "rulespec_destination": "nz/statutes/social_security/main_benefits/entitlement.yaml",
+  "comparison_scope": "main-benefit entitlement age thresholds for Jobseeker Support, Sole Parent Support, and Supported Living Payment",
+  "normalized_values": {
+    "jobseeker_minimum_age_without_dependent_child": 18,
+    "jobseeker_minimum_age_with_dependent_child": 20,
+    "sole_parent_minimum_age": 20,
+    "sole_parent_dependent_child_age_limit": 14,
+    "supported_living_restricted_or_blind_minimum_age": 16
+  },
+  "rate_fixture_status": "historical_reference_only",
+  "rate_fixture_blocker": "The pinned OpenFisca Aotearoa and nztaxmicrosim main-benefit rate fixtures available in this workspace are historical 2023/2024 examples and do not match the 2026 PCO-backed rates encoded in this RuleSpec track.",
+  "notes": [
+    "This fixture is a comparison-only oracle extract and is not legal authority.",
+    "The official PCO corpus citations in the RuleSpec module remain the source of legal authority.",
+    "Historical oracle rate examples were inspected but are not asserted as current-law equality fixtures."
+  ]
+}

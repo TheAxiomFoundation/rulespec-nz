@@ -1,0 +1,59 @@
+# Companion tests for residence, citizenship, and immigration helper predicates.
+- name: resident_and_lawful_presence_hold_for_citizen
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/common/residence#input.common_new_zealand_citizen_input: true
+    nz:statutes/common/residence#input.common_residence_class_visa_holder_input: false
+    nz:statutes/common/residence#input.common_temporary_entry_class_visa_holder_input: false
+    nz:statutes/common/residence#input.common_unlawfully_resident_or_present_in_new_zealand_input: false
+    nz:statutes/common/residence#input.common_ordinarily_resident_in_new_zealand_input: true
+    nz:statutes/common/residence#input.common_entitled_to_be_in_new_zealand_indefinitely_input: true
+  output:
+    nz:statutes/common/residence#common_new_zealand_citizen: holds
+    nz:statutes/common/residence#common_residence_class_visa_holder: not_holds
+    nz:statutes/common/residence#common_lawful_presence_requirement: holds
+    nz:statutes/common/residence#common_resident_status: holds
+    nz:statutes/common/residence#common_ordinarily_resident_in_new_zealand: holds
+    nz:statutes/common/residence#common_entitled_to_be_in_new_zealand_indefinitely: holds
+    nz:statutes/common/residence#common_unlawfully_resident_or_present_in_new_zealand: not_holds
+
+- name: temporary_entry_only_blocks_lawful_presence
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/common/residence#input.common_new_zealand_citizen_input: false
+    nz:statutes/common/residence#input.common_residence_class_visa_holder_input: false
+    nz:statutes/common/residence#input.common_temporary_entry_class_visa_holder_input: true
+    nz:statutes/common/residence#input.common_unlawfully_resident_or_present_in_new_zealand_input: false
+    nz:statutes/common/residence#input.common_ordinarily_resident_in_new_zealand_input: true
+    nz:statutes/common/residence#input.common_entitled_to_be_in_new_zealand_indefinitely_input: false
+  output:
+    nz:statutes/common/residence#common_new_zealand_citizen: not_holds
+    nz:statutes/common/residence#common_residence_class_visa_holder: not_holds
+    nz:statutes/common/residence#common_lawful_presence_requirement: holds
+    nz:statutes/common/residence#common_resident_status: not_holds
+    nz:statutes/common/residence#common_temporary_entry_class_visa_holder: holds
+    nz:statutes/common/residence#common_entitled_to_be_in_new_zealand_indefinitely: not_holds
+
+- name: residence_class_visa_holder_is_resident
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/common/residence#input.common_new_zealand_citizen_input: false
+    nz:statutes/common/residence#input.common_residence_class_visa_holder_input: true
+    nz:statutes/common/residence#input.common_temporary_entry_class_visa_holder_input: false
+    nz:statutes/common/residence#input.common_unlawfully_resident_or_present_in_new_zealand_input: false
+    nz:statutes/common/residence#input.common_ordinarily_resident_in_new_zealand_input: true
+    nz:statutes/common/residence#input.common_entitled_to_be_in_new_zealand_indefinitely_input: true
+  output:
+    nz:statutes/common/residence#common_new_zealand_citizen: not_holds
+    nz:statutes/common/residence#common_resident_status: holds
+    nz:statutes/common/residence#common_lawful_presence_requirement: holds
+    nz:statutes/common/residence#common_residence_class_visa_holder: holds

@@ -1,0 +1,44 @@
+{
+  "track_id": "38_corpus_citation_pinning_and_provenance_qa",
+  "track_number": 38,
+  "title": "Corpus citation pinning and provenance QA",
+  "status": "archived_after_clean_review",
+  "jurisdiction": "nz",
+  "backlog_id": "corpus-provenance-qa",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/63",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "archived",
+    "sequence_order": 21,
+    "policy_family": "Corpus citation pinning and provenance QA"
+  },
+  "priority": 4,
+  "sequence_order": 21,
+  "scope": "infrastructure",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "PCO/data.govt.nz corpus manifests",
+      "official corpus citation paths",
+      "source inventory records"
+    ],
+    "oracle_role": "provenance_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "upstream issue #31 source-readiness manifests",
+    "official source/corpus citation paths"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ],
+  "implementation_complete": true,
+  "review_required": false,
+  "review_complete": true,
+  "artifacts": [
+    "data/coverage/corpus-citation-provenance-qa.json",
+    "tests/test_corpus_citation_provenance_qa.py"
+  ]
+}

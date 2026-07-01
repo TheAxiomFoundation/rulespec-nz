@@ -1,0 +1,1 @@
+{"run_id":"smoke-run","scenario_id":"baseline-vs-reform","person_id":"person-001","household_weight":1.0,"baseline_net_income":52000.0,"reform_net_income":52650.0,"net_income_delta":650.0,"baseline_emtr":0.31,"reform_emtr":0.29,"emtr_delta":-0.02}

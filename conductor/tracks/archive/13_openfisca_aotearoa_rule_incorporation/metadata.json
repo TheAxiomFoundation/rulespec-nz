@@ -1,0 +1,35 @@
+{
+  "track_id": "13_openfisca_aotearoa_rule_incorporation",
+  "type": "feature",
+  "status": "archived_after_review_remediation",
+  "created_at": "2026-06-23T00:00:00+10:00",
+  "updated_at": "2026-06-24T00:00:00+10:00",
+  "description": "Incorporate all relevant OpenFisca Aotearoa rule, parameter, and situation-test surfaces into RuleSpec NZ using official NZ sources as canonical authority.",
+  "source_oracle_id": "openfisca-aotearoa",
+  "oracle_index_commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+  "observed_upstream_head": "76062ffc20e40373d9cb56c8910a224236aa1e72",
+  "implementation_complete": true,
+  "review_required": false,
+  "review_complete": true,
+  "blockers": [],
+  "artifacts": [
+    "data/oracles/openfisca-aotearoa-rule-inventory.json",
+    "data/coverage/openfisca-aotearoa-source-map.json",
+    "data/coverage/openfisca-aotearoa-reconciliation.json",
+    "tests/test_openfisca_aotearoa_rule_inventory.py",
+    "tests/test_openfisca_aotearoa_source_map.py",
+    "tests/test_openfisca_aotearoa_reconciliation.py"
+  ],
+  "follow_on_tracks": [
+    "openfisca-aotearoa-pin-reconciliation",
+    "common-demographics-and-residence-official-source-extraction",
+    "citizenship-immigration-official-source-extraction",
+    "relationships-official-source-extraction",
+    "student-allowance-official-source-extraction",
+    "rates-rebates-official-source-extraction",
+    "paid-parental-leave-official-source-extraction",
+    "housing-restructuring-social-housing-official-source-extraction",
+    "acc-weekly-compensation-official-source-extraction",
+    "pae-ora-health-services-official-source-extraction"
+  ]
+}

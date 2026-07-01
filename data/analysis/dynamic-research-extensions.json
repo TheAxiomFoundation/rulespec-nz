@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-07-01",
+  "track_id": "39_dynamic_simulation_and_research_extensions",
+  "status": "implemented_pending_review",
+  "jurisdiction": "nz",
+  "scope": "research_only",
+  "purpose": "Repository-side contract for dynamic-simulation and research extensions without duplicating legislation encoding.",
+  "source_manifests": [
+    "data/analysis/regression-voi-pipeline.json",
+    "data/ledger/state-ledger-temporal-policy.json",
+    "data/oracles/oracle-index.json",
+    "data/coverage/full-country-backlog.json"
+  ],
+  "research_oracles": [
+    {
+      "id": "kairos",
+      "status": "pinned_research_oracle",
+      "role": "Temporal state and lifecycle reference for dynamic simulations and policy state transitions."
+    },
+    {
+      "id": "lifecourse",
+      "status": "research_oracle",
+      "role": "Health economic lifecourse simulation use-case oracle."
+    },
+    {
+      "id": "voiage",
+      "status": "pinned_research_oracle",
+      "role": "Decision-analysis and value-of-information layer consuming regression summaries and uncertainty outputs."
+    },
+    {
+      "id": "innovate",
+      "status": "research_oracle",
+      "role": "Policy diffusion and innovation modeling reference."
+    }
+  ],
+  "linked_repository_contracts": [
+    {
+      "id": "regression-voi-pipeline",
+      "path": "data/analysis/regression-voi-pipeline.json",
+      "mode": "read_only_external_analysis_tools"
+    },
+    {
+      "id": "state-ledger-temporal-policy",
+      "path": "data/ledger/state-ledger-temporal-policy.json",
+      "mode": "read_only_external_ledger_tools"
+    }
+  ],
+  "boundary_rules": {
+    "never_commit_globs": [
+      "data/analysis/local/**",
+      "data/analysis/raw/**",
+      "data/analysis/runs/**",
+      "data/ledger/local/**",
+      "data/ledger/raw/**"
+    ],
+    "allowed_promoted_outputs": [
+      "data/analysis/*.json",
+      "data/analysis/fixtures/*.json",
+      "data/analysis/fixtures/*.jsonl",
+      "data/analysis/reports/*.md",
+      "data/ledger/*.json",
+      "data/ledger/events/*.jsonl",
+      "data/ledger/indexes/*.json",
+      "data/ledger/reports/*.md"
+    ]
+  },
+  "research_checks": [
+    "research_bucket_remains_separate_from_legislation_tracks",
+    "references_existing_encoded_surfaces_without_duplication",
+    "keeps_live_workflows_external_and_optional"
+  ],
+  "live_validation": {
+    "validated_against_real_workflows": false,
+    "result": "blocked_missing_local_research_workflows",
+    "blockers": [
+      "RULESPEC_NZ_KAIROS_DIR is not set and no adjacent kairos checkout or kairos CLI was found.",
+      "RULESPEC_NZ_VOIAGE_DIR is not set and no adjacent voiage checkout was found."
+    ]
+  }
+}

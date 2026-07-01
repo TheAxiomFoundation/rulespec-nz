@@ -1,0 +1,78 @@
+- name: repayment_rate_2025
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/student_loan/repayments#student_loan_repayment_rate: 0.12
+    nz:statutes/student_loan/repayments#student_loan_annual_repayment_threshold: 24104
+
+- name: annual_threshold_2026
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input: {}
+  output:
+    nz:statutes/student_loan/repayments#student_loan_annual_repayment_threshold: 24680
+
+- name: annual_threshold_2027
+  period:
+    period_kind: tax_year
+    start: '2027-04-01'
+    end: '2028-03-31'
+  input: {}
+  output:
+    nz:statutes/student_loan/repayments#student_loan_annual_repayment_threshold: 25252
+
+- name: annual_deduction_below_threshold
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/student_loan/repayments#input.student_loan_repayment_income: 20000
+  output:
+    nz:statutes/student_loan/repayments#student_loan_annual_deduction: 0
+
+- name: annual_deduction_above_threshold
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/student_loan/repayments#input.student_loan_repayment_income: 60000
+  output:
+    nz:statutes/student_loan/repayments#student_loan_annual_deduction: 4307.52
+
+- name: weekly_deduction_period_thresholds
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/student_loan/repayments#student_loan_weekly_repayment_threshold: 463.53846153846155
+    nz:statutes/student_loan/repayments#student_loan_fortnightly_repayment_threshold: 927.0769230769231
+    nz:statutes/student_loan/repayments#student_loan_monthly_repayment_threshold: 2008.6666666666667
+
+- name: weekly_deduction_below_threshold
+  period:
+    period_kind: week
+    start: '2025-07-14'
+    end: '2025-07-20'
+  input:
+    nz:statutes/student_loan/repayments#input.student_loan_weekly_earnings: 400
+  output:
+    nz:statutes/student_loan/repayments#student_loan_weekly_deduction: 0
+
+- name: weekly_deduction_above_threshold
+  period:
+    period_kind: week
+    start: '2025-07-14'
+    end: '2025-07-20'
+  input:
+    nz:statutes/student_loan/repayments#input.student_loan_weekly_earnings: 1200
+  output:
+    nz:statutes/student_loan/repayments#student_loan_weekly_deduction: 88.37538461538463

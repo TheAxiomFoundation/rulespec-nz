@@ -1,0 +1,36 @@
+{
+  "track_id": "12_nztaxmicrosim_rule_incorporation",
+  "type": "feature",
+  "status": "archived_after_review_remediation",
+  "created_at": "2026-06-23T00:00:00+10:00",
+  "updated_at": "2026-06-24T00:00:00+10:00",
+  "description": "Incorporate all relevant nztaxmicrosim rule surfaces into RuleSpec NZ planning, coverage, and comparison-oracle surfaces using official NZ sources as legal authority.",
+  "source_oracle_id": "nztaxmicrosim",
+  "source_commit": "9a9de211b40086a7a85a938ae26db4a533b27e99",
+  "review_required": false,
+  "review_complete": true,
+  "implementation_complete": true,
+  "implemented_phases": [
+    "pinned-oracle-inventory",
+    "source-authority-mapping",
+    "existing-coverage-reconciliation",
+    "comparison-fixture-closeout",
+    "review-remediation"
+  ],
+  "artifacts": [
+    "data/oracles/nztaxmicrosim-rule-inventory.json",
+    "data/coverage/nztaxmicrosim-source-map.json",
+    "data/coverage/nztaxmicrosim-reconciliation.json"
+  ],
+  "approved_comparison_fixtures": [
+    "data/oracles/fixtures/nztaxmicrosim/income-tax-brackets-2025.json",
+    "data/oracles/fixtures/nztaxmicrosim/acc-earners-levy-2025-2027.json"
+  ],
+  "follow_on_tracks": [
+    "payroll-deductions-official-source-extraction",
+    "paid-parental-leave-official-source-extraction",
+    "pie-rwt-official-source-extraction",
+    "child-support-official-formula-extraction"
+  ],
+  "blockers": []
+}

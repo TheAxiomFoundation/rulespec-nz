@@ -1,0 +1,24 @@
+{
+  "canonical_law": false,
+  "authority": "supporting_reference",
+  "source_oracle_id": "policyengine-nz",
+  "surface_id": "working-for-families",
+  "oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "upstream_test_path": "policyengine_nz/tests/policy/baseline/test_working_for_families.yaml",
+  "rulespec_destination": "nz/statutes/income_tax/family_scheme/tax_credits.yaml",
+  "purpose": "Pinned PolicyEngine NZ baseline smoke fixture for Working for Families comparison after official-source RuleSpec evaluation.",
+  "scenarios": [
+    {
+      "name": "two_child_family_wff_smoke",
+      "period": "2026",
+      "inputs": {
+        "family_scheme_income": 40000,
+        "children": 2
+      },
+      "expected_outputs": {
+        "family_tax_credit": "positive"
+      },
+      "comparison_scope": "eligibility_and_credit_presence_smoke_only"
+    }
+  ]
+}

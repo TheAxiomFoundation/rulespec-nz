@@ -1,0 +1,217 @@
+{
+  "generated_at": "2026-06-23",
+  "source_oracle_id": "openfisca-aotearoa",
+  "source_repository": "https://github.com/edithatogo/openfisca-aotearoa",
+  "oracle_index_commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+  "observed_upstream_head": "76062ffc20e40373d9cb56c8910a224236aa1e72",
+  "canonical_law": false,
+  "authority": "comparison_oracle",
+  "purpose": "Rule-surface inventory for incorporating OpenFisca Aotearoa rules, parameters, and tests into RuleSpec NZ without treating oracle code as legal authority.",
+  "counts": {
+    "variable_files": 101,
+    "parameter_files": 84,
+    "yaml_situation_tests": 72
+  },
+  "guardrails": [
+    "Use official NZ legislation, delegated instruments, and agency rate tables as canonical sources.",
+    "Use OpenFisca Aotearoa for discovery, structure, parameter comparison, and situation-test fixtures only.",
+    "Do not mechanically translate OpenFisca formulas into RuleSpec.",
+    "Resolve the oracle-index pin mismatch before extracting new live-head fixtures."
+  ],
+  "source_surface_counts": {
+    "variables": {
+      "acts": 78,
+      "demographics": 9,
+      "regulation": 13,
+      "other": 1
+    },
+    "variable_acts": {
+      "acc": 10,
+      "citizenship": 1,
+      "civil_union": 1,
+      "housing_restructuring": 1,
+      "immigration": 2,
+      "income_tax": 10,
+      "marriage": 1,
+      "oranga_tamariki": 1,
+      "pae_ora": 1,
+      "parental_leave": 1,
+      "property_relationships": 1,
+      "rates_rebates": 1,
+      "social_security": 44,
+      "super": 1,
+      "tax_admin": 1,
+      "veterans_support": 1
+    },
+    "variable_regulations": {
+      "social_security_regulation": 7,
+      "student_allowance": 6
+    },
+    "parameters": {
+      "acc": 2,
+      "citizenship": 3,
+      "disability_allowance": 1,
+      "entitlements": 28,
+      "general": 1,
+      "housing_restructuring": 5,
+      "minimum_wage": 1,
+      "social_security": 41,
+      "taxes": 2
+    },
+    "yaml_tests": {
+      "acc": 2,
+      "citizenship": 4,
+      "demographics": 3,
+      "housing_restructuring": 1,
+      "immigration": 4,
+      "income_tax": 7,
+      "individual_income_tax_rate.yaml": 1,
+      "pae_ora": 1,
+      "parental_leave": 3,
+      "rates_rebates": 5,
+      "social_security": 39,
+      "student_allowance": 1,
+      "tax_admin": 1
+    }
+  },
+  "rule_surfaces": [
+    {
+      "id": "demographics-and-common-predicates",
+      "status": "partial",
+      "openfisca_paths": ["openfisca_aotearoa/variables/demographics/"],
+      "planned_destinations": ["nz/policies/common/demographics.yaml", "nz/statutes/common/residence.yaml"],
+      "official_source_requirements": ["Program-specific statutory definitions", "Citizenship Act 1977", "Immigration Act 2009"]
+    },
+    {
+      "id": "income-tax-and-family-scheme",
+      "status": "partial",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/income_tax/",
+        "openfisca_aotearoa/parameters/taxes/income_tax/",
+        "openfisca_aotearoa/parameters/entitlements/income_tax/",
+        "openfisca_aotearoa/tests/income_tax/"
+      ],
+      "existing_rulespec_paths": ["nz/statutes/income_tax/"],
+      "planned_destinations": ["nz/statutes/income_tax/"],
+      "official_source_requirements": ["Income Tax Act 2007", "Tax Administration Act 1994", "IRD rate and WFF guidance"]
+    },
+    {
+      "id": "social-security-main-benefits",
+      "status": "partial",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/social_security/",
+        "openfisca_aotearoa/parameters/social_security/",
+        "openfisca_aotearoa/tests/social_security/"
+      ],
+      "existing_rulespec_paths": ["nz/statutes/social_security/"],
+      "planned_destinations": ["nz/statutes/social_security/"],
+      "official_source_requirements": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD rate tables and MAP guidance"]
+    },
+    {
+      "id": "accommodation-supplement",
+      "status": "partial",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/social_security/accommodation_supplement/",
+        "openfisca_aotearoa/variables/regulation/social_security_regulation/accommodation_supplement/",
+        "openfisca_aotearoa/parameters/social_security/accommodation_supplement/",
+        "openfisca_aotearoa/tests/social_security/accommodation_supplement/"
+      ],
+      "existing_rulespec_paths": ["nz/statutes/social_security/accommodation_supplement/core.yaml"],
+      "planned_destinations": ["nz/statutes/social_security/accommodation_supplement/"],
+      "official_source_requirements": ["Social Security Act 2018", "Social Security Regulations 2018", "MSD Accommodation Supplement area and rate tables"]
+    },
+    {
+      "id": "acc-and-weekly-compensation",
+      "status": "partial",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/acc/",
+        "openfisca_aotearoa/parameters/acc/",
+        "openfisca_aotearoa/tests/acc/"
+      ],
+      "existing_rulespec_paths": ["nz/regulations/acc/earners_levy.yaml"],
+      "planned_destinations": ["nz/regulations/acc/earners_levy.yaml", "nz/statutes/acc/weekly_compensation.yaml"],
+      "official_source_requirements": ["Accident Compensation Act 2001", "Accident Compensation earners levy regulations", "ACC levy and compensation guidance"]
+    },
+    {
+      "id": "student-allowance",
+      "status": "missing",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/regulation/student_allowance/",
+        "openfisca_aotearoa/tests/student_allowance/basic_grant.yaml"
+      ],
+      "planned_destinations": ["nz/regulations/student_allowances/basic_grant.yaml"],
+      "official_source_requirements": ["Student Allowances Regulations 1998", "Education and Training Act 2020", "Studylink guidance"]
+    },
+    {
+      "id": "citizenship-and-immigration",
+      "status": "missing",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/citizenship/",
+        "openfisca_aotearoa/variables/acts/immigration/",
+        "openfisca_aotearoa/parameters/citizenship/",
+        "openfisca_aotearoa/tests/citizenship/",
+        "openfisca_aotearoa/tests/immigration/"
+      ],
+      "planned_destinations": ["nz/statutes/citizenship/by_grant.yaml", "nz/statutes/immigration/residence.yaml"],
+      "official_source_requirements": ["Citizenship Act 1977", "Immigration Act 2009", "DIA and Immigration NZ guidance"]
+    },
+    {
+      "id": "rates-rebates",
+      "status": "missing",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/rates_rebates/",
+        "openfisca_aotearoa/parameters/entitlements/rates_rebates/",
+        "openfisca_aotearoa/tests/rates_rebates/"
+      ],
+      "planned_destinations": ["nz/statutes/rates_rebates/rates_rebate.yaml"],
+      "official_source_requirements": ["Rates Rebate Act 1973", "Rates Rebate Regulations", "DIA rates rebate guidance"]
+    },
+    {
+      "id": "parental-leave",
+      "status": "missing",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/parental_leave/",
+        "openfisca_aotearoa/tests/parental_leave/"
+      ],
+      "planned_destinations": ["nz/statutes/parental_leave/paid_parental_leave.yaml"],
+      "official_source_requirements": ["Parental Leave and Employment Protection Act 1987", "employment.govt.nz paid parental leave guidance"]
+    },
+    {
+      "id": "housing-restructuring-and-social-housing",
+      "status": "missing",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/housing_restructuring/",
+        "openfisca_aotearoa/parameters/housing_restructuring/",
+        "openfisca_aotearoa/tests/housing_restructuring/"
+      ],
+      "planned_destinations": ["nz/statutes/housing_restructuring/income_related_rent.yaml"],
+      "official_source_requirements": ["Housing Restructuring and Tenancy Matters Act 1992", "HUD/MSD income-related rent guidance"]
+    },
+    {
+      "id": "health-and-community-services",
+      "status": "partial",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/pae_ora/",
+        "openfisca_aotearoa/variables/acts/social_security/community_services_card/",
+        "openfisca_aotearoa/parameters/entitlements/health/",
+        "openfisca_aotearoa/tests/pae_ora/",
+        "openfisca_aotearoa/tests/social_security/community_services_card.yaml"
+      ],
+      "existing_rulespec_paths": ["nz/regulations/health_entitlement_cards/community_services_card/core.yaml"],
+      "planned_destinations": ["nz/regulations/health_entitlement_cards/community_services_card/", "nz/statutes/pae_ora/health_services.yaml"],
+      "official_source_requirements": ["Health Entitlement Cards Regulations 1993", "Pae Ora (Healthy Futures) Act 2022", "health agency copayment guidance"]
+    },
+    {
+      "id": "relationship-status-and-family-law-predicates",
+      "status": "missing",
+      "openfisca_paths": [
+        "openfisca_aotearoa/variables/acts/civil_union/",
+        "openfisca_aotearoa/variables/acts/marriage/",
+        "openfisca_aotearoa/variables/acts/property_relationships/",
+        "openfisca_aotearoa/variables/acts/social_security/relationships.py"
+      ],
+      "planned_destinations": ["nz/statutes/common/relationships.yaml"],
+      "official_source_requirements": ["Civil Union Act 2004", "Marriage Act 1955", "Property (Relationships) Act 1976", "Social Security Act 2018"]
+    }
+  ]
+}

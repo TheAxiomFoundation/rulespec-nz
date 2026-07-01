@@ -1,0 +1,9 @@
+{
+  "track_id": "08_microsimulation_populations",
+  "title": "Microsimulation Synthetic Population Builder",
+  "status": "archived",
+  "created_at": "2026-06-20",
+  "updated_at": "2026-06-23",
+  "archived_at": "2026-06-23",
+  "archive_reason": "Conductor review confirmed the stale deferred-work remediation, synthetic population builder contract, privacy boundary, smoke fixture, and partial-blocked live-validation gates pass."
+}

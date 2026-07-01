@@ -1,0 +1,36 @@
+- name: employee_and_employer_minimum_rates_2026
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/kiwisaver/contributions#input.kiwisaver_gross_salary_or_wages: 100000
+    nz:statutes/kiwisaver/contributions#input.kiwisaver_selected_employee_contribution_rate: 0.035
+  output:
+    nz:statutes/kiwisaver/contributions#kiwisaver_employee_minimum_contribution_rate: 0.035
+    nz:statutes/kiwisaver/contributions#kiwisaver_employer_minimum_contribution_rate: 0.035
+    nz:statutes/kiwisaver/contributions#kiwisaver_employee_deduction: 3500
+    nz:statutes/kiwisaver/contributions#kiwisaver_minimum_employer_contribution: 3500
+
+- name: government_contribution_cap_from_threshold
+  period:
+    period_kind: tax_year
+    start: '2025-07-01'
+    end: '2026-06-30'
+  input: {}
+  output:
+    nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_match_rate: 0.25
+    nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_member_payment_threshold: 1042.86
+    nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_maximum: 260.72
+
+- name: negative_salary_does_not_create_contributions
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/kiwisaver/contributions#input.kiwisaver_gross_salary_or_wages: -100
+    nz:statutes/kiwisaver/contributions#input.kiwisaver_selected_employee_contribution_rate: 0.035
+  output:
+    nz:statutes/kiwisaver/contributions#kiwisaver_employee_deduction: 0
+    nz:statutes/kiwisaver/contributions#kiwisaver_minimum_employer_contribution: 0

@@ -1,0 +1,23 @@
+{
+  "canonical_law": false,
+  "authority": "supporting_reference",
+  "source_oracle_id": "policyengine-nz",
+  "surface_id": "acc-earners-levy",
+  "oracle_index_commit": "72c02e7db66bc087faf1cc58b5e5c7f2bf208b41",
+  "upstream_test_path": "policyengine_nz/tests/policy/baseline/test_acc_levy.yaml",
+  "rulespec_destination": "nz/regulations/acc/earners_levy.yaml",
+  "purpose": "Pinned PolicyEngine NZ baseline smoke fixture for ACC earners levy comparison after official-source RuleSpec evaluation.",
+  "scenarios": [
+    {
+      "name": "salary_below_earners_levy_cap_smoke",
+      "period": "2026",
+      "inputs": {
+        "employment_income": 100000
+      },
+      "expected_outputs": {
+        "acc_liable_income": "below_cap"
+      },
+      "comparison_scope": "levy_base_and_cap_smoke_only"
+    }
+  ]
+}

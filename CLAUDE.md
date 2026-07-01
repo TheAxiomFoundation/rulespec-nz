@@ -1,8 +1,10 @@
-# rulespec-nz Agent Notes
+# rulespec-nz — Cline Context
 
-This repo stores New Zealand RuleSpec source registry materials, oracle references, and encoded policy rules.
+This file provides Cline-specific instructions. For the full authoritative agent notes, see **[AGENTS.md](./AGENTS.md)**.
 
-## Do
+> The canonical agent instructions live in `AGENTS.md` — the single source of truth for all agents (Cline, Gemini, etc.). Edit that file only.
+
+Key points for Cline:
 
 - Treat the scope as full-country coverage, not a demo slice.
 - Prefer official New Zealand government sources for legal provenance.

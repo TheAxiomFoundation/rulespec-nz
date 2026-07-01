@@ -1,0 +1,131 @@
+- name: cs_rate_parameters
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/child_support/core_formula#cs_child_support_rate_one_child: 0.18
+    nz:statutes/child_support/core_formula#cs_child_support_rate_two_children: 0.26
+    nz:statutes/child_support/core_formula#cs_child_support_rate_three_or_more_children: 0.33
+    nz:statutes/child_support/core_formula#cs_living_allowance_percentage: 0.1845
+
+- name: cs_applicable_rate_one_child
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
+  output:
+    nz:statutes/child_support/core_formula#cs_applicable_child_support_rate: 0.18
+
+- name: cs_applicable_rate_three_children
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 3
+  output:
+    nz:statutes/child_support/core_formula#cs_applicable_child_support_rate: 0.33
+
+- name: cs_minimum_and_maximum_rates_2025
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input: {}
+  output:
+    nz:statutes/child_support/core_formula#cs_maximum_child_support_annual_rate: 43217.04
+    nz:statutes/child_support/core_formula#cs_minimum_child_support_annual_rate: 1368.84
+
+- name: cs_minimum_and_maximum_rates_2026
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input: {}
+  output:
+    nz:statutes/child_support/core_formula#cs_maximum_child_support_annual_rate: 44303.40
+    nz:statutes/child_support/core_formula#cs_minimum_child_support_annual_rate: 1402.56
+
+- name: cs_child_support_income_calculation
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 80000
+  output:
+    nz:statutes/child_support/core_formula#cs_child_support_income: 65240
+
+- name: cs_annual_entitlement_one_child
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_income: 65240
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
+  output:
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 11743.20
+
+- name: cs_annual_entitlement_applies_minimum
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_income: 5000
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
+  output:
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 1368.84
+
+- name: cs_annual_entitlement_capped_at_maximum
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_income: 500000
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
+  output:
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 43217.04
+
+- name: cs_formula_assessment_applies_for_receiving_carer_and_liable_parent
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 2
+    nz:statutes/child_support/core_formula#input.cs_child_support_child_care_percent_with_receiving_carer: 35
+    nz:statutes/child_support/core_formula#input.cs_liable_parent_is_parent_of_child: true
+    nz:statutes/child_support/core_formula#input.cs_liable_parent_is_nz_resident_or_agreement_country: true
+    nz:statutes/child_support/core_formula#input.cs_liable_parent_lives_with_receiving_carer: false
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 80000
+  output:
+    nz:statutes/child_support/core_formula#cs_receiving_carer_meets_formula_care_threshold: holds
+    nz:statutes/child_support/core_formula#cs_liable_parent_is_formula_assessment_liable: holds
+    nz:statutes/child_support/core_formula#cs_formula_assessment_applies: holds
+    nz:statutes/child_support/core_formula#cs_applicable_child_support_rate: 0.26
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 18955.00
+    nz:statutes/child_support/core_formula#cs_annual_child_support_payable: 18955.00
+
+- name: cs_formula_assessment_not_applies_without_care_threshold
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 2
+    nz:statutes/child_support/core_formula#input.cs_child_support_child_care_percent_with_receiving_carer: 34
+    nz:statutes/child_support/core_formula#input.cs_liable_parent_is_parent_of_child: true
+    nz:statutes/child_support/core_formula#input.cs_liable_parent_is_nz_resident_or_agreement_country: true
+    nz:statutes/child_support/core_formula#input.cs_liable_parent_lives_with_receiving_carer: false
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 80000
+  output:
+    nz:statutes/child_support/core_formula#cs_receiving_carer_meets_formula_care_threshold: not_holds
+    nz:statutes/child_support/core_formula#cs_formula_assessment_applies: not_holds
+    nz:statutes/child_support/core_formula#cs_annual_child_support_payable: 0

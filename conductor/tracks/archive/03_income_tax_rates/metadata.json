@@ -1,0 +1,16 @@
+{
+  "track_id": "03_income_tax_rates",
+  "type": "feature",
+  "status": "archived",
+  "created_at": "2026-06-20T00:00:00Z",
+  "updated_at": "2026-06-23T00:00:00Z",
+  "archived_at": "2026-06-23T00:00:00Z",
+  "description": "Legislation ingestion and source-verified RuleSpec coverage for Income Tax Act 2007 Schedule 1 individual income tax rate schedules.",
+  "archive_reason": "Conductor review found the official-source manifest, RuleSpec source verification, source-map alignment, provision trace, and comparison-only nztaxmicrosim fixture gates passing.",
+  "supersedes_track_ids": [
+    "nz_ingest_tax_rate_20260619"
+  ],
+  "superseded_track_paths": [
+    "conductor/tracks/archive/nz_ingest_tax_rate_20260619/"
+  ]
+}

@@ -1,0 +1,16 @@
+# Code Owners
+
+# Default owners for everything
+* @edithatogo
+
+# Core RuleSpec encodings
+/nz/ @edithatogo
+
+# Conductor / project management
+/conductor/ @edithatogo
+
+# Data and coverage
+/data/ @edithatogo
+
+# CI/CD
+/.github/ @edithatogo

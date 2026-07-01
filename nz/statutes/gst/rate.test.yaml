@@ -43,3 +43,48 @@
     nz:statutes/gst/rate#gst_inclusive_amount_from_exclusive_amount: 1.15
     nz:statutes/gst/rate#gst_component_from_inclusive_amount: 0.15
     nz:statutes/gst/rate#gst_exclusive_amount_from_inclusive_amount: 1
+
+- name: low_value_imports_charge_gst_at_point_of_sale
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2026-06-16'
+    end: '2026-06-16'
+  input:
+    nz:statutes/gst/rate#input.gst_imported_goods_value: 900
+    nz:statutes/gst/rate#input.gst_imported_goods_outside_new_zealand_at_supply: true
+    nz:statutes/gst/rate#input.gst_imported_goods_delivered_to_new_zealand_address: true
+  output:
+    nz:statutes/gst/rate#gst_low_value_imported_goods_threshold: 1000
+    nz:statutes/gst/rate#gst_low_value_imported_goods_subject_to_gst: holds
+    nz:statutes/gst/rate#gst_low_value_imported_goods_component: 135
+    nz:statutes/gst/rate#gst_low_value_imported_goods_total_payable: 1035
+
+- name: high_value_imports_do_not_use_low_value_interface
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2026-06-16'
+    end: '2026-06-16'
+  input:
+    nz:statutes/gst/rate#input.gst_imported_goods_value: 1500
+    nz:statutes/gst/rate#input.gst_imported_goods_outside_new_zealand_at_supply: true
+    nz:statutes/gst/rate#input.gst_imported_goods_delivered_to_new_zealand_address: true
+  output:
+    nz:statutes/gst/rate#gst_low_value_imported_goods_subject_to_gst: not_holds
+    nz:statutes/gst/rate#gst_low_value_imported_goods_component: 0
+    nz:statutes/gst/rate#gst_low_value_imported_goods_total_payable: 1500
+
+- name: non_nz_delivery_does_not_trigger_low_value_interface
+  period:
+    period_kind: custom
+    name: calendar_day
+    start: '2026-06-16'
+    end: '2026-06-16'
+  input:
+    nz:statutes/gst/rate#input.gst_imported_goods_value: 900
+    nz:statutes/gst/rate#input.gst_imported_goods_outside_new_zealand_at_supply: true
+    nz:statutes/gst/rate#input.gst_imported_goods_delivered_to_new_zealand_address: false
+  output:
+    nz:statutes/gst/rate#gst_low_value_imported_goods_subject_to_gst: not_holds
+    nz:statutes/gst/rate#gst_low_value_imported_goods_component: 0

@@ -1,0 +1,40 @@
+{
+  "track_id": "26_working_for_families_family_scheme_tax_credits",
+  "track_number": 26,
+  "title": "Working for Families and family scheme tax credits",
+  "status": "archived_after_clean_review",
+  "jurisdiction": "nz",
+  "backlog_id": "working-for-families",
+  "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/33",
+  "github_project": {
+    "url": "https://github.com/users/edithatogo/projects/1",
+    "status": "archived",
+    "sequence_order": 10,
+    "policy_family": "Working for Families and family scheme tax credits"
+  },
+  "priority": 1,
+  "sequence_order": 10,
+  "scope": "legal_content",
+  "blocked_on_nlp": false,
+  "authority": {
+    "canonical_sources": [
+      "Income Tax Act 2007 family scheme provisions",
+      "Inland Revenue Working for Families guidance",
+      "family tax credit and minimum family tax credit rate orders"
+    ],
+    "oracle_role": "comparison_only"
+  },
+  "dependencies": [
+    "upstream issue #30 repo quality and CI scaffold",
+    "upstream issue #31 NZ full-country backlog and source-readiness manifests",
+    "upstream issue #32 comparison-only NZ oracle reconciliation manifests",
+    "Track 23 income interfaces",
+    "Track 25 social security main benefits and income tests",
+    "official source/corpus citation paths",
+    "family scheme source manifests",
+    "companion RuleSpec tests"
+  ],
+  "parallel_work": [
+    "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ]
+}

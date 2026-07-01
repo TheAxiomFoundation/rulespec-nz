@@ -442,6 +442,10 @@
             "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/18/latest/LMS1019181.html",
             "https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2025/18/latest/LMS1019192.html"
           ],
+          "key_citation_paths": [
+            "nz/regulation/regulation/public/2025/0018/regulation/8",
+            "nz/regulation/regulation/public/2025/0018/regulation/9"
+          ],
           "provision_count": 10,
           "sample_citation_paths": [
             "nz/regulation/regulation/public/2025/0018/regulation/1",
@@ -574,6 +578,9 @@
           "https://www.legislation.govt.nz/act/public/2018/4/latest/DLM7038959.html",
           "https://www.legislation.govt.nz/act/public/2018/4/latest/DLM7038968.html"
         ],
+        "key_citation_paths": [
+          "nz/statute/act/public/2018/0004"
+        ],
         "provision_count": 692,
         "sample_citation_paths": [
           "nz/statute/act/public/2018/0004/section/1-DLM7038958",
@@ -661,6 +668,11 @@
           "https://www.legislation.govt.nz/act/public/1985/141/latest/DLM1198226.html",
           "https://www.legislation.govt.nz/act/public/1985/141/latest/DLM2457234.html",
           "https://www.legislation.govt.nz/act/public/1985/141/latest/DLM3238203.html"
+        ],
+        "key_citation_paths": [
+          "nz/statute/act/public/1985/0141/section/8-DLM82299",
+          "nz/statute/act/public/1985/0141/section/10",
+          "nz/statute/act/public/1985/0141/section/12"
         ],
         "provision_count": 262,
         "sample_citation_paths": [
@@ -1102,6 +1114,16 @@
           "https://www.legislation.govt.nz/act/public/2007/97/latest/DLM1172667.html",
           "https://www.legislation.govt.nz/act/public/2007/97/latest/DLM1172669.html",
           "https://www.legislation.govt.nz/act/public/2007/97/latest/DLM1172673.html"
+        ],
+        "key_citation_paths": [
+          "nz/statute/act/public/2007/0097/section/MB-1",
+          "nz/statute/act/public/2007/0097/section/MB-2",
+          "nz/statute/act/public/2007/0097/section/MB-3",
+          "nz/statute/act/public/2007/0097/section/MB-4",
+          "nz/statute/act/public/2007/0097/section/MC-2",
+          "nz/statute/act/public/2007/0097/section/MC-3",
+          "nz/statute/act/public/2007/0097/section/MC-4",
+          "nz/statute/act/public/2007/0097/section/MC-5"
         ],
         "provision_count": 4133,
         "sample_citation_paths": [
@@ -2162,6 +2184,12 @@
           "https://www.legislation.govt.nz/act/public/2018/32/latest/DLM6783121.html",
           "https://www.legislation.govt.nz/act/public/2018/32/latest/DLM6783122.html",
           "https://www.legislation.govt.nz/act/public/2018/32/latest/DLM6783123.html"
+        ],
+        "key_citation_paths": [
+          "nz/statute/act/public/2018/0032/section/16",
+          "nz/statute/act/public/2018/0032/section/18",
+          "nz/statute/act/public/2018/0032/section/19",
+          "nz/statute/act/public/2018/0032/section/20"
         ],
         "provision_count": 707,
         "sample_citation_paths": [

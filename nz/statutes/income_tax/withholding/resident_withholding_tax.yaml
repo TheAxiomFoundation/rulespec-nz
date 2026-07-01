@@ -1,0 +1,95 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Income Tax Act 2007 subpart RE (RWT provisions) and Inland Revenue RWT rate
+    guidance define the resident withholding tax rates applied to interest and
+    dividends for New Zealand residents. The applicable RWT rate depends on the
+    recipient's prescribed tax rate (or notified rate) and whether they have
+    provided a valid RWT exemption certificate.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2007/0097/subpart/RE
+      - nz/statute/act/public/2007/0097/section/RE2
+      - nz/statute/act/public/2007/0097/schedule/1/part/B
+      - nz/agency/ird/rwt-rates
+    agency_reference_urls:
+      - https://www.ird.govt.nz/investing/rwt-resident-withholding-tax
+      - https://www.ird.govt.nz/investing/rwt-resident-withholding-tax/rwt-rates
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: rwt_rate_10_5
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.105
+  - name: rwt_rate_17_5
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.175
+  - name: rwt_rate_30
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.30
+  - name: rwt_rate_33
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          0.33
+  - name: rwt_rate_39
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    versions:
+      - effective_from: '2024-04-01'
+        formula: |-
+          0.39
+  - name: rwt_applicable_rate
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: Income Tax Act 2007 subpart RE; IRD RWT rate guidance
+    versions:
+      - effective_from: '2024-04-01'
+        formula: |-
+          if rwt_holder_has_exemption_certificate:
+              0
+          elif rwt_holder_has_notified_rwt_rate:
+              rwt_notified_rate
+          elif rwt_holders_prescribed_tax_rate <= 0.105:
+              rwt_rate_10_5
+          elif rwt_holders_prescribed_tax_rate <= 0.175:
+              rwt_rate_17_5
+          elif rwt_holders_prescribed_tax_rate <= 0.30:
+              rwt_rate_30
+          elif rwt_holders_prescribed_tax_rate <= 0.33:
+              rwt_rate_33
+          else:
+              rwt_rate_39
+  - name: rwt_withholding_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 subpart RE
+    versions:
+      - effective_from: '2024-04-01'
+        formula: |-
+          max(0, rwt_gross_interest_and_dividends) * rwt_applicable_rate

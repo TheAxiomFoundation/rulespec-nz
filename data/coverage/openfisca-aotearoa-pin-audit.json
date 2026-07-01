@@ -1,0 +1,33 @@
+{
+  "track_id": "15_openfisca_follow_on_reconciliation",
+  "generated_at": "2026-06-26",
+  "source_oracle_id": "openfisca-aotearoa",
+  "source_repository": "https://github.com/edithatogo/openfisca-aotearoa",
+  "pin_reconciliation": {
+    "source_oracle_id": "openfisca-aotearoa",
+    "source_repository": "https://github.com/edithatogo/openfisca-aotearoa",
+    "oracle_index_commit": "c36c40bcf553dc95ddca473be12440d4be9d0560",
+    "observed_upstream_head": "76062ffc20e40373d9cb56c8910a224236aa1e72",
+    "pins_differ": true
+  },
+  "upstream_analysis": {
+    "divergence_summary": "The oracle-index pin c36c40bcf553dc95ddca473be12440d4be9d0560 (2026-06-16) trails the observed upstream head 76062ffc20e40373d9cb56c8910a224236aa1e72 by an unknown number of commits. The pin was retained during Track 13 for deterministic fixture stability. This audit confirms continued divergence and assesses impact on deferred surfaces.",
+    "deferred_surfaces_affected": [
+      "common-demographics-and-residence-official-source-extraction",
+      "citizenship-immigration-official-source-extraction",
+      "relationships-official-source-extraction",
+      "student-allowance-official-source-extraction",
+      "rates-rebates-official-source-extraction",
+      "paid-parental-leave-official-source-extraction",
+      "housing-restructuring-social-housing-official-source-extraction",
+      "acc-weekly-compensation-official-source-extraction",
+      "pae-ora-health-services-official-source-extraction"
+    ],
+    "upstream_changes_since_pin": "Not inspected in detail; no live HEAD checkout was performed. The upstream may contain new variables, parameters, or YAML tests that affect deferred surfaces. Official-source extraction is the primary route and does not depend on oracle pin freshness."
+  },
+  "decision": {
+    "action": "retain_pin",
+    "rationale": "The pinned oracle-index commit is used for deterministic comparison fixtures only. Official-source extraction for all deferred surfaces is independent of oracle pin freshness. Upgrading the pin would require re-validating all existing adapter tests that assert the older commit, which is deferred to a focused pin-upgrade task.",
+    "follow_on_task": "openfisca-aotearoa-pin-reconciliation"
+  }
+}

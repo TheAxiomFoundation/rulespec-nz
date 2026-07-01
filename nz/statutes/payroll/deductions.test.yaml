@@ -1,0 +1,29 @@
+- name: paye_aggregation_structure_2025
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/payroll/deductions#input.paye_income_tax_on_taxable_portion_of_earnings: 15000
+    nz:statutes/payroll/deductions#input.acc_standard_earners_levy_including_gst: 1750
+    nz:statutes/payroll/deductions#input.kiwisaver_employee_deduction: 3500
+    nz:statutes/payroll/deductions#input.student_loan_annual_deduction: 2000
+  output:
+    nz:statutes/payroll/deductions#paye_income_tax_component: 15000
+    nz:statutes/payroll/deductions#paye_acc_levy_component: 1750
+    nz:statutes/payroll/deductions#paye_kiwisaver_employee_component: 3500
+    nz:statutes/payroll/deductions#paye_student_loan_component: 2000
+    nz:statutes/payroll/deductions#paye_total_deduction: 22250
+
+- name: paye_aggregation_zero_deductions
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/payroll/deductions#input.paye_income_tax_on_taxable_portion_of_earnings: 0
+    nz:statutes/payroll/deductions#input.acc_standard_earners_levy_including_gst: 0
+    nz:statutes/payroll/deductions#input.kiwisaver_employee_deduction: 0
+    nz:statutes/payroll/deductions#input.student_loan_annual_deduction: 0
+  output:
+    nz:statutes/payroll/deductions#paye_total_deduction: 0

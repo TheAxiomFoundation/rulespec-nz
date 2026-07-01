@@ -17,7 +17,7 @@ JsonMap = dict[str, Any]
 
 
 def load_json(path: Path) -> JsonMap:
-    return cast(JsonMap, json.loads(path.read_text(encoding="utf-8")))
+    return cast("JsonMap", json.loads(path.read_text(encoding="utf-8")))
 
 
 def load_reconciliation() -> JsonMap:

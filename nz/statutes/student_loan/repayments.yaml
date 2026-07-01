@@ -1,0 +1,103 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Student Loan Scheme Act 2011 and Inland Revenue student loan repayment
+    deduction tables set the repayment rules for New Zealand-based borrowers.
+    Repayment rate: 12c per NZD of repayment income above the annual threshold.
+    The annual repayment threshold adjusts each tax year. IRD publishes the
+    deduction tables employers use for PAYE-style student loan deductions.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2011/0062/section/22
+      - nz/statute/act/public/2011/0062/section/27
+      - nz/statute/act/public/2011/0062/schedule/1
+      - nz/regulation/secondary/ird/student-loan-repayment-thresholds
+      - nz/agency/ird/student-loan-repayment-deductions
+    agency_reference_urls:
+      - https://www.ird.govt.nz/student-loans/repaying-my-student-loan
+      - https://www.ird.govt.nz/student-loans/repaying-my-student-loan/repayment-thresholds
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: student_loan_repayment_rate
+    kind: parameter
+    dtype: Rate
+    source: Student Loan Scheme Act 2011 s 22(1)
+    versions:
+      - effective_from: '2012-04-01'
+        formula: |-
+          0.12
+  - name: student_loan_annual_repayment_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Loan Scheme Act 2011 schedule 1; IRD student loan repayment thresholds
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          24104
+      - effective_from: '2026-04-01'
+        formula: |-
+          24680
+      - effective_from: '2027-04-01'
+        formula: |-
+          25252
+  - name: student_loan_weekly_repayment_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          student_loan_annual_repayment_threshold / 52
+  - name: student_loan_fortnightly_repayment_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Fortnight
+    unit: NZD
+    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          student_loan_annual_repayment_threshold / 26
+  - name: student_loan_monthly_repayment_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: NZD
+    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          student_loan_annual_repayment_threshold / 12
+  - name: student_loan_annual_deduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Student Loan Scheme Act 2011 s 22
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          max(0, student_loan_repayment_income - student_loan_annual_repayment_threshold)
+          * student_loan_repayment_rate
+  - name: student_loan_weekly_deduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          max(0, student_loan_weekly_earnings - student_loan_weekly_repayment_threshold)
+          * student_loan_repayment_rate

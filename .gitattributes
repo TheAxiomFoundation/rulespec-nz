@@ -1,0 +1,19 @@
+# Normalise line endings for cross-platform consistency
+* text=auto eol=lf
+
+# Binary files
+*.pyc binary
+*.pyd binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.pdf binary
+
+# Rust build artifacts
+rulespec-nz/target/** linguist-generated=true
+target/** linguist-generated=true
+
+# Generated coverage artifacts
+__pycache__/** linguist-generated=true
+.pytest_cache/** linguist-generated=true
+.ruff_cache/** linguist-generated=true

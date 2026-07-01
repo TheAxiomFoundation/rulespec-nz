@@ -1,0 +1,166 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Accident Compensation Act 2001 weekly compensation is earnings-based and
+    generally pays 80 percent of pre-injury weekly income, subject to the ACC
+    earnings cap and the full-time minimum weekly compensation floor published
+    by ACC. The same minimum-rate surface is used for loss of potential
+    earnings for young injured people who cannot work full time because of
+    their injury.
+  source_verification:
+    corpus_citation_paths:
+      - nz/statute/act/public/2001/0049/part/2
+      - nz/agency/acc/weekly-compensation
+      - nz/agency/acc/loss-of-potential-earnings
+    agency_reference_urls:
+      - https://www.acc.co.nz/im-injured/financial-support/weekly-compensation
+      - https://www.acc.co.nz/im-injured/financial-support/loss-of-potential-earnings
+      - https://www.acc.co.nz/for-providers/supporting-clients/weekly-compensation-calculation
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: acc_weekly_compensation_rate
+    kind: parameter
+    dtype: Rate
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.8
+  - name: acc_loss_of_potential_earnings_rate
+    kind: parameter
+    dtype: Rate
+    source: ACC loss of potential earnings guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.8
+  - name: acc_weekly_minimum_wage_40_hour_week
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: ACC weekly compensation and loss of potential earnings guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          940
+      - effective_from: '2026-04-01'
+        formula: |-
+          958
+  - name: acc_weekly_compensation_minimum_full_time_rate
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          acc_weekly_minimum_wage_40_hour_week * acc_weekly_compensation_rate
+  - name: acc_weekly_compensation_earnings_cap_weekly
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Accident Compensation Act 2001 and ACC levy maximum earnings interface
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          acc_earners_levy_maximum_earnings / 52
+  - name: acc_weekly_compensation_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_weekly_compensation_employed_or_self_employed_or_shareholder_employee
+              and acc_weekly_compensation_cannot_do_usual_work_due_to_injury
+          )
+  - name: acc_weekly_compensation_pre_injury_income_capped
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          min(
+              max(0, acc_weekly_compensation_pre_injury_weekly_earnings),
+              acc_weekly_compensation_earnings_cap_weekly
+          )
+  - name: acc_weekly_compensation_before_abatement
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_weekly_compensation_eligible:
+              if acc_weekly_compensation_is_full_time_earner:
+                  max(
+                      acc_weekly_compensation_minimum_full_time_rate,
+                      acc_weekly_compensation_pre_injury_income_capped
+                      * acc_weekly_compensation_rate
+                  )
+              else:
+                  acc_weekly_compensation_pre_injury_income_capped * acc_weekly_compensation_rate
+          else:
+              0
+  - name: acc_weekly_compensation_after_abatement
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC weekly compensation guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          max(
+              0,
+              acc_weekly_compensation_before_abatement
+              - max(0, acc_weekly_compensation_income_while_recovering)
+          )
+  - name: acc_loss_of_potential_earnings_entitled
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: ACC loss of potential earnings guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_loss_of_potential_earnings_turned_18
+              and acc_loss_of_potential_earnings_injured_before_18_or_in_full_time_study_training
+              and acc_loss_of_potential_earnings_cannot_work_for_six_months_or_more
+              and acc_loss_of_potential_earnings_no_longer_in_full_time_study_or_training
+              and acc_loss_of_potential_earnings_current_income_below_lpe_rate
+          )
+  - name: acc_loss_of_potential_earnings_weekly_payment
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: ACC loss of potential earnings guidance
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_loss_of_potential_earnings_entitled:
+              acc_weekly_minimum_wage_40_hour_week * acc_loss_of_potential_earnings_rate
+          else:
+              0
