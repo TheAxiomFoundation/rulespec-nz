@@ -2,13 +2,13 @@
   "track_id": "39_dynamic_simulation_and_research_extensions",
   "track_number": 39,
   "title": "Dynamic simulation and research extensions",
-  "status": "implemented_pending_review",
+  "status": "archived_after_clean_review",
   "jurisdiction": "nz",
   "backlog_id": "dynamic-and-research-extensions",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/64",
   "github_project": {
     "url": "https://github.com/users/edithatogo/projects/1",
-    "status": "in_progress",
+    "status": "archived",
     "sequence_order": 23,
     "policy_family": "Dynamic simulation and research extensions"
   },
@@ -38,8 +38,8 @@
     "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
   ],
   "implementation_complete": true,
-  "review_required": true,
-  "review_complete": false,
+  "review_required": false,
+  "review_complete": true,
   "artifacts": [
     "data/analysis/dynamic-research-extensions.json",
     "tests/test_dynamic_research_extensions.py"
