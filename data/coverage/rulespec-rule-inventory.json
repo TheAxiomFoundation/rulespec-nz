@@ -1449,6 +1449,30 @@
           "name": "gst_exclusive_amount_from_inclusive_amount",
           "kind": "derived",
           "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_threshold",
+          "name": "gst_low_value_imported_goods_threshold",
+          "kind": "parameter",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_subject_to_gst",
+          "name": "gst_low_value_imported_goods_subject_to_gst",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_component",
+          "name": "gst_low_value_imported_goods_component",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_total_payable",
+          "name": "gst_low_value_imported_goods_total_payable",
+          "kind": "derived",
+          "source_family": "rate"
         }
       ]
     },

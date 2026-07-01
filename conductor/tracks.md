@@ -11,11 +11,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
 
-## Track 36: GST and indirect-tax interfaces
-*Status: planned next legislation track*
-*Link: [./tracks/36_gst_and_indirect_tax_interfaces/](./tracks/36_gst_and_indirect_tax_interfaces/)*
-
-
 ## Additional Small Support Tracks
 *Sequencing: provenance QA first, then oracle comparison, then research extensions.*
 *These tracks are intentionally narrow and stay separate from legislation conversion.*
@@ -50,6 +45,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 36: GST and indirect-tax interfaces
+*Status: archived after clean review*
+*Link: [./tracks/archive/36_gst_and_indirect_tax_interfaces/](./tracks/archive/36_gst_and_indirect_tax_interfaces/)*
+
 ## Track 35: Payroll deductions and savings interfaces
 *Status: archived after clean review*
 *Link: [./tracks/archive/35_payroll_deductions_and_savings_interfaces/](./tracks/archive/35_payroll_deductions_and_savings_interfaces/)*

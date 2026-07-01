@@ -6,13 +6,17 @@ module:
     GST-inclusive value mechanics for supplies. Inland Revenue's GST
     calculation guidance gives the current arithmetic for adding GST to
     GST-exclusive amounts and removing GST from GST-inclusive amounts.
+    Low-value imported goods use the same GST rate together with the
+    point-of-sale interface described in Inland Revenue guidance.
   source_verification:
     corpus_citation_paths:
       - nz/statute/act/public/1985/0141/section/8-DLM82299
       - nz/statute/act/public/1985/0141/section/10
       - nz/statute/act/public/1985/0141/section/12
+      - nz/statute/act/public/2018/0004
     agency_reference_urls:
       - https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst
+      - https://www.ird.govt.nz/gst/gst-for-overseas-businesses/gst-on-low-value-imported-goods
     values:
       gst_standard_rate: "0.15"
 units:
@@ -73,3 +77,51 @@ rules:
         formula: |-
           gst_inclusive_amount
           / (1 + gst_standard_rate)
+  - name: gst_low_value_imported_goods_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    versions:
+      - effective_from: '2019-12-01'
+        formula: |-
+          1000
+  - name: gst_low_value_imported_goods_subject_to_gst
+    kind: derived
+    entity: Import
+    dtype: Judgment
+    period: Day
+    source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    versions:
+      - effective_from: '2019-12-01'
+        formula: |-
+          (
+              gst_imported_goods_value <= gst_low_value_imported_goods_threshold
+              and gst_imported_goods_outside_new_zealand_at_supply
+              and gst_imported_goods_delivered_to_new_zealand_address
+          )
+  - name: gst_low_value_imported_goods_component
+    kind: derived
+    entity: Import
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    versions:
+      - effective_from: '2019-12-01'
+        formula: |-
+          if gst_low_value_imported_goods_subject_to_gst:
+              gst_imported_goods_value * gst_standard_rate
+          else:
+              0
+  - name: gst_low_value_imported_goods_total_payable
+    kind: derived
+    entity: Import
+    dtype: Money
+    period: Day
+    unit: NZD
+    source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    versions:
+      - effective_from: '2019-12-01'
+        formula: |-
+          gst_imported_goods_value + gst_low_value_imported_goods_component
