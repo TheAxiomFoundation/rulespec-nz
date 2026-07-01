@@ -35,7 +35,7 @@ typecheck:
 
 # ─── Quality gate ──────────────────────────────────────────────────────────
 
-quality: lint format-check typecheck test
+quality: lint format-check typecheck test rust-test
 
 # ─── Coverage ──────────────────────────────────────────────────────────────
 

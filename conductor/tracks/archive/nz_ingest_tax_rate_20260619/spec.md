@@ -15,7 +15,7 @@ Ingest official NZ legislation XML sources using the `axiom-corpus` API adapter 
 - **Legislation Ingestion:** Ingest the Income Tax Act 2007 from the Parliamentary Counsel Office (PCO) XML API.
 - **RuleSpec Encoding:** Map the primary income tax rate schedules (personal income tax brackets and rates) into declarative RuleSpec format.
 - **Verification:** Compare Axiom outputs against reference cases extracted from the comparison oracles (`nztaxmicrosim` or Treasury `EMTR` prototypes).
-- **Quality Gates:** 
+- **Quality Gates:**
   - Ensure 100% of defined rate schedule rules are tested via companion `.test.yaml`.
   - Maintain >90% code coverage.
   - No type checks, formatting, or linting errors (`basedpyright` and `ruff --select ALL` must pass cleanly).

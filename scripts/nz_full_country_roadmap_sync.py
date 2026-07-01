@@ -14,14 +14,17 @@ import argparse
 import json
 import os
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Dict, Iterable, List
 
-from scripts.nz_full_country_roadmap_export import issue_payload
-
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+from scripts.nz_full_country_roadmap_export import issue_payload
+
 ROADMAP_PATH = ROOT / "data" / "coverage" / "full-country-roadmap.json"
 BACKLOG_PATH = ROOT / "data" / "coverage" / "full-country-backlog.json"
 REPO = "edithatogo/rulespec-nz"
@@ -30,6 +33,25 @@ REPO = "edithatogo/rulespec-nz"
 def load_json(path: Path) -> Dict:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_roadmap() -> Dict:
+    if ROADMAP_PATH.exists():
+        return load_json(ROADMAP_PATH)
+    backlog = load_json(BACKLOG_PATH)
+    return {
+        "generated_from": BACKLOG_PATH.relative_to(ROOT).as_posix(),
+        "roadmap": [
+            {
+                "track_id": item["id"],
+                "title": item["title"],
+                "status": item.get("status", "not_started"),
+                "priority": item.get("priority"),
+                "evidence": item.get("evidence", []),
+            }
+            for item in backlog["tracks"]
+        ],
+    }
 
 
 def iterate_tracks(backlog: Dict, roadmap: Dict) -> Iterable[Dict]:
@@ -45,7 +67,7 @@ def iterate_tracks(backlog: Dict, roadmap: Dict) -> Iterable[Dict]:
 
 def check_coverage() -> int:
     backlog = load_json(BACKLOG_PATH)
-    roadmap = load_json(ROADMAP_PATH)
+    roadmap = load_roadmap()
 
     backlog_ids = {item["id"] for item in backlog["tracks"]}
     roadmap_ids = {item["track_id"] for item in roadmap["roadmap"]}
@@ -83,7 +105,7 @@ def check_coverage() -> int:
 
 
 def emit_commands() -> None:
-    roadmap = load_json(ROADMAP_PATH)
+    roadmap = load_roadmap()
     payload = [issue_payload(item) for item in roadmap["roadmap"]]
     for item in payload:
         title = item["title"]
@@ -96,7 +118,7 @@ def emit_commands() -> None:
 
 
 def run_create_issues(label_sync: bool = False) -> int:
-    roadmap = load_json(ROADMAP_PATH)
+    roadmap = load_roadmap()
     payload = [issue_payload(item) for item in roadmap["roadmap"]]
     created = 0
     with tempfile.TemporaryDirectory() as tmpdir:

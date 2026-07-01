@@ -17,7 +17,3 @@
 
 - [ ] Run focused reconciliation and inventory tests.
 - [ ] Archive only after review confirms no OpenFisca code is treated as law.
-
-
-
-

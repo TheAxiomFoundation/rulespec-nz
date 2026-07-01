@@ -62,4 +62,3 @@
 - Interpretation questions: how much further payroll-specific periodization should be split out from the shared PAYE aggregation helper.
 - Missing official evidence: none for the implemented slice.
 - Blockers: foundation gates #30, #31, #32 remain relevant for comparison-only reconciliation, but not for the official-source implementation slice.
-

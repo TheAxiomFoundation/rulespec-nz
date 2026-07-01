@@ -102,4 +102,3 @@
 
 - Comparison manifests remain separate from legal authority.
 - Future oracle reconciliation can be handled in the dedicated comparison track.
-

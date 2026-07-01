@@ -29,4 +29,3 @@
 - [x] [1b953d1] Add companion `.test.yaml` fixtures.
 - [x] [1b953d1] Compare against pinned oracle/reference outputs as non-authoritative checks.
 - [x] [1b953d1] Prepare reviewable legal-content PR slices.
-

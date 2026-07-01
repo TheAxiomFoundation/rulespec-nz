@@ -54,4 +54,5 @@ def test_pixi_tasks_cover_quality_and_test_granularity() -> None:
         "format-check",
         "typecheck",
         "test",
+        "rust-test",
     ]

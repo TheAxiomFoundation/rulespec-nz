@@ -53,5 +53,3 @@ This plan is the active numbered Conductor surface for the income tax rate inges
   - `python -m basedpyright tests\test_income_tax_rate_source_manifest.py`
   - `python -m pytest tests\test_repository_layout.py -q -p no:cacheprovider`
 - Residual risk: no live PCO re-download was performed; review is based on the committed normalized provision extract and manifest evidence.
-
-

@@ -54,4 +54,3 @@
 - Interpretation questions: later local-government-adjacent assistance slices may still be added separately.
 - Missing official evidence: none for this archived slice.
 - Blockers: none for this archived slice; oracle comparison remains non-authoritative.
-

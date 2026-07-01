@@ -62,4 +62,3 @@
 - Interpretation questions: whether the GST import interface should later be split into a dedicated module if excise hooks grow beyond the low-value goods surface.
 - Missing official evidence: none for the implemented GST slice.
 - Blockers: foundation gates #30, #31, #32 remain relevant for comparison-only reconciliation, but not for the official-source implementation slice.
-

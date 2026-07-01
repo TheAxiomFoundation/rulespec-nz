@@ -14,3 +14,18 @@ jobs:
     with:
       validate-roots: auto
       run-generated-guard: true
+
+  roadmap-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check roadmap coverage state
+        run: python scripts/nz_full_country_roadmap_sync.py --check
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@v0
+      - name: Run repository quality gate
+        run: pixi run quality

@@ -54,4 +54,3 @@
 - Interpretation questions: how much of the planned family already exists in the current corpus inventory.
 - Missing official evidence: source citation paths pending.
 - Blockers: foundation gates #30, #31, #32; oracle comparison remains blocked until pinned manifests are published.
-

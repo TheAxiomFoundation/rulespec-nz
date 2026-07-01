@@ -1,7 +1,7 @@
 ﻿{
  "track_id": "16_nztaxmicrosim_follow_on_reconciliation",
  "type": "feature",
- "status": "active",
+ "status": "archived_with_follow_on_blockers",
  "created_at": "2026-06-25T00:00:00+10:00",
  "description": "Resolve nztaxmicrosim deferred and simplified surfaces through official-source extraction and duplicate-aware RuleSpec reconciliation.",
  "source_oracle_id": "nztaxmicrosim",
