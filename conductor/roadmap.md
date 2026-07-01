@@ -1,10 +1,20 @@
-# Next Roadmap Proposal
+# Roadmap Snapshot
 
-This repo has no active conductor tracks left. The next work should be staged
-as small, source-grounded families that reuse the existing income-interface and
-tax-surface modules rather than re-encoding shared primitives.
+This repo currently has no active conductor tracks. The completed work is
+archived in `conductor/tracks.md`, and the remaining planning surface should be
+treated as a forward-looking roadmap rather than a live queue.
 
-## Recommended order
+## Current state
+
+- Active conductor tracks: none.
+- Archived legislation and support tracks: complete.
+- Current repo focus: maintain the completed registry, keep the project-ledger
+  metadata consistent, and only add new tracks when a genuinely new backlog is
+  identified.
+
+## Historical sequencing
+
+The prior next-step sequence was:
 
 1. Paid parental leave, child support, and family-related payments.
 2. Rates rebates and local-government-adjacent assistance.
@@ -12,57 +22,32 @@ tax-surface modules rather than re-encoding shared primitives.
 4. Payroll deductions and savings interfaces.
 5. GST and indirect-tax interfaces.
 
-## Rationale
+That ordering is now historical only because those tracks are already archived in
+the registry.
 
-- Childcare, disability, and health-related assistance is the clearest remaining
-  MSD family in the current backlog and reuses the existing social-security
-  primitives.
-- Paid parental leave and child support are separate legal families in the
-  backlog and are both explicitly identified as oracle-backed gaps.
-- Rates rebates, residency predicates, payroll deductions, and GST each sit in
-  separate source families that should stay isolated from one another.
+## Support-track sequencing
 
-## Dependency notes
+The prior support-track order was:
 
-- Childcare/disability assistance should reuse [Track 25](./tracks/archive/25_social_security_main_benefits/)
-  and [Track 23](./tracks/archive/23_income_interfaces/) as shared inputs.
-- Paid parental leave and child support should reuse the income interface work
-  and the existing payroll deduction surfaces where applicable.
-- Rates rebates should reuse the personal-income-tax gap-fill work for income
-  inputs.
-- Residency predicates should stay as a shared predicate layer for benefits and
-  tax programs.
-- Payroll deductions should reuse the shared income interfaces and tax-surface
-  plumbing.
-- GST should remain isolated as an indirect-tax surface with minimal coupling.
+1. Corpus citation pinning and provenance QA.
+2. Oracle comparison and historical rule reconciliation.
+3. Dynamic simulation and research extensions.
 
-## Suggested next conductor tracks
+That ordering is also historical only because those tracks are already archived.
 
-- Track 32: Paid parental leave, child support, and family-related payments.
-- Track 33: Rates rebates and local-government-adjacent assistance.
-- Track 34: Residency, citizenship, and immigration predicates.
-- Track 35: Payroll deductions and savings interfaces.
-- Track 36: GST and indirect-tax interfaces.
+## Forward-looking guidance
 
-## Additional small support tracks
+- Keep future tracks small and source-grounded.
+- Reuse the existing income-interface and tax-surface primitives instead of
+  re-encoding shared abstractions.
+- Treat the NLP pipeline as helpful for extraction, but not as a dependency for
+  maintaining the current registry truth.
+- When a new backlog appears, update this file first so it reflects the live
+  planning order before creating new conductor tracks.
 
-Keep these narrow. They are not legislation conversion work; they harden the
-research and provenance layer around the existing corpus.
+## Ledger alignment
 
-1. Track 38: Corpus citation pinning and provenance QA.
-2. Track 37: Oracle comparison and historical rule reconciliation.
-3. Track 39: Dynamic simulation and research extensions.
-
-## Additional dependency notes
-
-- Track 38 should land before Track 37 so the comparison harness can rely on
-  pinned corpus citations and provenance checks.
-- Track 39 should remain last so research work does not block the core
-  legislation backlog.
-- The NLP pipeline remains useful for source extraction, but these support
-  tracks should continue to assume official PCO/data.govt.nz citation paths are
-  available even if NLP is still in progress.
-- Track 31 childcare, disability, and health-related assistance is archived,
-  so the next open legislation track is Track 32.
-- GitHub issue #46 is the roadmap ledger mirror for this repo; keep its body and
-  the project item fields aligned with the project-ledger conventions.
+- Keep the roadmap issue, project board, and conductor registry aligned on the
+  same current-state message.
+- Preserve the distinction between archived work and any newly proposed track
+  family.
