@@ -49,6 +49,7 @@ def rulespec_content_roots() -> list[Path]:
 
 def allowed_yaml_roots() -> set[str]:
     return {
+        ".axiom",
         ".github",
         "programs",
         ".pre-commit-config.yaml",

@@ -1,0 +1,41 @@
+version: 1
+allowed_root_directories:
+  - .axiom
+  - .github
+  - data
+  - nz
+  - tests
+allowed_root_files:
+  - .gitignore
+  - CLAUDE.md
+  - README.md
+  - known-validation-gaps.yaml
+  - variables.toml
+path_rules:
+  - patterns:
+      - ".axiom/**"
+    allow_extensions:
+      - ".toml"
+      - ".yaml"
+  - patterns:
+      - ".github/**"
+    allow_extensions:
+      - ".yml"
+      - ".yaml"
+  - patterns:
+      - "data/**"
+    allow_extensions:
+      - ".json"
+      - ".jsonl"
+      - ".yaml"
+      - ".yml"
+  - patterns:
+      - "nz/**"
+    allow_extensions:
+      - ".yaml"
+    allow_filenames:
+      - ".gitkeep"
+  - patterns:
+      - "tests/**"
+    allow_extensions:
+      - ".py"
