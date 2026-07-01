@@ -6,10 +6,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
-## Track 38: Corpus citation pinning and provenance QA
-*Status: implemented pending review*
-*Link: [./tracks/38_corpus_citation_pinning_and_provenance_qa/](./tracks/38_corpus_citation_pinning_and_provenance_qa/)*
-
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
@@ -26,11 +22,13 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Status: planned next support track*
 *Link: [./tracks/40_repo_quality_ci_automation_20260701/](./tracks/40_repo_quality_ci_automation_20260701/)*
 
-
-## Archived Tracks
 ## Track 37: Oracle comparison and historical rule reconciliation
 *Status: archived after clean review*
 *Link: [./tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/archive/37_oracle_comparison_and_historical_rule_reconciliation/)*
+
+## Track 38: Corpus citation pinning and provenance QA
+*Status: archived after clean review*
+*Link: [./tracks/archive/38_corpus_citation_pinning_and_provenance_qa/](./tracks/archive/38_corpus_citation_pinning_and_provenance_qa/)*
 
 
 ## Track 17: NLP Pipeline and Publication Audit
