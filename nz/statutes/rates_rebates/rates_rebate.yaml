@@ -1,17 +1,212 @@
 format: rulespec/v1
 module:
   summary: |-
-    Rates Rebate Act 1973 and Department of Internal Affairs rates rebate
-    guidance define the income-based rates rebate scheme for residential
-    ratepayers. Official-source encoding pending for income thresholds,
-    abatement rates, and maximum rebate amounts.
-  status: deferred
+    Rates Rebate Act 1973, the Rates Rebate (Specified Amounts) Orders, and
+    Department of Internal Affairs guidance define the income-based rates
+    rebate scheme for residential ratepayers. This module encodes the current
+    rebate formula, the SuperGold threshold variant, and the territorial
+    authority application interaction.
   source_verification:
     corpus_citation_paths:
-      - nz/statute/act/public/1973/0055
+      - nz/statute/act/public/1973/0005/section/3
+      - nz/statute/act/public/1973/0005/section/4
+      - nz/statute/act/public/1973/0005/section/5
+      - nz/secondary-legislation/pco-drafted/2024/43/clause/4
+      - nz/secondary-legislation/pco-drafted/2025/63/clause/4
+      - nz/secondary-legislation/pco-drafted/2026/84/clause/4
       - nz/agency/dia/rates-rebates
     agency_reference_urls:
-      - https://www.govt.nz/browse/housing-and-property/getting-help-with-housing/rates-rebate
-    oracle_links:
-      - openfisca-aotearoa
-rules: []
+      - https://www.govt.nz/browse/housing-and-property/getting-help-with-housing/getting-a-rates-rebate/
+      - https://www.dia.govt.nz/services-rates-rebate-scheme-index
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  - name: rr_rates_rebate_base_excess_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(a)(i)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          160
+  - name: rr_income_abatement_threshold_standard
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1AA)(b)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          31510
+      - effective_from: '2025-07-01'
+        formula: |-
+          32210
+  - name: rr_income_abatement_threshold_supergold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1AA)(a)
+    versions:
+      - effective_from: '2025-07-01'
+        formula: |-
+          45000
+  - name: rr_maximum_rates_rebate_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(b); Rates Rebate (Specified Amounts) Orders 2024, 2025, and 2026
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          790
+      - effective_from: '2025-07-01'
+        formula: |-
+          805
+      - effective_from: '2026-07-01'
+        formula: |-
+          830
+  - name: rr_rates_rebate_dependant_increment
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          500
+  - name: rr_rates_rebate_income_reduction_divisor
+    kind: parameter
+    dtype: Count
+    source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          8
+  - name: rr_rates_rebate_application_is_valid
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Rates Rebate Act 1973 ss 3 and 5
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          (
+              rr_ratepayer_is_residential_property_ratepayer
+              and rr_application_submitted_to_territorial_authority
+          )
+  - name: rr_rates_rebate_income_abatement_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1AA)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          rr_income_abatement_threshold_standard
+      - effective_from: '2025-07-01'
+        formula: |-
+          if rr_ratepayer_is_supergold_cardholder:
+              rr_income_abatement_threshold_supergold
+          else:
+              rr_income_abatement_threshold_standard
+  - name: rr_rates_rebate_adjusted_income_abatement_threshold
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          rr_rates_rebate_income_abatement_threshold + (
+              rr_rates_rebate_dependant_increment * max(0, rr_dependants_count)
+          )
+  - name: rr_rates_rebate_household_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 4
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          max(0, rr_ratepayer_preceding_tax_year_income) + max(
+              0,
+              rr_other_ordinary_resident_preceding_tax_year_income
+          )
+  - name: rr_rates_rebate_income_reduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          floor(
+              max(
+                  0,
+                  rr_rates_rebate_household_income
+                  - rr_rates_rebate_adjusted_income_abatement_threshold
+              ) / rr_rates_rebate_income_reduction_divisor
+          )
+  - name: rr_rates_rebate_amount_before_cap
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(a)(i)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          if rr_rates_rebate_application_is_valid:
+              max(
+                  0,
+                  (
+                      max(
+                          0,
+                          rr_rates_payable_before_rebate
+                          - rr_rates_rebate_base_excess_threshold
+                      ) * 2 / 3
+                  ) - rr_rates_rebate_income_reduction
+              )
+          else:
+              0
+  - name: rr_rates_rebate_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 3(1)(b)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          if rr_rates_rebate_application_is_valid:
+              min(
+                  rr_rates_rebate_amount_before_cap,
+                  rr_maximum_rates_rebate_amount
+              )
+          else:
+              0
+  - name: rr_rates_payable_after_rebate
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Rates Rebate Act 1973 s 5(5)
+    versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          max(0, rr_rates_payable_before_rebate - rr_rates_rebate_amount)

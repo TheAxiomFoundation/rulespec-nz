@@ -1,10 +1,79 @@
-# Deferred module - companion test placeholder.
-# Official-source encoding of rates rebate rules is pending.
-# See extraction track: rates-rebates-official-source-extraction
-- name: deferred_placeholder
+- name: rr_rates_rebate_amount_caps_at_current_maximum
   period:
     period_kind: tax_year
-    start: '2026-04-01'
-    end: '2027-03-31'
-  input: {}
-  output: {}
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_residential_property_ratepayer: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_application_submitted_to_territorial_authority: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_supergold_cardholder: false
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_preceding_tax_year_income: 32210
+    nz:statutes/rates_rebates/rates_rebate#input.rr_other_ordinary_resident_preceding_tax_year_income: 0
+    nz:statutes/rates_rebates/rates_rebate#input.rr_dependants_count: 0
+    nz:statutes/rates_rebates/rates_rebate#input.rr_rates_payable_before_rebate: 1600
+  output:
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_application_is_valid: holds
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_abatement_threshold: 32210
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_adjusted_income_abatement_threshold: 32210
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount_before_cap: 960
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount: 830
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate: 770
+
+- name: rr_rates_rebate_household_income_adds_other_ratepayer_income
+  period:
+    period_kind: tax_year
+    start: '2025-07-01'
+    end: '2026-06-30'
+  input:
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_residential_property_ratepayer: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_application_submitted_to_territorial_authority: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_supergold_cardholder: false
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_preceding_tax_year_income: 32210
+    nz:statutes/rates_rebates/rates_rebate#input.rr_other_ordinary_resident_preceding_tax_year_income: 800
+    nz:statutes/rates_rebates/rates_rebate#input.rr_dependants_count: 0
+    nz:statutes/rates_rebates/rates_rebate#input.rr_rates_payable_before_rebate: 1000
+  output:
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_household_income: 33010
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction: 100
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount_before_cap: 460
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount: 460
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate: 540
+
+- name: rr_rates_rebate_supergold_uses_higher_threshold
+  period:
+    period_kind: tax_year
+    start: '2025-07-01'
+    end: '2026-06-30'
+  input:
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_residential_property_ratepayer: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_application_submitted_to_territorial_authority: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_supergold_cardholder: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_preceding_tax_year_income: 44000
+    nz:statutes/rates_rebates/rates_rebate#input.rr_other_ordinary_resident_preceding_tax_year_income: 0
+    nz:statutes/rates_rebates/rates_rebate#input.rr_dependants_count: 0
+    nz:statutes/rates_rebates/rates_rebate#input.rr_rates_payable_before_rebate: 1000
+  output:
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_abatement_threshold: 45000
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount_before_cap: 560
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount: 560
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate: 440
+
+- name: rr_rates_rebate_dependant_increment_and_application_gate
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_residential_property_ratepayer: true
+    nz:statutes/rates_rebates/rates_rebate#input.rr_application_submitted_to_territorial_authority: false
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_is_supergold_cardholder: false
+    nz:statutes/rates_rebates/rates_rebate#input.rr_ratepayer_preceding_tax_year_income: 33010
+    nz:statutes/rates_rebates/rates_rebate#input.rr_other_ordinary_resident_preceding_tax_year_income: 0
+    nz:statutes/rates_rebates/rates_rebate#input.rr_dependants_count: 1
+    nz:statutes/rates_rebates/rates_rebate#input.rr_rates_payable_before_rebate: 1000
+  output:
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_adjusted_income_abatement_threshold: 32710
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction: 37
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_application_is_valid: not_holds
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount: 0
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate: 1000

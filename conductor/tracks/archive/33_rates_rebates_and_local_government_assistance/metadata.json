@@ -2,13 +2,13 @@
   "track_id": "33_rates_rebates_and_local_government_assistance",
   "track_number": 33,
   "title": "Rates rebates and local-government-adjacent assistance",
-  "status": "planned_next_legislation_track",
+  "status": "archived_after_clean_review",
   "jurisdiction": "nz",
   "backlog_id": "local-government-and-rates",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/58",
   "github_project": {
     "url": "https://github.com/users/edithatogo/projects/1",
-    "status": "planned",
+    "status": "archived",
     "sequence_order": 17,
     "policy_family": "Rates rebates and local-government-adjacent assistance"
   },

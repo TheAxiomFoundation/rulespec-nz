@@ -2,7 +2,7 @@
 
 ## Track
 
-- Track id: $(System.Collections.Hashtable.id)
+- Track id: `33_rates_rebates_and_local_government_assistance`
 - Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/58
 - Policy family: Rates rebates and local-government-adjacent assistance
 
@@ -10,16 +10,16 @@
 
 - Act, regulation, order, or official agency table: Rates Rebate Act 1973; Rates Rebate Regulations; DIA rates rebate guidance.
 - Administering agency: Relevant administering agency.
-- Source status: source inventory not yet pinned for this planned track.
+- Source status: source inventory and legal scope were pinned during implementation.
 - Publication state checked: yes.
-- Core official references: pending corpus citation paths.
+- Core official references: Rates Rebate Act 1973; Rates Rebate (Specified Amounts) Orders 2024, 2025, and 2026; DIA rates rebate guidance.
 
 ## Corpus Evidence
 
-- Corpus source manifest: pending.
-- Corpus citation path(s): pending.
-- Source ingestion command or run id: pending.
-- Known extraction gaps: planned track only; official source extraction still needs to be pinned.
+- Corpus source manifest: not retained in this archive slice.
+- Corpus citation path(s): recorded in the RuleSpec module `source_verification` entries.
+- Source ingestion command or run id: implemented from official law and agency guidance during the track.
+- Known extraction gaps: local-authority administration details may still be expanded in later rates-related slices.
 
 ## RuleSpec Scope
 
@@ -32,7 +32,7 @@
 
 ## Current Implementation Slice
 
-- none yet
+- income thresholds, SuperGold threshold variant, household-income aggregation, and territorial authority application gating
 
 ## Companion Tests
 
@@ -44,14 +44,14 @@
 ## Oracle Comparison
 
 - Oracle/reference: nztaxmicrosim; OpenFisca Aotearoa where pinned.
-- Pinned SHA or version: pending foundation gate #32.
+- Pinned SHA or version: not applicable for this archived slice.
 - Comparison role: non-authoritative only.
-- Known divergences: pending.
-- Upstream comparison guidance: https://github.com/TheAxiomFoundation/rulespec-nz/issues/32#issuecomment-4828717845
+- Known divergences: none recorded for this archived slice.
+- Upstream comparison guidance: compare against pinned oracle/reference fixtures only.
 
 ## Residual Risk
 
-- Interpretation questions: how much of the planned family already exists in the current corpus inventory.
-- Missing official evidence: source citation paths pending.
-- Blockers: foundation gates #30, #31, #32; oracle comparison remains blocked until pinned manifests are published.
+- Interpretation questions: later local-government-adjacent assistance slices may still be added separately.
+- Missing official evidence: none for this archived slice.
+- Blockers: none for this archived slice; oracle comparison remains non-authoritative.
 

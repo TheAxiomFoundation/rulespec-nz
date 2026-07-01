@@ -11,10 +11,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
 
-## Track 33: Rates rebates and local-government-adjacent assistance
-*Status: planned next legislation track*
-*Link: [./tracks/33_rates_rebates_and_local_government_assistance/](./tracks/33_rates_rebates_and_local_government_assistance/)*
-
 ## Track 34: Residency, citizenship, and immigration predicates
 *Status: planned next legislation track*
 *Link: [./tracks/34_residency_citizenship_and_immigration_predicates/](./tracks/34_residency_citizenship_and_immigration_predicates/)*
@@ -62,6 +58,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Link: [./conductor/tracks/15_openfisca_follow_on_reconciliation/](./conductor/tracks/15_openfisca_follow_on_reconciliation/)*
 
 ## Archived Tracks
+## Track 33: Rates rebates and local-government-adjacent assistance
+*Status: archived after clean review*
+*Link: [./tracks/archive/33_rates_rebates_and_local_government_assistance/](./tracks/archive/33_rates_rebates_and_local_government_assistance/)*
+
 ## Track 32: Paid parental leave, child support, and family-related payments
 *Status: archived after clean review*
 *Link: [./tracks/archive/32_paid_parental_leave_child_support_family_payments/](./tracks/archive/32_paid_parental_leave_child_support_family_payments/)*
