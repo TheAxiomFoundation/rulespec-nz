@@ -2,13 +2,13 @@
   "track_id": "37_oracle_comparison_and_historical_rule_reconciliation",
   "track_number": 37,
   "title": "Oracle comparison and historical rule reconciliation",
-  "status": "planned_next_track",
+  "status": "implemented_pending_review",
   "jurisdiction": "nz",
   "backlog_id": "oracle-comparison-infrastructure",
   "upstream_issue": "https://github.com/TheAxiomFoundation/rulespec-nz/issues/62",
   "github_project": {
     "url": "https://github.com/users/edithatogo/projects/1",
-    "status": "planned",
+    "status": "in_progress",
     "sequence_order": 22,
     "policy_family": "Oracle comparison and historical rule reconciliation"
   },
@@ -35,5 +35,15 @@
   ],
   "parallel_work": [
     "NLP pipeline source extraction; useful when available but not blocking if official PCO/data.govt.nz citation paths exist"
+  ],
+  "implementation_complete": true,
+  "review_required": true,
+  "review_complete": false,
+  "artifacts": [
+    "scripts/phase3_reconciliation_workflow.py",
+    "data/coverage/nztaxmicrosim-reconciliation.json",
+    "data/coverage/openfisca-aotearoa-reconciliation.json",
+    "data/coverage/policyengine-nz-reconciliation.json",
+    "tests/test_oracle_comparison_reconciliation.py"
   ]
 }

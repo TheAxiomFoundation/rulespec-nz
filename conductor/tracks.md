@@ -6,6 +6,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
+## Track 37: Oracle comparison and historical rule reconciliation
+*Status: implemented pending review*
+*Link: [./tracks/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/37_oracle_comparison_and_historical_rule_reconciliation/)*
+
 
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
@@ -18,10 +22,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Track 38: Corpus citation pinning and provenance QA
 *Status: planned next support track*
 *Link: [./tracks/38_corpus_citation_pinning_and_provenance_qa/](./tracks/38_corpus_citation_pinning_and_provenance_qa/)*
-
-## Track 37: Oracle comparison and historical rule reconciliation
-*Status: planned next support track*
-*Link: [./tracks/37_oracle_comparison_and_historical_rule_reconciliation/](./tracks/37_oracle_comparison_and_historical_rule_reconciliation/)*
 
 ## Track 39: Dynamic simulation and research extensions
 *Status: planned next support track*
