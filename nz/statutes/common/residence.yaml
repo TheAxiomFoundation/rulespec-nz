@@ -87,7 +87,9 @@ rules:
         formula: |-
           (
               not common_unlawfully_resident_or_present_in_new_zealand
-              and not common_temporary_entry_class_visa_holder
+              or common_new_zealand_citizen
+              or common_residence_class_visa_holder
+              or common_temporary_entry_class_visa_holder
           )
   - name: common_resident_status
     kind: derived

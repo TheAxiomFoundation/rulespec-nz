@@ -35,7 +35,7 @@
   output:
     nz:statutes/common/residence#common_new_zealand_citizen: not_holds
     nz:statutes/common/residence#common_residence_class_visa_holder: not_holds
-    nz:statutes/common/residence#common_lawful_presence_requirement: not_holds
+    nz:statutes/common/residence#common_lawful_presence_requirement: holds
     nz:statutes/common/residence#common_resident_status: not_holds
     nz:statutes/common/residence#common_temporary_entry_class_visa_holder: holds
     nz:statutes/common/residence#common_entitled_to_be_in_new_zealand_indefinitely: not_holds
