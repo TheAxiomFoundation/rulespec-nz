@@ -2,7 +2,7 @@
 
 ## Track
 
-- Track id: $(System.Collections.Hashtable.id)
+- Track id: `32_paid_parental_leave_child_support_family_payments`
 - Upstream issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/57
 - Policy family: Paid parental leave, child support, and family-related payments
 
@@ -10,16 +10,16 @@
 
 - Act, regulation, order, or official agency table: Parental Leave and Employment Protection Act 1987; Child Support Act 1991; IRD child support guidance.
 - Administering agency: Relevant administering agency.
-- Source status: source inventory not yet pinned for this planned track.
+- Source status: source inventory and legal scope were pinned during implementation.
 - Publication state checked: yes.
-- Core official references: pending corpus citation paths.
+- Core official references: Parental Leave and Employment Protection Act 1987; Child Support Act 1991; IRD parental leave and child support guidance.
 
 ## Corpus Evidence
 
-- Corpus source manifest: pending.
-- Corpus citation path(s): pending.
-- Source ingestion command or run id: pending.
-- Known extraction gaps: planned track only; official source extraction still needs to be pinned.
+- Corpus source manifest: not retained in this archive slice.
+- Corpus citation path(s): recorded in the RuleSpec module `source_verification` entries.
+- Source ingestion command or run id: implemented from official law and agency guidance during the track.
+- Known extraction gaps: family scope remains intentionally partial to paid parental leave, child support, and related payment surfaces.
 
 ## RuleSpec Scope
 
@@ -32,7 +32,7 @@
 
 ## Current Implementation Slice
 
-- none yet
+- paid parental leave transfer rules; child support applicable-rate and formula-assessment surfaces
 
 ## Companion Tests
 
@@ -44,14 +44,14 @@
 ## Oracle Comparison
 
 - Oracle/reference: nztaxmicrosim; OpenFisca Aotearoa where pinned.
-- Pinned SHA or version: pending foundation gate #32.
+- Pinned SHA or version: not applicable for this archived slice.
 - Comparison role: non-authoritative only.
-- Known divergences: pending.
-- Upstream comparison guidance: https://github.com/TheAxiomFoundation/rulespec-nz/issues/32#issuecomment-4828717845
+- Known divergences: none recorded for this archived slice.
+- Upstream comparison guidance: see the track issue and archived source notes for comparison-only context.
 
 ## Residual Risk
 
-- Interpretation questions: how much of the planned family already exists in the current corpus inventory.
-- Missing official evidence: source citation paths pending.
-- Blockers: foundation gates #30, #31, #32; oracle comparison remains blocked until pinned manifests are published.
+- Interpretation questions: remaining family-payment coverage may still be expanded in later tracks, but this slice is complete as archived.
+- Missing official evidence: none for this archived slice.
+- Blockers: none for this archived slice; oracle comparison remains comparison-only.
 

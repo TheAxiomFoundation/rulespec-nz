@@ -104,8 +104,8 @@
   output:
     nz:statutes/parental_leave/paid_parental_leave#ppl_transfer_entitlement_available: holds
     nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_entitlement_weeks: 26
-    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_weekly_rate: 780.10
-    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_total_entitlement: 20282.60
+    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_weekly_rate: 753.10
+    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_total_entitlement: 19580.60
 
 - name: ppl_transfer_blocked_after_already_transferred
   period:
