@@ -1,13 +1,113 @@
 format: rulespec/v1
 module:
   summary: |-
-    Citizenship by grant provisions from the Citizenship Act 1977.
-    Official-source encoding pending; establishes criteria for grant
-    of New Zealand citizenship.
-  status: deferred
+    Citizenship by grant provisions from the Citizenship Act 1977. This module
+    encodes the section 8 residence threshold, the indefinite-entitlement
+    requirement, and narrow special-case routes.
+  status: active
   source_verification:
     corpus_citation_paths:
       - nz/statute/act/public/1977/0061
     oracle_links:
       - openfisca-aotearoa
-rules: []
+rules:
+  - name: citizenship_by_grant_section_8_required_total_days
+    kind: parameter
+    dtype: Count
+    source: Citizenship Act 1977 s 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1350
+  - name: citizenship_by_grant_section_8_required_days_in_each_year
+    kind: parameter
+    dtype: Count
+    source: Citizenship Act 1977 s 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          240
+  - name: citizenship_by_grant_section_8_required_years
+    kind: parameter
+    dtype: Count
+    source: Citizenship Act 1977 s 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          5
+  - name: citizenship_by_grant_section_8_presence_requirement_met
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Citizenship Act 1977 s 8(2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              citizenship_by_grant_section_8_total_days_in_qualifying_period
+              >= citizenship_by_grant_section_8_required_total_days
+              and citizenship_by_grant_section_8_minimum_days_in_any_qualifying_year
+              >= citizenship_by_grant_section_8_required_days_in_each_year
+          )
+  - name: citizenship_by_grant_section_8_indefinite_entitlement_requirement_met
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Citizenship Act 1977 s 8(2)(b)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          citizenship_by_grant_entitled_to_be_in_new_zealand_indefinitely
+  - name: citizenship_by_grant_section_8_character_and_language_requirements_met
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Citizenship Act 1977 s 8(2)(c), (d), and (e)
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              citizenship_by_grant_good_character
+              and citizenship_by_grant_understands_basic_english
+              and citizenship_by_grant_intends_to_reside_in_new_zealand
+          )
+  - name: citizenship_by_grant_section_8_standard_eligibility
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Citizenship Act 1977 s 8
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              citizenship_by_grant_section_8_presence_requirement_met
+              and citizenship_by_grant_section_8_indefinite_entitlement_requirement_met
+              and citizenship_by_grant_section_8_character_and_language_requirements_met
+          )
+  - name: citizenship_by_grant_section_9_special_case
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Citizenship Act 1977 s 9
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          citizenship_by_grant_under_16_or_child_of_citizen_by_descent
+  - name: citizenship_by_grant_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Citizenship Act 1977 ss 8 and 9
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              citizenship_by_grant_section_8_standard_eligibility
+              or citizenship_by_grant_section_9_special_case
+          )

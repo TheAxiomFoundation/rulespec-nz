@@ -1,10 +1,53 @@
-# Deferred module - companion test placeholder.
-# Official-source encoding of immigration residence is pending.
-# See extraction track: citizenship-immigration-official-source-extraction
-- name: deferred_placeholder
+# Companion tests for Immigration Act 2009 visa-class predicates.
+- name: citizen_or_residence_class_is_lawful
   period:
     period_kind: tax_year
     start: '2026-04-01'
     end: '2027-03-31'
-  input: {}
-  output: {}
+  input:
+    nz:statutes/immigration/residence#input.immigration_new_zealand_citizen_input: true
+    nz:statutes/immigration/residence#input.immigration_residence_class_visa_holder_input: false
+    nz:statutes/immigration/residence#input.immigration_temporary_entry_class_visa_holder_input: false
+    nz:statutes/immigration/residence#input.immigration_entitled_to_be_in_new_zealand_indefinitely_input: true
+  output:
+    nz:statutes/immigration/residence#immigration_new_zealand_citizen: holds
+    nz:statutes/immigration/residence#immigration_residence_class_visa_holder: not_holds
+    nz:statutes/immigration/residence#immigration_temporary_entry_class_visa_holder: not_holds
+    nz:statutes/immigration/residence#immigration_entitled_to_be_in_new_zealand_indefinitely: holds
+    nz:statutes/immigration/residence#immigration_may_be_in_new_zealand_lawfully: holds
+    nz:statutes/immigration/residence#immigration_resident_or_citizen_path: holds
+
+- name: temporary_only_is_not_a_resident_path
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/immigration/residence#input.immigration_new_zealand_citizen_input: false
+    nz:statutes/immigration/residence#input.immigration_residence_class_visa_holder_input: false
+    nz:statutes/immigration/residence#input.immigration_temporary_entry_class_visa_holder_input: true
+    nz:statutes/immigration/residence#input.immigration_entitled_to_be_in_new_zealand_indefinitely_input: false
+  output:
+    nz:statutes/immigration/residence#immigration_new_zealand_citizen: not_holds
+    nz:statutes/immigration/residence#immigration_residence_class_visa_holder: not_holds
+    nz:statutes/immigration/residence#immigration_temporary_entry_class_visa_holder: holds
+    nz:statutes/immigration/residence#immigration_entitled_to_be_in_new_zealand_indefinitely: not_holds
+    nz:statutes/immigration/residence#immigration_may_be_in_new_zealand_lawfully: holds
+    nz:statutes/immigration/residence#immigration_resident_or_citizen_path: not_holds
+    nz:statutes/immigration/residence#immigration_temporary_only: holds
+
+- name: residence_class_visa_holder_is_resident_path
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/immigration/residence#input.immigration_new_zealand_citizen_input: false
+    nz:statutes/immigration/residence#input.immigration_residence_class_visa_holder_input: true
+    nz:statutes/immigration/residence#input.immigration_temporary_entry_class_visa_holder_input: false
+    nz:statutes/immigration/residence#input.immigration_entitled_to_be_in_new_zealand_indefinitely_input: true
+  output:
+    nz:statutes/immigration/residence#immigration_new_zealand_citizen: not_holds
+    nz:statutes/immigration/residence#immigration_may_be_in_new_zealand_lawfully: holds
+    nz:statutes/immigration/residence#immigration_resident_or_citizen_path: holds
+    nz:statutes/immigration/residence#immigration_residence_class_visa_holder: holds

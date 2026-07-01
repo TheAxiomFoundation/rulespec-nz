@@ -1261,7 +1261,62 @@
         "policyengine-nz"
       ],
       "triangulation_status": "inventory_seeded",
-      "rules": []
+      "rules": [
+        {
+          "kind": "parameter",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_required_total_days",
+          "name": "citizenship_by_grant_section_8_required_total_days",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "parameter",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_required_days_in_each_year",
+          "name": "citizenship_by_grant_section_8_required_days_in_each_year",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "parameter",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_required_years",
+          "name": "citizenship_by_grant_section_8_required_years",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_presence_requirement_met",
+          "name": "citizenship_by_grant_section_8_presence_requirement_met",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_indefinite_entitlement_requirement_met",
+          "name": "citizenship_by_grant_section_8_indefinite_entitlement_requirement_met",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_character_and_language_requirements_met",
+          "name": "citizenship_by_grant_section_8_character_and_language_requirements_met",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_8_standard_eligibility",
+          "name": "citizenship_by_grant_section_8_standard_eligibility",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_section_9_special_case",
+          "name": "citizenship_by_grant_section_9_special_case",
+          "source_family": "by_grant"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/citizenship/by_grant#citizenship_by_grant_eligible",
+          "name": "citizenship_by_grant_eligible",
+          "source_family": "by_grant"
+        }
+      ]
     },
     {
       "path": "nz/statutes/common/relationships.yaml",
@@ -1297,7 +1352,56 @@
         "policyengine-nz"
       ],
       "triangulation_status": "inventory_seeded",
-      "rules": []
+      "rules": [
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_new_zealand_citizen",
+          "name": "common_new_zealand_citizen",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_residence_class_visa_holder",
+          "name": "common_residence_class_visa_holder",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_temporary_entry_class_visa_holder",
+          "name": "common_temporary_entry_class_visa_holder",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_unlawfully_resident_or_present_in_new_zealand",
+          "name": "common_unlawfully_resident_or_present_in_new_zealand",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_ordinarily_resident_in_new_zealand",
+          "name": "common_ordinarily_resident_in_new_zealand",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_entitled_to_be_in_new_zealand_indefinitely",
+          "name": "common_entitled_to_be_in_new_zealand_indefinitely",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_lawful_presence_requirement",
+          "name": "common_lawful_presence_requirement",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/common/residence#common_resident_status",
+          "name": "common_resident_status",
+          "source_family": "residence"
+        }
+      ]
     },
     {
       "path": "nz/statutes/gst/rate.yaml",
@@ -1382,7 +1486,50 @@
         "policyengine-nz"
       ],
       "triangulation_status": "inventory_seeded",
-      "rules": []
+      "rules": [
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_new_zealand_citizen",
+          "name": "immigration_new_zealand_citizen",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_residence_class_visa_holder",
+          "name": "immigration_residence_class_visa_holder",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_temporary_entry_class_visa_holder",
+          "name": "immigration_temporary_entry_class_visa_holder",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_entitled_to_be_in_new_zealand_indefinitely",
+          "name": "immigration_entitled_to_be_in_new_zealand_indefinitely",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_may_be_in_new_zealand_lawfully",
+          "name": "immigration_may_be_in_new_zealand_lawfully",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_resident_or_citizen_path",
+          "name": "immigration_resident_or_citizen_path",
+          "source_family": "residence"
+        },
+        {
+          "kind": "derived",
+          "id": "nz:statutes/immigration/residence#immigration_temporary_only",
+          "name": "immigration_temporary_only",
+          "source_family": "residence"
+        }
+      ]
     },
     {
       "path": "nz/statutes/income_tax/core/income_interfaces.yaml",
