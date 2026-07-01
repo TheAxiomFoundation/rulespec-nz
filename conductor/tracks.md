@@ -5,7 +5,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ---
 
 ## Active Tracks
-
+ 
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
@@ -14,13 +14,13 @@ This file tracks all major tracks for the project. Each track has its own detail
 *Sequencing: provenance QA first, then oracle comparison, then research extensions.*
 *These tracks are intentionally narrow and stay separate from legislation conversion.*
 
-## Track 40: Repository quality, CI, and automation hardening
-*Status: planned next support track*
-*Link: [./tracks/40_repo_quality_ci_automation_20260701/](./tracks/40_repo_quality_ci_automation_20260701/)*
-
 ## Track 39: Dynamic simulation and research extensions
 *Status: archived after clean review*
 *Link: [./tracks/archive/39_dynamic_simulation_and_research_extensions/](./tracks/archive/39_dynamic_simulation_and_research_extensions/)*
+
+## Track 40: Repository quality, CI, and automation hardening
+*Status: archived after clean review*
+*Link: [./tracks/archive/40_repo_quality_ci_automation_20260701/](./tracks/archive/40_repo_quality_ci_automation_20260701/)*
 
 ## Track 37: Oracle comparison and historical rule reconciliation
 *Status: archived after clean review*
