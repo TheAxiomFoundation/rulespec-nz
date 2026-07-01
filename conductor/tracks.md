@@ -6,6 +6,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
+## Track 39: Dynamic simulation and research extensions
+*Status: implemented pending review*
+*Link: [./tracks/39_dynamic_simulation_and_research_extensions/](./tracks/39_dynamic_simulation_and_research_extensions/)*
+
 ## Planned Next Legislation Tracks
 *Dependency order: income interfaces first, then direct income-support and tax surfaces, then family and housing surfaces*
 *Roadmap proposal: [./roadmap.md](./roadmap.md)*
@@ -13,10 +17,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 ## Additional Small Support Tracks
 *Sequencing: provenance QA first, then oracle comparison, then research extensions.*
 *These tracks are intentionally narrow and stay separate from legislation conversion.*
-
-## Track 39: Dynamic simulation and research extensions
-*Status: planned next support track*
-*Link: [./tracks/39_dynamic_simulation_and_research_extensions/](./tracks/39_dynamic_simulation_and_research_extensions/)*
 
 ## Track 40: Repository quality, CI, and automation hardening
 *Status: planned next support track*
