@@ -104,7 +104,8 @@ rules:
                       max(0, main_benefit_income_test_assessable_income)
                       - main_benefit_income_test_lower_weekly_threshold
                   ),
-                  (
+                  max(
+                      0,
                       main_benefit_income_test_upper_weekly_threshold
                       - main_benefit_income_test_lower_weekly_threshold
                   )
@@ -135,7 +136,8 @@ rules:
                       max(0, main_benefit_income_test_assessable_income)
                       - main_benefit_income_test_lower_weekly_threshold
                   ),
-                  (
+                  max(
+                      0,
                       main_benefit_income_test_upper_weekly_threshold
                       - main_benefit_income_test_lower_weekly_threshold
                   )
@@ -415,9 +417,10 @@ rules:
                               jobseeker_support_total_income
                               - main_benefit_income_test_lower_weekly_threshold
                           ),
-                          (
-                              main_benefit_income_test_upper_weekly_threshold
-                              - main_benefit_income_test_lower_weekly_threshold
+                          max(
+                              0,
+                                  main_benefit_income_test_upper_weekly_threshold
+                                  - main_benefit_income_test_lower_weekly_threshold
                           )
                       )
                       * main_benefit_income_test_1_lower_abatement_rate
@@ -438,9 +441,10 @@ rules:
                                   jobseeker_support_total_income
                                   - main_benefit_income_test_lower_weekly_threshold
                               ),
-                              (
-                                  main_benefit_income_test_upper_weekly_threshold
-                                  - main_benefit_income_test_lower_weekly_threshold
+                              max(
+                                  0,
+                                      main_benefit_income_test_upper_weekly_threshold
+                                      - main_benefit_income_test_lower_weekly_threshold
                               )
                           )
                           * main_benefit_income_test_1_lower_abatement_rate
@@ -528,7 +532,7 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           min(
-              sole_parent_support_childcare_earnings_disregard_maximum,
+              max(0, sole_parent_support_childcare_earnings_disregard_maximum),
               max(0, sole_parent_support_personal_earnings_used_for_childcare)
           )
   - name: sole_parent_support_income_for_income_test
@@ -574,7 +578,8 @@ rules:
                       sole_parent_support_income_for_income_test
                       - main_benefit_income_test_lower_weekly_threshold
                   ),
-                  (
+                  max(
+                      0,
                       main_benefit_income_test_upper_weekly_threshold
                       - main_benefit_income_test_lower_weekly_threshold
                   )
@@ -768,7 +773,7 @@ rules:
                   max(0, supported_living_payment_beneficiary_personal_earnings)
               else:
                   min(
-                      supported_living_payment_restricted_or_blind_earned_income_disregard_maximum,
+                      max(0, supported_living_payment_restricted_or_blind_earned_income_disregard_maximum),
                       max(0, supported_living_payment_beneficiary_personal_earnings)
                   )
           else:
@@ -876,9 +881,10 @@ rules:
                           supported_living_payment_income_for_income_test
                           - main_benefit_income_test_lower_weekly_threshold
                       ),
-                      (
-                          main_benefit_income_test_upper_weekly_threshold
-                          - main_benefit_income_test_lower_weekly_threshold
+                      max(
+                          0,
+                              main_benefit_income_test_upper_weekly_threshold
+                              - main_benefit_income_test_lower_weekly_threshold
                       )
                   )
                   * main_benefit_income_test_2_lower_abatement_rate
@@ -898,9 +904,10 @@ rules:
                           supported_living_payment_income_for_income_test
                           - main_benefit_income_test_lower_weekly_threshold
                       ),
-                      (
-                          main_benefit_income_test_upper_weekly_threshold
-                          - main_benefit_income_test_lower_weekly_threshold
+                      max(
+                          0,
+                              main_benefit_income_test_upper_weekly_threshold
+                              - main_benefit_income_test_lower_weekly_threshold
                       )
                   )
                   * main_benefit_income_test_1_lower_abatement_rate

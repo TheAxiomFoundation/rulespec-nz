@@ -2,25 +2,25 @@
   "applied_files": [
     {
       "path": "nz/statutes/social_security/main_benefits/rates.yaml",
-      "sha256": "e5ff6a6b755437b1cb1d3f630d4688ce1163927e8834e3b3ba1776db6f9c9688"
+      "sha256": "762d58223ab3f20a3d2279d04033d277f53f999eefc253ec61ca31bb0b40c8ed"
     }
   ],
   "axiom_encode_git": {
-    "commit": "ffad319bb84507577b366d58e9d42dd0449acfe1",
+    "commit": "4d6badf73468c9ca533e31af12fc306808186c72",
     "dirty_tracked": false,
     "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
     "version": "0.2.1137",
-    "version_commit": "ffad319bb84507577b366d58e9d42dd0449acfe1"
+    "version_commit": "4d6badf73468c9ca533e31af12fc306808186c72"
   },
   "axiom_encode_version": "0.2.1137",
   "backend": "manual",
   "citation": "nz:statutes/social_security/main_benefits/rates",
   "context_manifest_file": null,
   "context_manifest_sha256": null,
-  "generated_at": "2026-07-05T06:25:30.199159+00:00",
-  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpotb03ajb/sign-applied-files/nz/statutes/social_security/main_benefits/rates.yaml",
-  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpotb03ajb",
-  "generated_output_sha256": "e5ff6a6b755437b1cb1d3f630d4688ce1163927e8834e3b3ba1776db6f9c9688",
+  "generated_at": "2026-07-05T06:43:28.342319+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpnl36m_69/sign-applied-files/nz/statutes/social_security/main_benefits/rates.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpnl36m_69",
+  "generated_output_sha256": "762d58223ab3f20a3d2279d04033d277f53f999eefc253ec61ca31bb0b40c8ed",
   "generation_prompt_sha256": null,
   "model": "",
   "run_id": null,
@@ -29,7 +29,7 @@
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "7c8bcbdf0ac4c5d2647eb0a2ed097ef7effec9f7f47810060dc69e66748ca6cc"
+    "value": "75be21ca3f2d91ad45428ae2e1740cc08e25bf03eb33279fd3269f1ecf3a2938"
   },
   "tool": "axiom-encode sign-applied-files",
   "trace_file": null,
