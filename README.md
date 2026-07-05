@@ -63,3 +63,10 @@ Use the official API or data.govt.nz bulk XML directory for Acts, regulations, B
 ## Conventions
 
 Durable ids are `nz:<path>#<rule>`. Keep source law provenance in corpus artifacts and use `module.source_verification.corpus_citation_path` or `corpus_citation_paths` in encoded RuleSpec. Do not copy full external comparison repositories into this repo; pin their SHAs and extract only minimal comparison fixtures when needed.
+
+## Known gaps (ratcheted)
+
+- `known-validation-gaps.yaml`: pre-existing content debt surfaced by repository-wide validation.
+- `known-missing-money-atoms.yaml`: policy-bearing monetary values (currency parameters, currency parameter-table cells, and currency literals in derived formulas) that still lack a proof atom citing a provision. Seeded from the current backlog measured by `axiom-encode proof-validate --emit-ratchet`; the org `validate-rulespec` workflow's money-atom step reads it so CI blocks any new atom-less monetary value while the existing 176 are burned down.
+
+These lists fail CI on new entries AND on listed entries that get fixed without being removed, so they only shrink.
