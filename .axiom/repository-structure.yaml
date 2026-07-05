@@ -28,6 +28,7 @@ allowed_root_files:
   - _update_inventory.py
   - _write_phase2.py
   - conftest.py
+  - known-missing-money-atoms.yaml
   - known-validation-gaps.yaml
   - pixi.lock
   - pixi.toml
