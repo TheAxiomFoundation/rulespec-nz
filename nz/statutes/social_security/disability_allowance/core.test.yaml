@@ -3,34 +3,35 @@
     period_kind: tax_year
     start: '2026-04-01'
     end: '2027-03-31'
-  input: &standard_disability_allowance_input
+  input:
+    <<: &standard_disability_allowance_input
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_age_years: 30
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_is_sole_parent: false
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_dependent_children_count: 0
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_six_month_duration_not_determinable_but_reasonably_possible: false
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_care_costs_funded_under_pae_ora_act: false
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_veterans_support_disablement_pension_or_entitlement_for_same_disability: false
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_analogous_overseas_disability_payment_for_same_disability: false
+      nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_nurse_practitioner: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_requirement_met: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_support_for_everyday_functions: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_expected_disability_duration_months: 6
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_age_years: 30
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_in_relationship: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_is_sole_parent: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_dependent_children_count: 0
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_income_for_income_test: 900
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receiving_main_benefit_under_social_security_act: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 150
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 10
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 20
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_six_month_duration_not_determinable_but_reasonably_possible: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_care_costs_funded_under_pae_ora_act: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_veterans_support_disablement_pension_or_entitlement_for_same_disability: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_acc_entitlement_for_same_disability: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_analogous_overseas_disability_payment_for_same_disability: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_section_87_weekly_reduction_amount: 0
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_practitioner_acting_within_scope: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: false
-    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_nurse_practitioner: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: false
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: false
   output:
@@ -71,6 +72,19 @@
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 60
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 0
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 10
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_requirement_met: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_expected_disability_duration_months: 6
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_acc_entitlement_for_same_disability: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_section_87_weekly_reduction_amount: 0
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_practitioner_acting_within_scope: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: false
   output:
     nz:statutes/social_security/disability_allowance/core#disability_allowance_income_limit_partnered: 1295.11
     nz:statutes/social_security/disability_allowance/core#disability_allowance_income_limit: 1295.11
@@ -90,6 +104,25 @@
     <<: *standard_disability_allowance_input
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_expected_disability_duration_months: 3
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_requirement_met: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_support_for_everyday_functions: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_in_relationship: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_income_for_income_test: 900
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receiving_main_benefit_under_social_security_act: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 150
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 10
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 20
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_acc_entitlement_for_same_disability: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_section_87_weekly_reduction_amount: 0
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_practitioner_acting_within_scope: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: false
   output:
     nz:statutes/social_security/disability_allowance/core#disability_allowance_continuing_disability_requirement: not_holds
     nz:statutes/social_security/disability_allowance/core#disability_allowance_standard_eligibility_criteria: not_holds
@@ -110,6 +143,21 @@
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_support_for_everyday_functions: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_in_relationship: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_income_for_income_test: 900
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 150
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 10
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 20
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_acc_entitlement_for_same_disability: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_section_87_weekly_reduction_amount: 0
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_practitioner_acting_within_scope: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: false
   output:
     nz:statutes/social_security/disability_allowance/core#disability_allowance_otherwise_eligible_except_duration: not_holds
     nz:statutes/social_security/disability_allowance/core#disability_allowance_standard_eligibility_criteria: not_holds
@@ -125,6 +173,26 @@
   input:
     <<: *standard_disability_allowance_input
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_requirement_met: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_support_for_everyday_functions: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_expected_disability_duration_months: 6
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_in_relationship: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_income_for_income_test: 900
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receiving_main_benefit_under_social_security_act: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 150
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 10
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 20
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_acc_entitlement_for_same_disability: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_section_87_weekly_reduction_amount: 0
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_practitioner_acting_within_scope: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: false
   output:
     nz:statutes/social_security/disability_allowance/core#disability_allowance_expenses_excluded_under_section_86: holds
     nz:statutes/social_security/disability_allowance/core#disability_allowance_payable_before_section_87_reduction: not_holds
@@ -144,6 +212,21 @@
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_requirement_met: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_support_for_everyday_functions: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_expected_disability_duration_months: 6
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_in_relationship: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_income_for_income_test: 900
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receiving_main_benefit_under_social_security_act: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 150
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 10
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 20
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: false
   output:
     nz:statutes/social_security/disability_allowance/core#disability_allowance_section_87_refusal_reduction_or_cancellation_applies: holds
     nz:statutes/social_security/disability_allowance/core#disability_allowance_prescribed_medical_exam_practitioner: holds
@@ -160,6 +243,25 @@
     <<: *standard_disability_allowance_input
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_msd_requires_medical_examination: true
     nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_examination_required_person_examined_by_msd_appointee: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_residential_requirement_met: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_support_for_everyday_functions: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_requires_ongoing_supervision_or_treatment_by_health_practitioner: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_expected_disability_duration_months: 6
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_person_in_relationship: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_income_for_income_test: 900
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receiving_main_benefit_under_social_security_act: true
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_ongoing_additional_disability_expenses: 150
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_health_or_disability_insurance_weekly_reduction: 10
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_weekly_other_assistance_for_disability_expenses: 20
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_life_expectancy_less_than_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_application_declined_only_because_duration_under_six_months: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_later_satisfies_or_has_satisfied_six_month_duration: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_would_otherwise_have_been_eligible_from_original_application: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_contracted_care_services_costs_funded_under_residential_care_and_disability_support_services_act: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_receives_acc_entitlement_for_same_disability: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_section_87_weekly_reduction_amount: 0
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_practitioner_acting_within_scope: false
+    nz:statutes/social_security/disability_allowance/core#input.disability_allowance_medical_exam_by_medical_practitioner: false
   output:
     nz:statutes/social_security/disability_allowance/core#disability_allowance_prescribed_medical_exam_practitioner: not_holds
     nz:statutes/social_security/disability_allowance/core#disability_allowance_medical_examination_requirement_satisfied: not_holds

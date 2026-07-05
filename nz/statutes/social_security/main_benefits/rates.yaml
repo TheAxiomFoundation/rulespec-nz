@@ -101,7 +101,7 @@ rules:
               min(
                   max(
                       0,
-                      main_benefit_income_test_assessable_income
+                      max(0, main_benefit_income_test_assessable_income)
                       - main_benefit_income_test_lower_weekly_threshold
                   ),
                   (
@@ -113,7 +113,7 @@ rules:
           ) + (
               max(
                   0,
-                  main_benefit_income_test_assessable_income
+                  max(0, main_benefit_income_test_assessable_income)
                   - main_benefit_income_test_upper_weekly_threshold
               )
               * main_benefit_income_test_1_upper_abatement_rate
@@ -132,7 +132,7 @@ rules:
               min(
                   max(
                       0,
-                      main_benefit_income_test_assessable_income
+                      max(0, main_benefit_income_test_assessable_income)
                       - main_benefit_income_test_lower_weekly_threshold
                   ),
                   (
@@ -144,7 +144,7 @@ rules:
           ) + (
               max(
                   0,
-                  main_benefit_income_test_assessable_income
+                  max(0, main_benefit_income_test_assessable_income)
                   - main_benefit_income_test_upper_weekly_threshold
               )
               * main_benefit_income_test_2_upper_abatement_rate
@@ -162,7 +162,7 @@ rules:
           (
               max(
                   0,
-                  main_benefit_income_test_assessable_income
+                  max(0, main_benefit_income_test_assessable_income)
                   - main_benefit_income_test_lower_weekly_threshold
               )
               * main_benefit_income_test_3_abatement_rate
@@ -180,7 +180,7 @@ rules:
           (
               max(
                   0,
-                  main_benefit_income_test_assessable_income
+                  max(0, main_benefit_income_test_assessable_income)
                   - main_benefit_income_test_lower_weekly_threshold
               )
               * main_benefit_income_test_4_abatement_rate
