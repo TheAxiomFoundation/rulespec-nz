@@ -42,6 +42,10 @@ path_rules:
     allow_extensions:
       - ".md"
   - patterns:
+      - ".axiom/encoding-manifests/**"
+    allow_extensions:
+      - ".json"
+  - patterns:
       - ".axiom/**"
     allow_extensions:
       - ".toml"
