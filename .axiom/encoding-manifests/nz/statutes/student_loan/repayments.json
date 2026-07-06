@@ -1,0 +1,41 @@
+{
+  "applied_files": [
+    {
+      "path": "nz/statutes/student_loan/repayments.test.yaml",
+      "sha256": "64aa9873c3ca65fd2fb29f91b03886918da40c04dd8ff9a6f82003b968bc1680"
+    },
+    {
+      "path": "nz/statutes/student_loan/repayments.yaml",
+      "sha256": "7f926e48963b8fe6d4eb39f1aecbf6a0e9a035e4d08844bb663b5203440e2c56"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "8144b87af6a57c019703348d447478a2df8b069d",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1177",
+    "version_commit": "8144b87af6a57c019703348d447478a2df8b069d"
+  },
+  "axiom_encode_version": "0.2.1177",
+  "backend": "manual",
+  "citation": "nz:statutes/student_loan/repayments",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-06T21:42:58.787645+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpk1wqt5dd/sign-applied-files/nz/statutes/student_loan/repayments.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpk1wqt5dd",
+  "generated_output_sha256": "7f926e48963b8fe6d4eb39f1aecbf6a0e9a035e4d08844bb663b5203440e2c56",
+  "generation_prompt_sha256": null,
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "14cc03242aa77fec8d3b49dce8c03ca582788b482a4b8e93d9a4846cf24301b3"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}

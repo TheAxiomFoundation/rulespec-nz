@@ -1,0 +1,41 @@
+{
+  "applied_files": [
+    {
+      "path": "nz/statutes/new_zealand_superannuation/special_rates.test.yaml",
+      "sha256": "b34f2d25de3eb9e879c3f1d8539cf3ed3ec6361a1d2e92d918546e1030104805"
+    },
+    {
+      "path": "nz/statutes/new_zealand_superannuation/special_rates.yaml",
+      "sha256": "2e9f351d7ea0e20ec9a1314c10242d90fbb78f9309a5c9e22e00a0a33c3e3176"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "8144b87af6a57c019703348d447478a2df8b069d",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1177",
+    "version_commit": "8144b87af6a57c019703348d447478a2df8b069d"
+  },
+  "axiom_encode_version": "0.2.1177",
+  "backend": "manual",
+  "citation": "nz:statutes/new_zealand_superannuation/special_rates",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-06T21:42:58.786518+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpk1wqt5dd/sign-applied-files/nz/statutes/new_zealand_superannuation/special_rates.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpk1wqt5dd",
+  "generated_output_sha256": "2e9f351d7ea0e20ec9a1314c10242d90fbb78f9309a5c9e22e00a0a33c3e3176",
+  "generation_prompt_sha256": null,
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "0b645aa4d54f3f6286a72dd236de0efe2ec7487b797bd4ba738b865adc06722b"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
