@@ -98,12 +98,12 @@
   output:
     nz:statutes/income_tax/family_scheme/tax_credits#family_tax_credit_before_abatement: 0
     nz:statutes/income_tax/family_scheme/tax_credits#in_work_tax_credit_before_abatement: 7670
-    nz:statutes/income_tax/family_scheme/tax_credits#wff_family_credit_abatement: 7999.025
-    nz:statutes/income_tax/family_scheme/tax_credits#wff_abatement_remaining_after_family_tax_credit: 7999.025
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_family_credit_abatement: 8000.025
+    nz:statutes/income_tax/family_scheme/tax_credits#wff_abatement_remaining_after_family_tax_credit: 8000.025
     nz:statutes/income_tax/family_scheme/tax_credits#in_work_or_child_tax_credit_after_abatement: 0
     nz:statutes/income_tax/family_scheme/tax_credits#parental_tax_credit_before_abatement: 1000
-    nz:statutes/income_tax/family_scheme/tax_credits#parental_tax_credit_after_abatement: 670.975
-    nz:statutes/income_tax/family_scheme/tax_credits#abating_wff_tax_credit: 670.975
+    nz:statutes/income_tax/family_scheme/tax_credits#parental_tax_credit_after_abatement: 669.975
+    nz:statutes/income_tax/family_scheme/tax_credits#abating_wff_tax_credit: 669.975
 
 - name: in_work_tax_credit_2027_reverts_to_prior_base
   period:

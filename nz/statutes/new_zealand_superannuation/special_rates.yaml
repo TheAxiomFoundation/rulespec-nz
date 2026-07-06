@@ -53,7 +53,7 @@ rules:
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          984.28
+          492.14
   - name: nz_super_saved_non_qualifying_spouse_other_weekly_rate_before_tax
     kind: parameter
     dtype: Money
@@ -62,7 +62,7 @@ rules:
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          933.16
+          466.58
   - name: nz_super_long_term_care_spouse_living_alone_single_rate_applies
     kind: derived
     entity: Person

@@ -7,6 +7,15 @@
   output:
     nz:statutes/parental_leave/paid_parental_leave#ppl_entitlement_weeks: 26
 
+- name: ppl_maximum_rate_2024
+  period:
+    period_kind: tax_year
+    start: '2024-07-01'
+    end: '2025-06-30'
+  input: {}
+  output:
+    nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate: 754.87
+
 - name: ppl_maximum_rate_2025
   period:
     period_kind: tax_year
@@ -14,7 +23,7 @@
     end: '2026-06-30'
   input: {}
   output:
-    nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate: 753.10
+    nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate: 788.66
 
 - name: ppl_maximum_rate_2026
   period:
@@ -23,31 +32,24 @@
     end: '2027-06-30'
   input: {}
   output:
-    nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate: 780.10
-
-- name: ppl_maximum_rate_2027
-  period:
-    period_kind: tax_year
-    start: '2027-07-01'
-    end: '2028-06-30'
-  input: {}
-  output:
-    nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate: 807.50
+    nz:statutes/parental_leave/paid_parental_leave#ppl_maximum_weekly_rate: 811.05
 
 - name: ppl_entitlement_at_maximum
   period:
-    period_kind: week
+    period_kind: custom
+    name: calendar_week
     start: '2025-07-07'
     end: '2025-07-13'
   input:
     nz:statutes/parental_leave/paid_parental_leave#input.ppl_employee_is_eligible: true
     nz:statutes/parental_leave/paid_parental_leave#input.ppl_employees_average_weekly_earnings: 1000
   output:
-    nz:statutes/parental_leave/paid_parental_leave#ppl_entitlement_for_employee: 753.10
+    nz:statutes/parental_leave/paid_parental_leave#ppl_entitlement_for_employee: 788.66
 
 - name: ppl_entitlement_below_maximum
   period:
-    period_kind: week
+    period_kind: custom
+    name: calendar_week
     start: '2025-07-07'
     end: '2025-07-13'
   input:
@@ -58,7 +60,8 @@
 
 - name: ppl_entitlement_zero_for_ineligible
   period:
-    period_kind: week
+    period_kind: custom
+    name: calendar_week
     start: '2025-07-07'
     end: '2025-07-13'
   input:
@@ -69,7 +72,8 @@
 
 - name: ppl_negative_earnings_no_entitlement
   period:
-    period_kind: week
+    period_kind: custom
+    name: calendar_week
     start: '2025-07-07'
     end: '2025-07-13'
   input:
@@ -84,13 +88,16 @@
     start: '2025-07-01'
     end: '2026-06-30'
   input:
-    nz:statutes/parental_leave/paid_parental_leave#input.ppl_entitlement_for_employee: 753.10
+    nz:statutes/parental_leave/paid_parental_leave#input.ppl_employee_is_eligible: true
+    nz:statutes/parental_leave/paid_parental_leave#input.ppl_employees_average_weekly_earnings: 1000
   output:
-    nz:statutes/parental_leave/paid_parental_leave#ppl_total_entitlement: 19580.60
+    nz:statutes/parental_leave/paid_parental_leave#ppl_entitlement_for_employee: 788.66
+    nz:statutes/parental_leave/paid_parental_leave#ppl_total_entitlement: 20505.16
 
 - name: ppl_transfer_entitlement_available_and_capped
   period:
-    period_kind: week
+    period_kind: custom
+    name: calendar_week
     start: '2025-07-07'
     end: '2025-07-13'
   input:
@@ -104,12 +111,13 @@
   output:
     nz:statutes/parental_leave/paid_parental_leave#ppl_transfer_entitlement_available: holds
     nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_entitlement_weeks: 26
-    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_weekly_rate: 753.10
-    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_total_entitlement: 19580.60
+    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_weekly_rate: 788.66
+    nz:statutes/parental_leave/paid_parental_leave#ppl_transferred_total_entitlement: 20505.16
 
 - name: ppl_transfer_blocked_after_already_transferred
   period:
-    period_kind: week
+    period_kind: custom
+    name: calendar_week
     start: '2025-07-07'
     end: '2025-07-13'
   input:

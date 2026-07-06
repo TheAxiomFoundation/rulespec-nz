@@ -33,17 +33,14 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Student Loan Scheme Act 2011 schedule 1; IRD student loan repayment thresholds
+    source: >-
+      Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment
+      Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023
+      (SL 2023/295) regulation 3; IRD student loan repayment thresholds
     versions:
-      - effective_from: '2025-04-01'
+      - effective_from: '2024-04-01'
         formula: |-
-          24104
-      - effective_from: '2026-04-01'
-        formula: |-
-          24680
-      - effective_from: '2027-04-01'
-        formula: |-
-          25252
+          24128
   - name: student_loan_weekly_repayment_threshold
     kind: derived
     entity: Person

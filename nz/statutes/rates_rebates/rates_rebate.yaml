@@ -36,7 +36,7 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Rates Rebate Act 1973 s 3(1AA)(b)
+    source: Rates Rebate Act 1973 s 3(1AA)(b); Rates Rebate (Specified Amounts) Orders 2024, 2025, and 2026
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -44,15 +44,21 @@ rules:
       - effective_from: '2025-07-01'
         formula: |-
           32210
+      - effective_from: '2026-07-01'
+        formula: |-
+          33210
   - name: rr_income_abatement_threshold_supergold
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Rates Rebate Act 1973 s 3(1AA)(a)
+    source: Rates Rebate Act 1973 s 3(1AA)(a); Rates Rebate (Specified Amounts) Orders 2025 and 2026
     versions:
       - effective_from: '2025-07-01'
         formula: |-
           45000
+      - effective_from: '2026-07-01'
+        formula: |-
+          46400
   - name: rr_maximum_rates_rebate_amount
     kind: parameter
     dtype: Money

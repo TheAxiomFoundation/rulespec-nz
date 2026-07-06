@@ -33,17 +33,20 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Parental Leave and Employment Protection Act 1987 s 71B; IRD paid parental leave rate guidance
+    source: >-
+      Parental Leave and Employment Protection Act 1987 s 71B (annual
+      adjustment by average ordinary time weekly earnings each 1 July); IRD
+      paid parental leave rate guidance
     versions:
+      - effective_from: '2024-07-01'
+        formula: |-
+          754.87
       - effective_from: '2025-07-01'
         formula: |-
-          753.10
+          788.66
       - effective_from: '2026-07-01'
         formula: |-
-          780.10
-      - effective_from: '2027-07-01'
-        formula: |-
-          807.50
+          811.05
   - name: ppl_entitlement_for_employee
     kind: derived
     entity: Person
