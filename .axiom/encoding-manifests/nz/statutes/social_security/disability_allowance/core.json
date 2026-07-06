@@ -29,7 +29,7 @@
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "3f7a5bd917e018e27c00551b6b9882cae8a811de2b7f77ea3d6cec33fdb60ba6"
+    "value": "8e35fb1a899838ab2dff437aded773de59f1922dc8da8f1f7f637e46287a6428"
   },
   "tool": "axiom-encode sign-applied-files",
   "trace_file": null,
