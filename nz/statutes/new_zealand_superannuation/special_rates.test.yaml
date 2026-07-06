@@ -90,9 +90,9 @@
     nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_saved_non_qualifying_spouse_rate_eligible_under_schedule_1aa_clause_7: true
     nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_pre_1991_alternative_rate_case: true
   output:
-    nz:statutes/new_zealand_superannuation/special_rates#nz_super_saved_non_qualifying_spouse_alternative_weekly_rate_before_tax: 492.14
-    nz:statutes/new_zealand_superannuation/special_rates#nz_super_saved_non_qualifying_spouse_other_weekly_rate_before_tax: 466.58
-    nz:statutes/new_zealand_superannuation/special_rates#nz_super_saved_non_qualifying_spouse_weekly_rate_before_income_test: 492.14
+    nz:statutes/new_zealand_superannuation/special_rates#nz_super_saved_non_qualifying_spouse_alternative_weekly_rate_before_tax: 984.28
+    nz:statutes/new_zealand_superannuation/special_rates#nz_super_saved_non_qualifying_spouse_other_weekly_rate_before_tax: 933.16
+    nz:statutes/new_zealand_superannuation/special_rates#nz_super_saved_non_qualifying_spouse_weekly_rate_before_income_test: 984.28
 
 - name: saved_non_qualifying_spouse_not_eligible_zero
   period:
