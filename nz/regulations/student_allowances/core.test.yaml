@@ -63,9 +63,10 @@
     nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 15600
     nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
   output:
-    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 363.34
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 378.64
+    nz:regulations/student_allowances/core#student_allowance_weekly_allowance: 363.34
 
-- name: at_home_parental_income_threshold
+- name: at_home_parental_income_abatement_between_limits
   period:
     period_kind: tax_year
     start: '2026-04-01'
@@ -78,14 +79,16 @@
     nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
     nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
     nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: true
-    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 75822.34
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 74708.92
     nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 0
     nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
     nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
     nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
     nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
   output:
-    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 300
+    nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance: 321.64
+    nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_at_home: 306.488485
+    nz:regulations/student_allowances/core#student_allowance_weekly_allowance: 306.488485
 
 - name: couple_earning_partner_away
   period:
@@ -160,6 +163,18 @@
     end: '2027-03-31'
   input:
     nz:regulations/student_allowances/core#input.student_allowance_student_age: 20
+    nz:regulations/student_allowances/core#input.student_allowance_has_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_partner_age: 0
+    nz:regulations/student_allowances/core#input.student_allowance_has_children: false
+    nz:regulations/student_allowances/core#input.student_allowance_is_independent_circumstances: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_with_partner: false
+    nz:regulations/student_allowances/core#input.student_allowance_lives_at_parental_home: false
+    nz:regulations/student_allowances/core#input.student_allowance_parent1_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_parent2_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_parents_living_apart: false
+    nz:regulations/student_allowances/core#input.student_allowance_dependent_students_count: 0
+    nz:regulations/student_allowances/core#input.student_allowance_student_annual_income: 0
+    nz:regulations/student_allowances/core#input.student_allowance_partner_annual_income: 0
   output:
     nz:regulations/student_allowances/core#student_allowance_annual_parental_income: 0
     nz:regulations/student_allowances/core#student_allowance_weekly_student_income: 0
@@ -169,9 +184,9 @@
     nz:regulations/student_allowances/core#student_allowance_lives_at_home: 0
     nz:regulations/student_allowances/core#student_allowance_has_earning_partner: 0
     nz:regulations/student_allowances/core#student_allowance_has_dependent_partner: 0
-    nz:regulations/student_allowances/core#student_allowance_single_student_no_children_gross: 0
+    nz:regulations/student_allowances/core#student_allowance_single_student_no_children_gross: 378.64
     nz:regulations/student_allowances/core#student_allowance_couple_no_children_gross: 0
     nz:regulations/student_allowances/core#student_allowance_students_with_children_gross: 0
-    nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_at_home: 0
-    nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_away: 0
-    nz:regulations/student_allowances/core#student_allowance_weekly_allowance: 0
+    nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_at_home: 321.64
+    nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_away: 378.64
+    nz:regulations/student_allowances/core#student_allowance_weekly_allowance: 378.64

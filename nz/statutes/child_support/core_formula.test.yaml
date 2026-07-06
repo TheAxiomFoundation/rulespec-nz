@@ -66,9 +66,10 @@
     start: '2025-04-01'
     end: '2026-03-31'
   input:
-    nz:statutes/child_support/core_formula#input.cs_child_support_income: 65240
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 80000
     nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
   output:
+    nz:statutes/child_support/core_formula#cs_child_support_income: 65240
     nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 11743.20
 
 - name: cs_annual_entitlement_applies_minimum
@@ -77,7 +78,7 @@
     start: '2025-04-01'
     end: '2026-03-31'
   input:
-    nz:statutes/child_support/core_formula#input.cs_child_support_income: 5000
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 5000
     nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
   output:
     nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 1368.84
@@ -88,7 +89,7 @@
     start: '2025-04-01'
     end: '2026-03-31'
   input:
-    nz:statutes/child_support/core_formula#input.cs_child_support_income: 500000
+    nz:statutes/child_support/core_formula#input.cs_liable_parents_taxable_income: 500000
     nz:statutes/child_support/core_formula#input.cs_child_support_qualifying_children_count: 1
   output:
     nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 43217.04
@@ -110,8 +111,8 @@
     nz:statutes/child_support/core_formula#cs_liable_parent_is_formula_assessment_liable: holds
     nz:statutes/child_support/core_formula#cs_formula_assessment_applies: holds
     nz:statutes/child_support/core_formula#cs_applicable_child_support_rate: 0.26
-    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 18955.00
-    nz:statutes/child_support/core_formula#cs_annual_child_support_payable: 18955.00
+    nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement: 16962.40
+    nz:statutes/child_support/core_formula#cs_annual_child_support_payable: 16962.40
 
 - name: cs_formula_assessment_not_applies_without_care_threshold
   period:

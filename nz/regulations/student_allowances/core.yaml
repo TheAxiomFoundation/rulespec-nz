@@ -58,7 +58,7 @@ rules:
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          131701.81
+          131670.35
   - name: student_allowance_parental_income_upper_limit_away
     kind: parameter
     dtype: Money

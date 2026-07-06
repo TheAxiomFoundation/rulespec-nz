@@ -25,10 +25,10 @@ total_allowed: 176
 #   nz/statutes/new_zealand_superannuation/core.yaml: 3
 #   nz/statutes/new_zealand_superannuation/special_rates.yaml: 3
 #   nz/statutes/parental_leave/paid_parental_leave.yaml: 3
-#   nz/statutes/rates_rebates/rates_rebate.yaml: 8
+#   nz/statutes/rates_rebates/rates_rebate.yaml: 10
 #   nz/statutes/social_security/accommodation_supplement/core.yaml: 14
 #   nz/statutes/social_security/child_disability_allowance/core.yaml: 1
 #   nz/statutes/social_security/disability_allowance/core.yaml: 6
 #   nz/statutes/social_security/main_benefits/rates.yaml: 32
 #   nz/statutes/social_security/winter_energy_payment/core.yaml: 3
-#   nz/statutes/student_loan/repayments.yaml: 6
+#   nz/statutes/student_loan/repayments.yaml: 4
