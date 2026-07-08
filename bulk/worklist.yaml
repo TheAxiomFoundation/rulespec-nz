@@ -1,0 +1,101 @@
+version: 1
+defaults:
+  backend: codex
+  model: gpt-5.5
+# rulespec-nz bulk-encode worklist (Income Tax Act 2007).
+#
+# Each `citation` is a corpus citation_path resolved from the Supabase
+# `corpus.current_provisions` view. The New Zealand Income Tax Act 2007 (Public
+# Act 2007 No 97 = nz/statute/act/public/2007/0097) was ingested on 2026-07-08
+# (4134 provisions, version 2026-07-08): download-nz-legislation-api ->
+# extract-nz-legislation (PCO XML) -> signed ed25519 ingest manifest -> R2 ->
+# load-supabase. Before this ingest the NZ corpus was EMPTY (0 rows), which was
+# the blocker to any NZ bulk generation.
+#
+# Every entry below was verified to exist by exact citation_path in
+# current_provisions AFTER the ingest (never invent NZ section numbers). All are
+# `section/<id>`-form paths that the extractor reliably emits (nested paths like
+# schedule/subpart/part and the nz/agency/* IRD pseudo-cites are intentionally
+# excluded — see the ingest scoping notes).
+#
+# Selection: self-contained rate/credit/mechanics sections with clear standalone
+# arithmetic, weighted to the Working for Families family-scheme credits (subpart
+# MD/ME/MG) and the income-tax rate table, which are the oracle-backed comparison
+# surfaces (policyengine-nz, nztaxmicrosim, openfisca-aotearoa).
+#
+# VOLUME STAYS MINIMAL until the dispatcher/governance arming lands (this repo
+# has no bulk dispatcher, branch protection, or auto-merge yet — the corpus
+# ingest was the critical path). This is the pilot queue seed.
+entries:
+- citation: nz/statute/act/public/2007/0097/section/1-DLM1523194
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: Income Tax Act 2007 Schedule 1 pt A cl 1 — basic income-tax rate table
+  class: rate
+  note: >-
+    5-band progressive individual rates (10.5/17.5/30/33/39%). Oracle-backed
+    (policyengine-nz income-tax-baseline; nztaxmicrosim income-tax-brackets-2025).
+- citation: nz/statute/act/public/2007/0097/section/LC-13
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s LC 13 — tax credits for independent earners
+  class: rate
+  note: Standalone independent earner tax credit amount + abatement; no external cross-refs.
+- citation: nz/statute/act/public/2007/0097/section/LD-1
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s LD 1 — tax credit for charitable or other public benefit gifts
+  class: rate
+  note: Subpart LD gift-credit entry point (donation rebate); self-contained percentage credit.
+- citation: nz/statute/act/public/2007/0097/section/MD-1
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s MD 1 — abating WFF tax credit
+  class: rate
+  note: Working for Families abating tax credit; self-contained entitlement + abatement structure.
+- citation: nz/statute/act/public/2007/0097/section/MD-3
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s MD 3 — calculation of family tax credit
+  class: rate
+  note: Per-child family-tax-credit amounts. Oracle-backed (working-for-families baseline).
+- citation: nz/statute/act/public/2007/0097/section/MD-10
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s MD 10 — in-work tax credit
+  class: rate
+  note: Fixed in-work credit amount; standalone.
+- citation: nz/statute/act/public/2007/0097/section/MD-13
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s MD 13 — calculation of family credit abatement
+  class: rate
+  note: Abatement rate + income threshold for the WFF credits.
+- citation: nz/statute/act/public/2007/0097/section/ME-1
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s ME 1 — minimum family tax credit
+  class: rate
+  note: Guaranteed net-income floor amount; self-contained.
+- citation: nz/statute/act/public/2007/0097/section/MG-1
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s MG 1 — Best Start tax credit entitlement
+  class: rate
+  note: Best Start entitlement amount/eligibility; complements the MG 3 abatement.
+- citation: nz/statute/act/public/2007/0097/section/MG-3
+  repo: rulespec-nz
+  batch: A
+  status: pending
+  heading: ITA 2007 s MG 3 — Best Start tax credit abatement
+  class: rate
+  note: Best Start abatement rate/threshold; self-contained.

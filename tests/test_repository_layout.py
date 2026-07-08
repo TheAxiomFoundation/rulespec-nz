@@ -51,6 +51,7 @@ def allowed_yaml_roots() -> set[str]:
     return {
         ".axiom",
         ".github",
+        "bulk",
         "programs",
         ".pre-commit-config.yaml",
         "known-dangling.yaml",
