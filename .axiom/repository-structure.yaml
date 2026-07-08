@@ -4,6 +4,7 @@ allowed_root_directories:
   - .axiom
   - .codex
   - .github
+  - bulk
   - conductor
   - data
   - docs
@@ -64,6 +65,12 @@ path_rules:
       - ".yaml"
     allow_filenames:
       - CODEOWNERS
+  - patterns:
+      - "bulk/**"
+    allow_extensions:
+      - ".md"
+      - ".py"
+      - ".yaml"
   - patterns:
       - "conductor/**"
     allow_extensions:
