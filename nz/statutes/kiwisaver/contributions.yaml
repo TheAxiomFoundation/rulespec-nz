@@ -35,17 +35,18 @@ rules:
         formula: |-
           0.04
   - name: kiwisaver_employee_elective_contribution_rates
-    kind: parameter_set
+    kind: parameter
     dtype: Rate
+    indexed_by: elective_rate_option
     source: KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance
     versions:
       - effective_from: '2026-04-01'
         values:
-          - 0.035
-          - 0.04
-          - 0.06
-          - 0.08
-          - 0.10
+          1: 0.035
+          2: 0.04
+          3: 0.06
+          4: 0.08
+          5: 0.10
   - name: kiwisaver_employer_minimum_contribution_rate
     kind: parameter
     dtype: Rate
