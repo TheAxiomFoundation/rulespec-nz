@@ -22,7 +22,9 @@ allowed_root_files:
   - CONTRIBUTING.md
   - GEMINI.md
   - LICENSE
+  - LICENSE-CODE
   - Makefile
+  - NOTICE
   - README.md
   - _create_rulespec_stubs.py
   - _update_inventory.py
