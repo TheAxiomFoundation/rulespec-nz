@@ -63,16 +63,17 @@ def test_every_rulespec_yaml_has_required_sections() -> None:
 
 @pytest.mark.unit
 def test_every_rulespec_yaml_has_source_verification() -> None:
-    """Each RuleSpec YAML must have source_verification with corpus_citation_paths."""
+    """Each RuleSpec YAML must have exactly one corpus source identity."""
     for unit in extraction_units():
         path = ROOT / unit["target_path"]
         content = path.read_text(encoding="utf-8")
         assert "source_verification:" in content, (
             f"{unit['target_path']} missing source_verification"
         )
-        assert "corpus_citation_paths:" in content, (
-            f"{unit['target_path']} missing corpus_citation_paths"
+        assert "corpus_citation_path:" in content, (
+            f"{unit['target_path']} missing corpus_citation_path"
         )
+        assert "corpus_citation_paths:" not in content
 
 
 @pytest.mark.unit

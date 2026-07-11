@@ -6,15 +6,10 @@ module:
     from salary or wages. This module assembles the individual statutory
     deduction components (income tax, ACC earners levy, KiwiSaver, student loan)
     into a total PAYE deduction amount.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/section/RD3
-      - nz/statute/act/public/2007/0097/section/RD4
-      - nz/statute/act/public/2007/0097/section/RD5
-      - nz/agency/ird/paye-deduction-tables
-    agency_reference_urls:
-      - https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay
-      - https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay/paye-and-kiwisaver-deductions
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3
 units:
   - name: NZD
     kind: currency
@@ -27,6 +22,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 subpart RD; IRD PAYE tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/rd
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -38,6 +44,17 @@ rules:
     period: Year
     unit: NZD
     source: Accident Compensation (Earners' Levy) Regulations; IRD ACC levy rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -49,6 +66,17 @@ rules:
     period: Year
     unit: NZD
     source: KiwiSaver Act 2006 s 64; IRD KiwiSaver deduction guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2006/0040/section/64
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -60,6 +88,17 @@ rules:
     period: Year
     unit: NZD
     source: Student Loan Scheme Act 2011 s 22; IRD student loan deduction tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/22
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -71,6 +110,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 subpart RD; IRD PAYE deduction tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/rd
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables
     versions:
       - effective_from: '2025-04-01'
         formula: |-

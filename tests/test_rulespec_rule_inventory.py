@@ -7,6 +7,8 @@ from typing import Any, cast
 
 import yaml
 
+from scripts.rulespec_layout import atomic_rulespec_paths
+
 
 ROOT = Path(__file__).resolve().parents[1]
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
@@ -21,11 +23,7 @@ def load_inventory() -> dict[str, Any]:
 
 
 def non_test_rulespec_paths() -> set[str]:
-    return {
-        path.relative_to(ROOT).as_posix()
-        for path in (ROOT / "nz").rglob("*.yaml")
-        if not path.name.endswith(".test.yaml")
-    }
+    return {path.relative_to(ROOT).as_posix() for path in atomic_rulespec_paths(ROOT)}
 
 
 def rulespec_rule_names(path: Path) -> list[dict[str, str]]:
@@ -51,9 +49,7 @@ def test_inventory_covers_every_rulespec_module() -> None:
     inventory = load_inventory()
     inventoried_paths = {module["path"] for module in inventory["modules"]}
     rulespec_paths = {
-        path.relative_to(ROOT).as_posix()
-        for path in (ROOT / "nz").rglob("*.yaml")
-        if not path.name.endswith(".test.yaml")
+        path.relative_to(ROOT).as_posix() for path in atomic_rulespec_paths(ROOT)
     }
     assert inventoried_paths == rulespec_paths
 

@@ -35,7 +35,10 @@ This project follows the Conductor context-driven development lifecycle:
 
 ## Code Conventions
 
-- RuleSpec YAML: `nz/statutes/`, `nz/regulations/`, `nz/policies/` with companion `.test.yaml` files.
+- Atomic RuleSpec YAML: `nz/legislation/`, `nz/policies/`, `nz/regulations/`,
+  or `nz/statutes/`, with companion `.test.yaml` files.
+- Declarative composition: exact `.yaml` ProgramSpecs under `nz/programs/`;
+  never Python implementations.
 - Every rule must cite source law via `corpus_citation_path`.
 - Oracle models (`nztaxmicrosim`, `openfisca-aotearoa`) are comparison fixtures, not legal authority.
 - No mechanical migration from OpenFisca or PolicyEngine — encode from source law first.

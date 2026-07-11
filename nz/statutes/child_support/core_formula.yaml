@@ -8,17 +8,10 @@ module:
     provisions requires comprehensive extraction beyond this core module.
     The nztaxmicrosim oracle child-support function is explicitly simplified
     and excluded as canonical authority.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/1991/0142/part/3
-      - nz/statute/act/public/1991/0142/schedule/1
-      - nz/statute/act/public/1991/0142/schedule/2
-      - nz/agency/ird/child-support-formula
-      - nz/agency/ird/child-support/overview
-      - nz/agency/ird/child-support/types/formula-assessment/sharing-care
-    agency_reference_urls:
-      - https://www.ird.govt.nz/child-support
-      - https://www.ird.govt.nz/child-support/working-out-child-support
+    corpus_citation_path: nz/statute/act/public/1991/0142/section/35a
 units:
   - name: NZD
     kind: currency
@@ -28,6 +21,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Child Support Act 1991 schedule 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -36,6 +36,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Child Support Act 1991 s 40; schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/40
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -44,6 +51,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Child Support Act 1991 schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -52,6 +66,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Child Support Act 1991 schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -60,6 +81,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Child Support Act 1991 schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -69,6 +97,21 @@ rules:
     dtype: Money
     unit: NZD
     source: Child Support Act 1991 schedule 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -84,6 +127,21 @@ rules:
     dtype: Money
     unit: NZD
     source: Child Support Act 1991 schedule 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -101,6 +159,13 @@ rules:
     period: Year
     unit: NZD
     source: Child Support Act 1991 schedule 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -112,6 +177,13 @@ rules:
     period: Year
     unit: NZD
     source: Child Support Act 1991 schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -128,6 +200,13 @@ rules:
     dtype: Rate
     period: Year
     source: Child Support Act 1991 schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -144,6 +223,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Child Support Act 1991 s 5; IRD sharing care guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/child-support/types/formula-assessment/sharing-care
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -154,6 +244,25 @@ rules:
     dtype: Judgment
     period: Year
     source: Child Support Act 1991 ss 4, 5, and 8; IRD child support overview
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/child-support/overview
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -168,6 +277,25 @@ rules:
     dtype: Judgment
     period: Year
     source: Child Support Act 1991 ss 4, 5, and 8; IRD child support overview
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/child-support/overview
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -182,6 +310,21 @@ rules:
     period: Year
     unit: NZD
     source: Child Support Act 1991 ss 4, 5, and 8; schedule 1; schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/8
     versions:
       - effective_from: '2020-04-01'
         formula: |-

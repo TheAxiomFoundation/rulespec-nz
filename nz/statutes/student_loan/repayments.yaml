@@ -6,16 +6,10 @@ module:
     Repayment rate: 12c per NZD of repayment income above the annual threshold.
     The annual repayment threshold adjusts each tax year. IRD publishes the
     deduction tables employers use for PAYE-style student loan deductions.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2011/0062/section/22
-      - nz/statute/act/public/2011/0062/section/27
-      - nz/statute/act/public/2011/0062/schedule/1
-      - nz/regulation/secondary/ird/student-loan-repayment-thresholds
-      - nz/agency/ird/student-loan-repayment-deductions
-    agency_reference_urls:
-      - https://www.ird.govt.nz/student-loans/repaying-my-student-loan
-      - https://www.ird.govt.nz/student-loans/repaying-my-student-loan/repayment-thresholds
+    corpus_citation_path: nz/statute/act/public/2011/0062/section/22
 units:
   - name: NZD
     kind: currency
@@ -25,6 +19,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Student Loan Scheme Act 2011 s 22(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/22
     versions:
       - effective_from: '2012-04-01'
         formula: |-
@@ -37,6 +38,21 @@ rules:
       Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment
       Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023
       (SL 2023/295) regulation 3; IRD student loan repayment thresholds
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062/schedule/1
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2023/0295/regulation/3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
     versions:
       - effective_from: '2024-04-01'
         formula: |-
@@ -48,6 +64,17 @@ rules:
     period: Week
     unit: NZD
     source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -59,6 +86,17 @@ rules:
     period: Fortnight
     unit: NZD
     source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -70,6 +108,17 @@ rules:
     period: Month
     unit: NZD
     source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -81,6 +130,13 @@ rules:
     period: Year
     unit: NZD
     source: Student Loan Scheme Act 2011 s 22
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/22
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -93,6 +149,17 @@ rules:
     period: Week
     unit: NZD
     source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
     versions:
       - effective_from: '2025-04-01'
         formula: |-

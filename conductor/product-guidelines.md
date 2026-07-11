@@ -12,5 +12,5 @@ This document outlines the conventions, design principles, and guidelines for en
 - **Scenario Verification**: Tests must cover standard cases, edge cases, and comparisons against reference models (oracles).
 
 ## Legal Provenance
-- **Corpus Citation**: Every rule or group of rules must cite its source law provenance. Use `module.source_verification.corpus_citation_path` or `corpus_citation_paths` referencing normalized corpus files in `data/corpus/`.
+- **Corpus Citation**: Every atomic module must declare exactly one immutable-release source identity at `module.source_verification.corpus_citation_path`. Additional operative sources belong in direct rule-proof atoms; plural source fields are not supported.
 - **No Mechanical Migration**: Do not mechanically translate other codebases (like OpenFisca or PolicyEngine) into RuleSpec. Encode from the source law first, then compare.

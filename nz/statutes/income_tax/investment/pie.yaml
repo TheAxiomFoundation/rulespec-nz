@@ -7,15 +7,10 @@ module:
     income from the two preceding tax years (two-year lookback) and their
     PIE income type (savings, withdrawal, etc.). Current PIR rates are 10.5%,
     17.5%, and 28%.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/subpart/HM
-      - nz/statute/act/public/2007/0097/section/HM6
-      - nz/statute/act/public/2007/0097/schedule/1/part/B
-      - nz/agency/ird/pir-rates-kiwisaver-pie
-    agency_reference_urls:
-      - https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/your-pir-prescribed-investor-rate
-      - https://www.ird.govt.nz/investing/pie-tax
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
 units:
   - name: NZD
     kind: currency
@@ -25,6 +20,17 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -33,6 +39,17 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -41,6 +58,17 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -50,6 +78,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 section HM 6; IRD PIR guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -59,6 +98,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 section HM 6; IRD PIR guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -68,6 +118,17 @@ rules:
     entity: Person
     dtype: Rate
     source: Income Tax Act 2007 section HM 6; IRD PIR determination rules
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -87,6 +148,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 subpart HM
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/hm
     versions:
       - effective_from: '2020-04-01'
         formula: |-

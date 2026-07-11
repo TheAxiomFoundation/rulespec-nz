@@ -10,21 +10,10 @@ module:
     housing tenancy, Veterans' Support Act compensation, and Pae Ora-funded
     residential care disability services are factual inputs pending dedicated
     cross-module wiring.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/regulation/regulation/public/1993/0169/regulation/2
-      - nz/regulation/regulation/public/1993/0169/regulation/4
-      - nz/regulation/regulation/public/1993/0169/regulation/4A
-      - nz/regulation/regulation/public/1993/0169/regulation/5
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/1
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/3
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/4
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/5
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/5A
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/6
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/7
-      - nz/regulation/regulation/public/1993/0169/regulation/8/subclause/8
-      - nz/regulation/regulation/public/1993/0169/regulation/9
+    corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
 units:
   - name: NZD
     kind: currency
@@ -34,6 +23,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(d)(iii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -43,6 +39,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -52,6 +55,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -61,6 +71,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -70,6 +87,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5A)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -79,6 +103,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5A)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -88,6 +119,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5A)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -97,6 +135,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -106,6 +151,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -115,6 +167,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -124,6 +183,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -133,6 +199,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -142,6 +215,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -150,6 +230,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -158,6 +245,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 8(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -166,6 +260,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 8(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -174,6 +275,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 5(2)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -182,6 +290,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 5(2)(c)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -190,6 +305,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 5(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -198,6 +320,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Health Entitlement Cards Regulations 1993 reg 9(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -209,6 +338,13 @@ rules:
     period: Year
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 9(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -220,6 +356,13 @@ rules:
     period: Year
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 9(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -231,6 +374,13 @@ rules:
     period: Year
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 9(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -242,6 +392,13 @@ rules:
     period: Year
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -259,6 +416,13 @@ rules:
     period: Year
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(5A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -275,6 +439,13 @@ rules:
     dtype: Count
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(6)(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -295,6 +466,13 @@ rules:
     period: Year
     unit: NZD
     source: Health Entitlement Cards Regulations 1993 reg 8(6) and (7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -321,6 +499,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(d), 8(1)(f), and 8(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -331,6 +516,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(e) and 8(5A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -341,6 +533,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(c) and 8(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -351,6 +550,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -367,6 +573,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -380,6 +593,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -399,6 +619,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(ab)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -412,6 +639,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -429,6 +663,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -446,6 +687,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -469,6 +717,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -482,6 +737,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(f)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -496,6 +758,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)(g)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -509,6 +778,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -529,6 +805,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(3A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -542,6 +825,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 8(3) and 8(3A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -558,6 +848,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 regs 4 and 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -571,6 +872,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 4(1)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/4
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -581,6 +889,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Health Entitlement Cards Regulations 1993 reg 4A
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1993/0169/regulation/4a
     versions:
       - effective_from: '2026-04-01'
         formula: |-

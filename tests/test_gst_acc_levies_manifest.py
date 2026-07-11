@@ -160,7 +160,7 @@ def test_gst_acc_manifest_points_to_modules_provisions_and_known_gaps() -> None:
     )
     gst_citations = set(_string_list(gst_module["available_corpus_citation_paths"]))
     assert gst_citations == {
-        "nz/statute/act/public/1985/0141/section/8-DLM82299",
+        "nz/statute/act/public/1985/0141/section/8",
         "nz/statute/act/public/1985/0141/section/10",
         "nz/statute/act/public/1985/0141/section/12",
     }

@@ -12,7 +12,10 @@ This repo stores New Zealand RuleSpec source registry materials, oracle referenc
 - Use oracle repositories as comparison engines or fixtures, not as legal authority.
 - Keep exact oracle commit SHAs in `data/oracles/oracle-index.json`.
 - Start official Acts, regulations, Bills, and SOP ingestion with `axiom-corpus extract-nz-legislation` against the PCO/data.govt.nz bulk XML directory.
-- Add RuleSpec under `nz/statutes/`, `nz/regulations/`, or `nz/policies/` with companion `.test.yaml` files.
+- Add atomic RuleSpec under `nz/legislation/`, `nz/policies/`,
+  `nz/regulations/`, or `nz/statutes/` with companion `.test.yaml` files.
+- Add only declarative `.yaml` ProgramSpecs under `nz/programs/`; keep Python
+  tooling under `src/rulespec_nz/`.
 - Keep large source payloads outside Git unless they are small, necessary official extracts.
 - Sync `axiom-encode` and `.axiom/toolchain.toml` before substantial encoding runs, because concurrent encoder work may change the supported schema.
 
@@ -20,6 +23,7 @@ This repo stores New Zealand RuleSpec source registry materials, oracle referenc
 
 - Migrate OpenFisca or PolicyEngine code mechanically as RuleSpec.
 - Treat secondary summaries, commercial tax guides, or oracle model code as canonical law.
-- Add generated source payload dumps, formula artifacts, `parameters.yaml`, or standalone YAML fixtures outside allowed RuleSpec roots.
+- Add repository-root content trees, `.yml` aliases, symlinks, Python program
+  implementations, generated formula artifacts, or standalone YAML fixtures.
 - Hand-copy statute text into RuleSpec without a corpus `citation_path`.
 - Edit a dirty `axiom-encode` checkout owned by another agent.

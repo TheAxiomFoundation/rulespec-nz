@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from programs.nz.openfisca_adapter import (
+from rulespec_nz.openfisca_adapter import (
     build_openfisca_fixture_candidates,
     build_openfisca_reference_manifest,
 )

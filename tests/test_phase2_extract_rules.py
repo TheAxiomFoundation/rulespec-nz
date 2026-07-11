@@ -8,6 +8,7 @@ from scripts.phase2_extract_rules import (
     canonical_rule_id,
     extract_rules,
 )
+from scripts.rulespec_layout import ATOMIC_CONTENT_ROOTS, atomic_rulespec_paths
 
 
 def test_canonical_rule_id() -> None:
@@ -23,6 +24,44 @@ def test_canonical_rule_id() -> None:
         canonical_rule_id("nz/policies/deep/dir/test.yaml", "deep_rule")
         == "nz:policies/deep/dir/test#deep_rule"
     )
+
+
+def test_inventory_discovery_uses_only_four_atomic_exact_yaml_roots(
+    tmp_path: Path,
+) -> None:
+    expected: list[Path] = []
+    for source_root in ATOMIC_CONTENT_ROOTS:
+        module = tmp_path / "nz" / source_root / "example.yaml"
+        module.parent.mkdir(parents=True)
+        module.write_text("format: rulespec/v1\n")
+        module.with_name("example.test.yaml").write_text("[]\n")
+        expected.append(module)
+
+    program = tmp_path / "nz" / "programs" / "example" / "fy-2026.yaml"
+    program.parent.mkdir(parents=True)
+    program.write_text("program: nz/example\n")
+
+    assert atomic_rulespec_paths(tmp_path) == tuple(sorted(expected))
+
+
+def test_inventory_discovery_rejects_removed_yml_spelling(tmp_path: Path) -> None:
+    legacy_yml = tmp_path / "nz" / "statutes" / "legacy.yml"
+    legacy_yml.parent.mkdir(parents=True)
+    legacy_yml.write_text("format: rulespec/v1\n")
+
+    with pytest.raises(ValueError, match="exact \\.yaml"):
+        atomic_rulespec_paths(tmp_path)
+
+
+def test_inventory_discovery_rejects_aliases(tmp_path: Path) -> None:
+    module = tmp_path / "outside.yaml"
+    module.write_text("format: rulespec/v1\n")
+    alias = tmp_path / "nz" / "statutes" / "alias.yaml"
+    alias.parent.mkdir(parents=True)
+    alias.symlink_to(module)
+
+    with pytest.raises(ValueError, match="must not be an alias"):
+        atomic_rulespec_paths(tmp_path)
 
 
 @pytest.mark.parametrize(

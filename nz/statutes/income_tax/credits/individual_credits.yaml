@@ -8,28 +8,10 @@ module:
     charitable or other public benefit gift credit and payroll donation credit.
     Tax Administration Act 1994 section 41A supplies the refund-application
     requirements for charitable and other public benefit gifts.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/section/LC-13
-      - nz/statute/act/public/2007/0097/section/LD-1
-      - nz/statute/act/public/2007/0097/section/LD-2
-      - nz/statute/act/public/2007/0097/section/LD-3
-      - nz/statute/act/public/2007/0097/section/LD-4
-      - nz/statute/act/public/2007/0097/section/LD-5
-      - nz/statute/act/public/2007/0097/section/LD-6
-      - nz/statute/act/public/2007/0097/section/LD-7
-      - nz/statute/act/public/2007/0097/section/LD-8
-      - nz/statute/act/public/2007/0097/section/LA-7
-      - nz/statute/act/public/1994/0166/section/41A
-    values:
-      individual_tax_credits_months_in_year: 12
-      independent_earner_tax_credit_minimum_net_income: 24000
-      independent_earner_tax_credit_full_year_amount: 520
-      independent_earner_tax_credit_abatement_threshold: 66000
-      independent_earner_tax_credit_abatement_rate: 0.13
-      charitable_or_public_benefit_gift_minimum_amount: 5
-      charitable_or_public_benefit_gift_credit_rate: 0.3333333333333333
-      payroll_donation_credit_rate: 0.3333333333333333
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
 units:
   - name: NZD
     kind: currency
@@ -39,6 +21,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 s LC 13(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -48,6 +37,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 s LC 13(4); Treasury IncomeExplorer TY27_BEFU25 IETC_MinimalIncome
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -57,6 +53,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 s LC 13(4); Treasury IncomeExplorer TY27_BEFU25 IETC_PerYear
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -66,6 +69,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 s LC 13(5); Treasury IncomeExplorer TY27_BEFU25 IETC_AbatementScale
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -74,6 +84,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s LC 13(5); Treasury IncomeExplorer TY27_BEFU25 IETC_AbatementScale
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -83,6 +100,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 s LD 3(1)(a) and (b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-3
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -91,6 +115,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s LD 1(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -99,6 +130,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s LD 4(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-4
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -109,6 +147,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s LC 13(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -130,6 +175,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LC 13(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -144,6 +196,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LC 13(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -164,6 +223,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LC 13(2) and (6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -186,6 +252,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LC 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/lc-13
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -199,6 +272,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s LD 3(1) and (2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-3
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -213,6 +293,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s LD 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-3
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -235,6 +322,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s LD 2; Tax Administration Act 1994 s 41A(11)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1994/0166/section/41a
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -253,6 +351,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Tax Administration Act 1994 s 41A
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1994/0166/section/41a
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -270,6 +375,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LD 1(3); Tax Administration Act 1994 s 41A(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1994/0166/section/41a
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -290,6 +406,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LD 1(1) and (2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -304,6 +427,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss LD 1(5) and LA 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/la-7
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -314,6 +448,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss LD 4(1) and LD 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-8
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -332,6 +477,21 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss LD 5 to LD 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-5
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-7
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -351,6 +511,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LD 4(2) and (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-4
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -365,6 +532,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s LD 4(4) and (5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-4
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -378,6 +552,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss LD 2(g) and LD 4(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ld-4
     versions:
       - effective_from: '2025-04-01'
         formula: |-

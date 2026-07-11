@@ -5,6 +5,8 @@ from pathlib import Path
 
 import yaml
 
+from scripts.rulespec_layout import atomic_rulespec_paths
+
 ROOT = Path(__file__).parent
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 SCORECARD_PATH = ROOT / "data" / "coverage" / "rulespec-scorecard.json"
@@ -40,9 +42,7 @@ def main():
     existing_paths = {m["path"] for m in inventory["modules"]}
 
     all_yaml = sorted(
-        p.relative_to(ROOT).as_posix()
-        for p in (ROOT / "nz").rglob("*.yaml")
-        if not p.name.endswith(".test.yaml")
+        path.relative_to(ROOT).as_posix() for path in atomic_rulespec_paths(ROOT)
     )
 
     added = 0
@@ -57,8 +57,8 @@ def main():
         payload = payload or {}
         rules = extract_rule_info(payload, rel_path)
         sv = payload.get("module", {}).get("source_verification", {})
-        corpus_paths = sv.get("corpus_citation_paths", [])
-        if corpus_paths:
+        corpus_path = sv.get("corpus_citation_path")
+        if isinstance(corpus_path, str) and corpus_path:
             authority = "official_nz_legislation"
             source_route = "pco_bulk_xml_extract"
         else:

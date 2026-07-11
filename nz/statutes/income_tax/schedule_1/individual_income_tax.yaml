@@ -5,22 +5,10 @@ module:
     progressive income tax rate table for a person's taxable income when no
     more specific basic rate applies. Inland Revenue's individual tax-rate
     guidance publishes the same bands from 1 April 2025.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_path: nz/statute/act/public/2007/0097/section/1-DLM1523194
-    agency_reference_urls:
-      - https://www.ird.govt.nz/income-tax/income-tax-for-individuals/tax-codes-and-tax-rates-for-individuals/tax-rates-for-individuals
-    values:
-      individual_income_tax_bracket_rates:
-        1: "0.105"
-        2: "0.175"
-        3: "0.300"
-        4: "0.330"
-        5: "0.390"
-      individual_income_tax_bracket_thresholds:
-        1: 15600
-        2: 53500
-        3: 78100
-        4: 180000
+    corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/a/clause/1
 units:
   - name: NZD
     kind: currency
@@ -31,6 +19,13 @@ rules:
     dtype: Rate
     indexed_by: bracket
     source: Income Tax Act 2007 Schedule 1 part A clause 1 table 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/a/clause/1
     versions:
       - effective_from: '2025-04-01'
         values:
@@ -45,6 +40,13 @@ rules:
     unit: NZD
     indexed_by: bracket
     source: Income Tax Act 2007 Schedule 1 part A clause 1 table 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/a/clause/1
     versions:
       - effective_from: '2025-04-01'
         values:
@@ -59,6 +61,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 Schedule 1 part A clause 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/a/clause/1
     versions:
       - effective_from: '2025-04-01'
         formula: |-

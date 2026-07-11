@@ -7,6 +7,8 @@ from typing import Any, cast
 import pytest
 import yaml
 
+from scripts.rulespec_layout import corpus_proof_paths
+
 
 ROOT = Path(__file__).resolve().parents[1]
 KIWISAVER_RULESPEC_PATH = ROOT / "nz" / "statutes" / "kiwisaver" / "contributions.yaml"
@@ -24,20 +26,16 @@ def test_kiwisaver_rulespec_records_official_sources_and_policyengine_boundary()
 ):
     rulespec = load_yaml(KIWISAVER_RULESPEC_PATH)
     source = rulespec["module"]["source_verification"]
+    proof_paths = corpus_proof_paths(rulespec)
 
     assert rulespec["format"] == "rulespec/v1"
     assert "PolicyEngine NZ is" in rulespec["module"]["summary"]
     assert "supporting-reference discovery" in rulespec["module"]["summary"]
-    assert (
-        "nz/statute/act/public/2006/0040/section/64" in source["corpus_citation_paths"]
-    )
-    assert (
-        "nz/statute/act/public/2006/0040/section/101B"
-        in source["corpus_citation_paths"]
-    )
-    assert (
-        "nz/agency/ird/kiwisaver-contribution-rates" in source["corpus_citation_paths"]
-    )
+    assert source == {
+        "corpus_citation_path": "nz/statute/act/public/2006/0040/section/64",
+    }
+    assert "nz/statute/act/public/2006/0040/section/101b" in proof_paths
+    assert "nz/guidance/ird/kiwisaver-contribution-rates" in proof_paths
 
 
 @pytest.mark.integration

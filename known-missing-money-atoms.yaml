@@ -1,34 +1,4 @@
-# Money-atom proof-obligation ratchet.
-#
-# Each count is the number of monetary values (currency parameters,
-# currency parameter-table cells, and currency literals in derived
-# formulas) that still lack a proof atom citing a provision.
-# `axiom-encode proof-validate --require-money-atoms` fails when the
-# untracked missing count exceeds `total_allowed`. Burn this down; do
-# not raise it. Regenerate with `--emit-ratchet`.
-total_allowed: 176
-# Current per-file backlog (informational):
-#   nz/regulations/acc/earners_levy.yaml: 7
-#   nz/regulations/health_entitlement_cards/community_services_card/core.yaml: 12
-#   nz/regulations/social_security/childcare_assistance/core.yaml: 16
-#   nz/regulations/student_allowances/core.yaml: 29
-#   nz/statutes/acc/weekly_compensation.yaml: 3
-#   nz/statutes/child_support/core_formula.yaml: 6
-#   nz/statutes/gst/rate.yaml: 1
-#   nz/statutes/income_tax/core/income_interfaces.yaml: 4
-#   nz/statutes/income_tax/credits/individual_credits.yaml: 4
-#   nz/statutes/income_tax/family_scheme/family_scheme_income.yaml: 2
-#   nz/statutes/income_tax/family_scheme/tax_credits.yaml: 9
-#   nz/statutes/income_tax/investment/pie.yaml: 2
-#   nz/statutes/income_tax/schedule_1/individual_income_tax.yaml: 1
-#   nz/statutes/kiwisaver/contributions.yaml: 1
-#   nz/statutes/new_zealand_superannuation/core.yaml: 3
-#   nz/statutes/new_zealand_superannuation/special_rates.yaml: 3
-#   nz/statutes/parental_leave/paid_parental_leave.yaml: 3
-#   nz/statutes/rates_rebates/rates_rebate.yaml: 10
-#   nz/statutes/social_security/accommodation_supplement/core.yaml: 14
-#   nz/statutes/social_security/child_disability_allowance/core.yaml: 1
-#   nz/statutes/social_security/disability_allowance/core.yaml: 6
-#   nz/statutes/social_security/main_benefits/rates.yaml: 32
-#   nz/statutes/social_security/winter_energy_payment/core.yaml: 3
-#   nz/statutes/student_loan/repayments.yaml: 4
+# Money-atom proof-obligation budget. The hard cut permits no atom-less
+# monetary values; unresolved proof sources fail separately against the named
+# release and are tracked in data/corpus/canonical-provenance-migration-blockers.json.
+total_allowed: 0

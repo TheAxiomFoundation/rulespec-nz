@@ -8,25 +8,10 @@ module:
     income and assessable income. Part D sections DA 1 to DA 4 provide the
     general permission, general limitations, and interaction with specific
     deduction rules.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/section/BB-1
-      - nz/statute/act/public/2007/0097/section/BC-1
-      - nz/statute/act/public/2007/0097/section/BC-2
-      - nz/statute/act/public/2007/0097/section/BC-3
-      - nz/statute/act/public/2007/0097/section/BC-4
-      - nz/statute/act/public/2007/0097/section/BC-5
-      - nz/statute/act/public/2007/0097/section/BC-6
-      - nz/statute/act/public/2007/0097/section/BC-7
-      - nz/statute/act/public/2007/0097/section/BC-8
-      - nz/statute/act/public/2007/0097/section/BD-1
-      - nz/statute/act/public/2007/0097/section/BD-2
-      - nz/statute/act/public/2007/0097/section/CA-1
-      - nz/statute/act/public/2007/0097/section/CA-2
-      - nz/statute/act/public/2007/0097/section/DA-1
-      - nz/statute/act/public/2007/0097/section/DA-2
-      - nz/statute/act/public/2007/0097/section/DA-3
-      - nz/statute/act/public/2007/0097/section/DA-4
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-1
 units:
   - name: NZD
     kind: currency
@@ -38,6 +23,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s CA 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ca-1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -51,6 +43,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss BD 1 and CA 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bd-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ca-2
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -67,6 +70,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 2 and BD 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bd-1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -83,6 +97,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s DA 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-2
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -100,6 +121,21 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss DA 1 to DA 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-3
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -122,6 +158,25 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BD 2, DA 1, DA 2, and DA 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bd-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/da-3
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -136,6 +191,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 3 and BD 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bd-2
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -147,6 +213,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s BC 4(1) and (2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-4
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -158,6 +231,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s BC 4(3) and (4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-4
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -169,6 +249,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BB 1 and BC 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bb-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-5
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -180,6 +271,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 4 and BC 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-5
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -194,6 +296,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 4 and BC 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-5
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -209,6 +322,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 3; shared income-interface bridge for business and self-employment activity income
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -220,6 +340,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s CE 1; shared income-interface bridge for employment, salary, and wage income
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ce-1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -231,6 +358,25 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss RE 1 to RE 4; shared income-interface bridge for schedular income inclusion
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/re-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/re-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/re-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/re-4
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -242,6 +388,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 shared income bridge; aggregation of employment, activity, and schedular income components
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -257,6 +410,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s BC 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-1
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -268,6 +428,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 6 and BC 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-7
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -286,6 +457,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s BC 8(1) to (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-8
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -301,6 +479,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s BC 8(1) and (4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-8
     versions:
       - effective_from: '2025-04-01'
         formula: |-

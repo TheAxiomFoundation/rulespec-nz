@@ -5,11 +5,10 @@ module:
     encodes the visa-class and lawful-presence predicates that feed fiscal
     residency checks.
   status: active
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2009/0051
-    oracle_links:
-      - openfisca-aotearoa
+    corpus_citation_path: nz/statute/act/public/2009/0051/section/13
 rules:
   - name: immigration_new_zealand_citizen
     kind: derived
@@ -17,6 +16,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009 s 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/13
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -27,6 +33,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -37,6 +50,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -47,6 +67,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009 and Citizenship Act 1977
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -57,6 +88,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -71,6 +109,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009 and Social Security Act 2018
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -84,6 +133,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Immigration Act 2009
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2009/0051
     versions:
       - effective_from: '2026-04-01'
         formula: |-

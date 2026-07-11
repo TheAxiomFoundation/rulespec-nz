@@ -9,8 +9,10 @@ toolchain through explicit boundaries.
 
 `rulespec-nz` owns:
 
-- NZ RuleSpec modules under `nz/statutes/`, `nz/regulations/`, and
-  `nz/policies/`.
+- Atomic NZ RuleSpec modules under `nz/legislation/`, `nz/policies/`,
+  `nz/regulations/`, and `nz/statutes/`.
+- Declarative composition specs under `nz/programs/`, outside the atomic
+  RuleSpec corpus.
 - NZ coverage, source-readiness, and oracle-reference manifests under
   `data/coverage/`, `data/corpus/`, and `data/oracles/`.
 - Companion `.test.yaml` fixtures that validate encoded NZ rules.

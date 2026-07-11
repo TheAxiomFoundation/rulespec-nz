@@ -6,13 +6,8 @@ module:
     social housing tenants. Official-source encoding pending for income
     definitions, rent percentage, and deductions.
   status: deferred
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/1992/0069
-      - nz/agency/hud/income-related-rent
-      - nz/agency/kainga-ora/income-related-rent
-    agency_reference_urls:
-      - https://www.kaingaora.govt.nz/tenants/rent-and-bills/income-related-rent
-    oracle_links:
-      - openfisca-aotearoa
+    corpus_citation_path: nz/statute/act/public/1992/0076/section/104
 rules: []

@@ -6,18 +6,10 @@ module:
     rebate scheme for residential ratepayers. This module encodes the current
     rebate formula, the SuperGold threshold variant, and the territorial
     authority application interaction.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/1973/0005/section/3
-      - nz/statute/act/public/1973/0005/section/4
-      - nz/statute/act/public/1973/0005/section/5
-      - nz/secondary-legislation/pco-drafted/2024/43/clause/4
-      - nz/secondary-legislation/pco-drafted/2025/63/clause/4
-      - nz/secondary-legislation/pco-drafted/2026/84/clause/4
-      - nz/agency/dia/rates-rebates
-    agency_reference_urls:
-      - https://www.govt.nz/browse/housing-and-property/getting-help-with-housing/getting-a-rates-rebate/
-      - https://www.dia.govt.nz/services-rates-rebate-scheme-index
+    corpus_citation_path: nz/statute/act/public/1973/0005/section/3
 units:
   - name: NZD
     kind: currency
@@ -28,6 +20,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(a)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -37,6 +36,57 @@ rules:
     dtype: Money
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1AA)(b); Rates Rebate (Specified Amounts) Orders 2024, 2025, and 2026
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2024/0043/regulation/4
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2024/0043/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2024/0043/regulation/4
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -52,6 +102,33 @@ rules:
     dtype: Money
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1AA)(a); Rates Rebate (Specified Amounts) Orders 2025 and 2026
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -64,6 +141,57 @@ rules:
     dtype: Money
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(b); Rates Rebate (Specified Amounts) Orders 2024, 2025, and 2026
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2024/0043/regulation/4
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2024/0043/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2024/0043/regulation/4
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0063/regulation/4
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2026/0084/regulation/4
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -79,6 +207,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -87,6 +222,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -97,6 +239,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Rates Rebate Act 1973 ss 3 and 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/5
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -111,6 +264,17 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1AA)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
+          - path: versions[1].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -128,6 +292,13 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -141,6 +312,13 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/4
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -155,6 +333,13 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(a)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -172,6 +357,13 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(a)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -195,6 +387,13 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 3(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/3
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -212,6 +411,13 @@ rules:
     period: Year
     unit: NZD
     source: Rates Rebate Act 1973 s 5(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1973/0005/section/5
     versions:
       - effective_from: '2024-07-01'
         formula: |-

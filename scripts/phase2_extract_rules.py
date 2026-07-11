@@ -11,6 +11,8 @@ from typing import Any, cast
 
 import yaml
 
+from scripts.rulespec_layout import atomic_rulespec_paths
+
 ROOT = Path(__file__).resolve().parents[1]
 INVENTORY_PATH = ROOT / "data" / "coverage" / "rulespec-rule-inventory.json"
 
@@ -19,7 +21,9 @@ def canonical_rule_id(path_str: str, rule_name: str) -> str:
     """Generate a stable identifier for a rule in a module."""
     path_obj = Path(path_str)
     if path_obj.is_absolute():
-        raise ValueError(f"Path string must be relative, got absolute path: {path_str!r}")
+        raise ValueError(
+            f"Path string must be relative, got absolute path: {path_str!r}"
+        )
     if len(path_obj.parts) < 2:
         raise ValueError(f"Path string must have at least two parts, got: {path_str!r}")
     prefix = path_obj.parts[0]
@@ -42,12 +46,14 @@ def extract_rules(path: Path) -> list[dict[str, Any]]:
         name = str(rule["name"])
         kind = str(rule.get("kind", "unknown"))
         source = str(rule.get("source", ""))
-        result.append({
-            "id": canonical_rule_id(path.relative_to(ROOT).as_posix(), name),
-            "name": name,
-            "kind": kind,
-            "source_family": _infer_source_family(source, kind),
-        })
+        result.append(
+            {
+                "id": canonical_rule_id(path.relative_to(ROOT).as_posix(), name),
+                "name": name,
+                "kind": kind,
+                "source_family": _infer_source_family(source, kind),
+            }
+        )
     return result
 
 
@@ -62,7 +68,10 @@ def _infer_source_family(source: str, kind: str) -> str:
         return "income_tax"
     if "kiwisaver act" in source_lower:
         return "kiwisaver"
-    if "social security act" in source_lower or "social security regulations" in source_lower:
+    if (
+        "social security act" in source_lower
+        or "social security regulations" in source_lower
+    ):
         if "accommodation" in source_lower:
             return "accommodation_supplement"
         if "childcare" in source_lower:
@@ -76,7 +85,10 @@ def _infer_source_family(source: str, kind: str) -> str:
         return "social_security_main_benefits"
     if "new zealand superannuation" in source_lower or "nz super" in source_lower:
         return "nz_superannuation"
-    if "health entitlement" in source_lower or "community services card" in source_lower:
+    if (
+        "health entitlement" in source_lower
+        or "community services card" in source_lower
+    ):
         return "community_services_card"
     if kind == "derived":
         return "computed"
@@ -84,7 +96,9 @@ def _infer_source_family(source: str, kind: str) -> str:
 
 
 def load_inventory() -> dict[str, Any]:
-    return cast(dict[str, Any], json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig")))
+    return cast(
+        dict[str, Any], json.loads(INVENTORY_PATH.read_text(encoding="utf-8-sig"))
+    )
 
 
 def update_inventory() -> None:
@@ -92,9 +106,7 @@ def update_inventory() -> None:
     inventory = load_inventory()
     existing_paths = {m["path"] for m in inventory["modules"]}
     all_yaml_paths = sorted(
-        p.relative_to(ROOT).as_posix()
-        for p in (ROOT / "nz").rglob("*.yaml")
-        if not p.name.endswith(".test.yaml")
+        path.relative_to(ROOT).as_posix() for path in atomic_rulespec_paths(ROOT)
     )
 
     # Add any missing modules (e.g., the new deferred ones)
@@ -103,15 +115,16 @@ def update_inventory() -> None:
             p = ROOT / path_str
             payload = cast(dict[str, Any], yaml.safe_load(p.read_text()) or {})
             mod = cast(dict[str, Any], payload.get("module", {}))
-            inventory["modules"].append({
-                "path": path_str,
-                "surface_ids": [path_str.replace("/", "-").replace(".yaml", "")],
-                "source_families": [mod.get("summary", "deferred module")[:60]],
-                "authority": "official_nz_legislation",
-                "source_route": "pco_bulk_xml_extract",
-                "oracle_links": cast(list[str], mod.get("source_verification", {}).get("oracle_links", [])),
-                "triangulation_status": "inventory_seeded",
-            })
+            inventory["modules"].append(
+                {
+                    "path": path_str,
+                    "surface_ids": [path_str.replace("/", "-").replace(".yaml", "")],
+                    "source_families": [mod.get("summary", "deferred module")[:60]],
+                    "authority": "official_nz_legislation",
+                    "source_route": "pco_bulk_xml_extract",
+                    "triangulation_status": "inventory_seeded",
+                }
+            )
             existing_paths.add(path_str)
 
     # Add rules extraction to each module

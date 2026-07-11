@@ -6,6 +6,8 @@ from typing import cast
 
 import yaml
 
+from scripts.rulespec_layout import corpus_proof_paths
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/corpus/inventory/nz/new-zealand-superannuation.json"
@@ -141,13 +143,14 @@ def test_nz_superannuation_manifest_points_to_modules_and_provisions() -> None:
         module_path = ROOT / _string_value(module["path"])
         test_path = ROOT / _string_value(module["test_path"])
         citation_paths = set(_string_list(module["available_corpus_citation_paths"]))
-        module_text = module_path.read_text(encoding="utf-8")
+        rulespec = _load_yaml_object(module_path)
 
         assert module_path.exists()
         assert test_path.exists()
         assert citation_paths <= provision_citations
-        for citation_path in citation_paths:
-            assert citation_path in module_text
+        assert {citation_path.lower() for citation_path in citation_paths} <= (
+            corpus_proof_paths(rulespec)
+        )
 
 
 def test_nz_superannuation_manifest_records_path_divergence() -> None:
