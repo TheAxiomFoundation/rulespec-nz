@@ -1,7 +1,4 @@
 [toolchain]
-axiom_encode_version = "0.2.1132"
-axiom_encode_ref = "1c676685b06cd69baa81d37660060caf8e49007b"
-axiom_rules_engine_ref = "326289f8e099224eab782ba0cf0f88cc34e630a5"
-axiom_corpus_ref = "6e80d535f3ef4204c9450cd4f2821d75ecb39237"
-rulespec_us_ref = "b21951f0e6480fe06264994008831863aa1726eb"
-rulespec_uk_ref = "e79d988049deaf5b1f53d3bf23888b97d3e77280"
+axiom_corpus_release = "nz-rulespec-2026-07-10"
+axiom_corpus_release_content_sha256 = "d30b93556f87eea825fd16cab27054941c432e0f21684c8a759a6bb491737298"
+validation_waiver_set_sha256 = "a816cc1e7607728700ea6865035dd8736e7d57f437d495d204f50bd2e63fe403"
