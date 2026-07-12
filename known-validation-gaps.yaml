@@ -58,12 +58,6 @@ validate_failures:
       fingerprint: sha256:1a13446ef42b7ac1011a78863804da4ce96f9fe418113dcadd9164c925fadd7f
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/immigration/residence.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:e8cee61bf4937179eeb97d02238c906323dda8732d126600b300bdce376f6ff2
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/income_tax/core/income_interfaces.yaml:
     active:
       expires: '2026-10-10'
