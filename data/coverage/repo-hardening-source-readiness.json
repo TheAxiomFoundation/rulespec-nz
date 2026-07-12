@@ -30,7 +30,7 @@
   },
   "ci_readiness": {
     "workflow": ".github/workflows/repository-checks.yml",
-    "reusable_validation_workflow": "TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@947c68b8102c5b696ceb16faff5c1c365217da8d",
+    "reusable_validation_workflow": "TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@60cc84f2748c04dac7ec8ac7fd9b8927d94616c5",
     "roadmap_check_command": "python scripts/nz_full_country_roadmap_sync.py --check",
     "status": "configured"
   },
