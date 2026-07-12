@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@60cc84f2748c04dac7ec8ac7fd9b8927d94616c5
+    uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@0e520b481d731f1f34f178448a2c138d8f75db2a
     secrets: inherit
     with:
       axiom-encode-ref: f4b952b7ba83d8382d0074b64b27ba6ea9a7637b
