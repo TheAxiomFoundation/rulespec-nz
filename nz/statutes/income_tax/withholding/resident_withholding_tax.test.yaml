@@ -79,6 +79,9 @@
     end: '2026-03-31'
   input:
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_gross_interest_and_dividends: 10000
-    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_applicable_rate: 0.33
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: true
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_notified_rate: 0.33
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.33
   output:
     nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_withholding_amount: 3300

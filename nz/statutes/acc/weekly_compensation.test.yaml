@@ -1,9 +1,10 @@
 - name: weekly_compensation_employee_example
   period:
-    period_kind: week
+    period_kind: benefit_week
     start: '2026-06-01'
     end: '2026-06-07'
   input:
+    nz:statutes/acc/weekly_compensation#input.acc_earners_levy_maximum_earnings: 156641
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_employed_or_self_employed_or_shareholder_employee: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_cannot_do_usual_work_due_to_injury: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_is_full_time_earner: true
@@ -18,10 +19,11 @@
 
 - name: weekly_compensation_full_time_floor_applies
   period:
-    period_kind: week
+    period_kind: benefit_week
     start: '2026-06-01'
     end: '2026-06-07'
   input:
+    nz:statutes/acc/weekly_compensation#input.acc_earners_levy_maximum_earnings: 156641
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_employed_or_self_employed_or_shareholder_employee: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_cannot_do_usual_work_due_to_injury: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_is_full_time_earner: true
@@ -35,23 +37,24 @@
 
 - name: weekly_compensation_income_cap_applies
   period:
-    period_kind: week
+    period_kind: benefit_week
     start: '2026-06-01'
     end: '2026-06-07'
   input:
+    nz:statutes/acc/weekly_compensation#input.acc_earners_levy_maximum_earnings: 156641
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_employed_or_self_employed_or_shareholder_employee: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_cannot_do_usual_work_due_to_injury: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_is_full_time_earner: false
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_pre_injury_weekly_earnings: 5000
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_income_while_recovering: 0
   output:
-    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_earnings_cap_weekly: 3012.326923076923
-    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_pre_injury_income_capped: 3012.326923076923
-    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_before_abatement: 2409.8615384615385
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_earnings_cap_weekly: '3012.3269230769230769230769231'
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_pre_injury_income_capped: '3012.3269230769230769230769231'
+    nz:statutes/acc/weekly_compensation#acc_weekly_compensation_before_abatement: '2409.8615384615384615384615385'
 
 - name: loss_of_potential_earnings_minimum_rate_applies
   period:
-    period_kind: week
+    period_kind: benefit_week
     start: '2026-06-01'
     end: '2026-06-07'
   input:
@@ -66,7 +69,7 @@
 
 - name: weekly_compensation_not_eligible_returns_zero
   period:
-    period_kind: week
+    period_kind: benefit_week
     start: '2026-06-01'
     end: '2026-06-07'
   input:
