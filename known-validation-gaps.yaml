@@ -1,6 +1,3 @@
-missing_companion_tests: []
-shape_issues: []
-uncovered_derived_rules: []
 # Tracked in https://github.com/TheAxiomFoundation/rulespec-nz/issues/68.
 
 # Exact combined validator + independently executed companion failures.
