@@ -72,13 +72,33 @@ def test_income_tax_rate_manifest_matches_rulespec_source_verification() -> None
     assert (
         manifest["corpus_citation_path"] == source_verification["corpus_citation_path"]
     )
-    assert (
-        manifest["agency_reference_urls"]
-        == source_verification["agency_reference_urls"]
+    assert set(source_verification) == {"corpus_citation_path"}
+    assert _object_dict(_object_dict(rulespec["module"])["proof_validation"]) == {
+        "required": True,
+    }
+
+    rules = {
+        _string_value(rule["name"]): rule for rule in _object_list(rulespec["rules"])
+    }
+    rates = _object_dict(
+        _object_list(rules["individual_income_tax_bracket_rates"]["versions"])[0][
+            "values"
+        ],
     )
-    assert manifest["verified_values"] == _stringify_nested_keys(
-        source_verification["values"],
+    thresholds = _object_dict(
+        _object_list(rules["individual_income_tax_bracket_thresholds"]["versions"])[0][
+            "values"
+        ],
     )
+    verified = _object_dict(manifest["verified_values"])
+    expected_rates = _object_dict(verified["individual_income_tax_bracket_rates"])
+    expected_thresholds = _object_dict(
+        verified["individual_income_tax_bracket_thresholds"],
+    )
+    assert {str(key): float(value) for key, value in rates.items()} == {
+        str(key): float(_string_value(value)) for key, value in expected_rates.items()
+    }
+    assert _stringify_nested_keys(thresholds) == expected_thresholds
 
 
 def test_income_tax_rate_manifest_matches_source_map_first_batch() -> None:

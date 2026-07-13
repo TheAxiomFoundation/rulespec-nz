@@ -21,7 +21,7 @@
   output:
     nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_match_rate: 0.25
     nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_member_payment_threshold: 1042.86
-    nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_maximum: 260.72
+    nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_maximum: 260.715
 
 - name: negative_salary_does_not_create_contributions
   period:

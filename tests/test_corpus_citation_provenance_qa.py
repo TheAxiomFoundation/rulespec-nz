@@ -8,6 +8,8 @@ from pathlib import Path
 import pytest
 import yaml
 
+from scripts.rulespec_layout import corpus_proof_paths
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data" / "coverage" / "corpus-citation-provenance-qa.json"
@@ -81,6 +83,4 @@ def test_pinned_citations_exist_in_modules_and_inventory() -> None:
         assert module_path.exists(), citation_set["module_path"]
         assert test_path.exists(), citation_set["test_path"]
         assert pinned_paths <= inventory_paths
-        assert pinned_paths <= set(
-            module["module"]["source_verification"]["corpus_citation_paths"],
-        )
+        assert pinned_paths <= corpus_proof_paths(module)

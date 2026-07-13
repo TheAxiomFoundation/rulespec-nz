@@ -9,23 +9,10 @@ module:
     non-beneficiaries, and dollar rounding. This module encodes the executable
     core calculation while taking the delegated base rate and non-beneficiary
     income cutout as inputs for later cross-module wiring.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2018/0032/section/65AAA
-      - nz/statute/act/public/2018/0032/section/65
-      - nz/statute/act/public/2018/0032/section/66
-      - nz/statute/act/public/2018/0032/section/67
-      - nz/statute/act/public/2018/0032/section/68
-      - nz/statute/act/public/2018/0032/section/69
-      - nz/statute/act/public/2018/0032/section/423
-      - nz/statute/act/public/2018/0032/schedule/4/part/7
-      - nz/regulation/regulation/public/2018/0202/regulation/15
-      - nz/regulation/regulation/public/2018/0202/regulation/17
-      - nz/regulation/regulation/public/2018/0202/regulation/18
-      - nz/regulation/regulation/public/2018/0202/regulation/19
-    agency_reference_urls:
-      - https://www.workandincome.govt.nz/products/benefit-rates/benefit-rates-april-2026.html
-      - https://www.workandincome.govt.nz/products/a-z-benefits/accommodation-supplement.html
+    corpus_citation_path: nz/statute/act/public/2018/0032/section/65aaa
 units:
   - name: NZD
     kind: currency
@@ -36,6 +23,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 reg 15(1)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/15
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -45,6 +39,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 reg 15(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/15
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -53,6 +54,17 @@ rules:
     kind: parameter
     dtype: Rate
     source: Social Security Act 2018 s 65AAA and Schedule 4 Part 7 clause 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/65aaa
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -61,6 +73,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -69,6 +88,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 4 to 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -77,6 +103,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -85,6 +118,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Social Security Regulations 2018 reg 18(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/18
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -93,6 +133,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Social Security Act 2018 Schedule 4 Part 7 clause 7 formula, term 1 minus excluded-area ratio
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -102,6 +149,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 reg 19 requires rounding up to the complete dollar
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -111,6 +165,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(a) and 4(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -120,6 +185,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(b) and 4(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -129,6 +205,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(c) and 4(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -138,6 +225,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1(d) and 4(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -147,6 +245,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(a) and 5(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -156,6 +265,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(b) and 5(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -165,6 +285,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(c) and 5(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -174,6 +305,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 2(d) and 5(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -183,6 +325,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(a) and 6(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -192,6 +345,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(b) and 6(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -201,6 +365,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(c) and 6(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -210,6 +385,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 3(d) and 6(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -220,6 +406,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Act 2018 s 65(1)(b); Social Security Regulations 2018 reg 15
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/65
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/15
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -246,6 +443,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Act 2018 s 66
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/66
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -260,6 +464,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Act 2018 s 67
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/67
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -279,6 +490,21 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Act 2018 ss 65 to 67
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/65
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/66
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/67
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -295,6 +521,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 s 65AAA definition of accommodation costs
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/65aaa
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -324,6 +557,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clause 7 definition of accommodation income
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -348,6 +588,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clause 7 definition of weekly qualifying accommodation costs
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -382,6 +629,13 @@ rules:
     dtype: Rate
     period: Year
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -396,6 +650,17 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6; Social Security Regulations 2018 reg 17
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/17
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -410,6 +675,17 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6; Work and Income 1 April 2026 Accommodation Supplement maximum rates
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -473,6 +749,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -491,6 +774,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -505,6 +795,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 reg 18
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/18
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -526,6 +823,17 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 regs 18 and 19
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/18
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -541,6 +849,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 reg 19
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-

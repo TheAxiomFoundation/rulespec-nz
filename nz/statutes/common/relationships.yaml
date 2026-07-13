@@ -6,12 +6,8 @@ module:
     Marriage Act 1955, Property (Relationships) Act 1976, and Social Security
     Act 2018 definitions.
   status: deferred
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2004/0102
-      - nz/statute/act/public/1955/0092
-      - nz/statute/act/public/1976/0166
-      - nz/statute/act/public/2018/0032
-    oracle_links:
-      - openfisca-aotearoa
+    corpus_citation_path: nz/statute/act/public/1955/0092/schedule/2/clause/dlm5545710
 rules: []

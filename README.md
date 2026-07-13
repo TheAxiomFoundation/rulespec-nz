@@ -6,9 +6,12 @@ This repository is the full-country Aotearoa New Zealand RuleSpec workspace. It 
 
 ## Scope
 
-- `nz/statutes/`: Acts encoded as RuleSpec.
-- `nz/regulations/`: regulations, orders, determinations, and delegated instruments.
-- `nz/policies/`: agency guidance, rate tables, calculator-facing policies, and executable policy surfaces when statute/regulation decomposition is not yet complete.
+- `nz/{legislation,policies,regulations,statutes}/`: the four atomic RuleSpec
+  roots for Acts, delegated instruments, and source-grounded policy modules.
+- `nz/programs/`: declarative axiom-compose ProgramSpecs when a composed NZ
+  program is added. Programs are not atomic `rulespec/v1` modules.
+- `src/rulespec_nz/`: repository tooling such as comparison-oracle intake;
+  executable Python never lives under `nz/programs/`.
 - `data/corpus/`: source inventory, provision slices, and coverage artifacts promoted from official NZ source ingestion.
 - `data/oracles/`: reproducible references to comparison models and datasets used to cross-check Axiom outputs.
 - `data/coverage/`: full-country coverage backlog and status.
@@ -36,7 +39,8 @@ This is not a pilot repo. The target is full NZ coverage. The work should procee
 1. Official source spine: NZ Legislation, IRD, MSD/Work and Income, ACC, Studylink, Education, Local Government/rates, and Stats NZ definitions.
 2. Corpus ingestion: source snapshots, normalized provisions, coverage reports, and inventory manifests for each source family.
 3. Reference extraction: normalized scenarios and expected outputs from nztaxmicrosim, OpenFisca Aotearoa, and minimal smoke references from PolicyEngine NZ.
-4. RuleSpec encoding: source-grounded modules under `nz/statutes`, `nz/regulations`, and `nz/policies`.
+4. RuleSpec encoding: source-grounded modules under one of the four atomic
+   `nz/` roots; declarative composition under `nz/programs/`.
 5. Parity: compare Axiom outputs against reference cases, then mark divergences as either Axiom bugs, reference bugs, or legally meaningful interpretation questions.
 
 The first source-first ingestion lane is the NZ Legislation PCO XML adapter in `axiom-corpus`. With an official API key available in `NZ_LEGISLATION_API_KEY`, acquire XML sources first:
@@ -62,11 +66,18 @@ Use the official API or data.govt.nz bulk XML directory for Acts, regulations, B
 
 ## Conventions
 
-Durable ids are `nz:<path>#<rule>`. Keep source law provenance in corpus artifacts and use `module.source_verification.corpus_citation_path` or `corpus_citation_paths` in encoded RuleSpec. Do not copy full external comparison repositories into this repo; pin their SHAs and extract only minimal comparison fixtures when needed.
+Durable ids are `nz:<path>#<rule>`. Use exact `.yaml` files in direct
+jurisdiction roots; repository-root content trees, `.yml` aliases, symlinks,
+and Python program implementations are not supported. Keep source law
+provenance in corpus artifacts and do not copy full comparison repositories.
+
+Legacy applied manifests have been deleted. The manifest tree stays empty until
+the named-release trusted signer regenerates `applied-rulespec/v5` attestations;
+no workflow may accept an older schema as current attestation.
 
 ## Known gaps (ratcheted)
 
 - `known-validation-gaps.yaml`: pre-existing content debt surfaced by repository-wide validation.
-- `known-missing-money-atoms.yaml`: policy-bearing monetary values (currency parameters, currency parameter-table cells, and currency literals in derived formulas) that still lack a proof atom citing a provision. Seeded from the current backlog measured by `axiom-encode proof-validate --emit-ratchet`; the org `validate-rulespec` workflow's money-atom step reads it so CI blocks any new atom-less monetary value while the existing 176 are burned down.
+- `known-missing-money-atoms.yaml`: a zero-budget gate for policy-bearing monetary values without direct proof atoms. Release-missing sources are tracked separately in the canonical provenance blocker ledger.
 
 These lists fail CI on new entries AND on listed entries that get fixed without being removed, so they only shrink.

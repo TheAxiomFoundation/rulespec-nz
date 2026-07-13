@@ -26,6 +26,7 @@
     end: '2026-03-31'
   input:
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
     nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 10000
   output:
     nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.105
@@ -37,6 +38,7 @@
     end: '2026-03-31'
   input:
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
     nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 30000
   output:
     nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.175
@@ -48,6 +50,7 @@
     end: '2026-03-31'
   input:
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
     nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 100000
   output:
     nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.28
@@ -71,6 +74,8 @@
     end: '2026-03-31'
   input:
     nz:statutes/income_tax/investment/pie#input.pie_taxable_income: 50000
-    nz:statutes/income_tax/investment/pie#input.pie_determined_pir_rate: 0.28
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: true
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0.28
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 100000
   output:
     nz:statutes/income_tax/investment/pie#pie_tax_on_income: 14000

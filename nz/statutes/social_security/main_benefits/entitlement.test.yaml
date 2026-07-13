@@ -346,6 +346,20 @@
     start: '2026-04-01'
     end: '2027-03-31'
   input:
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_new_zealand_citizen: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_residence_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_new_zealand_on_application: true
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_after_citizen_or_resident: 10
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_refugee_or_protected_person: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_ordinarily_resident_in_reciprocity_country: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_continuous_residence_years_before_application: 0
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_regulations_treat_person_as_meeting_residence_requirement: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_unlawfully_resident_or_present_in_new_zealand: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_only_temporary_entry_class_visa_holder: false
+    nz:statutes/social_security/main_benefits/entitlement#input.social_security_section_205_override_applies: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_another_main_benefit: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_new_zealand_superannuation: false
+    nz:statutes/social_security/main_benefits/entitlement#input.main_benefit_receiving_veterans_pension: false
     nz:statutes/social_security/main_benefits/entitlement#input.supported_living_restricting_condition_expected_to_continue_required_period: true
     nz:statutes/social_security/main_benefits/entitlement#input.supported_living_terminal_condition: false
     nz:statutes/social_security/main_benefits/entitlement#input.supported_living_regular_open_employment_capacity_hours_per_week: 14

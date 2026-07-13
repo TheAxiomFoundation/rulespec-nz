@@ -10,6 +10,8 @@
     nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 40000
     nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 365
     nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: false
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0
@@ -68,6 +70,8 @@
     nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: false
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 1234
     nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
     nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0

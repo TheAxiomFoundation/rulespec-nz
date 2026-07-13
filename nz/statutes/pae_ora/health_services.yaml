@@ -6,12 +6,8 @@ module:
     responsibilities in New Zealand. Official-source encoding pending for
     service coverage, eligibility, and funding provisions.
   status: deferred
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2022/0030
-      - nz/agency/health-nz/pae-ora
-    agency_reference_urls:
-      - https://www.health.govt.nz/pae-ora
-    oracle_links:
-      - openfisca-aotearoa
+    corpus_citation_path: nz/statute/act/public/2022/0030/section/14
 rules: []

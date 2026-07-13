@@ -18,6 +18,9 @@
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_residential_care_cost_contribution_redirected_from_benefit: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_valid_election_not_to_receive_in_force: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absent_from_new_zealand: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_payment_would_be_payable_but_for_absence: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absence_days_during_winter_period: 0
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absence_days_do_not_affect_section_72_eligibility: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_single: true
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_has_dependent_children: false
   output:
@@ -53,6 +56,9 @@
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_residential_care_cost_contribution_redirected_from_benefit: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_valid_election_not_to_receive_in_force: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absent_from_new_zealand: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_payment_would_be_payable_but_for_absence: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absence_days_during_winter_period: 0
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absence_days_do_not_affect_section_72_eligibility: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_single: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_has_dependent_children: false
   output:
@@ -71,9 +77,22 @@
     end: '2027-03-31'
   input:
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_receiving_main_benefit: true
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_receiving_new_zealand_superannuation: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_receiving_veterans_pension: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_qualifying_benefit_payable: true
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_partnered_rate_and_partner_determined_entitled: true
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_qualifying_benefit_reduced_to_long_term_hospital_rate_and_payment_terminated_after_review: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_person_age: 30
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_rcdss_qualifying_person: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_rcdss_50_plus_single_person: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_income_based_ltr_care_contribution_below_maximum: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_disability_or_chronic_condition_residential_care_partly_funded: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_residential_care_cost_contribution_redirected_from_benefit: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_valid_election_not_to_receive_in_force: true
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absent_from_new_zealand: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_payment_would_be_payable_but_for_absence: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absence_days_during_winter_period: 0
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_absence_days_do_not_affect_section_72_eligibility: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_single: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_has_dependent_children: true
   output:
@@ -91,11 +110,14 @@
     end: '2027-03-31'
   input:
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_receiving_main_benefit: true
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_receiving_new_zealand_superannuation: false
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_receiving_veterans_pension: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_qualifying_benefit_payable: true
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_partnered_rate_and_partner_determined_entitled: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_qualifying_benefit_reduced_to_long_term_hospital_rate_and_payment_terminated_after_review: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_person_age: 64
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_rcdss_50_plus_single_person: true
+    nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_rcdss_qualifying_person: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_income_based_ltr_care_contribution_below_maximum: true
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_disability_or_chronic_condition_residential_care_partly_funded: false
     nz:statutes/social_security/winter_energy_payment/core#input.winter_energy_payment_residential_care_cost_contribution_redirected_from_benefit: false

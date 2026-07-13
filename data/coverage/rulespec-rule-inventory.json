@@ -2760,7 +2760,7 @@
         {
           "id": "nz:statutes/kiwisaver/contributions#kiwisaver_employee_elective_contribution_rates",
           "name": "kiwisaver_employee_elective_contribution_rates",
-          "kind": "parameter_set",
+          "kind": "parameter",
           "source_family": "contributions"
         },
         {

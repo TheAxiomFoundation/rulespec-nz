@@ -225,6 +225,11 @@
     nz:statutes/income_tax/core/taxable_income#input.income_tax_business_expenditure_or_loss_for_deriving_assessable_and_excluded_income: false
     nz:statutes/income_tax/core/taxable_income#input.income_tax_specific_rule_supplements_general_permission: false
     nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_is_capital_nature: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_is_private_or_domestic: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_exempt_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_employment_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_non_resident_passive_income: false
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_incurred_deriving_non_residents_foreign_sourced_income: false
     nz:statutes/income_tax/core/taxable_income#input.income_tax_expenditure_or_loss_amount: 2500
   output:
     nz:statutes/income_tax/core/taxable_income#income_tax_general_limitation_applies: holds
@@ -249,6 +254,8 @@
   input:
     nz:statutes/income_tax/core/taxable_income#input.income_tax_person_has_schedular_income: false
     nz:statutes/income_tax/core/taxable_income#input.income_tax_basic_tax_liability_on_taxable_income: 8270.5
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_schedular_income_tax_liability: 0
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_liability_if_person_had_no_schedular_income: 0
   output:
     nz:statutes/income_tax/core/taxable_income#income_tax_filing_taxpayer_liability_before_credits: 8270.5
 
@@ -259,6 +266,7 @@
     end: '2027-03-31'
   input:
     nz:statutes/income_tax/core/taxable_income#input.income_tax_person_has_schedular_income: true
+    nz:statutes/income_tax/core/taxable_income#input.income_tax_basic_tax_liability_on_taxable_income: 8270.5
     nz:statutes/income_tax/core/taxable_income#input.income_tax_schedular_income_tax_liability: 300
     nz:statutes/income_tax/core/taxable_income#input.income_tax_liability_if_person_had_no_schedular_income: 8270.5
   output:

@@ -7,28 +7,10 @@ module:
     Subsidy and OSCAR Subsidy child eligibility gates, weekly hour caps,
     mutual-exclusion rule, other-government-funding exclusion, actual-fee cap,
     and Schedule 2 hourly rates.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2018/0032/section/77
-      - nz/statute/act/public/2018/0032/section/424
-      - nz/regulation/regulation/public/2018/0202/regulation/21
-      - nz/regulation/regulation/public/2018/0202/regulation/22
-      - nz/regulation/regulation/public/2018/0202/regulation/23
-      - nz/regulation/regulation/public/2018/0202/regulation/24
-      - nz/regulation/regulation/public/2018/0202/regulation/30
-      - nz/regulation/regulation/public/2018/0202/regulation/31
-      - nz/regulation/regulation/public/2018/0202/regulation/32
-      - nz/regulation/regulation/public/2018/0202/regulation/33
-      - nz/regulation/regulation/public/2018/0202/regulation/34
-      - nz/regulation/regulation/public/2018/0202/regulation/35
-      - nz/regulation/regulation/public/2018/0202/regulation/36
-      - nz/regulation/regulation/public/2018/0202/regulation/38
-      - nz/regulation/regulation/public/2018/0202/regulation/39
-      - nz/regulation/regulation/public/2018/0202/regulation/40
-      - nz/regulation/regulation/public/2018/0202/regulation/41
-      - nz/regulation/regulation/public/2018/0202/regulation/42
-      - nz/regulation/regulation/public/2018/0202/regulation/44
-      - nz/regulation/regulation/public/2018/0202/schedule/2
+    corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/21
 units:
   - name: NZD
     kind: currency
@@ -38,6 +20,29 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 regs 32, 34, 35, 38, and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/38
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -46,6 +51,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 32
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -54,6 +66,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 34
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -62,6 +81,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 35
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -70,6 +96,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 34(b)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -78,6 +111,17 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 regs 41 and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -86,6 +130,17 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 regs 41 and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -94,6 +149,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 42(b)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -102,6 +164,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 30
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/30
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -110,6 +179,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 30(1)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/30
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -118,6 +194,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 30(1)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/30
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -126,6 +209,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 38(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/38
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -134,6 +224,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Social Security Regulations 2018 reg 38(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/38
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -143,6 +240,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -152,6 +256,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -161,6 +272,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -170,6 +288,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -179,6 +304,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -188,6 +320,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -197,6 +336,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -206,6 +352,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -215,6 +368,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -224,6 +384,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -233,6 +400,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -242,6 +416,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -251,6 +432,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -260,6 +448,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -269,6 +464,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -278,6 +480,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2 item 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -288,6 +497,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Act 2018 s 77
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/77
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -298,6 +514,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 reg 21
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/21
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -308,6 +531,29 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 32, 34, 35, 38, and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/38
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -318,6 +564,25 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 32, 34, 41, and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -333,6 +598,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 reg 30
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/30
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -363,6 +635,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Act 2018 s 77; Social Security Regulations 2018 reg 30
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/77
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/30
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -377,6 +660,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 32 and 33
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/33
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -395,6 +689,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 31 and 32
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/31
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -413,6 +718,13 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 reg 32
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -429,6 +741,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 31 and 34
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/31
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -446,6 +769,13 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 reg 34
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -462,6 +792,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 31 and 35
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/31
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -477,6 +818,13 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 reg 35
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -493,6 +841,25 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 regs 31, 32, 34, and 35
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/31
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -509,6 +876,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 reg 38
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/38
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -528,6 +902,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 reg 38
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/38
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -542,6 +923,17 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 regs 41 and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -555,6 +947,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 40 and 41
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/40
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -573,6 +976,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 39 and 41
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/39
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -590,6 +1004,13 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 reg 41
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -603,6 +1024,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 regs 39 and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/39
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -618,6 +1050,13 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 reg 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -631,6 +1070,21 @@ rules:
     dtype: Count
     period: Year
     source: Social Security Regulations 2018 regs 39, 41, and 42
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/39
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -645,6 +1099,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 Schedule 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/schedule/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -698,6 +1159,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 reg 24(2) and (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/24
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -723,6 +1191,13 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 reg 24
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/24
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -740,6 +1215,21 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Regulations 2018 regs 24, 36, and 44
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/24
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/36
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/44
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -753,6 +1243,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Social Security Regulations 2018 reg 23
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/23
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -773,6 +1270,45 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 s 77; Social Security Regulations 2018 regs 21, 23, 24, 31, 32, 34, 35, and 36
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/77
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/21
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/23
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/24
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/31
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/32
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/34
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/35
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/36
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -791,6 +1327,41 @@ rules:
     period: Year
     unit: NZD
     source: Social Security Act 2018 s 77; Social Security Regulations 2018 regs 21, 23, 24, 39, 41, 42, and 44
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/77
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/21
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/23
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/24
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/39
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/41
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/42
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2018/0202/regulation/44
     versions:
       - effective_from: '2026-04-01'
         formula: |-

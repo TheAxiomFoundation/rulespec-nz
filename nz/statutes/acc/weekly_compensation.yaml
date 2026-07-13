@@ -7,15 +7,10 @@ module:
     by ACC. The same minimum-rate surface is used for loss of potential
     earnings for young injured people who cannot work full time because of
     their injury.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2001/0049/part/2
-      - nz/agency/acc/weekly-compensation
-      - nz/agency/acc/loss-of-potential-earnings
-    agency_reference_urls:
-      - https://www.acc.co.nz/im-injured/financial-support/weekly-compensation
-      - https://www.acc.co.nz/im-injured/financial-support/loss-of-potential-earnings
-      - https://www.acc.co.nz/for-providers/supporting-clients/weekly-compensation-calculation
+    corpus_citation_path: nz/statute/act/public/2001/0049/schedule/1/part/2/clause/32
 units:
   - name: NZD
     kind: currency
@@ -25,6 +20,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: ACC weekly compensation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -33,6 +35,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: ACC loss of potential earnings guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -42,6 +51,25 @@ rules:
     dtype: Money
     unit: NZD
     source: ACC weekly compensation and loss of potential earnings guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -56,6 +84,13 @@ rules:
     period: Week
     unit: NZD
     source: ACC weekly compensation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -67,6 +102,13 @@ rules:
     period: Week
     unit: NZD
     source: Accident Compensation Act 2001 and ACC levy maximum earnings interface
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -77,6 +119,13 @@ rules:
     dtype: Judgment
     period: Week
     source: ACC weekly compensation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -91,6 +140,13 @@ rules:
     period: Week
     unit: NZD
     source: ACC weekly compensation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -105,6 +161,13 @@ rules:
     period: Week
     unit: NZD
     source: ACC weekly compensation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -126,6 +189,13 @@ rules:
     period: Week
     unit: NZD
     source: ACC weekly compensation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/weekly-compensation
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -140,6 +210,13 @@ rules:
     dtype: Judgment
     period: Week
     source: ACC loss of potential earnings guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -157,6 +234,13 @@ rules:
     period: Week
     unit: NZD
     source: ACC loss of potential earnings guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
     versions:
       - effective_from: '2025-04-01'
         formula: |-

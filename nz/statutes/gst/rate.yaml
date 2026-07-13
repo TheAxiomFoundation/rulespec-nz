@@ -8,17 +8,10 @@ module:
     GST-exclusive amounts and removing GST from GST-inclusive amounts.
     Low-value imported goods use the same GST rate together with the
     point-of-sale interface described in Inland Revenue guidance.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/1985/0141/section/8-DLM82299
-      - nz/statute/act/public/1985/0141/section/10
-      - nz/statute/act/public/1985/0141/section/12
-      - nz/statute/act/public/2018/0004
-    agency_reference_urls:
-      - https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst
-      - https://www.ird.govt.nz/gst/gst-for-overseas-businesses/gst-on-low-value-imported-goods
-    values:
-      gst_standard_rate: "0.15"
+    corpus_citation_path: nz/statute/act/public/1985/0141/section/8
 units:
   - name: NZD
     kind: currency
@@ -28,6 +21,17 @@ rules:
     kind: parameter
     dtype: Rate
     source: Goods and Services Tax Act 1985 ss 8(1) and 12(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/12
     versions:
       - effective_from: '2010-10-01'
         formula: |-
@@ -39,6 +43,17 @@ rules:
     period: Day
     unit: NZD
     source: Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
     versions:
       - effective_from: '2010-10-01'
         formula: gst_exclusive_amount * gst_standard_rate
@@ -49,6 +64,17 @@ rules:
     period: Day
     unit: NZD
     source: Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
     versions:
       - effective_from: '2010-10-01'
         formula: gst_exclusive_amount * (1 + gst_standard_rate)
@@ -59,6 +85,13 @@ rules:
     period: Day
     unit: NZD
     source: Inland Revenue GST calculation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
     versions:
       - effective_from: '2010-10-01'
         formula: |-
@@ -72,6 +105,17 @@ rules:
     period: Day
     unit: NZD
     source: Goods and Services Tax Act 1985 s 10(2); Inland Revenue GST calculation guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/10
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
     versions:
       - effective_from: '2010-10-01'
         formula: |-
@@ -82,6 +126,17 @@ rules:
     dtype: Money
     unit: NZD
     source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/12
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
     versions:
       - effective_from: '2019-12-01'
         formula: |-
@@ -92,6 +147,17 @@ rules:
     dtype: Judgment
     period: Day
     source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/12
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
     versions:
       - effective_from: '2019-12-01'
         formula: |-
@@ -107,6 +173,17 @@ rules:
     period: Day
     unit: NZD
     source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/12
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
     versions:
       - effective_from: '2019-12-01'
         formula: |-
@@ -121,6 +198,17 @@ rules:
     period: Day
     unit: NZD
     source: Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/12
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
     versions:
       - effective_from: '2019-12-01'
         formula: |-

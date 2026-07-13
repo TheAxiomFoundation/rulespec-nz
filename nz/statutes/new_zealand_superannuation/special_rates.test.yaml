@@ -31,6 +31,10 @@
     nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_patient_in_hospital: true
     nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_hospitalisation_weeks: 13
     nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_residential_care_funder_pays_contracted_care: true
+    nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_has_spouse_or_partner_receiving_specified_benefit: false
+    nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_spouse_or_partner_also_hospitalised_more_than_unaffected_weeks: false
+    nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_spouse_or_partner_maximum_single_specified_benefit_rate: 0
+    nz:statutes/new_zealand_superannuation/special_rates#input.nz_super_spouse_or_partner_maximum_partnered_specified_benefit_rate_with_spouse_receiving_super: 0
   output:
     nz:statutes/new_zealand_superannuation/special_rates#nz_super_hospital_rate_population: holds
     nz:statutes/new_zealand_superannuation/special_rates#nz_super_hospital_reduced_rate_applies: not_holds

@@ -7,29 +7,26 @@ module:
     entitlement to the in-work tax credit. This module encodes the mechanical
     eligibility predicates and keeps Commissioner allocations, residence
     status, benefit receipt, and other external legal facts as inputs.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/section/MC-2
-      - nz/statute/act/public/2007/0097/section/MC-3
-      - nz/statute/act/public/2007/0097/section/MC-4
-      - nz/statute/act/public/2007/0097/section/MC-5
-      - nz/statute/act/public/2007/0097/section/MC-6
-      - nz/statute/act/public/2007/0097/section/MC-7
-      - nz/statute/act/public/2007/0097/section/MC-8
-      - nz/statute/act/public/2007/0097/section/MC-9
-      - nz/statute/act/public/2007/0097/section/MC-10
-      - nz/statute/act/public/2007/0097/section/MC-11
-      - nz/statute/act/public/2007/0097/section/MD-4
-      - nz/statute/act/public/2007/0097/section/MD-5
-      - nz/statute/act/public/2007/0097/section/MD-6
-      - nz/statute/act/public/2007/0097/section/MD-7
-      - nz/statute/act/public/2007/0097/section/MD-8
-      - nz/statute/act/public/2007/0097/section/MD-9
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-2
 rules:
   - name: wff_minimum_age
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 ss MC 3 and MD 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -38,6 +35,17 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 ss MC 5(2)(a)(i) and MD 7(2)(a)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-5
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -46,6 +54,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s MC 10(2), (3), and (5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -54,6 +69,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 s MD 9(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -62,6 +84,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 s MC 9(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -70,6 +99,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 s MD 9(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -80,6 +116,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -90,6 +133,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-4
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -100,6 +150,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 5(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -116,6 +173,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 5(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -129,6 +193,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 5(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -143,6 +214,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -156,6 +234,33 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss MC 2 to MC 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-5
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -171,6 +276,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 6(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-6
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -181,6 +293,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 6(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-6
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -194,6 +313,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 6(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-6
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -208,6 +334,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 8(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -225,6 +358,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss MC 2 and MC 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -235,6 +379,25 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss MC 2, MC 6(a), MC 8, and MD 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -245,6 +408,25 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 ss MC 2, MC 6(a), MC 6(c), MC 8, and MG 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -261,6 +443,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 9(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -275,6 +464,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 10(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -291,6 +487,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 10(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -305,6 +508,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 10(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -319,6 +529,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MC 10(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mc-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -333,6 +550,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-5
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -343,6 +567,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 6(1) and (2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-6
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -359,6 +590,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 7(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -375,6 +613,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 7(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -388,6 +633,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 7(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -398,6 +650,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -412,6 +671,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9(2) and (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -427,6 +693,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9(1)(a), (2), and (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -437,6 +710,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -451,6 +731,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -467,6 +754,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -482,6 +776,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -495,6 +796,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 9
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -511,6 +819,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Income Tax Act 2007 s MD 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-4
     versions:
       - effective_from: '2026-04-01'
         formula: |-

@@ -6,18 +6,10 @@ module:
     student allowance rate, partner, and parental-income surfaces encoded
     here.
   status: active
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/regulation/1998/0277
-      - nz/statute/act/public/2011/0067
-      - nz/agency/tec/student-allowances
-    agency_reference_urls:
-      - https://www.studylink.govt.nz/student-allowance
-      - https://www.studylink.govt.nz/products/rates/calculators/parental-income-calculator.html
-      - https://www.studylink.govt.nz/products/rates/calculators/student-allowance-rate-calculator.html
-      - https://www.tec.govt.nz/funding/funding-and-performance/funding/funding-for-providers/student-allowances
-    oracle_links:
-      - openfisca-aotearoa
+    corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
 units:
   - name: NZD
     kind: currency
@@ -28,6 +20,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -37,6 +36,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -46,6 +52,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -55,6 +68,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -64,6 +84,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -73,6 +100,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -82,6 +116,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -91,6 +132,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -100,6 +148,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -109,6 +164,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -118,6 +180,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -127,6 +196,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -136,6 +212,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -145,6 +228,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -154,6 +244,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -163,6 +260,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -172,6 +276,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -181,6 +292,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -190,6 +308,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -199,6 +324,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -208,6 +340,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -217,6 +356,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -226,6 +372,13 @@ rules:
     dtype: Money
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -234,6 +387,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: StudyLink student-abated-net-allowance calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -242,6 +402,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: StudyLink student-abated-net-allowance calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -253,6 +420,13 @@ rules:
     period: Year
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -280,6 +454,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance calculators
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -291,6 +472,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance calculators
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -305,6 +493,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance calculators
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -314,6 +509,13 @@ rules:
     entity: Person
     dtype: Rate
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -329,6 +531,13 @@ rules:
     entity: Person
     dtype: Rate
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -347,6 +556,13 @@ rules:
     entity: Person
     dtype: Rate
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -363,6 +579,13 @@ rules:
     entity: Person
     dtype: Rate
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -381,6 +604,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -407,6 +637,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -433,6 +670,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -462,6 +706,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink student allowance rate calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -479,6 +730,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -525,6 +783,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -571,6 +836,13 @@ rules:
     period: Week
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -613,6 +885,13 @@ rules:
     period: Year
     unit: NZD
     source: StudyLink parental-income calculator
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowances
     versions:
       - effective_from: '2026-04-01'
         formula: |-

@@ -5,6 +5,7 @@ from __future__ import annotations
 import functools
 import json
 import re
+from collections import Counter
 from functools import cache
 from pathlib import Path
 
@@ -12,8 +13,12 @@ import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-JURISDICTION_DIR_RE = re.compile(r"^[a-z]{2}(-[a-z0-9-]+)*$")
-CONTENT_DIRS = ("statutes", "regulations", "policies", "legislation")
+COUNTRY = "nz"
+JURISDICTION_DIR_RE = re.compile(r"^nz(?:-[a-z0-9]+)*$")
+ATOMIC_CONTENT_DIRS = ("legislation", "policies", "regulations", "statutes")
+PROGRAM_CONTENT_DIR = "programs"
+FILESYSTEM_CONTENT_DIRS = (*ATOMIC_CONTENT_DIRS, PROGRAM_CONTENT_DIR)
+TRUSTED_APPLIED_MANIFEST_SCHEMA = "axiom-encode/applied-rulespec/v5"
 IGNORED_DIRS = {".git", ".pixi", ".pytest_cache", ".venv", "__pycache__", "_axiom"}
 DISALLOWED_GENERIC_RULE_NAMES = {
     "amount",
@@ -32,8 +37,9 @@ def jurisdiction_dirs() -> list[Path]:
         child
         for child in ROOT.iterdir()
         if child.is_dir()
+        and not child.is_symlink()
         and JURISDICTION_DIR_RE.match(child.name)
-        and any((child / marker).is_dir() for marker in CONTENT_DIRS)
+        and any((child / marker).is_dir() for marker in FILESYSTEM_CONTENT_DIRS)
     )
 
 
@@ -42,7 +48,7 @@ def rulespec_content_roots() -> list[Path]:
     return [
         jurisdiction / marker
         for jurisdiction in jurisdiction_dirs()
-        for marker in CONTENT_DIRS
+        for marker in ATOMIC_CONTENT_DIRS
         if (jurisdiction / marker).is_dir()
     ]
 
@@ -51,7 +57,6 @@ def allowed_yaml_roots() -> set[str]:
     return {
         ".axiom",
         ".github",
-        "programs",
         ".pre-commit-config.yaml",
         "known-dangling.yaml",
         "known-missing-money-atoms.yaml",
@@ -118,14 +123,30 @@ def module_has_source_locator(payload: object) -> bool:
     source_verification = module.get("source_verification")
     if not isinstance(source_verification, dict):
         return False
-    if source_verification.get("corpus_citation_path"):
-        return True
-    citation_paths = source_verification.get("corpus_citation_paths")
-    return isinstance(citation_paths, list) and any(citation_paths)
+    return isinstance(source_verification.get("corpus_citation_path"), str) and bool(
+        source_verification["corpus_citation_path"],
+    )
 
 
 def test_has_nz_country_namespace() -> None:
     assert [path.name for path in jurisdiction_dirs()] == ["nz"]
+
+
+def test_five_filesystem_roots_and_four_atomic_roots_are_distinct() -> None:
+    assert set(ATOMIC_CONTENT_DIRS) == {
+        "legislation",
+        "policies",
+        "regulations",
+        "statutes",
+    }
+    assert set(FILESYSTEM_CONTENT_DIRS) == {
+        *ATOMIC_CONTENT_DIRS,
+        "programs",
+    }
+    assert all(
+        path.relative_to(ROOT).parts[1] != PROGRAM_CONTENT_DIR
+        for path in iter_rulespec_files()
+    )
 
 
 def test_json_manifests_parse() -> None:
@@ -221,13 +242,28 @@ def test_no_obsolete_formula_artifacts() -> None:
 
 
 def test_no_disallowed_roots_or_yaml_fixtures() -> None:
-    singular_bases = [ROOT, *jurisdiction_dirs()]
+    jurisdiction_roots = jurisdiction_dirs()
     disallowed_roots = [
-        (base / name).relative_to(ROOT).as_posix()
-        for base in singular_bases
-        for name in ("statute", "regulation", "policy")
-        if (base / name).exists()
+        name
+        for name in FILESYSTEM_CONTENT_DIRS
+        if (ROOT / name).exists() or (ROOT / name).is_symlink()
     ]
+    disallowed_roots.extend(
+        (base / name).relative_to(ROOT).as_posix()
+        for base in jurisdiction_roots
+        for name in ("statute", "regulation", "policy", "program")
+        if (base / name).exists() or (base / name).is_symlink()
+    )
+    disallowed_roots.extend(
+        child.relative_to(ROOT).as_posix()
+        for child in ROOT.iterdir()
+        if child.is_dir()
+        and (child.is_symlink() or not JURISDICTION_DIR_RE.fullmatch(child.name))
+        and any(
+            (child / marker).exists() or (child / marker).is_symlink()
+            for marker in FILESYSTEM_CONTENT_DIRS
+        )
+    )
     yaml_fixtures = [
         path.relative_to(ROOT).as_posix()
         for path in (ROOT / "tests").rglob("*.yaml")
@@ -245,6 +281,109 @@ def test_no_disallowed_roots_or_yaml_fixtures() -> None:
     assert disallowed_roots == []
     assert yaml_fixtures == []
     assert stray_yaml == []
+
+
+def test_canonical_content_uses_regular_exact_yaml_files_without_aliases() -> None:
+    problems: list[str] = []
+    for jurisdiction in jurisdiction_dirs():
+        for marker in FILESYSTEM_CONTENT_DIRS:
+            content_root = jurisdiction / marker
+            if not content_root.exists() and not content_root.is_symlink():
+                continue
+            if content_root.is_symlink() or not content_root.is_dir():
+                problems.append(
+                    f"not a regular directory: {content_root.relative_to(ROOT)}",
+                )
+                continue
+            for path in sorted(content_root.rglob("*")):
+                relative = path.relative_to(ROOT).as_posix()
+                if path.is_symlink():
+                    problems.append(f"alias: {relative}")
+                elif path.is_file() and path.suffix != ".yaml":
+                    problems.append(f"not exact .yaml: {relative}")
+
+    assert problems == []
+
+
+def test_program_roots_are_declarative_composition_only() -> None:
+    problems: list[str] = []
+    for jurisdiction in jurisdiction_dirs():
+        program_root = jurisdiction / PROGRAM_CONTENT_DIR
+        if not program_root.is_dir():
+            continue
+        for path in sorted(program_root.rglob("*.yaml")):
+            relative = path.relative_to(ROOT).as_posix()
+            payload = yaml.safe_load(path.read_text()) or {}
+            if not isinstance(payload, dict):
+                problems.append(f"{relative}: spec root must be a mapping")
+                continue
+            if payload.get("format") == "rulespec/v1":
+                problems.append(f"{relative}: programs are not atomic RuleSpec modules")
+            if not isinstance(payload.get("program"), str) or not payload["program"]:
+                problems.append(f"{relative}: missing program id")
+            if not isinstance(payload.get("period"), str) or not payload["period"]:
+                problems.append(f"{relative}: missing period")
+            outputs = payload.get("outputs")
+            if (
+                not isinstance(outputs, list)
+                or not outputs
+                or not all(isinstance(output, str) for output in outputs)
+            ):
+                problems.append(f"{relative}: outputs must be a non-empty string list")
+
+    assert problems == []
+
+
+def test_encoding_manifests_use_only_the_canonical_root_mirror() -> None:
+    manifest_root = ROOT / ".axiom" / "encoding-manifests"
+    jurisdictions = {path.name for path in jurisdiction_dirs()}
+    problems: list[str] = []
+
+    for jurisdiction in jurisdiction_dirs():
+        nested = jurisdiction / ".axiom" / "encoding-manifests"
+        if nested.exists() or nested.is_symlink():
+            problems.append(f"co-located manifest root: {nested.relative_to(ROOT)}")
+
+    for manifest in sorted(manifest_root.rglob("*.json")):
+        relative = manifest.relative_to(manifest_root)
+        if len(relative.parts) < 3 or relative.parts[0] not in jurisdictions:
+            problems.append(f"noncanonical manifest path: {relative.as_posix()}")
+            continue
+        jurisdiction, source_root = relative.parts[:2]
+        if source_root not in ATOMIC_CONTENT_DIRS:
+            problems.append(f"non-atomic manifest path: {relative.as_posix()}")
+        payload = json.loads(manifest.read_text())
+        for applied in payload.get("applied_files", []):
+            applied_path = applied.get("path") if isinstance(applied, dict) else None
+            if not isinstance(applied_path, str):
+                problems.append(f"invalid applied path: {relative.as_posix()}")
+                continue
+            parts = Path(applied_path).parts
+            if (
+                len(parts) < 3
+                or parts[0] != jurisdiction
+                or parts[1] not in ATOMIC_CONTENT_DIRS
+                or Path(applied_path).suffix != ".yaml"
+                or not (ROOT / applied_path).is_file()
+            ):
+                problems.append(
+                    f"noncanonical applied path in {relative.as_posix()}: {applied_path}",
+                )
+
+    assert problems == []
+
+
+def test_applied_manifests_use_trusted_v5_schema() -> None:
+    manifest_root = ROOT / ".axiom" / "encoding-manifests"
+    schemas = Counter(
+        json.loads(path.read_text()).get("schema_version")
+        for path in manifest_root.rglob("*.json")
+    )
+
+    assert set(schemas) <= {TRUSTED_APPLIED_MANIFEST_SCHEMA}, (
+        "only trusted v5 manifests may exist after the hard cut; unsigned "
+        f"migration state is represented by an empty manifest tree: {dict(schemas)}"
+    )
 
 
 def test_rulespec_files_have_companion_tests() -> None:

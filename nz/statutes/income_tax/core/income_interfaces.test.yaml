@@ -74,8 +74,8 @@
   input:
     nz:statutes/income_tax/core/income_interfaces#input.income_tax_annual_amount: 12000
   output:
-    nz:statutes/income_tax/core/income_interfaces#income_tax_weekly_amount_from_annual_amount: 230.76923076923077
-    nz:statutes/income_tax/core/income_interfaces#income_tax_fortnightly_amount_from_annual_amount: 461.53846153846155
+    nz:statutes/income_tax/core/income_interfaces#income_tax_weekly_amount_from_annual_amount: '230.76923076923076923076923077'
+    nz:statutes/income_tax/core/income_interfaces#income_tax_fortnightly_amount_from_annual_amount: '461.53846153846153846153846154'
     nz:statutes/income_tax/core/income_interfaces#income_tax_monthly_amount_from_annual_amount: 1000
 
 - name: annual_amount_bridge_returns_zero_when_annual_amount_is_zero

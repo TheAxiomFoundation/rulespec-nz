@@ -6,6 +6,8 @@ from typing import cast
 
 import yaml
 
+from scripts.rulespec_layout import corpus_proof_paths
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data/corpus/inventory/nz/social-security-main-benefits.json"
@@ -138,13 +140,22 @@ def test_social_security_manifest_points_to_modules_and_provisions() -> None:
         module_path = ROOT / _string_value(module["path"])
         test_path = ROOT / _string_value(module["test_path"])
         citation_paths = set(_string_list(module["corpus_citation_paths"]))
-        module_text = module_path.read_text(encoding="utf-8")
+        rulespec = _load_yaml_object(module_path)
 
         assert module_path.exists()
         assert test_path.exists()
         assert citation_paths <= provision_citations
-        for citation_path in citation_paths:
-            assert citation_path in module_text
+        supersessions = {
+            "nz/statute/act/public/2018/0032/schedule/4/part/1": "nz/statute/act/public/2018/0032/schedule/4/part/1/clause/lms118447",
+            "nz/statute/act/public/2018/0032/schedule/4/part/2": "nz/statute/act/public/2018/0032/schedule/4/part/2/clause/lms118467",
+            "nz/statute/act/public/2018/0032/schedule/4/part/3": "nz/statute/act/public/2018/0032/schedule/4/part/3/clause/lms118466",
+            "nz/secondary-legislation/pco-drafted/2026/36/clause/5": "nz/regulation/regulation/public/2026/0036/regulation/5",
+        }
+        canonical_paths = {
+            supersessions.get(citation_path, citation_path.lower())
+            for citation_path in citation_paths
+        }
+        assert canonical_paths <= corpus_proof_paths(rulespec)
 
 
 def test_social_security_manifest_records_main_benefit_coverage_gaps() -> None:

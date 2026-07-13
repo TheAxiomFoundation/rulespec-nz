@@ -7,19 +7,10 @@ module:
     tax-credit calculations: days in a tax year, weeks in a tax year, and the
     safe annualisation of period amounts over day- or week-based entitlement
     windows.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/section/BC-2
-      - nz/statute/act/public/2007/0097/section/BC-3
-      - nz/statute/act/public/2007/0097/section/MB-2
-      - nz/statute/act/public/2007/0097/section/MD-3
-      - nz/statute/act/public/2007/0097/section/ME-3
-      - nz/statute/act/public/2007/0097/section/MG-2
-      - nz/statute/act/public/2007/0097/section/MG-3
-    agency_reference_urls:
-      - https://www.ird.govt.nz/working-for-families/types/family-tax-credit
-      - https://www.ird.govt.nz/working-for-families/types/in-work-tax-credit
-      - https://www.ird.govt.nz/working-for-families/types/best-start
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
 units:
   - name: NZD
     kind: currency
@@ -29,6 +20,29 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 ss BC 2, MD 3, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -37,6 +51,17 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 ss MD 10 and ME 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-10
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -48,6 +73,29 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 2, MD 3, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -66,6 +114,17 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss MD 10 and ME 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-10
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -84,6 +143,37 @@ rules:
     period: Week
     unit: NZD
     source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -98,6 +188,37 @@ rules:
     period: Fortnight
     unit: NZD
     source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -112,6 +233,37 @@ rules:
     period: Month
     unit: NZD
     source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -126,6 +278,37 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -144,6 +327,37 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss BC 2, BC 3, MD 3, ME 1, ME 3, MG 2, and MG 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/bc-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/me-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-2
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mg-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-

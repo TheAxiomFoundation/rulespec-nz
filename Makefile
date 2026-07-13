@@ -25,7 +25,7 @@ lint:
 	pixi run lint
 
 format:
-	pixi run ruff format programs tests test_bindings.py
+	pixi run ruff format src tests test_bindings.py
 
 format-check:
 	pixi run format-check
@@ -40,7 +40,7 @@ quality: lint format-check typecheck test rust-test
 # ─── Coverage ──────────────────────────────────────────────────────────────
 
 coverage:
-	pixi run pytest --cov=nz --cov-report=html --cov-report=term
+	pixi run pytest --cov=rulespec_nz --cov-report=html --cov-report=term
 
 # ─── Scorecard ─────────────────────────────────────────────────────────────
 

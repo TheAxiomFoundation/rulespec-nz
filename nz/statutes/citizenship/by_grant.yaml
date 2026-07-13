@@ -5,16 +5,22 @@ module:
     encodes the section 8 residence threshold, the indefinite-entitlement
     requirement, and narrow special-case routes.
   status: active
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/1977/0061
-    oracle_links:
-      - openfisca-aotearoa
+    corpus_citation_path: nz/statute/act/public/1977/0061/section/8
 rules:
   - name: citizenship_by_grant_section_8_required_total_days
     kind: parameter
     dtype: Count
     source: Citizenship Act 1977 s 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -23,6 +29,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Citizenship Act 1977 s 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -31,6 +44,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Citizenship Act 1977 s 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -41,6 +61,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Citizenship Act 1977 s 8(2)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -56,6 +83,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Citizenship Act 1977 s 8(2)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -66,6 +100,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Citizenship Act 1977 s 8(2)(c), (d), and (e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -80,6 +121,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Citizenship Act 1977 s 8
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -94,6 +142,13 @@ rules:
     dtype: Judgment
     period: Year
     source: Citizenship Act 1977 s 9
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -104,6 +159,17 @@ rules:
     dtype: Judgment
     period: Year
     source: Citizenship Act 1977 ss 8 and 9
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/8
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-

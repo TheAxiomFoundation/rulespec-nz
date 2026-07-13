@@ -5,12 +5,12 @@
   "source_map_track_id": "tax-personal-income",
   "source_batch_id": "income-tax-rate-scale",
   "rulespec_module": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
-  "corpus_citation_path": "nz/statute/act/public/2007/0097/section/1-DLM1523194",
+  "corpus_citation_path": "nz/statute/act/public/2007/0097/schedule/1/part/a/clause/1",
   "provision_files": [
     {
       "path": "data/corpus/provisions/nz/statute/2026-06-16-pco-latest.jsonl",
       "citation_paths": [
-        "nz/statute/act/public/2007/0097/section/1-DLM1523194"
+        "nz/statute/act/public/2007/0097/schedule/1/part/a/clause/1"
       ],
       "locator": "Income Tax Act 2007 Schedule 1 Part A clause 1 table 1",
       "source_format": "pco-xml-slice"

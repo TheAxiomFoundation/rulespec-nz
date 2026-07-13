@@ -1,0 +1,1223 @@
+{
+  "schema_version": "axiom-rulespec/provenance-migration-blockers/v1",
+  "release_cut_plan": "nz-rulespec-2026-07-10",
+  "release_selector_sha256": "7e2a7a92e038bb0b1e5cef8d8e5e7830d8bfaceda71cc74ac561b4cab122eff2",
+  "publication_state": "merged_unpublished_unactivated",
+  "atomic_module_count": 36,
+  "proof_atom_count": 1070,
+  "resolved_proof_atom_count": 901,
+  "blocked_proof_atom_count": 169,
+  "blockers": [
+    {
+      "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
+      "blocked_proof_atom_count": 5,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_loss_of_potential_earnings_entitled",
+          "declared_source": "ACC loss of potential earnings guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_loss_of_potential_earnings_rate",
+          "declared_source": "ACC loss of potential earnings guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_loss_of_potential_earnings_weekly_payment",
+          "declared_source": "ACC loss of potential earnings guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_minimum_wage_40_hour_week",
+          "declared_source": "ACC weekly compensation and loss of potential earnings guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "ACC loss of potential earnings guidance",
+      "official_source_urls": [
+        "https://www.acc.co.nz/im-injured/financial-support/loss-of-potential-earnings"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/acc/weekly-compensation",
+      "blocked_proof_atom_count": 8,
+      "affected_module_count": 1,
+      "affected_rule_count": 7,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_after_abatement",
+          "declared_source": "ACC weekly compensation guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_before_abatement",
+          "declared_source": "ACC weekly compensation guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_eligible",
+          "declared_source": "ACC weekly compensation guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_minimum_full_time_rate",
+          "declared_source": "ACC weekly compensation guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_pre_injury_income_capped",
+          "declared_source": "ACC weekly compensation guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_rate",
+          "declared_source": "ACC weekly compensation guidance"
+        },
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_minimum_wage_40_hour_week",
+          "declared_source": "ACC weekly compensation and loss of potential earnings guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "ACC weekly compensation guidance",
+      "official_source_urls": [
+        "https://www.acc.co.nz/im-injured/financial-support/weekly-compensation",
+        "https://www.acc.co.nz/for-providers/supporting-clients/weekly-compensation-calculation"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/employment-nz/paid-parental-leave",
+      "blocked_proof_atom_count": 4,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transfer_entitlement_available",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        },
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transferred_entitlement_weeks",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        },
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transferred_total_entitlement",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        },
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transferred_weekly_rate",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Employment New Zealand paid parental leave guidance",
+      "official_source_urls": [
+        "https://www.employment.govt.nz/leave-and-holidays/paid-parental-leave"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/child-support/overview",
+      "blocked_proof_atom_count": 2,
+      "affected_module_count": 1,
+      "affected_rule_count": 2,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_formula_assessment_applies",
+          "declared_source": "Child Support Act 1991 ss 4, 5, and 8; IRD child support overview"
+        },
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_liable_parent_is_formula_assessment_liable",
+          "declared_source": "Child Support Act 1991 ss 4, 5, and 8; IRD child support overview"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue child support overview",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/child-support"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/child-support/types/formula-assessment/sharing-care",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_receiving_carer_meets_formula_care_threshold",
+          "declared_source": "Child Support Act 1991 s 5; IRD sharing care guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue child support sharing-care guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/child-support/working-out-child-support"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/gst-calculation-guidance",
+      "blocked_proof_atom_count": 4,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_component_from_exclusive_amount",
+          "declared_source": "Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance"
+        },
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_component_from_inclusive_amount",
+          "declared_source": "Inland Revenue GST calculation guidance"
+        },
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_exclusive_amount_from_inclusive_amount",
+          "declared_source": "Goods and Services Tax Act 1985 s 10(2); Inland Revenue GST calculation guidance"
+        },
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_inclusive_amount_from_exclusive_amount",
+          "declared_source": "Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue calculating GST guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/gst-low-value-imported-goods",
+      "blocked_proof_atom_count": 4,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_low_value_imported_goods_component",
+          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
+        },
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_low_value_imported_goods_subject_to_gst",
+          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
+        },
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_low_value_imported_goods_threshold",
+          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
+        },
+        {
+          "module": "nz/statutes/gst/rate.yaml",
+          "rule": "gst_low_value_imported_goods_total_payable",
+          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue GST on low-value imported goods guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/gst/gst-for-overseas-businesses/gst-on-low-value-imported-goods"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/kiwisaver-contribution-rates",
+      "blocked_proof_atom_count": 11,
+      "affected_module_count": 2,
+      "affected_rule_count": 7,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employee_deduction",
+          "declared_source": "KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employee_elective_contribution_rates",
+          "declared_source": "KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employee_minimum_contribution_rate",
+          "declared_source": "KiwiSaver Act 2006; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver contribution guidance"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employer_minimum_contribution_rate",
+          "declared_source": "KiwiSaver Act 2006 s 101B; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver employer guidance"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_government_contribution_member_payment_threshold",
+          "declared_source": "KiwiSaver Act 2006 schedule 1; Inland Revenue KiwiSaver government contribution guidance"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_minimum_employer_contribution",
+          "declared_source": "KiwiSaver Act 2006 s 101B; Inland Revenue KiwiSaver employer guidance"
+        },
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_kiwisaver_employee_component",
+          "declared_source": "KiwiSaver Act 2006 s 64; IRD KiwiSaver deduction guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue KiwiSaver contribution guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/growing-my-kiwisaver/making-contributions",
+        "https://www.ird.govt.nz/kiwisaver/kiwisaver-employers/employer-contributions-to-kiwisaver-and-complying-funds"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/paid-parental-leave-rates",
+      "blocked_proof_atom_count": 3,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_maximum_weekly_rate",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B (annual adjustment by average ordinary time weekly earnings each 1 July); IRD paid parental leave rate guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue paid parental leave rate guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/paid-parental-leave"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/paye-deduction-tables",
+      "blocked_proof_atom_count": 2,
+      "affected_module_count": 1,
+      "affected_rule_count": 2,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_income_tax_component",
+          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE tables"
+        },
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_total_deduction",
+          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE deduction tables"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue PAYE deduction guidance and tables",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay",
+        "https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay/paye-and-kiwisaver-deductions"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/pir-rates-kiwisaver-pie",
+      "blocked_proof_atom_count": 6,
+      "affected_module_count": 1,
+      "affected_rule_count": 6,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_determined_pir_rate",
+          "declared_source": "Income Tax Act 2007 section HM 6; IRD PIR determination rules"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_rate_10_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_rate_17_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_rate_28",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_two_year_lookback_taxable_income_threshold_high",
+          "declared_source": "Income Tax Act 2007 section HM 6; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_two_year_lookback_taxable_income_threshold_low",
+          "declared_source": "Income Tax Act 2007 section HM 6; IRD PIR guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue prescribed investor rate guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/your-pir-prescribed-investor-rate",
+        "https://www.ird.govt.nz/investing/pie-tax"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/rwt-rates",
+      "blocked_proof_atom_count": 6,
+      "affected_module_count": 1,
+      "affected_rule_count": 6,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_applicable_rate",
+          "declared_source": "Income Tax Act 2007 subpart RE; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_10_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_17_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_30",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_33",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_39",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue resident withholding tax rate guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/investing/rwt-resident-withholding-tax",
+        "https://www.ird.govt.nz/investing/rwt-resident-withholding-tax/rwt-rates"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/ird/student-loan-repayment-deductions",
+      "blocked_proof_atom_count": 6,
+      "affected_module_count": 2,
+      "affected_rule_count": 6,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_student_loan_component",
+          "declared_source": "Student Loan Scheme Act 2011 s 22; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_annual_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023 (SL 2023/295) regulation 3; IRD student loan repayment thresholds"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_fortnightly_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_monthly_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_weekly_deduction",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_weekly_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue student loan repayment guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/student-loans/repaying-my-student-loan",
+        "https://www.ird.govt.nz/student-loans/repaying-my-student-loan/repayment-thresholds"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/studylink/ordinary-residence",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_ordinarily_resident_in_new_zealand",
+          "declared_source": "Social Security Act 2018 and StudyLink ordinary-residence guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "StudyLink ordinary residence guidance",
+      "official_source_urls": [
+        "https://www.studylink.govt.nz/about-studylink/glossary/ordinarily-resident.html"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/guidance/studylink/student-allowances",
+      "blocked_proof_atom_count": 42,
+      "affected_module_count": 2,
+      "affected_rule_count": 42,
+      "affected_rules": [
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_abated_weekly_allowance_at_home",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_abated_weekly_allowance_away",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_age_24_plus_away_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_age_24_plus_home_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_annual_allowance",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_annual_parental_income",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_at_home_with_earning_partner_and_children_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_away_with_earning_partner_and_children_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_combined_weekly_income",
+          "declared_source": "StudyLink student allowance calculators"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_couple_away_earning_partner_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_couple_dependent_partner_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_couple_home_earning_partner_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_couple_no_children_gross",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_has_dependent_partner",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_has_earning_partner",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_has_recognised_partner",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_independent_circumstances_gross_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_lives_at_home",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_other_dependent_students_abatement",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_parental_income_abatement_threshold_at_home",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_parental_income_abatement_threshold_away",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_parental_income_lower_limit",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_parental_income_upper_limit_at_home",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_parental_income_upper_limit_away",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_parents_living_apart_abatement",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_partner_income_threshold",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_single_student_no_children_gross",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_single_under_24_away_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_single_under_24_home_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_single_with_children_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_students_with_children_gross",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_tax_rate_1",
+          "declared_source": "StudyLink student-abated-net-allowance calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_tax_rate_2",
+          "declared_source": "StudyLink student-abated-net-allowance calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_allowance",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_basic_allowance_at_home",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_basic_allowance_away",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_gross_allowance",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_partner_income",
+          "declared_source": "StudyLink student allowance calculators"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_student_income",
+          "declared_source": "StudyLink student allowance calculators"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_weekly_student_income_threshold",
+          "declared_source": "StudyLink parental-income calculator"
+        },
+        {
+          "module": "nz/regulations/student_allowances/core.yaml",
+          "rule": "student_allowance_with_children_dependent_partner_rate",
+          "declared_source": "StudyLink student allowance rate calculator"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_ordinarily_resident_in_new_zealand",
+          "declared_source": "Social Security Act 2018 and StudyLink ordinary-residence guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "StudyLink student allowance guidance and calculators",
+      "official_source_urls": [
+        "https://www.studylink.govt.nz/student-allowance",
+        "https://www.studylink.govt.nz/products/rates/calculators/parental-income-calculator.html",
+        "https://www.studylink.govt.nz/products/rates/calculators/student-allowance-rate-calculator.html"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/regulation/regulation/public/2016/0068/regulation/10",
+      "blocked_proof_atom_count": 4,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transfer_entitlement_available",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        },
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transferred_entitlement_weeks",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        },
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transferred_total_entitlement",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        },
+        {
+          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
+          "rule": "ppl_transferred_weekly_rate",
+          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
+        }
+      ],
+      "blocker_kind": "missing_official_document_release_source",
+      "required_official_source_document": "Parental Leave and Employment Protection Regulations 2016",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/regulation/public/2016/0068/latest/whole.html"
+      ],
+      "required_release_action": "ingest the official PCO document and the cited text-bearing provision into a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/1977/0061",
+      "blocked_proof_atom_count": 3,
+      "affected_module_count": 2,
+      "affected_rule_count": 3,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_entitled_to_be_in_new_zealand_indefinitely",
+          "declared_source": "Citizenship Act 1977 and Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_new_zealand_citizen",
+          "declared_source": "Citizenship Act 1977 and Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_entitled_to_be_in_new_zealand_indefinitely",
+          "declared_source": "Immigration Act 2009 and Citizenship Act 1977"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Citizenship Act 1977",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/1977/0061/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/1991/0142/schedule/1",
+      "blocked_proof_atom_count": 8,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_child_support_income",
+          "declared_source": "Child Support Act 1991 schedule 1"
+        },
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_living_allowance_percentage",
+          "declared_source": "Child Support Act 1991 schedule 1"
+        },
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_maximum_child_support_annual_rate",
+          "declared_source": "Child Support Act 1991 schedule 1"
+        },
+        {
+          "module": "nz/statutes/child_support/core_formula.yaml",
+          "rule": "cs_minimum_child_support_annual_rate",
+          "declared_source": "Child Support Act 1991 schedule 1"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Child Support Act 1991",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/1991/0142/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2001/0049",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_earnings_cap_weekly",
+          "declared_source": "Accident Compensation Act 2001 and ACC levy maximum earnings interface"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Accident Compensation Act 2001",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2001/0049/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2006/0040",
+      "blocked_proof_atom_count": 3,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employee_minimum_contribution_rate",
+          "declared_source": "KiwiSaver Act 2006; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver contribution guidance"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "KiwiSaver Act 2006",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2006/0040/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2006/0040/schedule/1",
+      "blocked_proof_atom_count": 3,
+      "affected_module_count": 1,
+      "affected_rule_count": 3,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_government_contribution_match_rate",
+          "declared_source": "KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_government_contribution_maximum",
+          "declared_source": "KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_government_contribution_member_payment_threshold",
+          "declared_source": "KiwiSaver Act 2006 schedule 1; Inland Revenue KiwiSaver government contribution guidance"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "KiwiSaver Act 2006",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2006/0040/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2007/0097/schedule/1/part/b",
+      "blocked_proof_atom_count": 8,
+      "affected_module_count": 2,
+      "affected_rule_count": 8,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_rate_10_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_rate_17_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_rate_28",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_10_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_17_5",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_30",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_33",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_rate_39",
+          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
+        }
+      ],
+      "blocker_kind": "missing_exact_provision_or_segmentation",
+      "required_official_source_document": "Income Tax Act 2007",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
+      ],
+      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2007/0097/subpart/hm",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/income_tax/investment/pie.yaml",
+          "rule": "pie_tax_on_income",
+          "declared_source": "Income Tax Act 2007 subpart HM"
+        }
+      ],
+      "blocker_kind": "missing_exact_provision_or_segmentation",
+      "required_official_source_document": "Income Tax Act 2007",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
+      ],
+      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2007/0097/subpart/rd",
+      "blocked_proof_atom_count": 2,
+      "affected_module_count": 1,
+      "affected_rule_count": 2,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_income_tax_component",
+          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE tables"
+        },
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_total_deduction",
+          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE deduction tables"
+        }
+      ],
+      "blocker_kind": "missing_exact_provision_or_segmentation",
+      "required_official_source_document": "Income Tax Act 2007",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
+      ],
+      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2007/0097/subpart/re",
+      "blocked_proof_atom_count": 2,
+      "affected_module_count": 1,
+      "affected_rule_count": 2,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_applicable_rate",
+          "declared_source": "Income Tax Act 2007 subpart RE; IRD RWT rate guidance"
+        },
+        {
+          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+          "rule": "rwt_withholding_amount",
+          "declared_source": "Income Tax Act 2007 subpart RE"
+        }
+      ],
+      "blocker_kind": "missing_exact_provision_or_segmentation",
+      "required_official_source_document": "Income Tax Act 2007",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
+      ],
+      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2009/0051",
+      "blocked_proof_atom_count": 12,
+      "affected_module_count": 2,
+      "affected_rule_count": 12,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_entitled_to_be_in_new_zealand_indefinitely",
+          "declared_source": "Citizenship Act 1977 and Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_lawful_presence_requirement",
+          "declared_source": "Immigration Act 2009 and Social Security Act 2018"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_new_zealand_citizen",
+          "declared_source": "Citizenship Act 1977 and Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_residence_class_visa_holder",
+          "declared_source": "Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_temporary_entry_class_visa_holder",
+          "declared_source": "Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_unlawfully_resident_or_present_in_new_zealand",
+          "declared_source": "Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_entitled_to_be_in_new_zealand_indefinitely",
+          "declared_source": "Immigration Act 2009 and Citizenship Act 1977"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_may_be_in_new_zealand_lawfully",
+          "declared_source": "Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_residence_class_visa_holder",
+          "declared_source": "Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_resident_or_citizen_path",
+          "declared_source": "Immigration Act 2009 and Social Security Act 2018"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_temporary_entry_class_visa_holder",
+          "declared_source": "Immigration Act 2009"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_temporary_only",
+          "declared_source": "Immigration Act 2009"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Immigration Act 2009",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2009/0051/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2011/0062",
+      "blocked_proof_atom_count": 4,
+      "affected_module_count": 1,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_fortnightly_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_monthly_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_weekly_deduction",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        },
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_weekly_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Student Loan Scheme Act 2011",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2011/0062/schedule/1",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/student_loan/repayments.yaml",
+          "rule": "student_loan_annual_repayment_threshold",
+          "declared_source": "Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023 (SL 2023/295) regulation 3; IRD student loan repayment thresholds"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Student Loan Scheme Act 2011",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2018/0032",
+      "blocked_proof_atom_count": 4,
+      "affected_module_count": 2,
+      "affected_rule_count": 4,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_lawful_presence_requirement",
+          "declared_source": "Immigration Act 2009 and Social Security Act 2018"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_ordinarily_resident_in_new_zealand",
+          "declared_source": "Social Security Act 2018 and StudyLink ordinary-residence guidance"
+        },
+        {
+          "module": "nz/statutes/common/residence.yaml",
+          "rule": "common_resident_status",
+          "declared_source": "Social Security Act 2018"
+        },
+        {
+          "module": "nz/statutes/immigration/residence.yaml",
+          "rule": "immigration_resident_or_citizen_path",
+          "declared_source": "Immigration Act 2009 and Social Security Act 2018"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Social Security Act 2018",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2018/0032/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2025/0026/section/20",
+      "blocked_proof_atom_count": 3,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employee_minimum_contribution_rate",
+          "declared_source": "KiwiSaver Act 2006; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver contribution guidance"
+        }
+      ],
+      "blocker_kind": "missing_official_document_release_source",
+      "required_official_source_document": "Taxation (Budget Measures) Act 2025",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2025/0026/latest/whole.html"
+      ],
+      "required_release_action": "ingest the official PCO document and the cited text-bearing provision into a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2025/0026/section/22",
+      "blocked_proof_atom_count": 3,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_employer_minimum_contribution_rate",
+          "declared_source": "KiwiSaver Act 2006 s 101B; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver employer guidance"
+        }
+      ],
+      "blocker_kind": "missing_official_document_release_source",
+      "required_official_source_document": "Taxation (Budget Measures) Act 2025",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2025/0026/latest/whole.html"
+      ],
+      "required_release_action": "ingest the official PCO document and the cited text-bearing provision into a new immutable NZ corpus release"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2025/0026/section/26",
+      "blocked_proof_atom_count": 2,
+      "affected_module_count": 1,
+      "affected_rule_count": 2,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_government_contribution_match_rate",
+          "declared_source": "KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025"
+        },
+        {
+          "module": "nz/statutes/kiwisaver/contributions.yaml",
+          "rule": "kiwisaver_government_contribution_maximum",
+          "declared_source": "KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025"
+        }
+      ],
+      "blocker_kind": "missing_official_document_release_source",
+      "required_official_source_document": "Taxation (Budget Measures) Act 2025",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2025/0026/latest/whole.html"
+      ],
+      "required_release_action": "ingest the official PCO document and the cited text-bearing provision into a new immutable NZ corpus release"
+    }
+  ]
+}

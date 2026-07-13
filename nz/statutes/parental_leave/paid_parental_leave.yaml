@@ -6,16 +6,10 @@ module:
     rates for paid parental leave in New Zealand. The weekly PPL rate is the
     lower of the employee's average weekly earnings and the maximum PPL rate.
     Duration is up to 26 weeks.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/1987/0129/part/3
-      - nz/statute/act/public/1987/0129/section/71A
-      - nz/statute/act/public/1987/0129/section/71B
-      - nz/agency/ird/paid-parental-leave-rates
-      - nz/agency/employment-nz/paid-parental-leave
-    agency_reference_urls:
-      - https://www.ird.govt.nz/paid-parental-leave
-      - https://www.employment.govt.nz/leave-and-holidays/paid-parental-leave
+    corpus_citation_path: nz/statute/act/public/1987/0129/section/71m
 units:
   - name: NZD
     kind: currency
@@ -25,6 +19,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Parental Leave and Employment Protection Act 1987 s 71A
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71a
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -37,6 +38,33 @@ rules:
       Parental Leave and Employment Protection Act 1987 s 71B (annual
       adjustment by average ordinary time weekly earnings each 1 July); IRD
       paid parental leave rate guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/paid-parental-leave-rates
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/paid-parental-leave-rates
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/guidance/ird/paid-parental-leave-rates
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -54,6 +82,13 @@ rules:
     period: Week
     unit: NZD
     source: Parental Leave and Employment Protection Act 1987 s 71B
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -71,6 +106,17 @@ rules:
     period: Year
     unit: NZD
     source: Parental Leave and Employment Protection Act 1987 s 71A, s 71B
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71a
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -79,6 +125,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Parental Leave and Employment Protection Act 1987 s 71
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -87,6 +140,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Parental Leave and Employment Protection Act 1987 s 71
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -97,6 +157,21 @@ rules:
     dtype: Judgment
     period: Week
     source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -113,6 +188,21 @@ rules:
     dtype: Count
     period: Week
     source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -130,6 +220,21 @@ rules:
     period: Week
     unit: NZD
     source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -147,6 +252,21 @@ rules:
     period: Year
     unit: NZD
     source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/71b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
     versions:
       - effective_from: '2025-07-01'
         formula: |-

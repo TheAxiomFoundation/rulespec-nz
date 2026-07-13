@@ -7,14 +7,10 @@ module:
     non-qualifying-spouse rates. This module encodes the executable hospital
     reduced-rate predicates, spouse benefit increase formula, and saved-rate
     amounts before Income Test 3 abatement.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2001/0084/section/18
-      - nz/statute/act/public/2001/0084/section/19
-      - nz/statute/act/public/2001/0084/schedule/1/part/1
-      - nz/statute/act/public/2001/0084/schedule/1/part/2
-    agency_reference_urls:
-      - https://www.legislation.govt.nz/act/public/2001/84/en/latest/
+    corpus_citation_path: nz/statute/act/public/2001/0084/section/18
 units:
   - name: NZD
     kind: currency
@@ -24,6 +20,13 @@ rules:
     kind: parameter
     dtype: Count
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(3) and (4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -32,6 +35,13 @@ rules:
     kind: parameter
     dtype: Count
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -41,6 +51,13 @@ rules:
     dtype: Money
     unit: NZD
     source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 1 clause 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/schedule/1/part/1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -50,6 +67,13 @@ rules:
     dtype: Money
     unit: NZD
     source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 2 clause 1(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/schedule/1/part/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -59,6 +83,13 @@ rules:
     dtype: Money
     unit: NZD
     source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 2 clause 1(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/schedule/1/part/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -69,6 +100,13 @@ rules:
     dtype: Judgment
     period: Year
     source: New Zealand Superannuation and Retirement Income Act 2001 s 18
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/18
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -82,6 +120,13 @@ rules:
     dtype: Judgment
     period: Year
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -101,6 +146,13 @@ rules:
     dtype: Judgment
     period: Year
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(3) to (5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -116,6 +168,13 @@ rules:
     dtype: Judgment
     period: Year
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -130,6 +189,17 @@ rules:
     period: Year
     unit: NZD
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(4) and Schedule 1 Part 1 clause 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/schedule/1/part/1
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -144,6 +214,13 @@ rules:
     period: Year
     unit: NZD
     source: New Zealand Superannuation and Retirement Income Act 2001 s 19(7) to (7C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/section/19
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -165,6 +242,13 @@ rules:
     period: Year
     unit: NZD
     source: New Zealand Superannuation and Retirement Income Act 2001 Schedule 1 Part 2 clause 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0084/schedule/1/part/2
     versions:
       - effective_from: '2026-04-01'
         formula: |-

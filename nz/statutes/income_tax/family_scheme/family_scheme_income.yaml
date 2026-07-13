@@ -8,22 +8,10 @@ module:
     and dependent-child income additions, non-resident partner income, trust
     payments, other replacement/living-expense payments, and an aggregate
     family scheme income bridge.
+  proof_validation:
+    required: true
   source_verification:
-    corpus_citation_paths:
-      - nz/statute/act/public/2007/0097/section/MB-1
-      - nz/statute/act/public/2007/0097/section/MB-2
-      - nz/statute/act/public/2007/0097/section/MB-3
-      - nz/statute/act/public/2007/0097/section/MB-4
-      - nz/statute/act/public/2007/0097/section/MB-5
-      - nz/statute/act/public/2007/0097/section/MB-6
-      - nz/statute/act/public/2007/0097/section/MB-7
-      - nz/statute/act/public/2007/0097/section/MB-7B
-      - nz/statute/act/public/2007/0097/section/MB-8
-      - nz/statute/act/public/2007/0097/section/MB-10
-      - nz/statute/act/public/2007/0097/section/MB-11
-      - nz/statute/act/public/2007/0097/section/MB-12
-      - nz/statute/act/public/2007/0097/section/MB-12B
-      - nz/statute/act/public/2007/0097/section/MB-13
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-1
 units:
   - name: NZD
     kind: currency
@@ -33,6 +21,13 @@ rules:
     kind: parameter
     dtype: Count
     source: Income Tax Act 2007 s MB 2(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -41,6 +36,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s MB 10(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -50,6 +52,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 s MB 11(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-11
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -58,6 +67,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s MB 7B(2)(b)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7b
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -67,6 +83,13 @@ rules:
     dtype: Money
     unit: NZD
     source: Income Tax Act 2007 s MB 7B(2)(b)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7b
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -75,6 +98,13 @@ rules:
     kind: parameter
     dtype: Rate
     source: Income Tax Act 2007 s MB 8(1)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -86,6 +116,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-3
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -100,6 +137,13 @@ rules:
     dtype: Rate
     period: Year
     source: Income Tax Act 2007 s MB 4(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-4
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -117,6 +161,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 4(2), (3), (7), and (8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-4
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -140,6 +191,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 7(4)(a), (7), and (8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -157,6 +215,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 7(4)(b), (5), (7), and (8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -177,6 +242,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 7(2B) and (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -194,6 +266,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 7B(2)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7b
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -209,6 +288,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 7B(2)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7b
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -223,6 +309,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 7B(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-7b
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -237,6 +330,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 8(1) and (2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-8
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -254,6 +354,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 10(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-10
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -268,6 +375,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 11(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-11
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -289,6 +403,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 12
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-12
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -300,6 +421,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 12B(2) and (3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-12b
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -314,6 +442,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-13
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -325,6 +460,21 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 ss MB 1 and MB 3 to MB 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-3
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-13
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -350,6 +500,13 @@ rules:
     period: Year
     unit: NZD
     source: Income Tax Act 2007 s MB 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mb-2
     versions:
       - effective_from: '2026-04-01'
         formula: |-

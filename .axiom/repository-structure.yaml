@@ -8,9 +8,9 @@ allowed_root_directories:
   - data
   - docs
   - nz
-  - programs
   - rulespec-nz
   - scripts
+  - src
   - tests
 allowed_root_files:
   - .editorconfig
@@ -26,7 +26,6 @@ allowed_root_files:
   - Makefile
   - NOTICE
   - README.md
-  - _create_rulespec_stubs.py
   - _update_inventory.py
   - _write_phase2.py
   - conftest.py
@@ -90,10 +89,6 @@ path_rules:
     allow_filenames:
       - ".gitkeep"
   - patterns:
-      - "programs/**"
-    allow_extensions:
-      - ".py"
-  - patterns:
       - "rulespec-nz/**"
     allow_extensions:
       - ".rs"
@@ -102,6 +97,10 @@ path_rules:
       - Cargo.lock
   - patterns:
       - "scripts/**"
+    allow_extensions:
+      - ".py"
+  - patterns:
+      - "src/**"
     allow_extensions:
       - ".py"
   - patterns:
