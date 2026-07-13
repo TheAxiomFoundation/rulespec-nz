@@ -234,7 +234,7 @@ validate_failures:
   nz/statutes/social_security/winter_energy_payment/core.yaml:
     pending:
       expires: '2026-10-10'
-      fingerprint: sha256:f5cd972eb004278f8c798818a5d3944a172c918b2935e9ac19879f1c33c222d4
+      fingerprint: sha256:863306c50c4db9cb21cfc9a9719100d806af2d356c48036efda1690262f10731
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/student_loan/repayments.yaml:
