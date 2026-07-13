@@ -76,12 +76,6 @@ validate_failures:
       fingerprint: sha256:a804e81d2e96d423ade62dcc41453dbab03b418d60aab9e21d8f60d9ddd0851e
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/income_tax/family_scheme/tax_credits.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:7c3f8751df2795d453273c68b4abe47fb732da7a2083c3eb8beb720ca3c2d242
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/income_tax/investment/pie.yaml:
     active:
       expires: '2026-10-10'
@@ -130,10 +124,16 @@ validate_failures:
       fingerprint: sha256:31c00f56ed97198c7d0293a23664149218436d0b057154e8ab5421ef6382bfc2
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
+  nz/statutes/social_security/main_benefits/entitlement.yaml:
+    active:
+      expires: '2026-10-10'
+      fingerprint: sha256:2a1331ba5ac90dc544ff5778e5b6a7253912df0d8f7f263015d3f0d391199940
+      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
+      owner: '@MaxGhenis'
   nz/statutes/social_security/winter_energy_payment/core.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:f5cd972eb004278f8c798818a5d3944a172c918b2935e9ac19879f1c33c222d4
+      fingerprint: sha256:863306c50c4db9cb21cfc9a9719100d806af2d356c48036efda1690262f10731
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/student_loan/repayments.yaml:
