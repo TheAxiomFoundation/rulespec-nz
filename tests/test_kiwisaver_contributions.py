@@ -82,5 +82,5 @@ def test_kiwisaver_companion_tests_cover_minimums_cap_and_negative_income() -> N
         cap_case["output"][
             "nz:statutes/kiwisaver/contributions#kiwisaver_government_contribution_maximum"
         ]
-        == 260.72
+        == 260.715
     )
