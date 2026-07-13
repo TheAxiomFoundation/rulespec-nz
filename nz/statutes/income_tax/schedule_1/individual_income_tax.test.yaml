@@ -56,5 +56,6 @@
     end: '2027-03-31'
   input:
     nz:statutes/income_tax/schedule_1/individual_income_tax#input.taxable_income: -100
+    nz:statutes/income_tax/schedule_1/individual_income_tax#input.bracket: 1
   output:
     nz:statutes/income_tax/schedule_1/individual_income_tax#individual_income_tax_before_credits: 0

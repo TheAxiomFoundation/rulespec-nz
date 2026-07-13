@@ -5,8 +5,8 @@
   "publication_state": "merged_unpublished_unactivated",
   "atomic_module_count": 36,
   "proof_atom_count": 1070,
-  "resolved_proof_atom_count": 887,
-  "blocked_proof_atom_count": 183,
+  "resolved_proof_atom_count": 900,
+  "blocked_proof_atom_count": 170,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -463,86 +463,6 @@
       "official_source_urls": [
         "https://www.ird.govt.nz/student-loans/repaying-my-student-loan",
         "https://www.ird.govt.nz/student-loans/repaying-my-student-loan/repayment-thresholds"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/msd/accommodation-supplement-rates-2026",
-      "blocked_proof_atom_count": 13,
-      "affected_module_count": 1,
-      "affected_rule_count": 13,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_large_family_area_1_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 1(a) and 4(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_large_family_area_2_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 1(b) and 4(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_large_family_area_3_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 1(c) and 4(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_large_family_area_4_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 1(d) and 4(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 1 to 6; Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_middle_family_area_1_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 2(a) and 5(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_middle_family_area_2_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 2(b) and 5(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_middle_family_area_3_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 2(c) and 5(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_middle_family_area_4_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 2(d) and 5(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_other_area_1_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 3(a) and 6(a); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_other_area_2_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 3(b) and 6(b); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_other_area_3_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 3(c) and 6(c); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        },
-        {
-          "module": "nz/statutes/social_security/accommodation_supplement/core.yaml",
-          "rule": "accommodation_supplement_other_area_4_maximum_weekly_rate",
-          "declared_source": "Social Security Act 2018 Schedule 4 Part 7 clauses 3(d) and 6(d); Work and Income 1 April 2026 Accommodation Supplement maximum rates"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Work and Income 1 April 2026 Accommodation Supplement rates",
-      "official_source_urls": [
-        "https://www.workandincome.govt.nz/products/benefit-rates/benefit-rates-april-2026.html",
-        "https://www.workandincome.govt.nz/products/a-z-benefits/accommodation-supplement.html"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },

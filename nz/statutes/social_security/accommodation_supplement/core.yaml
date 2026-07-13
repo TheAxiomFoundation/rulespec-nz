@@ -175,7 +175,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -195,7 +195,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -215,7 +215,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -235,7 +235,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -255,7 +255,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -275,7 +275,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -295,7 +295,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -315,7 +315,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -335,7 +335,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -355,7 +355,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -375,7 +375,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -395,7 +395,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -685,7 +685,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/msd/accommodation-supplement-rates-2026
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/7/clause/lms118453
     versions:
       - effective_from: '2026-04-01'
         formula: |-

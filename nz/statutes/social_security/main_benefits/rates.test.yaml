@@ -48,7 +48,11 @@
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_living_with_parent: true
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_benefit_commenced_on_or_after_1998_07_01: true
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_dependent_children_count: 0
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_youngest_dependent_child_age: 0
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_transferred_2013_no_dependent_children: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_partner_ineligible_due_to_sanction_or_strike: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_partner_receives_main_benefit: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_partner_receives_new_zealand_superannuation_or_veterans_pension: false
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_total_income: 200
   output:
     nz:statutes/social_security/main_benefits/rates#jobseeker_support_gross_weekly_rate: 276.46

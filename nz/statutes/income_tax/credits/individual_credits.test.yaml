@@ -106,7 +106,12 @@
     nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_person_is_natural_person: true
     nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_resident_in_new_zealand: true
     nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_main_benefit: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_veterans_pension: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_new_zealand_superannuation: false
     nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_entitled_to_or_receives_wff_tax_credit: true
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_entitled_to_and_receives_wff_tax_credit: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_receives_overseas_like_support: false
+    nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_partner_receives_overseas_like_wff_tax_credit: false
     nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_net_income: 30000
     nz:statutes/income_tax/credits/individual_credits#input.independent_earner_tax_credit_period_whole_months: 12
   output:
