@@ -5,8 +5,8 @@
   "publication_state": "merged_unpublished_unactivated",
   "atomic_module_count": 36,
   "proof_atom_count": 1070,
-  "resolved_proof_atom_count": 900,
-  "blocked_proof_atom_count": 170,
+  "resolved_proof_atom_count": 901,
+  "blocked_proof_atom_count": 169,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -872,25 +872,6 @@
       "required_official_source_document": "KiwiSaver Act 2006",
       "official_source_urls": [
         "https://www.legislation.govt.nz/act/public/2006/0040/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2007/0097",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/income_tax/core/taxable_income.yaml",
-          "rule": "income_tax_shared_income_bridge_total",
-          "declared_source": "Income Tax Act 2007 shared income bridge; aggregation of employment, activity, and schedular income components"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "Income Tax Act 2007",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
       ],
       "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
     },

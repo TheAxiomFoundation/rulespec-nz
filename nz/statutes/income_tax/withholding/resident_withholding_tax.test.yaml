@@ -19,6 +19,7 @@
   input:
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_notified_rate: 0
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.105
   output:
     nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.105
@@ -31,6 +32,7 @@
   input:
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_notified_rate: 0
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.30
   output:
     nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.30
@@ -43,6 +45,7 @@
   input:
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: false
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_notified_rate: 0
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.39
   output:
     nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0.39
@@ -68,6 +71,7 @@
   input:
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_exemption_certificate: true
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holder_has_notified_rwt_rate: false
+    nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_notified_rate: 0
     nz:statutes/income_tax/withholding/resident_withholding_tax#input.rwt_holders_prescribed_tax_rate: 0.33
   output:
     nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate: 0

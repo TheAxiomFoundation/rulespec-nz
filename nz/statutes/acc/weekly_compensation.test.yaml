@@ -73,6 +73,7 @@
     start: '2026-06-01'
     end: '2026-06-07'
   input:
+    nz:statutes/acc/weekly_compensation#input.acc_earners_levy_maximum_earnings: 156641
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_employed_or_self_employed_or_shareholder_employee: false
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_cannot_do_usual_work_due_to_injury: true
     nz:statutes/acc/weekly_compensation#input.acc_weekly_compensation_is_full_time_earner: true

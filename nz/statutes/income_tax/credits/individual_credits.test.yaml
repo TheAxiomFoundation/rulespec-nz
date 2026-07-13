@@ -128,7 +128,11 @@
   input:
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_amount: 1000
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_money: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_subscription: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_subscription_confers_membership_rights: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_on_commissioner_list: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_listed_in_schedule_32: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_statutory_description_without_list: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_testamentary: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_debt_forgiveness: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_absentee: false
@@ -167,10 +171,16 @@
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_subscription_confers_membership_rights: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_on_commissioner_list: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_listed_in_schedule_32: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_statutory_description_without_list: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_testamentary: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_debt_forgiveness: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_absentee: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_company: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_public_authority: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_maori_authority: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_unincorporated_body: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_is_excluded_trustee: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_claimant_has_payroll_donation_credit_for_gift: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_application_made: true
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_application_in_time_or_special_circumstances: true
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_refund_information_provided: true
@@ -193,6 +203,10 @@
   input:
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_amount: 4.99
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_money: true
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_subscription: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_subscription_confers_membership_rights: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_testamentary: false
+    nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_is_debt_forgiveness: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_on_commissioner_list: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_listed_in_schedule_32: false
     nz:statutes/income_tax/credits/individual_credits#input.charitable_or_public_benefit_gift_recipient_statutory_description_without_list: true
@@ -215,6 +229,7 @@
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_statutory_or_legal_requirements_satisfied: true
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employment_income_information_received_by_commissioner: true
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_incorrect: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_corrected: false
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_transferred_to_ineligible_recipient: false
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_returned_to_person: false
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_total_donations_for_pay_period: 300
@@ -243,6 +258,7 @@
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employment_income_information_received_by_commissioner: false
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_incorrect: true
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_particulars_corrected: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_transferred_to_ineligible_recipient: false
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_returned_to_person: true
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_total_donations_for_pay_period: 300
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_tax_for_pay_period: 200
@@ -260,6 +276,12 @@
     end: '2027-03-31'
   input:
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_is_employee: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employer_files_employment_income_information_electronically: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_employer_offers_payroll_giving: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_person_chose_donation_from_pay: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_amount_transferred_from_pay_to_donee_organisation: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_tax_obligations_satisfied: false
+    nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_statutory_or_legal_requirements_satisfied: false
     nz:statutes/income_tax/credits/individual_credits#input.payroll_donation_total_donations_for_pay_period: 300
   output:
     nz:statutes/income_tax/credits/individual_credits#payroll_donation_credit_qualifies: not_holds

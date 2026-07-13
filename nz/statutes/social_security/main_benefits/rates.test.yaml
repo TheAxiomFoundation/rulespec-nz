@@ -70,6 +70,11 @@
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_partner_receives_main_benefit: true
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_partner_receives_new_zealand_superannuation_or_veterans_pension: false
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_dependent_children_count: 1
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_applicant_age: 30
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_youngest_dependent_child_age: 10
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_living_with_parent: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_benefit_commenced_on_or_after_1998_07_01: false
+    nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_transferred_2013_no_dependent_children: false
     nz:statutes/social_security/main_benefits/rates#input.jobseeker_support_total_income: 260
   output:
     nz:statutes/social_security/main_benefits/rates#jobseeker_support_gross_weekly_rate: 334.70
@@ -100,6 +105,9 @@
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_single: true
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_applicant_age: 30
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_dependent_children_count: 0
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_main_benefit: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_new_zealand_superannuation_or_veterans_pension: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_caring: false
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_restricted_or_blind: true
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_totally_blind: false
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_beneficiary_personal_earnings: 30
@@ -121,9 +129,11 @@
     end: '2027-03-31'
   input:
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_single: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_applicant_age: 30
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_dependent_children_count: 0
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_main_benefit: true
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_new_zealand_superannuation_or_veterans_pension: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_caring: false
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_restricted_or_blind: true
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_totally_blind: false
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_beneficiary_personal_earnings: 0
@@ -143,6 +153,7 @@
     end: '2027-03-31'
   input:
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_single: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_applicant_age: 30
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_dependent_children_count: 1
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_main_benefit: false
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_new_zealand_superannuation_or_veterans_pension: false
@@ -166,6 +177,7 @@
     end: '2027-03-31'
   input:
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_single: false
+    nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_applicant_age: 30
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_dependent_children_count: 0
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_main_benefit: false
     nz:statutes/social_security/main_benefits/rates#input.supported_living_payment_partner_receives_new_zealand_superannuation_or_veterans_pension: false
