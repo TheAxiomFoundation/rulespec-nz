@@ -11,7 +11,7 @@ validate_failures:
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/regulations/acc/earners_levy.yaml:
-    pending:
+    active:
       expires: '2026-10-10'
       fingerprint: sha256:0000000000000000000000000000000000000000000000000000000000000000
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
@@ -64,6 +64,12 @@ validate_failures:
       fingerprint: sha256:1a13446ef42b7ac1011a78863804da4ce96f9fe418113dcadd9164c925fadd7f
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
+  nz/statutes/immigration/residence.yaml:
+    active:
+      expires: '2026-10-10'
+      fingerprint: sha256:e8cee61bf4937179eeb97d02238c906323dda8732d126600b300bdce376f6ff2
+      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
+      owner: '@MaxGhenis'
   nz/statutes/income_tax/core/income_interfaces.yaml:
     active:
       expires: '2026-10-10'
@@ -71,7 +77,7 @@ validate_failures:
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/income_tax/family_scheme/family_scheme_income.yaml:
-    pending:
+    active:
       expires: '2026-10-10'
       fingerprint: sha256:0000000000000000000000000000000000000000000000000000000000000000
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
@@ -101,7 +107,7 @@ validate_failures:
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/new_zealand_superannuation/core.yaml:
-    pending:
+    active:
       expires: '2026-10-10'
       fingerprint: sha256:0000000000000000000000000000000000000000000000000000000000000000
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
@@ -130,14 +136,8 @@ validate_failures:
       fingerprint: sha256:31c00f56ed97198c7d0293a23664149218436d0b057154e8ab5421ef6382bfc2
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/social_security/main_benefits/entitlement.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:2a1331ba5ac90dc544ff5778e5b6a7253912df0d8f7f263015d3f0d391199940
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/social_security/winter_energy_payment/core.yaml:
-    pending:
+    active:
       expires: '2026-10-10'
       fingerprint: sha256:0000000000000000000000000000000000000000000000000000000000000000
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
