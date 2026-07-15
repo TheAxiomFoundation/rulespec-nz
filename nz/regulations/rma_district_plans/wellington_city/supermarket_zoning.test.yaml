@@ -1,0 +1,329 @@
+# Companion tests for Wellington City 2024 District Plan supermarket zoning.
+# Cases derived from the oracle grid (zone x representative GFA) used to compare
+# against the NZ Initiative 'legalising groceries' atlas. Expected values are the
+# PLAN-derived activity status (the encoding's authoritative reading), NOT the atlas;
+# atlas divergences (MUZ >1,500 m2) are documented in the PR comparison table.
+# Every case assigns every local #input fact (zone and proposed GFA).
+
+- name: city_centre_zone_supermarket_1000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "CCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: city_centre_zone_supermarket_1400m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "CCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1400
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: city_centre_zone_supermarket_3500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "CCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 3500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: city_centre_zone_supermarket_5000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "CCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 5000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: metropolitan_centre_zone_supermarket_1000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: metropolitan_centre_zone_supermarket_1400m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1400
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: metropolitan_centre_zone_supermarket_3500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 3500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: metropolitan_centre_zone_supermarket_5000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 5000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: local_centre_zone_supermarket_1000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "LCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: local_centre_zone_supermarket_1400m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "LCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1400
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: local_centre_zone_supermarket_3500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "LCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 3500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: local_centre_zone_supermarket_5000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "LCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 5000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: neighbourhood_centre_zone_supermarket_1000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "NCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: neighbourhood_centre_zone_supermarket_1400m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "NCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1400
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: neighbourhood_centre_zone_supermarket_3500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "NCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 3500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: neighbourhood_centre_zone_supermarket_5000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "NCZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 5000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: mixed_use_zone_supermarket_1000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: mixed_use_zone_supermarket_1400m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1400
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: mixed_use_zone_supermarket_3500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 3500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Restricted Discretionary"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: mixed_use_zone_supermarket_5000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 5000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Restricted Discretionary"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: general_industrial_zone_supermarket_1000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "GIZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Non-complying"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: general_industrial_zone_supermarket_1400m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "GIZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1400
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Non-complying"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: general_industrial_zone_supermarket_3500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "GIZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 3500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Non-complying"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: general_industrial_zone_supermarket_5000m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "GIZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 5000
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Non-complying"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: mixed_use_zone_supermarket_1500m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Permitted"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: holds
+
+- name: mixed_use_zone_supermarket_1501m2
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1501
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status: "Restricted Discretionary"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted: not_holds
+
+- name: muz_permitted_gfa_cap_parameter_is_1500
+  period:
+    period_kind: tax_year
+    start: '2026-07-01'
+    end: '2027-06-30'
+  input:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_supermarket_zone: "MUZ"
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#input.wcc_proposed_supermarket_gfa_m2: 1500
+  output:
+    nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_muz_supermarket_permitted_gfa_cap_m2: 1500
