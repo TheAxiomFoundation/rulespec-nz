@@ -1,0 +1,230 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+  summary: |-
+    Social Security Act 2018, youth payment (s 49) and young parent payment
+    (s 56) entitlement requirements, and the Schedule 4 Part 6 subpart 1 weekly
+    rate scale. The youth payment supports 16-17 year olds who are study ready
+    with no dependent children and a parental support gap; the young parent
+    payment supports young parents (16-19) of a dependent child.
+
+    Weekly rates (1 April 2026, verbatim in the bound PCO corpus, verified
+    against the Work and Income April-2026 deskfile): $324.50 (single, no
+    dependent children); $300.86 (single 16-17 supported by a parent, with a
+    dependent child); $521.52 (any other single young person with a dependent
+    child); $316.97 (in a relationship, no dependent children); $334.70 (in a
+    relationship, with a dependent child). The obligation/money-management and
+    incentive-payment structure (ss 55, 62 and Schedule 4 Part 6 subparts 2-4)
+    is out of scope of this rate/entitlement module and is noted for a later
+    module.
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  # ---- Weekly rate scale (Schedule 4 Part 6 subpart 1) ------------------
+  - name: yp_rate_single_no_children
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 6 subpart 1 item 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: For a single young person without dependent children | $ 324.50 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '324.50'
+  - name: yp_rate_single_supported_with_child
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 6 subpart 1 item 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: has a dependent child or children | $ 300.86 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '300.86'
+  - name: yp_rate_single_other_with_child
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 6 subpart 1 item 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: For any other single young person with a dependent child or children | $ 521.52 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '521.52'
+  - name: yp_rate_partnered_no_children
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 6 subpart 1 item 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: For a young person who is in a relationship and is without dependent children | $ 316.97 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '316.97'
+  - name: yp_rate_partnered_with_child
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 6 subpart 1 item 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: '$ 334.70 a week subject to clauses 12 and 12A'
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '334.70'
+  # ---- Age bounds (s 49(a), s 56(1)(e)) ---------------------------------
+  - name: yp_youth_min_age
+    kind: parameter
+    dtype: Number
+    source: Social Security Act 2018 s 49(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/49
+              excerpt: P is aged 16 or 17 years
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '16'
+  - name: yp_youth_max_age
+    kind: parameter
+    dtype: Number
+    source: Social Security Act 2018 s 49(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/49
+              excerpt: P is aged 16 or 17 years
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '17'
+  # ---- Applicable weekly rate (Schedule 4 Part 6 subpart 1) -------------
+  - name: applicable_weekly_rate
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 6 subpart 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: For a single young person without dependent children | $ 324.50 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if young_person_in_relationship: if young_person_has_dependent_children: yp_rate_partnered_with_child else: yp_rate_partnered_no_children
+          else: if young_person_has_dependent_children: if young_person_aged_16_or_17_supported_by_parent: yp_rate_single_supported_with_child else: yp_rate_single_other_with_child
+          else: yp_rate_single_no_children
+  # ---- Youth payment entitlement (s 49) ---------------------------------
+  - name: youth_payment_entitled
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: Social Security Act 2018 s 49
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/49
+              excerpt: is entitled to a youth payment if
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/49
+              excerpt: P has no dependent children
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          young_person_age >= yp_youth_min_age and young_person_age <= yp_youth_max_age and young_person_is_study_ready and young_person_has_no_dependent_children and young_person_meets_residential_requirement and young_person_has_no_or_minimum_income and (young_person_has_parental_support_gap or young_person_not_in_relationship_with_specified_beneficiary)
+  # ---- Young parent payment entitlement (s 56) --------------------------
+  - name: young_parent_payment_entitled
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: Social Security Act 2018 s 56
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/56
+              excerpt: is entitled to a young parent payment if
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/56
+              excerpt: P is a parent or step-parent of at least 1 dependent child
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          young_person_is_parent_of_dependent_child and young_person_is_study_ready and young_person_meets_residential_requirement and young_person_has_no_or_minimum_income and young_parent_meets_age_and_relationship_category
+  # ---- Weekly payment payable -------------------------------------------
+  - name: weekly_payment_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Social Security Act 2018 s 49, s 56 and Schedule 4 Part 6 subpart 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: For a single young person without dependent children | $ 324.50 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if youth_payment_entitled or young_parent_payment_entitled: applicable_weekly_rate
+          else: 0
