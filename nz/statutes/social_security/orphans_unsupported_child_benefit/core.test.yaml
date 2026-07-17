@@ -1,0 +1,95 @@
+# Companion tests for the orphan's benefit / unsupported child's benefit.
+# Weekly rates are the 1 April 2026 amounts, verified against the Work and Income
+# benefit-rates deskfile. Expected values are hand-computed with exact decimals.
+- name: orphans benefit, child aged 14 or over, no child income, full rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 15
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 40
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_has_no_parent_able_to_care: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_family_has_broken_down: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_weekly_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 350.58
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 350.58
+- name: unsupported child benefit, child aged 5 to 9, child income abates the rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 8
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_has_no_parent_able_to_care: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_family_has_broken_down: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_weekly_income_other_than_earnings: 200
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 303.62
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 255.43
+- name: caregiver under 18 is not eligible, child under 5, benefit nil
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 3
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 16
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_has_no_parent_able_to_care: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_family_has_broken_down: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_weekly_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 301.53
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: orphans benefit, child aged 10 to 13, residence via caregiver 12-month rule
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 12
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 50
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_has_no_parent_able_to_care: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_family_has_broken_down: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_weekly_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 327.16
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 327.16

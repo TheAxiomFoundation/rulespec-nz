@@ -1,0 +1,307 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+  summary: |-
+    Social Security Act 2018, subpart on the orphan's benefit and unsupported
+    child's benefit (ss 43-46) and Schedule 4 Part 4 weekly rates. Both benefits
+    share the same weekly rate scale (Schedule 4 Part 4) and eligible-caregiver
+    test (s 44); they differ only in the triggering circumstance: the orphan's
+    benefit (s 43) applies where each of the child's parents is dead, missing or
+    has a long-term serious disablement; the unsupported child's benefit (s 46)
+    applies where there has been a breakdown in the child's family.
+
+    Weekly rates are the 1 April 2026 amounts as consolidated in the bound PCO
+    corpus, verified against the Work and Income benefit-rates deskfile
+    (https://www.workandincome.govt.nz/products/benefit-rates/benefit-rates-april-2026.html):
+    $350.58 (aged 14+), $327.16 (10-13), $303.62 (5-9), $301.53 (under 5).
+    The rate is diminished dollar-for-dollar by the child's non-earnings income
+    above 50% of the applicable rate (Schedule 4 Part 4 clause 2).
+
+    Age-band note: Schedule 4 Part 4 clause 1 reads "over 10 years and under 14
+    years" and "over 5 years and under 10 years"; Work and Income administers
+    these as the 10-13 and 5-9 bands, so the band floors are encoded at 10 and 5
+    (>= semantics) to match the administering agency's deskfile.
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  # ---- Weekly rate scale (Schedule 4 Part 4 clause 1) --------------------
+  - name: ocb_weekly_rate_age_14_or_over
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: In respect of a child aged 14 years or over | $ 350.58 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '350.58'
+  - name: ocb_weekly_rate_age_10_to_13
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: In respect of a child aged over 10 years and under 14 years | $ 327.16 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '327.16'
+  - name: ocb_weekly_rate_age_5_to_9
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: In respect of a child aged over 5 years and under 10 years | $ 303.62 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '303.62'
+  - name: ocb_weekly_rate_under_5
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: In respect of a child aged under 5 years | $ 301.53 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '301.53'
+  - name: ocb_age_band_14
+    kind: parameter
+    dtype: Number
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: aged 14 years or over
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '14'
+  - name: ocb_age_band_10
+    kind: parameter
+    dtype: Number
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: aged over 10 years and under 14 years
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '10'
+  - name: ocb_age_band_5
+    kind: parameter
+    dtype: Number
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: aged over 5 years and under 10 years
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '5'
+  - name: ocb_child_income_free_proportion
+    kind: parameter
+    dtype: Rate
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: in excess of 50% of the appropriate amount specified under that clause
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '0.50'
+  # ---- Caregiver minimum age (s 44) --------------------------------------
+  - name: ocb_caregiver_minimum_age
+    kind: parameter
+    dtype: Number
+    source: Social Security Act 2018 s 44(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/44
+              excerpt: P is aged 18 years or over
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '18'
+  # ---- Applicable weekly rate by child age (Schedule 4 Part 4 clause 1) --
+  - name: base_weekly_rate
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: In respect of a child aged 14 years or over | $ 350.58 a week
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if child_age_years >= ocb_age_band_14: ocb_weekly_rate_age_14_or_over
+          else: if child_age_years >= ocb_age_band_10: ocb_weekly_rate_age_10_to_13
+          else: if child_age_years >= ocb_age_band_5: ocb_weekly_rate_age_5_to_9
+          else: ocb_weekly_rate_under_5
+  # ---- Eligible caregiver (s 44) -----------------------------------------
+  - name: is_eligible_caregiver
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: Social Security Act 2018 s 44
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/44
+              excerpt: P is not a parent (as defined in section 43(3) ) of the child
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/44
+              excerpt: P is a principal caregiver or principal temporary caregiver of the child
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          caregiver_age_years >= ocb_caregiver_minimum_age and caregiver_is_not_a_parent_of_child and child_is_dependent_child_of_caregiver and caregiver_is_principal_or_temporary_caregiver
+  # ---- Residence test (s 43(4)(b), s 46(4)(b)) ---------------------------
+  - name: meets_residence_requirement
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: Social Security Act 2018 s 43(4)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/43
+              excerpt: the child is both resident and present in New Zealand
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          child_is_resident_and_present_in_nz or caregiver_resident_and_present_12_months
+  # ---- Orphan's benefit entitlement (s 43) -------------------------------
+  - name: orphans_benefit_entitled
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: Social Security Act 2018 s 43
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/43
+              excerpt: is entitled to an orphan’s benefit for the child
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/43
+              excerpt: a child has no parent (as defined in subsection (3)) who is able to care for the child
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          child_has_no_parent_able_to_care and is_eligible_caregiver and meets_residence_requirement
+  # ---- Unsupported child's benefit entitlement (s 46) --------------------
+  - name: unsupported_child_benefit_entitled
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Week
+    source: Social Security Act 2018 s 46
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/46
+              excerpt: is entitled to an unsupported child’s benefit for the child
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/46
+              excerpt: there has been a breakdown in the child’s family
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          child_family_has_broken_down and is_eligible_caregiver and meets_residence_requirement
+  # ---- Weekly benefit payable (Schedule 4 Part 4 clauses 1-2) ------------
+  - name: weekly_benefit_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Social Security Act 2018 Schedule 4 Part 4 clauses 1 and 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: The amount specified in clause 1 must be diminished by $1 for every complete $1 of the annual income of the child
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if orphans_benefit_entitled or unsupported_child_benefit_entitled: max(0, base_weekly_rate - max(0, child_weekly_income_other_than_earnings - ocb_child_income_free_proportion * base_weekly_rate))
+          else: 0
