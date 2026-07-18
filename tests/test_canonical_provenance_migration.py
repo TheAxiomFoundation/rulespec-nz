@@ -37,7 +37,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
     modules = _modules()
     proof_atom_count = 0
 
-    assert len(modules) == 36
+    assert len(modules) == 37
     for relative, payload in modules.items():
         module = payload.get("module")
         assert isinstance(module, dict), relative
@@ -61,13 +61,20 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                 assert isinstance(atom.get("kind"), str), (relative, rule.get("name"))
                 source = atom.get("source")
                 assert isinstance(source, dict), (relative, rule.get("name"))
-                assert set(source) == {"corpus_citation_path"}, (
-                    relative,
-                    rule.get("name"),
-                )
+                assert (
+                    {"corpus_citation_path"}
+                    <= set(source)
+                    <= {
+                        "corpus_citation_path",
+                        "excerpt",
+                    }
+                ), (relative, rule.get("name"))
                 assert isinstance(source["corpus_citation_path"], str)
+                if "excerpt" in source:
+                    assert isinstance(source["excerpt"], str)
+                    assert source["excerpt"]
 
-    assert proof_atom_count == 1070
+    assert proof_atom_count == 1079
     assert list((ROOT / ".axiom/encoding-manifests").rglob("*.json")) == []
 
 
@@ -78,11 +85,11 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
     assert ledger["schema_version"] == (
         "axiom-rulespec/provenance-migration-blockers/v1"
     )
-    assert ledger["release_cut_plan"] == "nz-rulespec-2026-07-10"
-    assert ledger["publication_state"] == "merged_unpublished_unactivated"
-    assert ledger["atomic_module_count"] == len(modules) == 36
-    assert ledger["proof_atom_count"] == 1070
-    assert ledger["resolved_proof_atom_count"] == 901
+    assert ledger["release_cut_plan"] == "nz-rulespec-2026-07-18"
+    assert ledger["publication_state"] == "merged_published_activated"
+    assert ledger["atomic_module_count"] == len(modules) == 37
+    assert ledger["proof_atom_count"] == 1079
+    assert ledger["resolved_proof_atom_count"] == 910
     assert ledger["blocked_proof_atom_count"] == 169
 
     blockers = ledger["blockers"]

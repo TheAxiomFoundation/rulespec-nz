@@ -1,11 +1,11 @@
 {
   "schema_version": "axiom-rulespec/provenance-migration-blockers/v1",
-  "release_cut_plan": "nz-rulespec-2026-07-10",
-  "release_selector_sha256": "7e2a7a92e038bb0b1e5cef8d8e5e7830d8bfaceda71cc74ac561b4cab122eff2",
-  "publication_state": "merged_unpublished_unactivated",
-  "atomic_module_count": 36,
-  "proof_atom_count": 1070,
-  "resolved_proof_atom_count": 901,
+  "release_cut_plan": "nz-rulespec-2026-07-18",
+  "release_selector_sha256": "12c5f596b0203d6c4b7350aad46ba63e89151cc89f9b3c69db1e366b47163e93",
+  "publication_state": "merged_published_activated",
+  "atomic_module_count": 37,
+  "proof_atom_count": 1079,
+  "resolved_proof_atom_count": 910,
   "blocked_proof_atom_count": 169,
   "blockers": [
     {

@@ -5,9 +5,11 @@
   "authority_order": [
     "official_nz_legislation",
     "official_nz_regulation",
+    "official_council_instrument",
     "official_agency_table",
     "nlp_official_source_extract",
     "pco_bulk_xml_extract",
+    "axiom_corpus_district_plan_extract",
     "nz_legislation_cli_fallback",
     "comparison_oracle",
     "supporting_reference"
@@ -4808,6 +4810,41 @@
           "name": "student_loan_weekly_deduction",
           "kind": "derived",
           "source_family": "repayments"
+        }
+      ]
+    },
+    {
+      "path": "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning.yaml",
+      "surface_ids": [
+        "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning"
+      ],
+      "source_families": [
+        "nz_regulations_rma_district_plans_wellington_city_supermarket_zoning"
+      ],
+      "authority": "official_council_instrument",
+      "source_route": "axiom_corpus_district_plan_extract",
+      "oracle_links": [
+        "nz-initiative-grocery-atlas"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_muz_supermarket_permitted_gfa_cap_m2",
+          "name": "wcc_muz_supermarket_permitted_gfa_cap_m2",
+          "kind": "parameter",
+          "source_family": "supermarket_zoning"
+        },
+        {
+          "id": "nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_activity_status",
+          "name": "wcc_supermarket_activity_status",
+          "kind": "derived",
+          "source_family": "supermarket_zoning"
+        },
+        {
+          "id": "nz:regulations/rma_district_plans/wellington_city/supermarket_zoning#wcc_supermarket_permitted",
+          "name": "wcc_supermarket_permitted",
+          "kind": "derived",
+          "source_family": "supermarket_zoning"
         }
       ]
     }
