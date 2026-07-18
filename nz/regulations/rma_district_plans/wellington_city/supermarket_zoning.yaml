@@ -1,0 +1,160 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Wellington City 2024 District Plan (operative) — activity status for a
+    supermarket by district-plan zone and proposed gross floor area (GFA).
+
+    Encodes the resource-consent activity status that the operative Wellington
+    City District Plan assigns to a "supermarket" (as defined) proposing a given
+    GFA, across the six commercial / centre / mixed-use / industrial zones a
+    full-line supermarket (3,000–5,000 m²) would realistically locate in:
+    City Centre (CCZ), Metropolitan Centre (MCZ), Local Centre (LCZ),
+    Neighbourhood Centre (NCZ), Mixed Use (MUZ) and General Industrial (GIZ).
+
+    A "supermarket" is a "retail activity" and therefore a "commercial activity"
+    under the plan's definitions. In the four centre zones the commercial-activity
+    rule (CCZ-R1 / MCZ-R1 / LCZ-R1 / NCZ-R1) makes it Permitted; the only GFA gates
+    that could apply are the integrated-retail caps (LCZ-R11 ≤20,000 m²,
+    NCZ-R11 ≤10,000 m²), which do not bind a standalone supermarket ≤5,000 m². In
+    the Mixed Use Zone the plan carves supermarkets out of MUZ-R1 into MUZ-R13,
+    which makes a supermarket Permitted at ≤1,500 m² GFA and Restricted Discretionary
+    above 1,500 m² (matters of discretion limited to MUZ-P3 — effects on the vitality,
+    role and function of the City Centre and other Centres). In the General Industrial
+    Zone a supermarket is not one of the retail types GIZ-R5 permits, so it is
+    Non-complying.
+
+    This module classifies the land-use ACTIVITY status only. Built-form standards
+    (height, frontage, per-building GFA, etc.) are a separate consent layer and are
+    out of scope here.
+
+    Provenance: the Wellington City District Plan is an instrument made by a
+    territorial authority under Schedule 1 of the Resource Management Act 1991.
+    The operative plan text is ingested in the bound corpus release as the
+    `nz/district-plan/wellington-city/2024` scope (ePlan revision 137, as at
+    14 July 2026), and every proof excerpt below is a verbatim substring of the
+    ingested provision text. The retained official-source snapshot with URL +
+    retrieval date + sha256 is
+    data/sources/nz/wellington-city-council/district-plan-2024/supermarket-zoning.source.md.
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: nz/district-plan/wellington-city/2024/muz/r13
+units:
+  - name: square_metre
+    kind: custom
+    label: square metre
+rules:
+  # ---------------------------------------------------------------------------
+  # Parameter: the single GFA gate that binds a supermarket in the 1,000–5,000 m²
+  # range — the Mixed Use Zone 1,500 m² permitted cap (MUZ-R13.1).
+  # ---------------------------------------------------------------------------
+  - name: wcc_muz_supermarket_permitted_gfa_cap_m2
+    kind: parameter
+    dtype: Count
+    unit: square_metre
+    source: Wellington City District Plan 2024, MUZ-R13.1 (Supermarkets — permitted)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/muz/r13
+              excerpt: "The total gross floor area does not exceed 1,500"
+    versions:
+      - effective_from: '2024-06-07'
+        formula: |-
+          1500
+  # ---------------------------------------------------------------------------
+  # Derived: activity status enum (the plan's own activity-status vocabulary).
+  # ---------------------------------------------------------------------------
+  - name: wcc_supermarket_activity_status
+    kind: derived
+    entity: Person
+    dtype: Text
+    period: Year
+    source: >-
+      Wellington City District Plan 2024 — CCZ-R1, MCZ-R1, LCZ-R1, NCZ-R1,
+      MUZ-R1, MUZ-R13, GIZ-R5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/ccz/r1
+              excerpt: "Activity status: Permitted"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/mcz/r1
+              excerpt: "The activity is not an Integrated Retail Activity"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/lcz/r1
+              excerpt: "The activity is not an Integrated Retail Activity"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/ncz/r1
+              excerpt: "The activity is not an Integrated Retail Activity"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/muz/r1
+              excerpt: "The activity is not a supermarket"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/muz/r13
+              excerpt: "Restricted Discretionary"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/giz/r5
+              excerpt: "Non-complying"
+    versions:
+      - effective_from: '2024-06-07'
+        formula: |-
+          if wcc_supermarket_zone == "CCZ":
+              "Permitted"
+          elif wcc_supermarket_zone == "MCZ":
+              "Permitted"
+          elif wcc_supermarket_zone == "LCZ":
+              "Permitted"
+          elif wcc_supermarket_zone == "NCZ":
+              "Permitted"
+          elif wcc_supermarket_zone == "MUZ":
+              if wcc_proposed_supermarket_gfa_m2 <= wcc_muz_supermarket_permitted_gfa_cap_m2:
+                  "Permitted"
+              else:
+                  "Restricted Discretionary"
+          elif wcc_supermarket_zone == "GIZ":
+              "Non-complying"
+          else:
+              "Out of scope"
+  # ---------------------------------------------------------------------------
+  # Derived: headline judgment matching the atlas's binary question —
+  # does the plan PERMIT a full-line supermarket here?
+  # ---------------------------------------------------------------------------
+  - name: wcc_supermarket_permitted
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: >-
+      Wellington City District Plan 2024 — supermarket permitted where the derived
+      activity status is "Permitted" (CCZ-R1, MCZ-R1, LCZ-R1, NCZ-R1, MUZ-R13.1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/district-plan/wellington-city/2024/ccz/r1
+              excerpt: "Activity status: Permitted"
+    versions:
+      - effective_from: '2024-06-07'
+        formula: |-
+          wcc_supermarket_activity_status == "Permitted"
