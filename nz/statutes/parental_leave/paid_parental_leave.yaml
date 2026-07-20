@@ -48,7 +48,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2024
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2024/block-2
           - path: versions[1].formula
             kind: parameter
             source:
@@ -56,7 +56,7 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2026
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2026/block-4
           - path: versions[2].formula
             kind: parameter
             source:
@@ -64,7 +64,7 @@ rules:
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2026
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2026/block-4
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -131,7 +131,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1987/0129/section/71
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/2ba
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -146,7 +146,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1987/0129/section/71
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/2ba
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -171,7 +171,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -202,7 +202,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -234,7 +234,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -266,7 +266,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-

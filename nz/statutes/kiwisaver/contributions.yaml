@@ -25,11 +25,11 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2006/0040
+              corpus_citation_path: nz/statute/act/public/2006/0040/section/64
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
           - path: versions[0].formula
             kind: parameter
             source:
@@ -37,11 +37,11 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2006/0040
+              corpus_citation_path: nz/statute/act/public/2006/0040/section/64
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
           - path: versions[1].formula
             kind: parameter
             source:
@@ -49,11 +49,11 @@ rules:
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2006/0040
+              corpus_citation_path: nz/statute/act/public/2006/0040/section/64
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
           - path: versions[2].formula
             kind: parameter
             source:
@@ -83,7 +83,7 @@ rules:
           - path: versions[0].values
             kind: parameter_table
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
     versions:
       - effective_from: '2026-04-01'
         values:
@@ -106,7 +106,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
           - path: versions[0].formula
             kind: parameter
             source:
@@ -118,7 +118,7 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
           - path: versions[1].formula
             kind: parameter
             source:
@@ -130,7 +130,7 @@ rules:
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
           - path: versions[2].formula
             kind: parameter
             source:
@@ -155,7 +155,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2006/0040/schedule/1
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mk-4
           - path: versions[0].formula
             kind: parameter
             source:
@@ -175,11 +175,11 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2006/0040/schedule/1
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/13
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-government-contribution
+              corpus_citation_path: nz/guidance/ird/kiwisaver-government-contribution/block-4
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -197,7 +197,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2006/0040/schedule/1
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/13
           - path: versions[0].formula
             kind: formula
             source:
@@ -224,7 +224,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -247,7 +247,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
     versions:
       - effective_from: '2026-04-01'
         formula: |-
