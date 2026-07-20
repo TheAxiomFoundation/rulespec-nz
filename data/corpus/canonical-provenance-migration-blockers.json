@@ -1,12 +1,12 @@
 {
   "schema_version": "axiom-rulespec/provenance-migration-blockers/v1",
-  "release_cut_plan": "nz-rulespec-2026-07-18",
-  "release_selector_sha256": "12c5f596b0203d6c4b7350aad46ba63e89151cc89f9b3c69db1e366b47163e93",
+  "release_cut_plan": "nz-rulespec-2026-07-20",
+  "release_selector_sha256": "03558a39482d62c876c2189656f69346f2c5bb28b0d99298084f6c03b1783ce7",
   "publication_state": "merged_published_activated",
   "atomic_module_count": 37,
   "proof_atom_count": 1079,
-  "resolved_proof_atom_count": 910,
-  "blocked_proof_atom_count": 169,
+  "resolved_proof_atom_count": 928,
+  "blocked_proof_atom_count": 151,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -89,40 +89,6 @@
       "official_source_urls": [
         "https://www.acc.co.nz/im-injured/financial-support/weekly-compensation",
         "https://www.acc.co.nz/for-providers/supporting-clients/weekly-compensation-calculation"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/employment-nz/paid-parental-leave",
-      "blocked_proof_atom_count": 4,
-      "affected_module_count": 1,
-      "affected_rule_count": 4,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
-          "rule": "ppl_transfer_entitlement_available",
-          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
-        },
-        {
-          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
-          "rule": "ppl_transferred_entitlement_weeks",
-          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
-        },
-        {
-          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
-          "rule": "ppl_transferred_total_entitlement",
-          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
-        },
-        {
-          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
-          "rule": "ppl_transferred_weekly_rate",
-          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Employment New Zealand paid parental leave guidance",
-      "official_source_urls": [
-        "https://www.employment.govt.nz/leave-and-holidays/paid-parental-leave"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },
@@ -234,75 +200,6 @@
       "required_official_source_document": "Inland Revenue GST on low-value imported goods guidance",
       "official_source_urls": [
         "https://www.ird.govt.nz/gst/gst-for-overseas-businesses/gst-on-low-value-imported-goods"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/kiwisaver-contribution-rates",
-      "blocked_proof_atom_count": 11,
-      "affected_module_count": 2,
-      "affected_rule_count": 7,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_employee_deduction",
-          "declared_source": "KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_employee_elective_contribution_rates",
-          "declared_source": "KiwiSaver Act 2006 s 64; Inland Revenue KiwiSaver contribution guidance"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_employee_minimum_contribution_rate",
-          "declared_source": "KiwiSaver Act 2006; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver contribution guidance"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_employer_minimum_contribution_rate",
-          "declared_source": "KiwiSaver Act 2006 s 101B; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver employer guidance"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_government_contribution_member_payment_threshold",
-          "declared_source": "KiwiSaver Act 2006 schedule 1; Inland Revenue KiwiSaver government contribution guidance"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_minimum_employer_contribution",
-          "declared_source": "KiwiSaver Act 2006 s 101B; Inland Revenue KiwiSaver employer guidance"
-        },
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_kiwisaver_employee_component",
-          "declared_source": "KiwiSaver Act 2006 s 64; IRD KiwiSaver deduction guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue KiwiSaver contribution guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/growing-my-kiwisaver/making-contributions",
-        "https://www.ird.govt.nz/kiwisaver/kiwisaver-employers/employer-contributions-to-kiwisaver-and-complying-funds"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/paid-parental-leave-rates",
-      "blocked_proof_atom_count": 3,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/parental_leave/paid_parental_leave.yaml",
-          "rule": "ppl_maximum_weekly_rate",
-          "declared_source": "Parental Leave and Employment Protection Act 1987 s 71B (annual adjustment by average ordinary time weekly earnings each 1 July); IRD paid parental leave rate guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue paid parental leave rate guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/paid-parental-leave"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },
