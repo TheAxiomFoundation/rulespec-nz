@@ -35,7 +35,8 @@ def test_kiwisaver_rulespec_records_official_sources_and_policyengine_boundary()
         "corpus_citation_path": "nz/statute/act/public/2006/0040/section/64",
     }
     assert "nz/statute/act/public/2006/0040/section/101b" in proof_paths
-    assert "nz/guidance/ird/kiwisaver-contribution-rates" in proof_paths
+    assert "nz/guidance/ird/how-kiwisaver-works/block-2" in proof_paths
+    assert "nz/guidance/ird/kiwisaver-government-contribution/block-4" in proof_paths
 
 
 @pytest.mark.integration

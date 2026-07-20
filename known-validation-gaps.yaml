@@ -70,12 +70,6 @@ validate_failures:
       fingerprint: sha256:e168cc9856798f678e6b4981c86a2ce4e3bc1653a04fd8f4dce3434dd72fb424
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/income_tax/family_scheme/family_scheme_income.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:a804e81d2e96d423ade62dcc41453dbab03b418d60aab9e21d8f60d9ddd0851e
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/income_tax/investment/pie.yaml:
     active:
       expires: '2026-10-10'
@@ -88,12 +82,6 @@ validate_failures:
       fingerprint: sha256:9306670dbd0e5e28fa5fbab79faee00f2cf0f5e83cafa14703ba216d0f6f1a0f
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/kiwisaver/contributions.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:8633225d893e21196f2f4ef60af94077b688f9eaa337ecfac211110722a192e0
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/new_zealand_superannuation/core.yaml:
     active:
       expires: '2026-10-10'
@@ -104,12 +92,6 @@ validate_failures:
     active:
       expires: '2026-10-10'
       fingerprint: sha256:fdc4bfc56bc664ddf93cd78d9830a29e7ac997d79faf28882ecc9d4d45b0a9fc
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
-  nz/statutes/parental_leave/paid_parental_leave.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:f7c61de761d4aae0daa819fc158cc5edd7204fa33f99e24ba9622c56785ff3ea
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/payroll/deductions.yaml:

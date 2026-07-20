@@ -48,7 +48,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/paid-parental-leave-rates
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2024/block-2
           - path: versions[1].formula
             kind: parameter
             source:
@@ -56,7 +56,7 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/paid-parental-leave-rates
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2026/block-4
           - path: versions[2].formula
             kind: parameter
             source:
@@ -64,7 +64,7 @@ rules:
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/paid-parental-leave-rates
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payment-increase-2026/block-4
     versions:
       - effective_from: '2024-07-01'
         formula: |-
@@ -131,7 +131,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1987/0129/section/71
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/2ba
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -146,7 +146,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1987/0129/section/71
+              corpus_citation_path: nz/statute/act/public/1987/0129/section/2ba
     versions:
       - effective_from: '2020-07-01'
         formula: |-
@@ -156,7 +156,7 @@ rules:
     entity: Person
     dtype: Judgment
     period: Week
-    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; Employment New Zealand parental leave payments guidance
     metadata:
       proof:
         atoms:
@@ -171,7 +171,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -187,7 +187,7 @@ rules:
     entity: Person
     dtype: Count
     period: Week
-    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; Employment New Zealand parental leave payments guidance
     metadata:
       proof:
         atoms:
@@ -202,7 +202,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -219,7 +219,7 @@ rules:
     dtype: Money
     period: Week
     unit: NZD
-    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; Employment New Zealand parental leave payments guidance
     metadata:
       proof:
         atoms:
@@ -234,7 +234,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -251,7 +251,7 @@ rules:
     dtype: Money
     period: Year
     unit: NZD
-    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; IRD transfer guidance
+    source: Parental Leave and Employment Protection Act 1987 s 71B; Parental Leave and Employment Protection Regulations 2016 reg 10; Employment New Zealand parental leave payments guidance
     metadata:
       proof:
         atoms:
@@ -266,7 +266,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/employment-nz/paid-parental-leave
+              corpus_citation_path: nz/guidance/employment-nz/parental-leave-payments/block-33
     versions:
       - effective_from: '2025-07-01'
         formula: |-
