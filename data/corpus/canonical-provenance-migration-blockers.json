@@ -5,8 +5,8 @@
   "publication_state": "merged_published_activated",
   "atomic_module_count": 37,
   "proof_atom_count": 1079,
-  "resolved_proof_atom_count": 928,
-  "blocked_proof_atom_count": 151,
+  "resolved_proof_atom_count": 934,
+  "blocked_proof_atom_count": 145,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -721,54 +721,6 @@
       "required_official_source_document": "Accident Compensation Act 2001",
       "official_source_urls": [
         "https://www.legislation.govt.nz/act/public/2001/0049/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2006/0040",
-      "blocked_proof_atom_count": 3,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_employee_minimum_contribution_rate",
-          "declared_source": "KiwiSaver Act 2006; Taxation (Budget Measures) Act 2025; Inland Revenue KiwiSaver contribution guidance"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "KiwiSaver Act 2006",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2006/0040/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2006/0040/schedule/1",
-      "blocked_proof_atom_count": 3,
-      "affected_module_count": 1,
-      "affected_rule_count": 3,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_government_contribution_match_rate",
-          "declared_source": "KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_government_contribution_maximum",
-          "declared_source": "KiwiSaver Act 2006 schedule 1; Taxation (Budget Measures) Act 2025"
-        },
-        {
-          "module": "nz/statutes/kiwisaver/contributions.yaml",
-          "rule": "kiwisaver_government_contribution_member_payment_threshold",
-          "declared_source": "KiwiSaver Act 2006 schedule 1; Inland Revenue KiwiSaver government contribution guidance"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "KiwiSaver Act 2006",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2006/0040/latest/whole.html"
       ],
       "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
     },

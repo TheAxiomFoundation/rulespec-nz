@@ -89,12 +89,12 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
     assert ledger["publication_state"] == "merged_published_activated"
     assert ledger["atomic_module_count"] == len(modules) == 37
     assert ledger["proof_atom_count"] == 1079
-    assert ledger["resolved_proof_atom_count"] == 928
-    assert ledger["blocked_proof_atom_count"] == 151
+    assert ledger["resolved_proof_atom_count"] == 934
+    assert ledger["blocked_proof_atom_count"] == 145
 
     blockers = ledger["blockers"]
     assert isinstance(blockers, list)
-    assert len(blockers) == 29
+    assert len(blockers) == 27
     blocker_paths = [blocker["citation_path"] for blocker in blockers]
     assert len(blocker_paths) == len(set(blocker_paths))
 
@@ -154,5 +154,5 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
             assert citation_path in proof_paths, (module_path, rule_name, citation_path)
             affected_rule_ids.add((module_path, rule_name))
 
-    assert len(affected_rule_ids) == 112
-    assert blocked_proof_atom_count == ledger["blocked_proof_atom_count"] == 151
+    assert len(affected_rule_ids) == 111
+    assert blocked_proof_atom_count == ledger["blocked_proof_atom_count"] == 145
