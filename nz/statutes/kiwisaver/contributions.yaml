@@ -29,7 +29,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
           - path: versions[0].formula
             kind: parameter
             source:
@@ -41,7 +41,7 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
           - path: versions[1].formula
             kind: parameter
             source:
@@ -53,7 +53,7 @@ rules:
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
           - path: versions[2].formula
             kind: parameter
             source:
@@ -83,7 +83,7 @@ rules:
           - path: versions[0].values
             kind: parameter_table
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
     versions:
       - effective_from: '2026-04-01'
         values:
@@ -106,7 +106,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
           - path: versions[0].formula
             kind: parameter
             source:
@@ -118,7 +118,7 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
           - path: versions[1].formula
             kind: parameter
             source:
@@ -130,7 +130,7 @@ rules:
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
           - path: versions[2].formula
             kind: parameter
             source:
@@ -179,7 +179,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/kiwisaver-government-contribution
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -224,7 +224,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -247,7 +247,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works
     versions:
       - effective_from: '2026-04-01'
         formula: |-
