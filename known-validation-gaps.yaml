@@ -91,7 +91,7 @@ validate_failures:
   nz/statutes/kiwisaver/contributions.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:8633225d893e21196f2f4ef60af94077b688f9eaa337ecfac211110722a192e0
+      fingerprint: sha256:6cb866165cb5c9117c8c36e046c2064ad1a111165bdd6a338edaafeb7feedade
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/new_zealand_superannuation/core.yaml:
@@ -109,7 +109,7 @@ validate_failures:
   nz/statutes/parental_leave/paid_parental_leave.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:f7c61de761d4aae0daa819fc158cc5edd7204fa33f99e24ba9622c56785ff3ea
+      fingerprint: sha256:cfe814692017918278a0fc02e4bb7c38d7d932e7a798f32a7e80444e18451b8d
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/payroll/deductions.yaml:
