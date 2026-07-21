@@ -154,7 +154,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/hm
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-47
     versions:
       - effective_from: '2020-04-01'
         formula: |-

@@ -121,7 +121,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/re
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/d/clause/3
           - path: versions[0].formula
             kind: formula
             source:
@@ -156,7 +156,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/re
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/re-12
     versions:
       - effective_from: '2024-04-01'
         formula: |-

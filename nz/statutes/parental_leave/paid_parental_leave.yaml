@@ -167,7 +167,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/13
           - path: versions[0].formula
             kind: formula
             source:
@@ -198,7 +198,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/13
           - path: versions[0].formula
             kind: formula
             source:
@@ -230,7 +230,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/13
           - path: versions[0].formula
             kind: formula
             source:
@@ -262,7 +262,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/10
+              corpus_citation_path: nz/regulation/regulation/public/2016/0068/regulation/13
           - path: versions[0].formula
             kind: formula
             source:

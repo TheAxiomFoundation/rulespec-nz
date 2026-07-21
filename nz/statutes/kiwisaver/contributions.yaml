@@ -159,7 +159,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2025/0026/section/26
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/13
     versions:
       - effective_from: '2025-07-01'
         formula: |-
@@ -201,7 +201,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2025/0026/section/26
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mk-4
     versions:
       - effective_from: '2025-07-01'
         formula: |-
