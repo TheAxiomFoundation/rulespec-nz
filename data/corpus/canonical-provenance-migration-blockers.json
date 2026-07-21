@@ -5,8 +5,8 @@
   "publication_state": "merged_published_activated",
   "atomic_module_count": 37,
   "proof_atom_count": 1079,
-  "resolved_proof_atom_count": 972,
-  "blocked_proof_atom_count": 107,
+  "resolved_proof_atom_count": 970,
+  "blocked_proof_atom_count": 109,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -782,6 +782,30 @@
         "https://www.ird.govt.nz/kiwisaver/kiwisaver-employers/employer-contributions-to-kiwisaver-and-complying-funds"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2007/0097/subpart/rd",
+      "blocked_proof_atom_count": 2,
+      "affected_module_count": 1,
+      "affected_rule_count": 2,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_income_tax_component",
+          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE tables"
+        },
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_total_deduction",
+          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE deduction tables"
+        }
+      ],
+      "blocker_kind": "missing_exact_provision_or_segmentation",
+      "required_official_source_document": "Income Tax Act 2007",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
+      ],
+      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
     }
   ]
 }
