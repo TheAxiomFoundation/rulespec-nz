@@ -108,7 +108,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2001/0049/schedule/1/part/2/clause/46
+              corpus_citation_path: nz/statute/act/public/2001/0049
     versions:
       - effective_from: '2025-04-01'
         formula: |-

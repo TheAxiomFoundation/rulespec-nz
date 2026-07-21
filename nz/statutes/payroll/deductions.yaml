@@ -76,7 +76,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/how-kiwisaver-works/block-2
+              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
     versions:
       - effective_from: '2025-04-01'
         formula: |-

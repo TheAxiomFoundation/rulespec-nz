@@ -5,8 +5,8 @@
   "publication_state": "merged_published_activated",
   "atomic_module_count": 37,
   "proof_atom_count": 1079,
-  "resolved_proof_atom_count": 974,
-  "blocked_proof_atom_count": 105,
+  "resolved_proof_atom_count": 972,
+  "blocked_proof_atom_count": 107,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -743,6 +743,45 @@
         "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
       ],
       "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/statute/act/public/2001/0049",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/acc/weekly_compensation.yaml",
+          "rule": "acc_weekly_compensation_earnings_cap_weekly",
+          "declared_source": "Accident Compensation Act 2001 and ACC levy maximum earnings interface"
+        }
+      ],
+      "blocker_kind": "non_text_bearing_structural_locator",
+      "required_official_source_document": "Accident Compensation Act 2001",
+      "official_source_urls": [
+        "https://www.legislation.govt.nz/act/public/2001/0049/latest/whole.html"
+      ],
+      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/guidance/ird/kiwisaver-contribution-rates",
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
+      "affected_rules": [
+        {
+          "module": "nz/statutes/payroll/deductions.yaml",
+          "rule": "paye_kiwisaver_employee_component",
+          "declared_source": "KiwiSaver Act 2006 s 64; IRD KiwiSaver deduction guidance"
+        }
+      ],
+      "blocker_kind": "missing_guidance_release_source",
+      "required_official_source_document": "Inland Revenue KiwiSaver contribution guidance",
+      "official_source_urls": [
+        "https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/growing-my-kiwisaver/making-contributions",
+        "https://www.ird.govt.nz/kiwisaver/kiwisaver-employers/employer-contributions-to-kiwisaver-and-complying-funds"
+      ],
+      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     }
   ]
 }
