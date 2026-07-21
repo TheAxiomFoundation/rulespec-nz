@@ -23,11 +23,11 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/1977/0061
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/6
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2009/0051
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/13
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -44,7 +44,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2009/0051
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/70
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -61,7 +61,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2009/0051
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/70
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -78,7 +78,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2009/0051
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/9
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -95,7 +95,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2018/0032
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/2/definition/ordinarily-resident-in-new-zealand
           - path: versions[0].formula
             kind: formula
             source:
@@ -120,11 +120,11 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/1977/0061
+              corpus_citation_path: nz/statute/act/public/1977/0061/section/6
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2009/0051
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/13
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -141,11 +141,11 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2009/0051
+              corpus_citation_path: nz/statute/act/public/2009/0051/section/9
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2018/0032
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/2/definition/ordinarily-resident-in-new-zealand
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -167,7 +167,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2018/0032
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/16
     versions:
       - effective_from: '2026-04-01'
         formula: |-

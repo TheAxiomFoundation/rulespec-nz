@@ -133,15 +133,15 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/72
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/72
           - path: versions[2].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/72
     versions:
       - effective_from: '2025-04-01'
         formula: |-
