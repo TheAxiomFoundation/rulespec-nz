@@ -3,8 +3,9 @@
 # subpart 4 machinery: single rates abate $1 per $1 of non-child-support weekly
 # income above $284.70 (cut-out when it exceeds $334.70), child support
 # payments then abate beyond the unused threshold (clauses 11A-11B); partnered
-# rates abate 50 cents per $1 of combined income on the same structure with a
-# $384.70 cut-out. Expected values are hand-computed with exact decimals.
+# rates abate 50 cents per $1 of combined non-child-support income above
+# $284.70 with a $384.70 cut-out, and clause 12A applies its 50-cent reduction
+# only to relevant child-support income exceeding a further $284.70. Expected values are hand-computed with exact decimals.
 - name: youth payment, age-16 boundary, never in relationship with support gap, full rate
   period:
     period_kind: tax_year
