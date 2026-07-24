@@ -4974,6 +4974,163 @@
           "source_family": "core"
         }
       ]
+    },
+    {
+      "path": "nz/statutes/social_security/youth_young_parent_payment/core.yaml",
+      "surface_ids": [
+        "nz/statutes/social_security/youth_young_parent_payment/core"
+      ],
+      "source_families": [
+        "nz_statutes_social_security_youth_young_parent_payment_core"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_rate_single_no_children",
+          "name": "yp_rate_single_no_children",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_rate_single_supported_with_child",
+          "name": "yp_rate_single_supported_with_child",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_rate_single_other_with_child",
+          "name": "yp_rate_single_other_with_child",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_rate_partnered_no_children",
+          "name": "yp_rate_partnered_no_children",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_rate_partnered_with_child",
+          "name": "yp_rate_partnered_with_child",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_youth_min_age",
+          "name": "yp_youth_min_age",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_youth_max_age",
+          "name": "yp_youth_max_age",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#ypp_category_ii_min_age",
+          "name": "ypp_category_ii_min_age",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#ypp_max_age",
+          "name": "ypp_max_age",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_abatement_threshold",
+          "name": "yp_single_income_abatement_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_cutout",
+          "name": "yp_single_income_cutout",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_income_abatement_threshold",
+          "name": "yp_partnered_income_abatement_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_income_cutout",
+          "name": "yp_partnered_income_cutout",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_abatement_rate",
+          "name": "yp_partnered_abatement_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#ypp_childcare_disregard_maximum",
+          "name": "ypp_childcare_disregard_maximum",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled",
+          "name": "youth_payment_entitled",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled",
+          "name": "young_parent_payment_entitled",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate",
+          "name": "applicable_weekly_rate",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_counted_weekly_income_excluding_child_support",
+          "name": "yp_counted_weekly_income_excluding_child_support",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_counted_combined_weekly_income_excluding_child_support",
+          "name": "yp_counted_combined_weekly_income_excluding_child_support",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction",
+          "name": "yp_single_income_reduction",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_income_reduction",
+          "name": "yp_partnered_income_reduction",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test",
+          "name": "base_weekly_payment_after_income_test",
+          "kind": "derived",
+          "source_family": "core"
+        }
+      ]
     }
   ],
   "duplicate_clusters": [
