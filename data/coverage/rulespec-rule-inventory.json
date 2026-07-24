@@ -4914,6 +4914,12 @@
           "source_family": "core"
         },
         {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_annual_rate_weeks",
+          "name": "ocb_annual_rate_weeks",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
           "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_caregiver_minimum_age",
           "name": "ocb_caregiver_minimum_age",
           "kind": "parameter",
@@ -4946,6 +4952,18 @@
         {
           "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled",
           "name": "unsupported_child_benefit_entitled",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_annual_rate_equivalent",
+          "name": "ocb_annual_rate_equivalent",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_annual_reduction",
+          "name": "ocb_child_income_annual_reduction",
           "kind": "derived",
           "source_family": "core"
         },
