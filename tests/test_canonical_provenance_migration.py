@@ -74,7 +74,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                     assert isinstance(source["excerpt"], str)
                     assert source["excerpt"]
 
-    assert proof_atom_count == 1118
+    assert proof_atom_count == 1120
     assert list((ROOT / ".axiom/encoding-manifests").rglob("*.json")) == []
 
 
@@ -88,8 +88,8 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
     assert ledger["release_cut_plan"] == "nz-rulespec-2026-07-20"
     assert ledger["publication_state"] == "merged_published_activated"
     assert ledger["atomic_module_count"] == len(modules) == 38
-    assert ledger["proof_atom_count"] == 1118
-    assert ledger["resolved_proof_atom_count"] == 1009
+    assert ledger["proof_atom_count"] == 1120
+    assert ledger["resolved_proof_atom_count"] == 1011
     assert ledger["blocked_proof_atom_count"] == 109
 
     blockers = ledger["blockers"]

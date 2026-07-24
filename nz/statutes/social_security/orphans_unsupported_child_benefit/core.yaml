@@ -332,6 +332,11 @@ rules:
             source:
               corpus_citation_path: nz/statute/act/public/2018/0032/section/46
               excerpt: the child is both resident and present in New Zealand
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/section/46
+              excerpt: P has been both resident and present in New Zealand for a continuous period of 12 months at any time
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -409,7 +414,7 @@ rules:
     dtype: Money
     period: Year
     unit: NZD
-    source: Social Security Act 2018 Schedule 4 Part 4 clause 2; Schedule 3 Part 3 clause 12
+    source: Social Security Act 2018 Schedule 4 Part 4 clause 2; Part 5 clause 2; Schedule 3 Part 3 clause 12
     metadata:
       proof:
         atoms:
@@ -417,6 +422,11 @@ rules:
             kind: formula
             source:
               corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/4/clause/lms118449
+              excerpt: the annual income of the child
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/5/clause/lms118450
               excerpt: the annual income of the child
           - path: versions[0].formula
             kind: formula
