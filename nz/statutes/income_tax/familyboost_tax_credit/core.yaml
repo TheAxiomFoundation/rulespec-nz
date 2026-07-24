@@ -1,0 +1,397 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+  summary: |-
+    Income Tax Act 2007 subpart MH: the FamilyBoost tax credit for licensed
+    early childhood education fees, encoded from the consolidated text in the
+    bound PCO corpus (which carries the post-1-July-2025 settings inserted by
+    the Income Tax (FamilyBoost) Amendment Act 2025: 40% of fees, $1,560
+    quarterly maximum, $35,000 abatement threshold, 7 cents per complete
+    dollar, zero at $57,286). Version dates follow the repository's
+    consolidation-snapshot convention (2026-04-01); the 2024-25 regime (25%,
+    $975, 9.75 cents, $45,000) predates the bound consolidation and is
+    deliberately not encoded until the amendment act is ingested - tracked as
+    a follow-up.
+
+    Entitlement (MH 3(1), MH 3(6)): a natural person who, during the tax
+    credit quarter, is a caregiver of one or more children enrolled with a
+    licensed early childhood service, incurs licensed early childhood service
+    fees for that child or those children, and is resident in New Zealand -
+    and not barred by the couple rule - if the person's relationship
+    partner is the couple's claimant, MH 3(6) denies a second credit, unless
+    separated with no partner at quarter end (MH 3(7)). Caregiver carries the MH 2
+    definition (day-to-day responsibility, not merely temporary care);
+    licensed early childhood service fees include optional charges and
+    exclude donations (MH 2), and the fee input carries that contract. The
+    refund-application and filing-compliance machinery (MH 3(4)-(5)) and the
+    MH 6 Order in Council power are procedural and out of scope by name.
+
+    Tax credit income (MH 4): quarterly reportable income when only
+    reportable income (MH 4(2)); 25% of annual taxable income on the
+    other-income routes (MH 4(3)-(4), which differ only in which return the
+    Commissioner uses); the greater of the two when both kinds exist
+    (MH 4(5)); zero for a person with no filing obligation for two years and
+    no reportable income (MH 4(6)). A person's tax credit income is combined
+    with their relationship partner's (MH 4(7)) - the partner's amount is
+    determined under the same routes as if the partner were the person, and
+    is carried as a Commissioner-determined input - unless the person is
+    separated with no partner at the end of the quarter (MH 4(8)).
+
+    Credit (MH 3(2)-(3), MH 5): 40% of the fees payable for the quarter up
+    to $1,560; if tax credit income exceeds $35,000 the credit is the lesser
+    of that amount and $1,560 minus the abatement, where the abatement is
+    7 cents for each complete dollar of tax credit income above $35,000
+    (floored), and income of $57,286 or more sets the abatement to $1,560
+    and the credit to zero (MH 5(3) states this cutout directly).
+units:
+  - name: NZD
+    kind: currency
+    minor_units: 2
+rules:
+  # ---- Statutory parameters (MH 3, MH 4, MH 5) ---------------------------
+  - name: fb_credit_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MH 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: equal to 40% of the licensed early childhood service fees payable by the person for that quarter
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '0.40'
+  - name: fb_max_credit_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MH 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: up to a maximum credit amount of $1,560
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '1560'
+  - name: fb_abatement_income_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 ss MH 3(3), MH 5(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: is greater than $35,000 for the tax credit quarter
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: 7 cents for each complete dollar of the person’s tax credit income for the tax credit quarter that is greater than $35,000
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '35000'
+  - name: fb_abatement_rate
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MH 5(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: the abatement amount is calculated at the rate of 7 cents for each complete dollar
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '0.07'
+  - name: fb_zero_credit_income
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 s MH 5(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: If the person’s tax credit income for the tax credit quarter is $57,286 or more, the abatement amount is $1,560
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '57286'
+  - name: fb_other_income_taxable_proportion
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s MH 4(3)-(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: the person’s tax credit income for a tax credit quarter is 25% of the person’s taxable income for an income year
+    versions:
+      - effective_from: '2026-04-01'
+        formula: '0.25'
+  # ---- Entitlement (MH 3(1), MH 3(6)) ------------------------------------
+  # The caregiver input carries the MH 2 definition (day-to-day
+  # responsibility, other than on a temporary basis); the fee-incurrence
+  # input requires the fees to concern the enrolled child or children.
+  - name: fb_entitled
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Quarter
+    source: Income Tax Act 2007 ss MH 3(1), MH 3(6)-(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: A natural person is entitled to a FamilyBoost tax credit
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: is a caregiver of 1 or more children enrolled with a licensed early childhood service
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: incurs licensed early childhood service fees for that child or children
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: is resident in New Zealand
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: the relationship partner is not also entitled to a FamilyBoost tax credit for the tax credit quarter, regardless of whether the licensed early childhood service fees are incurred by both the person and their relationship partner
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: Subsection (6) does not apply for a tax credit quarter if the person is separated from their relationship partner and does not have a relationship partner at the end of that quarter
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          claimant_is_natural_person
+          and is_caregiver_of_child_enrolled_with_licensed_ece
+          and incurs_licensed_ece_fees_for_enrolled_child
+          and is_resident_in_nz
+          and not (
+            has_relationship_partner
+            and not separated_with_no_partner_at_quarter_end
+            and relationship_partner_is_couples_claimant_for_quarter
+          )
+  # ---- Other-income route authorization (MH 4(3)-(4)) --------------------
+  # The 25%-of-taxable route runs only on a return the section authorizes:
+  # a filed return for the income year that includes the quarter (MH 4(3)),
+  # or the most recent return filed in either of the 2 preceding income
+  # years with filing compliance (MH 4(4)). Without either, the greater-of
+  # comparison degrades to its reportable limb and a person with only
+  # other income has no determined amount beyond zero reportable income.
+  - name: fb_other_income_route_available
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Quarter
+    source: Income Tax Act 2007 s MH 4(3)-(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: the person has filed a return of income for that income year
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: the most recent return has been filed in either of the 2 income years preceding the tax credit quarter
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          has_filed_return_for_income_year_including_quarter or commissioner_may_use_most_recent_return
+  # ---- Tax credit income (MH 4) ------------------------------------------
+  # Routes (2)-(6) for the claimant. The final branch applies MH 4(2) with
+  # whatever reportable income exists (zero when none); MH 4(6) zeroes the
+  # income of a person with no filing obligation for two years and no
+  # reportable income.
+  - name: fb_individual_tax_credit_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Quarter
+    unit: NZD
+    source: Income Tax Act 2007 s MH 4(2)-(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: the person’s tax credit income for the tax credit quarter is the same amount as their reportable income for that quarter
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: the person’s tax credit income for a tax credit quarter is 25% of the person’s taxable income for an income year
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: The person’s tax credit income for the tax credit quarter is the greater of
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: a person’s tax credit income is zero if, throughout the 2-year period preceding the income year that includes the person’s tax credit quarter, the person has not had an obligation to file a return of income
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if exempt_from_filing_two_years_and_no_reportable_income: 0
+          else: if has_reportable_income and has_other_income and fb_other_income_route_available: max(quarterly_reportable_income, fb_other_income_taxable_proportion * annual_taxable_income_for_other_income_route)
+          else: if has_other_income and fb_other_income_route_available: fb_other_income_taxable_proportion * annual_taxable_income_for_other_income_route
+          else: quarterly_reportable_income
+  # ---- Combined tax credit income (MH 4(7)-(8)) --------------------------
+  # The partner's tax credit income is determined under MH 4(2)-(6) as if
+  # the partner were the person; that determined amount is an input here.
+  - name: fb_tax_credit_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Quarter
+    unit: NZD
+    source: Income Tax Act 2007 s MH 4(7)-(8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: the person’s tax credit income for the tax credit quarter is the combined total of the person’s tax credit income and the tax credit income of their relationship partner for that quarter
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-4
+              excerpt: Subsection (7) does not apply for a tax credit quarter if the person is separated from their relationship partner and does not have a relationship partner at the end of that quarter
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          fb_individual_tax_credit_income + (
+            if has_relationship_partner and not separated_with_no_partner_at_quarter_end: partner_tax_credit_income_for_quarter
+            else: 0
+          )
+  # ---- Pre-abatement credit (MH 3(2)) ------------------------------------
+  - name: fb_pre_abatement_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Quarter
+    unit: NZD
+    source: Income Tax Act 2007 s MH 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: equal to 40% of the licensed early childhood service fees payable by the person for that quarter up to a maximum credit amount of $1,560
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          min(fb_credit_rate * licensed_ece_fees_payable_for_quarter, fb_max_credit_amount)
+  # ---- Abatement amount (MH 5) -------------------------------------------
+  # "7 cents for each complete dollar" - the excess is floored to complete
+  # dollars before the rate applies; MH 5(3) states the $57,286 cutout
+  # directly rather than leaving it to the continuous formula.
+  - name: fb_abatement_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Quarter
+    unit: NZD
+    source: Income Tax Act 2007 s MH 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: the abatement amount is calculated at the rate of 7 cents for each complete dollar of the person’s tax credit income for the tax credit quarter that is greater than $35,000
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: If the person’s tax credit income for the tax credit quarter is $57,286 or more, the abatement amount is $1,560
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: When a person is entitled to a FamilyBoost tax credit for a tax credit quarter under section MH 3 and the person’s tax credit income for that quarter is greater than $35,000, this section calculates the abatement amount
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if not fb_entitled: 0
+          else: if fb_tax_credit_income >= fb_zero_credit_income: fb_max_credit_amount
+          else: if fb_tax_credit_income > fb_abatement_income_threshold: fb_abatement_rate * floor(fb_tax_credit_income - fb_abatement_income_threshold)
+          else: 0
+  # ---- FamilyBoost tax credit (MH 3(2)-(3), MH 5(3)) ---------------------
+  - name: familyboost_tax_credit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Quarter
+    unit: NZD
+    source: Income Tax Act 2007 ss MH 3(2)-(3), MH 5(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: the FamilyBoost tax credit for the tax credit quarter is the lesser of
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-3
+              excerpt: $1,560 less the abatement amount
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/mh-5
+              excerpt: the FamilyBoost tax credit amount under section MH 3(2) and (3) is zero
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if not fb_entitled: 0
+          else: if fb_tax_credit_income > fb_abatement_income_threshold: min(fb_pre_abatement_credit, max(0, fb_max_credit_amount - fb_abatement_amount))
+          else: fb_pre_abatement_credit

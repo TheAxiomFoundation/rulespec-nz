@@ -1,0 +1,598 @@
+# Companion tests for the FamilyBoost tax credit (ITA 2007 subpart MH,
+# post-1-July-2025 settings as consolidated in the bound corpus). The abatement
+# is 7 cents per COMPLETE dollar of tax credit income above $35,000 (floored),
+# with the $57,286 cutout stated directly by MH 5(3). Partner incomes combine
+# under MH 4(7) unless separated (MH 4(8)). Expected values are hand-computed
+# with exact decimals.
+- name: income below the abatement threshold pays 40 percent of fees
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 3000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_tax_credit_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_pre_abatement_credit: 1200.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled: holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1200.00
+- name: fees at the exact 3,900 cap reach the 1,560 maximum
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 3900.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_pre_abatement_credit: 1560.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1560.00
+- name: fees above the cap stay at the maximum
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 4000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_pre_abatement_credit: 1560.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1560.00
+- name: income exactly at 35,000 is not abated (strict greater-than)
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 35000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1560.00
+- name: 99 cents above the threshold floors to zero complete dollars
+  # MH 5(2): 7 cents per COMPLETE dollar; floor(0.99) = 0.
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 35000.99
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1560.00
+- name: one complete dollar above the threshold abates seven cents
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 35001.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 0.07
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1559.93
+- name: mid-range abatement at 45,000
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 45000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 700.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 860.00
+- name: just below the statutory cutout leaves five cents of credit
+  # floor(22,285.99) = 22,285; 22,285 x 0.07 = 1,559.95; 1,560 - 1,559.95 = 0.05.
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 57285.99
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 1559.95
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0.05
+- name: income at the 57,286 cutout zeroes the credit directly (MH 5(3))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 57286.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 1560.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0
+- name: the lesser-of picks the fee-based amount when fees are low
+  # MH 3(3): lesser of 400 and 1,560 - 350 = 1,210.
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 1000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 40000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_pre_abatement_credit: 400.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 350.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 400.00
+- name: 'partner incomes combine: 30,000 each reaches the cutout (MH 4(7))'
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 3000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 30000.00
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_tax_credit_income: 60000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 1560.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0
+- name: separation at quarter end disapplies the combination (MH 4(8))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 3000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 30000.00
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_tax_credit_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1200.00
+- name: other-income route uses 25 percent of annual taxable income (MH 4(3))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 160000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_other_income_route_available: holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income: 40000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 350.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1210.00
+- name: with both income kinds the greater route governs (MH 4(5))
+  # max(30,000 reportable, 25% x 160,000 = 40,000) = 40,000.
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 160000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income: 40000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1210.00
+- name: two years without a filing obligation zeroes tax credit income (MH 4(6))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_tax_credit_income: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1560.00
+- name: a partner already receiving the credit blocks entitlement (MH 3(6))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled: not_holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0
+- name: a non-resident is not entitled
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled: not_holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0
+- name: a caregiver without incurred fees for the enrolled child is not entitled
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled: not_holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0
+- name: an unauthorized stale return cannot run the other-income route (MH 4(4))
+  # Sol counterexample: a 3-year-old return may not be used; income falls back to the reportable amount.
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 160000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_other_income_route_available: not_holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1560.00
+- name: the partner being the couple's claimant bars entitlement (MH 3(6))
+  # MH 5(1) gate: income 45,000 would abate 700 if the gate were absent;
+  # asserting 0 proves the abatement rule is entitlement-gated.
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 45000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled: not_holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 0
+- name: separation at quarter end disapplies the couple bar (MH 3(7))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 3000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 30000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled: holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1200.00
+- name: the authorized most-recent-return route also runs the 25 percent calculation (MH 4(4))
+  period:
+    period_kind: custom
+    name: tax_credit_quarter
+    start: '2026-07-01'
+    end: '2026-09-30'
+  input:
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.claimant_is_natural_person: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_caregiver_of_child_enrolled_with_licensed_ece: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.incurs_licensed_ece_fees_for_enrolled_child: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.is_resident_in_nz: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.relationship_partner_is_couples_claimant_for_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_relationship_partner: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.separated_with_no_partner_at_quarter_end: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.licensed_ece_fees_payable_for_quarter: 5000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.quarterly_reportable_income: 0
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.annual_taxable_income_for_other_income_route: 160000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_other_income: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.has_filed_return_for_income_year_including_quarter: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.commissioner_may_use_most_recent_return: true
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.exempt_from_filing_two_years_and_no_reportable_income: false
+    nz:statutes/income_tax/familyboost_tax_credit/core#input.partner_tax_credit_income_for_quarter: 0
+  output:
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_other_income_route_available: holds
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income: 40000.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount: 350.00
+    nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit: 1210.00

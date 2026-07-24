@@ -5131,6 +5131,103 @@
           "source_family": "core"
         }
       ]
+    },
+    {
+      "path": "nz/statutes/income_tax/familyboost_tax_credit/core.yaml",
+      "surface_ids": [
+        "nz/statutes/income_tax/familyboost_tax_credit/core"
+      ],
+      "source_families": [
+        "nz_statutes_income_tax_familyboost_tax_credit_core"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_credit_rate",
+          "name": "fb_credit_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_max_credit_amount",
+          "name": "fb_max_credit_amount",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_income_threshold",
+          "name": "fb_abatement_income_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_rate",
+          "name": "fb_abatement_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_zero_credit_income",
+          "name": "fb_zero_credit_income",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_other_income_taxable_proportion",
+          "name": "fb_other_income_taxable_proportion",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_entitled",
+          "name": "fb_entitled",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_other_income_route_available",
+          "name": "fb_other_income_route_available",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income",
+          "name": "fb_individual_tax_credit_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_tax_credit_income",
+          "name": "fb_tax_credit_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_pre_abatement_credit",
+          "name": "fb_pre_abatement_credit",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_abatement_amount",
+          "name": "fb_abatement_amount",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#familyboost_tax_credit",
+          "name": "familyboost_tax_credit",
+          "kind": "derived",
+          "source_family": "core"
+        }
+      ]
     }
   ],
   "duplicate_clusters": [
