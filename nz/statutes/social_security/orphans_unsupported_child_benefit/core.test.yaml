@@ -1,0 +1,315 @@
+# Companion tests for the orphan's benefit / unsupported child's benefit.
+# Weekly rates are the 1 April 2026 amounts, verified against the Work and Income
+# benefit-rates deskfile. The child-income diminution runs on the annual basis
+# (see the module summary): annual rate = weekly rate x 52 = $18,230.16 at the
+# 14+ rate, income-free threshold = 50% = $9,115.08, reduction = complete $1 of
+# the excess, weekly payable = (annual rate - reduction) / 52. Expected values
+# are hand-computed with exact decimals.
+- name: orphans benefit, child at the age-14 boundary, no child income, full rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 14
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 40
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 350.58
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_annual_rate_equivalent: 18230.16
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 350.58
+- name: orphans benefit, child at the age-10 boundary, residence via caregiver 12-month rule
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 10
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 50
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 327.16
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 327.16
+- name: orphans benefit, child at the age-5 boundary takes the 5-9 rate (agency banding)
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 5
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 40
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 303.62
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 303.62
+- name: orphans benefit, child under 5, caregiver at the age-18 boundary is eligible
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 4
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 18
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 301.53
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 301.53
+- name: caregiver under 18 is not eligible, benefit nil
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 3
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 17
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: unsupported child benefit, annual child income abates on the complete-dollar annual basis
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 15
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 10000.00
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate: 350.58
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_annual_rate_equivalent: 18230.16
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_annual_reduction: 884
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 333.58
+- name: child income exactly at the 50 percent threshold leaves the full rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 15
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 9115.08
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_annual_reduction: 0
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 350.58
+- name: excess under one complete dollar does not diminish the rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 15
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 9116.07
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_annual_reduction: 0
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 350.58
+- name: child income large enough to abate the benefit fully
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 15
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 27350.00
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_annual_reduction: 18234
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: family breakdown that leaves a parent able to support does not qualify
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 8
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: neither residence limb met, benefit nil
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 12
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 50
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: a caregiver who is a parent of the child is not eligible
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 12
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 50
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: caregiver who is not the principal or temporary caregiver is not eligible
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 12
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 50
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
+- name: reduction of exactly one dollar leaves the unrounded weekly conversion
+  # The engine emits the exact decimal for (18,230.16 - 1) / 52; neither the Act
+  # nor Schedule 4 specifies payment-cycle rounding, so the module leaves the
+  # weekly conversion unrounded and this case documents that precision.
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 15
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 30
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 9116.08
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_annual_reduction: 1
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: '350.56076923076923076923076923'
+- name: a child who is not a dependent child of the caregiver does not qualify
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_age_years: 12
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_age_years: 50
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_not_a_parent_of_child: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_dependent_child_of_caregiver: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_is_principal_or_temporary_caregiver: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_is_resident_and_present_in_nz: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.caregiver_resident_and_present_12_months: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.no_parent_able_to_care_due_to_death_disappearance_or_disablement: true
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.family_breakdown_leaves_no_parent_able_to_care_or_support: false
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#input.child_annual_income_other_than_earnings: 0
+  output:
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled: not_holds
+    nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount: 0
