@@ -20,8 +20,9 @@ module:
     credit quarter, is a caregiver of one or more children enrolled with a
     licensed early childhood service, incurs licensed early childhood service
     fees for that child or those children, and is resident in New Zealand -
-    and whose relationship partner is not already receiving the credit for
-    the quarter (one credit per couple). Caregiver carries the MH 2
+    and not barred by the couple rule - if the person's relationship
+    partner is the couple's claimant, MH 3(6) denies a second credit, unless
+    separated with no partner at quarter end (MH 3(7)). Caregiver carries the MH 2
     definition (day-to-day responsibility, not merely temporary care);
     licensed early childhood service fees include optional charges and
     exclude donations (MH 2), and the fee input carries that contract. The
@@ -158,7 +159,7 @@ rules:
     entity: Person
     dtype: Judgment
     period: Quarter
-    source: Income Tax Act 2007 ss MH 3(1), MH 3(6)
+    source: Income Tax Act 2007 ss MH 3(1), MH 3(6)-(7)
     metadata:
       proof:
         atoms:
