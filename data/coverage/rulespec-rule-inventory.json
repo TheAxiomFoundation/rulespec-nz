@@ -4847,6 +4847,115 @@
           "source_family": "supermarket_zoning"
         }
       ]
+    },
+    {
+      "path": "nz/statutes/social_security/orphans_unsupported_child_benefit/core.yaml",
+      "surface_ids": [
+        "nz/statutes/social_security/orphans_unsupported_child_benefit/core"
+      ],
+      "source_families": [
+        "nz_statutes_social_security_orphans_unsupported_child_benefit_core"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_weekly_rate_age_14_or_over",
+          "name": "ocb_weekly_rate_age_14_or_over",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_weekly_rate_age_10_to_13",
+          "name": "ocb_weekly_rate_age_10_to_13",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_weekly_rate_age_5_to_9",
+          "name": "ocb_weekly_rate_age_5_to_9",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_weekly_rate_under_5",
+          "name": "ocb_weekly_rate_under_5",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_age_band_14",
+          "name": "ocb_age_band_14",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_age_band_10",
+          "name": "ocb_age_band_10",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_age_band_5",
+          "name": "ocb_age_band_5",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_child_income_free_proportion",
+          "name": "ocb_child_income_free_proportion",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#ocb_caregiver_minimum_age",
+          "name": "ocb_caregiver_minimum_age",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#base_weekly_rate",
+          "name": "base_weekly_rate",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#is_eligible_caregiver",
+          "name": "is_eligible_caregiver",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#meets_residence_requirement",
+          "name": "meets_residence_requirement",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#orphans_benefit_entitled",
+          "name": "orphans_benefit_entitled",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#unsupported_child_benefit_entitled",
+          "name": "unsupported_child_benefit_entitled",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:statutes/social_security/orphans_unsupported_child_benefit/core#weekly_benefit_amount",
+          "name": "weekly_benefit_amount",
+          "kind": "derived",
+          "source_family": "core"
+        }
+      ]
     }
   ],
   "duplicate_clusters": [
