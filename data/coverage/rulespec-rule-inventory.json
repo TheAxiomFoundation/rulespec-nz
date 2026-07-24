@@ -5192,6 +5192,12 @@
           "source_family": "core"
         },
         {
+          "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_other_income_route_available",
+          "name": "fb_other_income_route_available",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
           "id": "nz:statutes/income_tax/familyboost_tax_credit/core#fb_individual_tax_credit_income",
           "name": "fb_individual_tax_credit_income",
           "kind": "derived",
