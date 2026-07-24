@@ -3,9 +3,9 @@
   "release_cut_plan": "nz-rulespec-2026-07-20",
   "release_selector_sha256": "03558a39482d62c876c2189656f69346f2c5bb28b0d99298084f6c03b1783ce7",
   "publication_state": "merged_published_activated",
-  "atomic_module_count": 38,
-  "proof_atom_count": 1120,
-  "resolved_proof_atom_count": 1011,
+  "atomic_module_count": 39,
+  "proof_atom_count": 1165,
+  "resolved_proof_atom_count": 1056,
   "blocked_proof_atom_count": 109,
   "blockers": [
     {

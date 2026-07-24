@@ -2,10 +2,10 @@
     "generated_at": "2026-06-26",
     "jurisdiction": "nz",
     "purpose": "Compact completion scorecard for RuleSpec rule inventory and triangulation",
-    "total_modules": 38,
-    "modules_with_rules": 34,
+    "total_modules": 39,
+    "modules_with_rules": 35,
     "modules_deferred": 4,
-    "total_rules": 707,
+    "total_rules": 730,
     "total_duplicate_clusters": 5,
     "total_conflicts": 7,
     "resolved_conflicts": 6,
@@ -35,7 +35,9 @@
             "nz/statutes/social_security/disability_allowance/core.yaml",
             "nz/statutes/social_security/main_benefits/entitlement.yaml",
             "nz/statutes/social_security/main_benefits/rates.yaml",
+            "nz/statutes/social_security/orphans_unsupported_child_benefit/core.yaml",
             "nz/statutes/social_security/winter_energy_payment/core.yaml",
+            "nz/statutes/social_security/youth_young_parent_payment/core.yaml",
             "nz/statutes/student_loan/repayments.yaml"
         ],
         "deferred": [

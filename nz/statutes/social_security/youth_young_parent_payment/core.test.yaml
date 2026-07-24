@@ -1,0 +1,520 @@
+# Companion tests for the youth payment / young parent payment.
+# Rates are the 1 April 2026 Schedule 4 Part 6 amounts; the income test is the
+# subpart 4 machinery: single rates abate $1 per $1 of non-child-support weekly
+# income above $284.70 (cut-out when it exceeds $334.70), child support
+# payments then abate beyond the unused threshold (clauses 11A-11B); partnered
+# rates abate 50 cents per $1 of combined non-child-support income above
+# $284.70 with a $384.70 cut-out, and clause 12A applies its 50-cent reduction
+# only to relevant child-support income exceeding a further $284.70. Expected values are hand-computed with exact decimals.
+- name: youth payment, age-16 boundary, never in relationship with support gap, full rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 324.50
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_counted_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_counted_combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 324.50
+- name: youth payment, age-17 boundary via the has-been-in-relationship branch
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 17
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 324.50
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 324.50
+- name: age 18 is outside the youth payment window
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 18
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: never in a relationship without a parental support gap does not qualify
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: currently with a specified beneficiary defeats the relationship branch
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 17
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: single rate abates dollar for dollar above the threshold
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 300.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction: 15.30
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 309.20
+- name: income exactly at the single threshold leaves the full rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 284.70
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 324.50
+- name: income exactly at the single cut-out still pays the abated rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 334.70
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction: 50.00
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 274.50
+- name: income above the single cut-out pays nothing while entitlement stands
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 334.71
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: child support payments abate beyond the unused threshold (clauses 11A-11B)
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 200.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 100.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction: 15.30
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 309.20
+- name: young parent payment, category i, single not living with a parent takes item 3
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 521.52
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 521.52
+- name: young parent payment, category ii, age-18 boundary never in relationship
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 18
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 521.52
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 521.52
+- name: young parent payment, item 2 for a supported 16-17 year old
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 17
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 300.86
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 300.86
+- name: young parent payment, category iii at the age-19 boundary, partnered with child at the combined cut-out
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 19
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 384.70
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 334.70
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_counted_combined_weekly_income_excluding_child_support: 384.70
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_income_reduction: 50.00
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 284.70
+- name: combined income above the partnered cut-out pays nothing
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 19
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 384.71
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: childcare earnings disregard caps at the statutory 20 dollars for a young parent rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 300.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 30
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_counted_weekly_income_excluding_child_support: 280.00
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_single_income_reduction: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 521.52
+- name: age 15 qualifies for neither payment
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 15
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: a child on orphans or UCB blocks s 49 but is rated childless under Part 6 (clause 6)
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 324.50
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 324.50
+- name: partnered child support below the clause-12A second threshold does not reduce the rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 19
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 200.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 100.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 334.70
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_income_reduction: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 334.70
