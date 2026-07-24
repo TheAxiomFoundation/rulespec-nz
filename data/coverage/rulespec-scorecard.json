@@ -35,7 +35,9 @@
             "nz/statutes/social_security/disability_allowance/core.yaml",
             "nz/statutes/social_security/main_benefits/entitlement.yaml",
             "nz/statutes/social_security/main_benefits/rates.yaml",
+            "nz/statutes/social_security/orphans_unsupported_child_benefit/core.yaml",
             "nz/statutes/social_security/winter_energy_payment/core.yaml",
+            "nz/statutes/social_security/youth_young_parent_payment/core.yaml",
             "nz/statutes/student_loan/repayments.yaml"
         ],
         "deferred": [

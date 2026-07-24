@@ -13,7 +13,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -42,7 +43,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 17
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
@@ -68,7 +70,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 18
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -94,7 +97,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -117,9 +121,10 @@
     start: '2026-04-01'
     end: '2027-03-31'
   input:
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 17
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
@@ -144,7 +149,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -169,7 +175,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -194,7 +201,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -219,7 +227,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -244,7 +253,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: false
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -269,7 +279,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -296,7 +307,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 18
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -322,7 +334,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 17
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -347,7 +360,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 19
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
@@ -375,7 +389,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 19
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
@@ -400,7 +415,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -426,7 +442,8 @@
   input:
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 15
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
-    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_excluding_ob_ucb: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
     nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
@@ -444,3 +461,58 @@
     nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
     nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: not_holds
     nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 0
+- name: a child on orphans or UCB blocks s 49 but is rated childless under Part 6 (clause 6)
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 16
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#youth_payment_entitled: not_holds
+    nz:statutes/social_security/youth_young_parent_payment/core#young_parent_payment_entitled: holds
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 324.50
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 324.50
+- name: partnered child support below the clause-12A second threshold does not reduce the rate
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_age_years: 19
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_study_ready: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child_for_part6_rates: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_meets_residential_requirement: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_no_or_minimum_income: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_never_been_in_relationship: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_has_parental_support_gap: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_currently_with_specified_beneficiary: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_parent_or_step_parent_of_dependent_child: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_is_in_relationship: true
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_living_with_or_supported_by_parent_or_guardian: false
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_weekly_income_excluding_child_support: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.young_person_child_support_weekly_payments: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_weekly_income_excluding_child_support: 200.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.combined_child_support_weekly_payments: 100.00
+    nz:statutes/social_security/youth_young_parent_payment/core#input.msd_childcare_earnings_disregard_allowed: 0
+  output:
+    nz:statutes/social_security/youth_young_parent_payment/core#applicable_weekly_rate: 334.70
+    nz:statutes/social_security/youth_young_parent_payment/core#yp_partnered_income_reduction: 0
+    nz:statutes/social_security/youth_young_parent_payment/core#base_weekly_payment_after_income_test: 334.70

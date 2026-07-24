@@ -36,9 +36,12 @@ module:
     $334.70 (item 5: in a relationship with a dependent child - items 5(a)
     and 5(b) state the same amount whether or not the spouse or partner
     receives a main benefit, so the distinction does not affect the rate and
-    is not encoded). Under clause 6, dependent child excludes a child for
-    whom an orphan's benefit or unsupported child's benefit is paid; the
-    dependent-child inputs carry that exclusion.
+    is not encoded). Clause 6's rule that a dependent child excludes a child for whom an
+    orphan's benefit or unsupported child's benefit is paid applies only
+    within this Part, so the Part 6 rate selection uses a clause-6 dependent-
+    child input while s 49 entitlement uses the ordinary dependent-child
+    concept - a person whose only child attracts OB/UCB has a dependent
+    child for s 49 but is rated as childless under Part 6.
 
     Income test (subpart 4): single rates (items 1-3) reduce $1 for every $1
     of the young person's weekly income excluding information share child
@@ -46,8 +49,11 @@ module:
     support income exceeds $334.70 (clause 11); clauses 11A-11B then reduce
     $1 for every $1 of child support payments beyond the unused part of the
     same $284.70 threshold. Partnered rates (items 4-5) reduce 50 cents per
-    $1 of combined income on the same structure (clauses 12-12B), with
-    nothing payable when combined non-child-support income exceeds $384.70.
+    $1 of combined non-child-support income above $284.70, and - unlike the
+    single-rate stack - clause 12A applies its 50-cent reduction only to the
+    clause-12B relevant child-support income that itself exceeds a further
+    $284.70, with nothing payable when combined non-child-support income
+    exceeds $384.70.
     Clause 13 lets MSD disregard up to $20 a week of personal earnings used
     for childcare when a young parent payment rate applies; the disregard
     actually allowed is an MSD determination carried as an input capped at
@@ -360,7 +366,7 @@ rules:
           young_person_age_years >= yp_youth_min_age
           and young_person_age_years <= yp_youth_max_age
           and young_person_is_study_ready
-          and not young_person_has_dependent_child_excluding_ob_ucb
+          and not young_person_has_dependent_child
           and young_person_meets_residential_requirement
           and young_person_has_no_or_minimum_income
           and (
@@ -465,13 +471,18 @@ rules:
             source:
               corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
               excerpt: For a young person who is in a relationship and is without dependent children | $ 316.97 a week
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/1
+              excerpt: In this Part, dependent child (as defined in Schedule 2 ) excludes a child in respect of whom an orphan’s benefit or an unsupported child’s benefit is being paid
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           if young_person_is_in_relationship:
-            if young_person_has_dependent_child_excluding_ob_ucb: yp_rate_partnered_with_child
+            if young_person_has_dependent_child_for_part6_rates: yp_rate_partnered_with_child
             else: yp_rate_partnered_no_children
-          else: if young_person_has_dependent_child_excluding_ob_ucb:
+          else: if young_person_has_dependent_child_for_part6_rates:
             if young_person_age_years >= yp_youth_min_age and young_person_age_years <= yp_youth_max_age and young_person_living_with_or_supported_by_parent_or_guardian: yp_rate_single_supported_with_child
             else: yp_rate_single_other_with_child
           else: yp_rate_single_no_children
@@ -498,7 +509,7 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           max(0, young_person_weekly_income_excluding_child_support - (
-            if young_parent_payment_entitled: min(ypp_childcare_disregard_maximum, msd_childcare_earnings_disregard_allowed)
+            if young_parent_payment_entitled: max(0, min(ypp_childcare_disregard_maximum, msd_childcare_earnings_disregard_allowed))
             else: 0
           ))
   - name: yp_counted_combined_weekly_income_excluding_child_support
@@ -520,7 +531,7 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           max(0, combined_weekly_income_excluding_child_support - (
-            if young_parent_payment_entitled: min(ypp_childcare_disregard_maximum, msd_childcare_earnings_disregard_allowed)
+            if young_parent_payment_entitled: max(0, min(ypp_childcare_disregard_maximum, msd_childcare_earnings_disregard_allowed))
             else: 0
           ))
   # ---- Single-rate income reduction (clauses 11, 11A, 11B) ---------------
@@ -546,7 +557,7 @@ rules:
             kind: formula
             source:
               corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/4
-              excerpt: that is 1 or more information share child support payments
+              excerpt: the young person’s relevant weekly income means their weekly income— that is 1 or more information share child support payments; and that exceeds $ 284.70 of their weekly income
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -572,13 +583,18 @@ rules:
             kind: formula
             source:
               corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/4
-              excerpt: reduced by 50 cents for every $1 of the relevant combined weekly income of the young person and the young person’s spouse or partner
+              excerpt: reduced by 50 cents for every $1 of the relevant combined weekly income of the young person and the young person’s spouse or partner (as defined in clause 12B) that exceeds $ 284.70
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2018/0032/schedule/4/part/6/subpart/4
+              excerpt: the relevant combined weekly income of the young person and the young person’s spouse or partner means their combined weekly income— that is 1 or more information share child support payments; and that exceeds $ 284.70 of their combined weekly income
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           yp_partnered_abatement_rate * (
             max(0, yp_counted_combined_weekly_income_excluding_child_support - yp_partnered_income_abatement_threshold)
-            + max(0, combined_child_support_weekly_payments - max(0, yp_partnered_income_abatement_threshold - yp_counted_combined_weekly_income_excluding_child_support))
+            + max(0, max(0, combined_child_support_weekly_payments - max(0, yp_partnered_income_abatement_threshold - yp_counted_combined_weekly_income_excluding_child_support)) - yp_partnered_income_abatement_threshold)
           )
   # ---- Base weekly payment after the income test -------------------------
   # This is the subpart 1 rate after the subpart 4 income test only; the
