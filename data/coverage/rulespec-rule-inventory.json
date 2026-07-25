@@ -2578,67 +2578,6 @@
       ]
     },
     {
-      "path": "nz/statutes/income_tax/investment/pie.yaml",
-      "surface_ids": [
-        "nz/statutes/income_tax/investment/pie"
-      ],
-      "source_families": [
-        "nz_statutes_income_tax_investment_pie"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_rate_10_5",
-          "name": "pie_rate_10_5",
-          "kind": "parameter",
-          "source_family": "pie"
-        },
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_rate_17_5",
-          "name": "pie_rate_17_5",
-          "kind": "parameter",
-          "source_family": "pie"
-        },
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_rate_28",
-          "name": "pie_rate_28",
-          "kind": "parameter",
-          "source_family": "pie"
-        },
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_low",
-          "name": "pie_two_year_lookback_taxable_income_threshold_low",
-          "kind": "parameter",
-          "source_family": "pie"
-        },
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_high",
-          "name": "pie_two_year_lookback_taxable_income_threshold_high",
-          "kind": "parameter",
-          "source_family": "pie"
-        },
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_determined_pir_rate",
-          "name": "pie_determined_pir_rate",
-          "kind": "derived",
-          "source_family": "pie"
-        },
-        {
-          "id": "nz:statutes/income_tax/investment/pie#pie_tax_on_income",
-          "name": "pie_tax_on_income",
-          "kind": "derived",
-          "source_family": "pie"
-        }
-      ]
-    },
-    {
       "path": "nz/statutes/income_tax/schedule_1/individual_income_tax.yaml",
       "surface_ids": [
         "nz/statutes/income_tax/schedule_1/individual_income_tax"
@@ -5226,6 +5165,79 @@
           "name": "familyboost_tax_credit",
           "kind": "derived",
           "source_family": "core"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/income_tax/investment/pie.yaml",
+      "surface_ids": [
+        "nz/statutes/income_tax/investment/pie"
+      ],
+      "source_families": [
+        "nz_statutes_income_tax_investment_pie"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_rate_10_5",
+          "name": "pie_rate_10_5",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_rate_17_5",
+          "name": "pie_rate_17_5",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_rate_28",
+          "name": "pie_rate_28",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_low",
+          "name": "pie_two_year_lookback_taxable_income_threshold_low",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_lookback_combined_income_threshold_low",
+          "name": "pie_lookback_combined_income_threshold_low",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_high",
+          "name": "pie_two_year_lookback_taxable_income_threshold_high",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_lookback_combined_income_threshold_high",
+          "name": "pie_lookback_combined_income_threshold_high",
+          "kind": "parameter",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_determined_pir_rate",
+          "name": "pie_determined_pir_rate",
+          "kind": "derived",
+          "source_family": "pie"
+        },
+        {
+          "id": "nz:statutes/income_tax/investment/pie#pie_tax_on_income",
+          "name": "pie_tax_on_income",
+          "kind": "derived",
+          "source_family": "pie"
         }
       ]
     }
