@@ -1,0 +1,178 @@
+[
+  {
+    "gateId": "repo/tracked-paths",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Reject unsupported tracked paths",
+      "mechanism": "python over git ls-files; rejects non-UTF-8 and control characters in tracked paths",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "repo/obsolete-generated-files",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Reject obsolete generated files",
+      "mechanism": "find over the working tree for retired generated-file extensions",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "repo/layout",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Reject disallowed repository layout",
+      "mechanism": "tracked paths checked against .axiom/repository-structure.yaml, which this journal also attests by digest",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "deps/commit-ancestry",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Authenticate dependency commits",
+      "mechanism": "each pinned dependency SHA proved to be an ancestor of its public repository's protected default branch",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "corpus/release-object-fetch",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Fetch pinned signed corpus release object",
+      "mechanism": "fetched from a public URL and matched against axiom_corpus_release_content_sha256 in .axiom/toolchain.toml, which this journal attests by digest",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "corpus/provenance-commit-ancestry",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Authenticate signed corpus provenance commit",
+      "mechanism": "release provenance commit proved to be an ancestor of the public axiom-corpus default branch and of the pinned corpus checkout",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "rulespec/companion-tests",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Execute RuleSpec companion tests",
+      "mechanism": "axiom-encode executes each module's mandatory companion test file at the pinned toolchain",
+      "note": "modules listed under validate_failures in known-validation-gaps.yaml are skipped; that ratchet is attested by digest in this journal",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "rulespec/proofs-and-claims",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Validate RuleSpec proofs and claims",
+      "mechanism": "axiom-encode checks every proof atom and claim against the pinned corpus release object",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "rulespec/money-proof-atoms",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Require money proof atoms",
+      "mechanism": "every policy-bearing monetary value must cite a provision; known-missing-money-atoms.yaml carries the visible backlog and is attested by digest in this journal",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "oracle/policyengine-coverage-classification",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Validate PolicyEngine oracle coverage classification",
+      "mechanism": "axiom-encode oracle-coverage --fail-on-unmapped --fail-on-untested-comparable",
+      "note": "this classifies oracle coverage; it is not itself a cross-engine numerical parity run",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "repo/pytest",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Run repository tests",
+      "mechanism": "python -m pytest -q tests",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "repo/quality",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Run repository quality gate",
+      "mechanism": "pixi run quality, from .github/workflows/repository-checks.yml, which this journal attests by digest",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "repo/roadmap-coverage",
+    "tier": "public",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Check roadmap coverage state",
+      "mechanism": "python scripts/nz_full_country_roadmap_sync.py --check",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "rulespec/validate-yaml",
+    "tier": "ci-attested",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Validate RuleSpec YAML",
+      "mechanism": "axiom-encode validation run under the protected signing supervisor at /opt/axiom-verification",
+      "whyNotReproducible": "the supervisor is provisioned with signing trust roots supplied from GitHub organization variables (AXIOM_ENCODE_APPLY_SIGNING_PUBLIC_KEY, AXIOM_ENCODE_EVAL_SIGNING_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_PUBLIC_KEY), which a third party outside the organization cannot read; the underlying validation is otherwise deterministic over public inputs",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "waivers/ratchet-audit",
+    "tier": "ci-attested",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Enforce validation waiver ratchet",
+      "mechanism": "axiom-encode validation-waivers audit under the protected signing supervisor",
+      "whyNotReproducible": "same organization-variable trust roots as rulespec/validate-yaml",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "schema/retired-freeze",
+    "tier": "ci-attested",
+    "outcome": "pass",
+    "evidence": {
+      "step": "Verify immutable retired-schema freeze",
+      "mechanism": "diff-based check that the sealed retired-schema inventory is decrement-only",
+      "whyNotReproducible": "its behaviour is bound to the CI event context (pull-request base SHA, event name, head commit message), so an offline re-run is not the same check",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  },
+  {
+    "gateId": "guard/manual-rulespec-changes",
+    "tier": "ci-attested",
+    "outcome": "not-run",
+    "evidence": {
+      "step": "Reject manual RuleSpec changes",
+      "reason": "the caller sets run-generated-guard: false in .github/workflows/repository-checks.yml, so this guard was skipped on this commit",
+      "consequence": "no machine check asserts that the rule files in this release carry encoder apply manifests; rulespec-nz has no encoding manifests at all, and closing this is the backfill tracked by axiom-encode#1192",
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+    }
+  }
+]

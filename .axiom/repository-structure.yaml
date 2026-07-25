@@ -12,6 +12,7 @@ allowed_root_directories:
   - scripts
   - src
   - tests
+  - verification
 allowed_root_files:
   - .editorconfig
   - .gitattributes
@@ -26,6 +27,7 @@ allowed_root_files:
   - Makefile
   - NOTICE
   - README.md
+  - VERIFY.md
   - _update_inventory.py
   - _write_phase2.py
   - conftest.py
@@ -106,4 +108,19 @@ path_rules:
   - patterns:
       - "tests/**"
     allow_extensions:
+      - ".py"
+  - patterns:
+      - "verification/releases/**"
+    allow_extensions:
+      - ".json"
+      - ".pem"
+      - ".pub"
+      - ".sig"
+      - ".tsr"
+  - patterns:
+      - "verification/**"
+    allow_extensions:
+      - ".json"
+      - ".jsonl"
+      - ".md"
       - ".py"
