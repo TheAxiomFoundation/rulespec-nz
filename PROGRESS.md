@@ -42,9 +42,11 @@
 - Deleted the now-clean payroll waiver, reducing active waivers from 14 to 13,
   and repinned the waiver-set SHA-256 to
   `0213c6a6f6feadf5a90ce37811b33a95dcea1129e0372aee995209b431c22be7`.
+- Dropped and regenerated the five changed inventory entries, then normalized
+  the inventory to indent 2 and the scorecard to indent 4, both newline-ended.
 
 ## Next
 
-- Regenerate inventory, scorecard, provenance ledger, and migration constants after
-  the final module edit, then run the prescribed full suite.
+- Rebuild the provenance ledger and update its pinned migration constants.
+- Run final grounding, companion, and prescribed full-suite verification.
 - Write the required external report in `ops/nz-lane/`.
