@@ -5132,6 +5132,36 @@
           "source_family": "core"
         },
         {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_low_income_enrolled_not_eligible_childless_rate",
+          "name": "student_allowance_couple_low_income_enrolled_not_eligible_childless_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_low_income_enrolled_eligible_childless_rate",
+          "name": "student_allowance_couple_low_income_enrolled_eligible_childless_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_low_income_enrolled_not_eligible_children_rate",
+          "name": "student_allowance_couple_low_income_enrolled_not_eligible_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_low_income_enrolled_eligible_children_rate",
+          "name": "student_allowance_couple_low_income_enrolled_eligible_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_low_income_enrolled_receiving_children_rate",
+          "name": "student_allowance_couple_low_income_enrolled_receiving_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
           "id": "nz:regulations/student_allowances/core#student_allowance_single_with_children_rate",
           "name": "student_allowance_single_with_children_rate",
           "kind": "parameter",
@@ -5146,6 +5176,18 @@
         {
           "id": "nz:regulations/student_allowances/core#student_allowance_away_with_earning_partner_and_children_rate",
           "name": "student_allowance_away_with_earning_partner_and_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_at_home_with_earning_partner_receiving_grant_and_children_rate",
+          "name": "student_allowance_at_home_with_earning_partner_receiving_grant_and_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_away_with_earning_partner_receiving_grant_and_children_rate",
+          "name": "student_allowance_away_with_earning_partner_receiving_grant_and_children_rate",
           "kind": "parameter",
           "source_family": "core"
         },

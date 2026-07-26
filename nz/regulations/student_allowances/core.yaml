@@ -466,6 +466,91 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           779.99
+  - name: student_allowance_couple_low_income_enrolled_not_eligible_childless_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: "the student is childless: | 435.67"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          435.67
+  - name: student_allowance_couple_low_income_enrolled_eligible_childless_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: "the student is childless: | 378.64"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          378.64
+  - name: student_allowance_couple_low_income_enrolled_not_eligible_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 624.21
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          624.21
+  - name: student_allowance_couple_low_income_enrolled_eligible_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 419.33
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          419.33
+  - name: student_allowance_couple_low_income_enrolled_receiving_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 399.01
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          399.01
   - name: student_allowance_single_with_children_rate
     kind: parameter
     dtype: Money
@@ -496,6 +581,11 @@ rules:
             source:
               corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
               excerpt: "the student’s spouse or partner is not enrolled in more than half of a full-time course: | 258.65"
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: is eligible for but does not receive, or is not eligible for, a grant | 258.65
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -513,10 +603,49 @@ rules:
             source:
               corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
               excerpt: "the student’s spouse or partner is not enrolled in more than half of a full-time course: | 318.40"
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: is eligible for but does not receive, or is not eligible for, a grant | 318.40
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           318.40
+  - name: student_allowance_at_home_with_earning_partner_receiving_grant_and_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "receives a grant: | 239.91"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          239.91
+  - name: student_allowance_away_with_earning_partner_receiving_grant_and_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "receives a grant: | 296.66"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          296.66
   - name: student_allowance_with_children_dependent_partner_rate
     kind: parameter
     dtype: Money
@@ -818,25 +947,48 @@ rules:
             source:
               corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
               excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student whose combined income for the week is more than $569.40
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is not enrolled in more than half of a full-time course
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, and is not eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, although is eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course and receives a grant
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          if student_allowance_lives_at_home > 0:
-              if student_allowance_has_earning_partner > 0:
+          if student_allowance_has_earning_partner > 0:
+              if student_allowance_lives_at_home > 0:
                   student_allowance_couple_home_earning_partner_rate
               else:
-                  if student_allowance_has_dependent_partner > 0:
-                      student_allowance_couple_dependent_partner_rate
-                  else:
-                      0
-          else:
-              if student_allowance_has_earning_partner > 0:
                   student_allowance_couple_away_earning_partner_rate
-              else:
-                  if student_allowance_has_dependent_partner > 0:
-                      student_allowance_couple_dependent_partner_rate
+          else:
+              if student_allowance_has_dependent_partner > 0:
+                  if student_allowance_partner_enrolled_more_than_half_full_time:
+                      if (
+                          student_allowance_partner_receives_grant
+                          or student_allowance_partner_eligible_for_grant
+                      ):
+                          student_allowance_couple_low_income_enrolled_eligible_childless_rate
+                      else:
+                          student_allowance_couple_low_income_enrolled_not_eligible_childless_rate
                   else:
-                      0
+                      student_allowance_couple_dependent_partner_rate
+              else:
+                  0
   - name: student_allowance_students_with_children_gross
     kind: derived
     entity: Person
@@ -862,28 +1014,65 @@ rules:
             source:
               corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
               excerpt: 1 | The student has 1 or more supported children | 624.21
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is not enrolled in more than half of a full-time course
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, and is not eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, although is eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course and receives a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: the student’s spouse or partner is enrolled in more than half of a full-time course and—
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           if student_allowance_has_recognised_partner <= 0 and student_allowance_has_children:
               student_allowance_single_with_children_rate
           else:
-              if student_allowance_lives_at_home > 0:
-                  if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
-                      student_allowance_at_home_with_earning_partner_and_children_rate
-                  else:
-                      if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
-                          student_allowance_with_children_dependent_partner_rate
+              if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
+                  if (
+                      student_allowance_partner_enrolled_more_than_half_full_time
+                      and student_allowance_partner_receives_grant
+                  ):
+                      if student_allowance_lives_at_home > 0:
+                          student_allowance_at_home_with_earning_partner_receiving_grant_and_children_rate
                       else:
-                          0
+                          student_allowance_away_with_earning_partner_receiving_grant_and_children_rate
+                  else:
+                      if student_allowance_lives_at_home > 0:
+                          student_allowance_at_home_with_earning_partner_and_children_rate
+                      else:
+                          student_allowance_away_with_earning_partner_and_children_rate
               else:
-                  if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
-                      student_allowance_away_with_earning_partner_and_children_rate
-                  else:
-                      if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
-                          student_allowance_with_children_dependent_partner_rate
+                  if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
+                      if student_allowance_partner_enrolled_more_than_half_full_time:
+                          if student_allowance_partner_receives_grant:
+                              student_allowance_couple_low_income_enrolled_receiving_children_rate
+                          else:
+                              if student_allowance_partner_eligible_for_grant:
+                                  student_allowance_couple_low_income_enrolled_eligible_children_rate
+                              else:
+                                  student_allowance_couple_low_income_enrolled_not_eligible_children_rate
                       else:
-                          0
+                          student_allowance_with_children_dependent_partner_rate
+                  else:
+                      0
   - name: student_allowance_weekly_gross_allowance
     kind: derived
     entity: Person
