@@ -44,9 +44,11 @@
   `0213c6a6f6feadf5a90ce37811b33a95dcea1129e0372aee995209b431c22be7`.
 - Dropped and regenerated the five changed inventory entries, then normalized
   the inventory to indent 2 and the scorecard to indent 4, both newline-ended.
+- Rebuilt the provenance ledger and updated its pinned migration test:
+  50 blocked atoms / 14 paths became 16 blocked atoms / 4 paths, with 1,218 of
+  1,234 proof atoms now resolved. The targeted migration tests pass.
 
 ## Next
 
-- Rebuild the provenance ledger and update its pinned migration constants.
 - Run final grounding, companion, and prescribed full-suite verification.
 - Write the required external report in `ops/nz-lane/`.
