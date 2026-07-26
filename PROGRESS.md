@@ -5,7 +5,7 @@
 - Branch: `codex/guidance-block-repoints`
 - Base: `origin/main` at `9bcfa73e1df027ba074b0dc2b2f60d9f65e315e4`
 - Worktree: `_axiom-worktrees/rulespec-nz-blocks/rulespec-nz`
-- Phase: module edits and companion coverage
+- Phase: complete
 
 ## Done
 
@@ -47,8 +47,15 @@
 - Rebuilt the provenance ledger and updated its pinned migration test:
   50 blocked atoms / 14 paths became 16 blocked atoms / 4 paths, with 1,218 of
   1,234 proof atoms now resolved. The targeted migration tests pass.
+- Re-ran grounding for all five touched modules. GST, common residence, and
+  payroll are clean; ACC and RWT report only the documented genuine blockers.
+- Re-ran all five companion files: 28 cases passed.
+- Re-ran the prescribed suite after all artifacts: 279 passed, 1 skipped,
+  1 deselected.
+- Wrote the required external report to
+  `ops/nz-lane/guidance-block-repoints-report.md`.
 
 ## Next
 
-- Run final grounding, companion, and prescribed full-suite verification.
+- None for this branch. CI must adjudicate signed validation and waiver state.
 - Write the required external report in `ops/nz-lane/`.
