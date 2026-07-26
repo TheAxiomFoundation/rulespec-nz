@@ -26,6 +26,8 @@
   corpus. Its two 2025 proof atoms cannot be honestly re-pointed.
 - Re-pointed all eight GST guidance atoms to exact text in block 7 and block 1.
   GST remains grounding-clean and all six companion cases pass.
+- Re-pointed both StudyLink guidance atoms to text-bearing blocks.
+  Common residence remains grounding-clean and all four companion cases pass.
 
 ## Next
 
