@@ -18,10 +18,12 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import io
 import json
 import subprocess
 import sys
 import tempfile
+from collections import Counter
 from dataclasses import dataclass
 from decimal import Decimal, ROUND_CEILING, getcontext
 from pathlib import Path
@@ -100,6 +102,7 @@ D52 = Decimal(52)
 D365 = Decimal(365)
 WEEKS_IN_MODEL_YEAR = D365 / D7
 ENGINE_DECIMAL_TOLERANCE = Decimal("0.000000000000000001")
+ORACLE_SIX_DECIMAL_TOLERANCE = Decimal("0.0000005")
 
 TAX_MODULE = "nz:statutes/income_tax/schedule_1/individual_income_tax"
 ACC_MODULE = "nz:regulations/acc/earners_levy"
@@ -704,6 +707,16 @@ class ModelEvaluator:
         self.ftc_eldest_annual = selected_parameter_values(
             compiled, "family_tax_credit_eldest_child_annual_amount"
         )[0]
+        self.benefit_income_test_lower_threshold = selected_parameter_values(
+            compiled, "main_benefit_income_test_lower_weekly_threshold"
+        )[0]
+        self.benefit_income_test_3_rate = selected_parameter_values(
+            compiled, "main_benefit_income_test_3_abatement_rate"
+        )[0]
+        self.jobseeker_single_with_children_rate = selected_parameter_values(
+            compiled,
+            "jobseeker_support_single_with_dependent_children_weekly_rate",
+        )[0]
         expected_rate_indexes = set(range(1, 6))
         expected_threshold_indexes = set(range(1, 5))
         if set(self.tax_rates) != expected_rate_indexes:
@@ -1147,16 +1160,27 @@ class ModelEvaluator:
         key = (scenario.partnered, len(scenario.children))
         if key in self._as_cutout_cache:
             return self._as_cutout_cache[key]
-        anchor = Decimal(500)
-        at_anchor = self.jobseeker_payment(scenario, anchor)
-        after_one_dollar = self.jobseeker_payment(scenario, anchor + D1)
-        reduction_per_dollar = at_anchor - after_one_dollar
-        if at_anchor <= 0 or reduction_per_dollar <= 0:
-            raise HarnessError(
-                "could not derive Accommodation Supplement cutout from the "
-                f"Jobseeker schedule for {scenario.id}"
+        if not scenario.partnered and scenario.children:
+            # Treasury's source-defined lone-parent AS branch is deliberately
+            # not the SPS/JSS-with-children benefit schedule used for current
+            # net benefit. R/emtr.R lines 324-329 instead combine the lone-
+            # parent JSS base rate with the JSS (Income Test 3) 70% scale.
+            raw_cutout = (
+                self.benefit_income_test_lower_threshold
+                + self.jobseeker_single_with_children_rate
+                / self.benefit_income_test_3_rate
             )
-        raw_cutout = anchor + at_anchor / reduction_per_dollar
+        else:
+            anchor = Decimal(500)
+            at_anchor = self.jobseeker_payment(scenario, anchor)
+            after_one_dollar = self.jobseeker_payment(scenario, anchor + D1)
+            reduction_per_dollar = at_anchor - after_one_dollar
+            if at_anchor <= 0 or reduction_per_dollar <= 0:
+                raise HarnessError(
+                    "could not derive Accommodation Supplement cutout from the "
+                    f"Jobseeker schedule for {scenario.id}"
+                )
+            raw_cutout = anchor + at_anchor / reduction_per_dollar
         annual_ceiling = (
             raw_cutout * WEEKS_IN_MODEL_YEAR
         ).to_integral_value(rounding=ROUND_CEILING)
@@ -1414,3 +1438,268 @@ def sweep_scenario(
         )
         sampled[wage] = state
     return sampled
+
+
+@dataclass(frozen=True)
+class ComparisonRow:
+    scenario_id: str
+    scenario_description: str
+    weekly_wage: int
+    column: str
+    unit: str
+    treasury: Decimal
+    rulespec: Decimal
+    signed_delta: Decimal
+    absolute_delta: Decimal
+    relative_delta: Decimal | None
+    classification: str
+    reason_code: str
+
+
+CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
+    "MATCH_SNAPSHOT_PRECISION": (
+        "match",
+        "Match at oracle precision",
+        "The absolute difference is at most half of the snapshot's six-decimal "
+        "rounding unit.",
+    ),
+    "A_SCENARIO_ENCODING": (
+        "a",
+        "Scenario encoding bug",
+        "A direct scenario identity (wage, hours, or annualisation) did not "
+        "survive the host-to-engine mapping.",
+    ),
+    "B_BENEFIT_VINTAGE": (
+        "b",
+        "Main-benefit forecast vintage",
+        "Treasury's BEFU25 TY27 rate differs from the enacted 1 April 2026 "
+        "rate under Social Security Act 2018 Schedule 4 as amended by the "
+        "Social Security (Rates of Benefits and Allowances) Order 2026 cl 5.",
+    ),
+    "B_BENEFIT_GROSSUP_TAX": (
+        "b",
+        "Benefit-vintage tax interaction",
+        "Treasury taxes wages incrementally above its forecast-vintage grossed "
+        "benefit. The enacted benefit rate changes that tax base before the "
+        "same Schedule 1 tax rates are applied.",
+    ),
+    "B_WFF_VINTAGE": (
+        "b",
+        "Working for Families forecast vintage",
+        "The BEFU25 FTC, IWTC, MFTC, or Best Start prescribed amount differs "
+        "from the amount enacted for 2026/27 under Income Tax Act 2007 "
+        "ss MD 3, MD 10, ME 1, or MG 2.",
+    ),
+    "B_AS_UPSTREAM_VINTAGE": (
+        "b",
+        "Accommodation Supplement upstream vintage",
+        "The Schedule 4 Part 7 amount formula is fed by enacted benefit/FTC "
+        "base rates and an enacted-rate benefit cutout, while Treasury feeds "
+        "the same style of formula from BEFU25 values.",
+    ),
+    "B_COMPOUND_NET_INCOME": (
+        "b",
+        "Compound forecast-vintage level difference",
+        "At least one material component of net income is a class-(b) benefit "
+        "or tax-credit vintage difference; smaller class-(c) rounding effects "
+        "may also be present.",
+    ),
+    "C_ACC_ANNUAL_CENTS": (
+        "c",
+        "ACC period/rounding convention",
+        "Treasury applies an unrounded weekly 1.75% levy. RuleSpec applies the "
+        "annual including-GST levy and its whole-cent rounding, then converts "
+        "the result by 365/7 weeks.",
+    ),
+    "C_NET_WAGE_ROUNDING": (
+        "c",
+        "Net-wage rounding propagation",
+        "The net-wage residual is the propagation of annual-cent ACC rounding "
+        "through a weekly value (and, for partner wages, the same conversion).",
+    ),
+    "C_IETC_WHOLE_DOLLARS": (
+        "c",
+        "IETC statutory whole-dollar convention",
+        "RuleSpec retains the annual statutory whole-dollar calculation before "
+        "converting by 365/7; Treasury's R flow is continuous weekly arithmetic.",
+    ),
+    "C_EMTR_DISCRETE_ROUNDING": (
+        "c",
+        "EMTR discrete rounding convention",
+        "Both sides use the same weekly $1 forward interval. The residual is "
+        "caused by RuleSpec's annual-cent ACC rounding and, where applicable, "
+        "the complete-dollar WFF/Best Start abatement base before conversion "
+        "back to a week.",
+    ),
+    "D_UNEXPLAINED": (
+        "d",
+        "Unexplained",
+        "The observed difference is not established by the pinned-vintage or "
+        "unit/period evidence in this audit.",
+    ),
+}
+
+
+def comparison_unit(column: str) -> str:
+    if column == "hours1":
+        return "hours/week"
+    if column == "gross_wage1_annual" or column == "Net_Income_annual":
+        return "NZD/year"
+    if column == "EMTR":
+        return "ratio"
+    return "NZD/week"
+
+
+def outside_oracle_precision(left: Decimal, right: Decimal) -> bool:
+    return abs(left - right) > ORACLE_SIX_DECIMAL_TOLERANCE
+
+
+def classify_discrepancy(
+    *,
+    column: str,
+    treasury_state: Mapping[str, Any],
+    rulespec_state: Mapping[str, Decimal | str | None],
+    absolute_delta: Decimal,
+) -> tuple[str, str]:
+    if absolute_delta <= ORACLE_SIX_DECIMAL_TOLERANCE:
+        return "match", "MATCH_SNAPSHOT_PRECISION"
+
+    if column in {
+        "gross_wage1",
+        "hours1",
+        "gross_wage1_annual",
+        "gross_wage2",
+    }:
+        return "a", "A_SCENARIO_ENCODING"
+
+    treasury_benefit = dec(treasury_state["net_benefit"])
+    rulespec_benefit = scalar_decimal(rulespec_state, "net_benefit")
+    benefit_vintage_active = (
+        treasury_benefit > 0
+        or rulespec_benefit > 0
+    ) and outside_oracle_precision(treasury_benefit, rulespec_benefit)
+
+    if column == "wage1_tax":
+        if benefit_vintage_active:
+            return "b", "B_BENEFIT_GROSSUP_TAX"
+        return "d", "D_UNEXPLAINED"
+    if column == "wage1_ACC_levy":
+        return "c", "C_ACC_ANNUAL_CENTS"
+    if column in {"net_wage1", "net_wage"}:
+        treasury_tax = dec(treasury_state["wage1_tax"])
+        rulespec_tax = scalar_decimal(rulespec_state, "wage1_tax")
+        if (
+            benefit_vintage_active
+            and outside_oracle_precision(treasury_tax, rulespec_tax)
+        ):
+            return "b", "B_BENEFIT_GROSSUP_TAX"
+        return "c", "C_NET_WAGE_ROUNDING"
+    if column == "net_benefit":
+        return "b", "B_BENEFIT_VINTAGE"
+    if column in {
+        "FTC_abated",
+        "IWTC_abated",
+        "MFTC",
+        "BestStart_Total",
+        "WFF_abated",
+    }:
+        return "b", "B_WFF_VINTAGE"
+    if column == "IETC_abated":
+        return "c", "C_IETC_WHOLE_DOLLARS"
+    if column == "AS_Amount":
+        return "b", "B_AS_UPSTREAM_VINTAGE"
+    if column in {"Net_Income", "Net_Income_annual"}:
+        material_vintage_columns = (
+            "wage1_tax",
+            "net_benefit",
+            "FTC_abated",
+            "IWTC_abated",
+            "MFTC",
+            "BestStart_Total",
+            "AS_Amount",
+        )
+        if any(
+            outside_oracle_precision(
+                dec(treasury_state[name]),
+                scalar_decimal(rulespec_state, name),
+            )
+            and name
+            not in {"wage1_tax"}
+            or (
+                name == "wage1_tax"
+                and benefit_vintage_active
+                and outside_oracle_precision(
+                    dec(treasury_state[name]),
+                    scalar_decimal(rulespec_state, name),
+                )
+            )
+            for name in material_vintage_columns
+        ):
+            return "b", "B_COMPOUND_NET_INCOME"
+        return "c", "C_NET_WAGE_ROUNDING"
+    if column == "EMTR":
+        return "c", "C_EMTR_DISCRETE_ROUNDING"
+    return "d", "D_UNEXPLAINED"
+
+
+def build_comparison_rows(
+    *,
+    oracle: Mapping[str, Any],
+    scenarios: Sequence[Scenario],
+    sweeps: Mapping[str, Mapping[int, Mapping[str, Decimal | str | None]]],
+) -> list[ComparisonRow]:
+    oracle_by_id = {str(item["id"]): item for item in oracle["scenarios"]}
+    rows: list[ComparisonRow] = []
+    for scenario in scenarios:
+        raw_scenario = oracle_by_id[scenario.id]
+        sampled_outputs = raw_scenario["sampled_outputs"]
+        if len(sampled_outputs) != len(EXPECTED_SAMPLE_WAGES):
+            raise HarnessError(
+                f"{scenario.id} has {len(sampled_outputs)} oracle points"
+            )
+        for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
+            treasury_state = sampled_outputs[index]
+            if dec(treasury_state["gross_wage1"]) != Decimal(wage):
+                raise HarnessError(
+                    f"{scenario.id} oracle row {index} is not wage {wage}"
+                )
+            rulespec_state = sweeps[scenario.id][wage]
+            for column in COMPARISON_COLUMNS:
+                treasury_value = dec(treasury_state[column])
+                rulespec_value = scalar_decimal(rulespec_state, column)
+                signed_delta = rulespec_value - treasury_value
+                absolute_delta = abs(signed_delta)
+                if treasury_value != 0:
+                    relative_delta = absolute_delta / abs(treasury_value)
+                elif absolute_delta == 0:
+                    relative_delta = D0
+                else:
+                    relative_delta = None
+                classification, reason_code = classify_discrepancy(
+                    column=column,
+                    treasury_state=treasury_state,
+                    rulespec_state=rulespec_state,
+                    absolute_delta=absolute_delta,
+                )
+                expected_class = CLASSIFICATION_DETAILS[reason_code][0]
+                if classification != expected_class:
+                    raise HarnessError(
+                        f"classification metadata mismatch for {reason_code}"
+                    )
+                rows.append(
+                    ComparisonRow(
+                        scenario_id=scenario.id,
+                        scenario_description=scenario.description,
+                        weekly_wage=wage,
+                        column=column,
+                        unit=comparison_unit(column),
+                        treasury=treasury_value,
+                        rulespec=rulespec_value,
+                        signed_delta=signed_delta,
+                        absolute_delta=absolute_delta,
+                        relative_delta=relative_delta,
+                        classification=classification,
+                        reason_code=reason_code,
+                    )
+                )
+    return rows

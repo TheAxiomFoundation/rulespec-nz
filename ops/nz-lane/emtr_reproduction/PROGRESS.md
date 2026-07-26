@@ -51,6 +51,12 @@
 - Confirmed that the first residuals have the expected untuned shape: enacted
   benefit/WFF amounts differ from the BEFU25 forecast snapshot, while aligned
   Winter Energy Payment values agree to the snapshot's six-decimal precision.
+- An independent source audit caught and corrected one host-encoding defect
+  before reporting: Treasury's lone-parent Accommodation Supplement cutout
+  combines the lone-parent JSS rate with the JSS 70% abatement schedule, not
+  the staged SPS/JSS-with-children income test. The full sweep was rerun after
+  the correction; no class-(a) mapping residual remains in the 640 primary
+  comparison cells.
 
 ## Next
 
