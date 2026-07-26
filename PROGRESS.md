@@ -24,6 +24,7 @@
 - Student-loan grounding is CLEAN; engine compile and all 9 companion cases pass; both zero-branch and derived-output coverage guards return no issues. The protected full validator cannot run on this host without its signing broker, as expected in the task context.
 - Refreshed the student-loan inventory entry and provenance ledger. The ledger moved from 109 to 99 blocked atoms and from 19 to 17 blockers, retiring the module's broad-act and empty-Schedule-1 debt.
 - Deleted only the now-clean student-loan waiver and repinned the exact waiver-set SHA to `6158036d6c911b45a30ffeb88e85f001bd30054b6c1be710688f046952891fe3`.
+- Corrected the annual-threshold rule's remaining free-text source label from the unrelated Schedule 1 to s 4, matching its proof atom; regenerated artifacts remained byte-identical, grounding stayed CLEAN, all 9 engine cases passed, and 26 focused repository tests passed.
 
 ## Next
 

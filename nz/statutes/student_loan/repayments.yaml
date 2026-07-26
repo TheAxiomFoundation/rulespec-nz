@@ -36,7 +36,7 @@ rules:
     dtype: Money
     unit: NZD
     source: >-
-      Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment
+      Student Loan Scheme Act 2011 s 4; Student Loan Scheme (Repayment
       Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023
       (SL 2023/295) regulation 3; IRD student loan repayment thresholds
     metadata:
