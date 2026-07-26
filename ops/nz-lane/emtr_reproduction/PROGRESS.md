@@ -36,10 +36,23 @@
 - Started source-level investigations of Treasury's R method, rulespec module coverage, and the engine evaluation interface.
 - Resumed from and reviewed the original brief, existing progress, 563-line
   harness infrastructure, and audit-only composition.
+- Completed the host-level scenario mapping for all four snapshot profiles.
+  The mapping evaluates separate person/family/child entities, supplies the
+  full family-scheme-income and IWTC eligibility closure, and uses enacted
+  RuleSpec outputs as delegated Accommodation Supplement inputs.
+- Implemented the period alignment explicitly: 365/7 for tax, ACC, FTC, Best
+  Start, IETC, and the snapshot's annual-average Winter Energy Payment; 52 for
+  IWTC and MFTC; benefit rates remain weekly.
+- Implemented Treasury's raw `emtr()` convention exactly: weekly $1 forward
+  differences at every sampled wage and the carried $1,499-to-$1,500 interval
+  at the final endpoint.
+- Ran an end-to-end probe over all 32 displayed points and all hidden forward
+  endpoints. The composition evaluated successfully in 315 engine calls.
+- Confirmed that the first residuals have the expected untuned shape: enacted
+  benefit/WFF amounts differ from the BEFU25 forecast snapshot, while aligned
+  Winter Energy Payment values agree to the snapshot's six-decimal precision.
 
 ## Next
 
-- Finish scenario-to-engine mappings and the exact weekly $1 forward-difference
-  sweep.
 - Generate all requested matrices and classify every discrepancy.
 - Verify a clean rerun and finish `REPORT.md`.
