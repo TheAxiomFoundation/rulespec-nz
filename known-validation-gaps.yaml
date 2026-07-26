@@ -100,9 +100,3 @@ validate_failures:
       fingerprint: sha256:863306c50c4db9cb21cfc9a9719100d806af2d356c48036efda1690262f10731
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/student_loan/repayments.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:be4d66bfd6fa00cd660f98cb6f8cacc3ad131a0221cab8b40840dfa6c89418bf
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'

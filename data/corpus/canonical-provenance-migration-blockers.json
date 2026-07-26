@@ -4,9 +4,9 @@
   "release_selector_sha256": "03558a39482d62c876c2189656f69346f2c5bb28b0d99298084f6c03b1783ce7",
   "publication_state": "merged_published_activated",
   "atomic_module_count": 40,
-  "proof_atom_count": 1193,
-  "resolved_proof_atom_count": 1084,
-  "blocked_proof_atom_count": 109,
+  "proof_atom_count": 1194,
+  "resolved_proof_atom_count": 1095,
+  "blocked_proof_atom_count": 99,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -320,39 +320,14 @@
     },
     {
       "citation_path": "nz/guidance/ird/student-loan-repayment-deductions",
-      "blocked_proof_atom_count": 6,
-      "affected_module_count": 2,
-      "affected_rule_count": 6,
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
       "affected_rules": [
         {
           "module": "nz/statutes/payroll/deductions.yaml",
           "rule": "paye_student_loan_component",
           "declared_source": "Student Loan Scheme Act 2011 s 22; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_annual_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023 (SL 2023/295) regulation 3; IRD student loan repayment thresholds"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_fortnightly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_monthly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_deduction",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
         }
       ],
       "blocker_kind": "missing_guidance_release_source",
@@ -690,59 +665,6 @@
         "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
       ],
       "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2011/0062",
-      "blocked_proof_atom_count": 4,
-      "affected_module_count": 1,
-      "affected_rule_count": 4,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_fortnightly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_monthly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_deduction",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "Student Loan Scheme Act 2011",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2011/0062/schedule/1",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_annual_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023 (SL 2023/295) regulation 3; IRD student loan repayment thresholds"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "Student Loan Scheme Act 2011",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
     },
     {
       "citation_path": "nz/statute/act/public/2001/0049",

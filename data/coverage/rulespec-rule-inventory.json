@@ -4753,67 +4753,6 @@
       ]
     },
     {
-      "path": "nz/statutes/student_loan/repayments.yaml",
-      "surface_ids": [
-        "nz/statutes/student_loan/repayments"
-      ],
-      "source_families": [
-        "nz_statutes_student_loan_repayments"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_repayment_rate",
-          "name": "student_loan_repayment_rate",
-          "kind": "parameter",
-          "source_family": "repayments"
-        },
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_annual_repayment_threshold",
-          "name": "student_loan_annual_repayment_threshold",
-          "kind": "parameter",
-          "source_family": "repayments"
-        },
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_weekly_repayment_threshold",
-          "name": "student_loan_weekly_repayment_threshold",
-          "kind": "derived",
-          "source_family": "repayments"
-        },
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_fortnightly_repayment_threshold",
-          "name": "student_loan_fortnightly_repayment_threshold",
-          "kind": "derived",
-          "source_family": "repayments"
-        },
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_monthly_repayment_threshold",
-          "name": "student_loan_monthly_repayment_threshold",
-          "kind": "derived",
-          "source_family": "repayments"
-        },
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_annual_deduction",
-          "name": "student_loan_annual_deduction",
-          "kind": "derived",
-          "source_family": "repayments"
-        },
-        {
-          "id": "nz:statutes/student_loan/repayments#student_loan_weekly_deduction",
-          "name": "student_loan_weekly_deduction",
-          "kind": "derived",
-          "source_family": "repayments"
-        }
-      ]
-    },
-    {
       "path": "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning.yaml",
       "surface_ids": [
         "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning"
@@ -5226,6 +5165,67 @@
           "name": "familyboost_tax_credit",
           "kind": "derived",
           "source_family": "core"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/student_loan/repayments.yaml",
+      "surface_ids": [
+        "nz/statutes/student_loan/repayments"
+      ],
+      "source_families": [
+        "nz_statutes_student_loan_repayments"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_repayment_rate",
+          "name": "student_loan_repayment_rate",
+          "kind": "parameter",
+          "source_family": "repayments"
+        },
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_annual_repayment_threshold",
+          "name": "student_loan_annual_repayment_threshold",
+          "kind": "parameter",
+          "source_family": "repayments"
+        },
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_weekly_repayment_threshold",
+          "name": "student_loan_weekly_repayment_threshold",
+          "kind": "parameter",
+          "source_family": "repayments"
+        },
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_fortnightly_repayment_threshold",
+          "name": "student_loan_fortnightly_repayment_threshold",
+          "kind": "parameter",
+          "source_family": "repayments"
+        },
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_monthly_repayment_threshold",
+          "name": "student_loan_monthly_repayment_threshold",
+          "kind": "parameter",
+          "source_family": "repayments"
+        },
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_annual_deduction",
+          "name": "student_loan_annual_deduction",
+          "kind": "derived",
+          "source_family": "repayments"
+        },
+        {
+          "id": "nz:statutes/student_loan/repayments#student_loan_weekly_deduction",
+          "name": "student_loan_weekly_deduction",
+          "kind": "derived",
+          "source_family": "repayments"
         }
       ]
     }
