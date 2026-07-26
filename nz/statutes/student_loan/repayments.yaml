@@ -9,7 +9,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_path: nz/statute/act/public/2011/0062/section/22
+    corpus_citation_path: nz/statute/act/public/2011/0062/section/37
 units:
   - name: NZD
     kind: currency
@@ -18,14 +18,15 @@ rules:
   - name: student_loan_repayment_rate
     kind: parameter
     dtype: Rate
-    source: Student Loan Scheme Act 2011 s 22(1)
+    source: Student Loan Scheme Act 2011 s 37(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062/section/22
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/37
+              excerpt: deductions must be made at the rate of 12 cents in each complete dollar
     versions:
       - effective_from: '2012-04-01'
         formula: |-
@@ -35,7 +36,7 @@ rules:
     dtype: Money
     unit: NZD
     source: >-
-      Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment
+      Student Loan Scheme Act 2011 s 4; Student Loan Scheme (Repayment
       Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023
       (SL 2023/295) regulation 3; IRD student loan repayment thresholds
     metadata:
@@ -44,99 +45,111 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062/schedule/1
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/4
+              excerpt: the amount prescribed by regulations for a tax year and subsequent tax years
           - path: versions[0].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2023/0295/regulation/3
+              excerpt: The amount of the annual repayment threshold for the 2024–25 tax year commencing on 1 April 2024 and subsequent tax years is $24,128.
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions/block-3
+              excerpt: For the 2026 tax year the annual repayment threshold is $24,128.
     versions:
       - effective_from: '2024-04-01'
         formula: |-
           24128
   - name: student_loan_weekly_repayment_threshold
-    kind: derived
-    entity: Person
+    kind: parameter
     dtype: Money
     period: Week
     unit: NZD
-    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    source: Student Loan Scheme Act 2011 s 37(4)(a); IRD student loan repayment guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
-            kind: formula
+            kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/37
+              excerpt: if the salary or wages are paid weekly, an amount equal to one fifty-second of the annual repayment threshold
           - path: versions[0].formula
-            kind: formula
+            kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions/block-3
+              excerpt: $464 if you're paid weekly.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
-          student_loan_annual_repayment_threshold / 52
+          464
   - name: student_loan_fortnightly_repayment_threshold
-    kind: derived
-    entity: Person
+    kind: parameter
     dtype: Money
     period: Fortnight
     unit: NZD
-    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    source: Student Loan Scheme Act 2011 s 37(4)(b); IRD student loan repayment guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
-            kind: formula
+            kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/37
+              excerpt: if the salary or wages are paid fortnightly, twice the amount specified in paragraph (a)
           - path: versions[0].formula
-            kind: formula
+            kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions/block-3
+              excerpt: $928 if you're paid fortnightly.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
-          student_loan_annual_repayment_threshold / 26
+          928
   - name: student_loan_monthly_repayment_threshold
-    kind: derived
-    entity: Person
+    kind: parameter
     dtype: Money
     period: Month
     unit: NZD
-    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    source: Student Loan Scheme Act 2011 s 37(4)(e); IRD student loan repayment guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
-            kind: formula
+            kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/37
+              excerpt: if the salary or wages are paid monthly, an amount equal to one-twelfth of the annual repayment threshold
           - path: versions[0].formula
-            kind: formula
+            kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions/block-3
+              excerpt: $2,010.66 if you're paid monthly.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
-          student_loan_annual_repayment_threshold / 12
+          2010.66
   - name: student_loan_annual_deduction
     kind: derived
     entity: Person
     dtype: Money
     period: Year
     unit: NZD
-    source: Student Loan Scheme Act 2011 s 22
+    source: Student Loan Scheme Act 2011 s 77
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062/section/22
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/77
+              excerpt: a = b × (c − d)
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/77
+              excerpt: If the borrower's end-of-year repayment obligation for the tax year is zero or less, the borrower has no end-of-year repayment obligation for the tax year.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -148,18 +161,20 @@ rules:
     dtype: Money
     period: Week
     unit: NZD
-    source: Student Loan Scheme Act 2011; IRD student loan deduction tables
+    source: Student Loan Scheme Act 2011 s 37; IRD student loan repayment guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2011/0062
+              corpus_citation_path: nz/statute/act/public/2011/0062/section/37
+              excerpt: deductions must be made at the rate of 12 cents in each complete dollar
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions/block-4
+              excerpt: You repay 12% of every dollar you earn over the pay period repayment threshold when you use a tax code with 'SL' for your main job (M SL or ME SL).
     versions:
       - effective_from: '2025-04-01'
         formula: |-

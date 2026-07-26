@@ -4,9 +4,9 @@
   "release_selector_sha256": "03558a39482d62c876c2189656f69346f2c5bb28b0d99298084f6c03b1783ce7",
   "publication_state": "merged_published_activated",
   "atomic_module_count": 40,
-  "proof_atom_count": 1199,
-  "resolved_proof_atom_count": 1099,
-  "blocked_proof_atom_count": 100,
+  "proof_atom_count": 1240,
+  "resolved_proof_atom_count": 1199,
+  "blocked_proof_atom_count": 41,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -89,49 +89,6 @@
       "official_source_urls": [
         "https://www.acc.co.nz/im-injured/financial-support/weekly-compensation",
         "https://www.acc.co.nz/for-providers/supporting-clients/weekly-compensation-calculation"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/child-support/overview",
-      "blocked_proof_atom_count": 2,
-      "affected_module_count": 1,
-      "affected_rule_count": 2,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/child_support/core_formula.yaml",
-          "rule": "cs_formula_assessment_applies",
-          "declared_source": "Child Support Act 1991 ss 4, 5, and 8; IRD child support overview"
-        },
-        {
-          "module": "nz/statutes/child_support/core_formula.yaml",
-          "rule": "cs_liable_parent_is_formula_assessment_liable",
-          "declared_source": "Child Support Act 1991 ss 4, 5, and 8; IRD child support overview"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue child support overview",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/child-support"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/child-support/types/formula-assessment/sharing-care",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/child_support/core_formula.yaml",
-          "rule": "cs_receiving_carer_meets_formula_care_threshold",
-          "declared_source": "Child Support Act 1991 s 5; IRD sharing care guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue child support sharing-care guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/child-support/working-out-child-support"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },
@@ -275,39 +232,14 @@
     },
     {
       "citation_path": "nz/guidance/ird/student-loan-repayment-deductions",
-      "blocked_proof_atom_count": 6,
-      "affected_module_count": 2,
-      "affected_rule_count": 6,
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
       "affected_rules": [
         {
           "module": "nz/statutes/payroll/deductions.yaml",
           "rule": "paye_student_loan_component",
           "declared_source": "Student Loan Scheme Act 2011 s 22; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_annual_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023 (SL 2023/295) regulation 3; IRD student loan repayment thresholds"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_fortnightly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_monthly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_deduction",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
         }
       ],
       "blocker_kind": "missing_guidance_release_source",
@@ -339,215 +271,10 @@
     },
     {
       "citation_path": "nz/guidance/studylink/student-allowances",
-      "blocked_proof_atom_count": 42,
-      "affected_module_count": 2,
-      "affected_rule_count": 42,
+      "blocked_proof_atom_count": 1,
+      "affected_module_count": 1,
+      "affected_rule_count": 1,
       "affected_rules": [
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_abated_weekly_allowance_at_home",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_abated_weekly_allowance_away",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_age_24_plus_away_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_age_24_plus_home_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_annual_allowance",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_annual_parental_income",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_at_home_with_earning_partner_and_children_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_away_with_earning_partner_and_children_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_combined_weekly_income",
-          "declared_source": "StudyLink student allowance calculators"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_couple_away_earning_partner_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_couple_dependent_partner_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_couple_home_earning_partner_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_couple_no_children_gross",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_has_dependent_partner",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_has_earning_partner",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_has_recognised_partner",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_independent_circumstances_gross_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_lives_at_home",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_other_dependent_students_abatement",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_parental_income_abatement_threshold_at_home",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_parental_income_abatement_threshold_away",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_parental_income_lower_limit",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_parental_income_upper_limit_at_home",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_parental_income_upper_limit_away",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_parents_living_apart_abatement",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_partner_income_threshold",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_single_student_no_children_gross",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_single_under_24_away_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_single_under_24_home_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_single_with_children_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_students_with_children_gross",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_tax_rate_1",
-          "declared_source": "StudyLink student-abated-net-allowance calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_tax_rate_2",
-          "declared_source": "StudyLink student-abated-net-allowance calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_allowance",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_basic_allowance_at_home",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_basic_allowance_away",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_gross_allowance",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_partner_income",
-          "declared_source": "StudyLink student allowance calculators"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_student_income",
-          "declared_source": "StudyLink student allowance calculators"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_weekly_student_income_threshold",
-          "declared_source": "StudyLink parental-income calculator"
-        },
-        {
-          "module": "nz/regulations/student_allowances/core.yaml",
-          "rule": "student_allowance_with_children_dependent_partner_rate",
-          "declared_source": "StudyLink student allowance rate calculator"
-        },
         {
           "module": "nz/statutes/common/residence.yaml",
           "rule": "common_ordinarily_resident_in_new_zealand",
@@ -562,35 +289,6 @@
         "https://www.studylink.govt.nz/products/rates/calculators/student-allowance-rate-calculator.html"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/statute/act/public/1991/0142/schedule/1",
-      "blocked_proof_atom_count": 5,
-      "affected_module_count": 1,
-      "affected_rule_count": 3,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/child_support/core_formula.yaml",
-          "rule": "cs_child_support_income",
-          "declared_source": "Child Support Act 1991 schedule 1"
-        },
-        {
-          "module": "nz/statutes/child_support/core_formula.yaml",
-          "rule": "cs_living_allowance_percentage",
-          "declared_source": "Child Support Act 1991 schedule 1"
-        },
-        {
-          "module": "nz/statutes/child_support/core_formula.yaml",
-          "rule": "cs_maximum_child_support_annual_rate",
-          "declared_source": "Child Support Act 1991 schedule 1"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "Child Support Act 1991",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/1991/0142/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
     },
     {
       "citation_path": "nz/statute/act/public/2007/0097/schedule/1/part/b",
@@ -630,59 +328,6 @@
         "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
       ],
       "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2011/0062",
-      "blocked_proof_atom_count": 4,
-      "affected_module_count": 1,
-      "affected_rule_count": 4,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_fortnightly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_monthly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_deduction",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        },
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_weekly_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011; IRD student loan deduction tables"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "Student Loan Scheme Act 2011",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2011/0062/schedule/1",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/student_loan/repayments.yaml",
-          "rule": "student_loan_annual_repayment_threshold",
-          "declared_source": "Student Loan Scheme Act 2011 schedule 1; Student Loan Scheme (Repayment Threshold for 2024-25 Tax Year and Subsequent Tax Years) Regulations 2023 (SL 2023/295) regulation 3; IRD student loan repayment thresholds"
-        }
-      ],
-      "blocker_kind": "non_text_bearing_structural_locator",
-      "required_official_source_document": "Student Loan Scheme Act 2011",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2011/0062/latest/whole.html"
-      ],
-      "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
     },
     {
       "citation_path": "nz/statute/act/public/2001/0049",

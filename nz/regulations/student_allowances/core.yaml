@@ -9,7 +9,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
+    corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
 units:
   - name: NZD
     kind: currency
@@ -19,14 +19,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 reg 4(2)(da)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
+              excerpt: the combined parental income of the parents of the student is considered to be reduced by $3,400
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -35,46 +36,32 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 reg 4(2)(d)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
+              excerpt: the combined parental income of the parents of that student is considered to be reduced by $7,000 for each such additional dependent student
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           7000
-  - name: student_allowance_parental_income_lower_limit
-    kind: parameter
-    dtype: Money
-    unit: NZD
-    source: StudyLink parental-income calculator
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
-    versions:
-      - effective_from: '2026-04-01'
-        formula: |-
-          72108.92
   - name: student_allowance_parental_income_upper_limit_at_home
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: StudyLink parental-income guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/guidance/studylink/student-allowance-parental-income/block-2
+              excerpt: $ 131,670.35 if you live with them
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -83,62 +70,179 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: StudyLink parental-income guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/guidance/studylink/student-allowance-parental-income/block-2
+              excerpt: $ 141,451.55 if you don't live with them.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           141451.55
-  - name: student_allowance_parental_income_abatement_threshold_at_home
+  - name: student_allowance_parental_income_first_band_width_at_home
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(4)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: (30.30303% × (the amount of item A up to a maximum of $71.41)) + (27.93296% × (any amount of item A exceeding $71.41)) where A is the average gross weekly income of the student’s parents or parent less $1,386.71.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          75822.34
-  - name: student_allowance_parental_income_abatement_threshold_away
+          71.41
+  - name: student_allowance_parental_income_first_band_width_away
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(3)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: (30.30303% × (the amount of item A up to a maximum of $259.51)) + (27.93296% × (any amount of item A exceeding $259.51)) where A is the average gross weekly income of the student’s parents or parent less $1,386.71.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          85603.54
+          259.51
+  - name: student_allowance_weekly_parental_income_lower_limit
+    kind: parameter
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: If the student is under 24, childless, not living in a parental home, and the average gross weekly income of the student’s parents or parent exceeds $1,386.71
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: If the student is under 24, childless, living in a parental home, and the average gross weekly income of the student’s parents or parent exceeds $1,386.71
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1386.71
+  - name: student_allowance_parental_income_first_band_rate
+    kind: parameter
+    dtype: Rate
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 30.30303%
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.3030303
+  - name: student_allowance_parental_income_second_band_rate
+    kind: parameter
+    dtype: Rate
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 27.93296%
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.2793296
+  - name: student_allowance_parental_income_weeks_per_year
+    kind: parameter
+    dtype: Number
+    source: Student Allowances Regulations 1998 reg 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: weekly parental income , in relation to any person, means the amount of parental income in relation to that person divided by 52.
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          52
+  - name: student_allowance_rate_band_age_threshold
+    kind: parameter
+    dtype: Number
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 2 | The student is 24 or older, childless, and not living in a parental home | 435.67
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 4 | The student is under 24, childless, and not living in a parental home | 378.64
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          24
+  - name: student_allowance_partner_age_threshold
+    kind: parameter
+    dtype: Number
+    source: Student Allowances Regulations 1998 reg 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: both of them are of or over 24 ; or
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: one or both of them are younger than 24 and at least 1 of them has a supported child
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          24
   - name: student_allowance_weekly_basic_allowance_at_home
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 5 | The student is under 24, childless, and living in a parental home | 321.64
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -147,14 +251,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 4 | The student is under 24, childless, and not living in a parental home | 378.64
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -163,14 +268,30 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 Schedule 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: However, if the student’s personal income exceeds $284.70 for the week, the value of the basic grant for the week is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: However, if the student’s personal income exceeds $284.70 for the week, the value of the basic grant payable to the student for the week is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: If the student’s personal income exceeds $284.70 for the week, the value of the basic grant payable for the week to the student is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/2/clause/4
+              excerpt: However, if the student’s personal income exceeds $284.70 for the week, the value of the independent circumstances grant for the week is reduced by an amount equalling the excess.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -179,30 +300,49 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student whose combined income for the week is not more than $569.40
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           569.40
-  - name: student_allowance_independent_circumstances_gross_rate
+  - name: student_allowance_partner_income_upper_limit
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(2)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: Despite subclause (1), the basic grant is not payable for the week if the student’s combined income for the week is $1,185.75 or more.
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          1185.75
+  - name: student_allowance_independent_circumstances_gross_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 4(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/2/clause/4
+              excerpt: The value of an independent circumstances grant payable for a week to a student is $378.64.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -211,14 +351,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 3 | The student is 24 or older, childless, and living in a parental home | 367.25
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -227,14 +368,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 2 | The student is 24 or older, childless, and not living in a parental home | 435.67
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -243,14 +385,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 5 | The student is under 24, childless, and living in a parental home | 321.64
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -259,14 +402,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 4 | The student is under 24, childless, and not living in a parental home | 378.64
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -275,14 +419,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "is living in the same home as their spouse or partner: | 221.14"
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -291,14 +436,15 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: is not living in the same home as their spouse or partner | 276.89
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -307,30 +453,117 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: "the student is childless: | 779.99"
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           779.99
-  - name: student_allowance_single_with_children_rate
+  - name: student_allowance_couple_low_income_enrolled_not_eligible_childless_rate
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: "the student is childless: | 435.67"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          435.67
+  - name: student_allowance_couple_low_income_enrolled_eligible_childless_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: "the student is childless: | 378.64"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          378.64
+  - name: student_allowance_couple_low_income_enrolled_not_eligible_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 624.21
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          624.21
+  - name: student_allowance_couple_low_income_enrolled_eligible_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 419.33
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          419.33
+  - name: student_allowance_couple_low_income_enrolled_receiving_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 399.01
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          399.01
+  - name: student_allowance_single_with_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 3(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 1 | The student has 1 or more supported children | 624.21
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -339,14 +572,20 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "the student’s spouse or partner is not enrolled in more than half of a full-time course: | 258.65"
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: is eligible for but does not receive, or is not eligible for, a grant | 258.65
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -355,135 +594,160 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "the student’s spouse or partner is not enrolled in more than half of a full-time course: | 318.40"
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: is eligible for but does not receive, or is not eligible for, a grant | 318.40
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           318.40
+  - name: student_allowance_at_home_with_earning_partner_receiving_grant_and_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "receives a grant: | 239.91"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          239.91
+  - name: student_allowance_away_with_earning_partner_receiving_grant_and_children_rate
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: "receives a grant: | 296.66"
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          296.66
   - name: student_allowance_with_children_dependent_partner_rate
     kind: parameter
     dtype: Money
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1(1)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 820.69
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           820.69
-  - name: student_allowance_tax_rate_1
-    kind: parameter
-    dtype: Rate
-    source: StudyLink student-abated-net-allowance calculator
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
-    versions:
-      - effective_from: '2026-04-01'
-        formula: |-
-          0.105
-  - name: student_allowance_tax_rate_2
-    kind: parameter
-    dtype: Rate
-    source: StudyLink student-abated-net-allowance calculator
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
-    versions:
-      - effective_from: '2026-04-01'
-        formula: |-
-          0.175
   - name: student_allowance_annual_parental_income
     kind: derived
     entity: Person
     dtype: Money
     period: Year
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 reg 4
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
+              excerpt: the combined parental incomes of those 2 contributors is considered to be the parental income of the student
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
+              excerpt: where the income of a parent of a student is negative, it must be treated as nil.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           if student_allowance_parents_living_apart:
-              max(
-                  0,
-                  student_allowance_parent1_annual_income
-                  + student_allowance_parent2_annual_income
-                  - student_allowance_parents_living_apart_abatement
-                  - student_allowance_dependent_students_count
-                    * student_allowance_other_dependent_students_abatement
-              )
+              max(0, max(0, student_allowance_parent1_annual_income) + max(0, student_allowance_parent2_annual_income) - student_allowance_parents_living_apart_abatement - student_allowance_dependent_students_count * student_allowance_other_dependent_students_abatement)
           else:
-              max(
-                  0,
-                  student_allowance_parent1_annual_income
-                  + student_allowance_parent2_annual_income
-                  - student_allowance_dependent_students_count
-                    * student_allowance_other_dependent_students_abatement
-              )
+              max(0, max(0, student_allowance_parent1_annual_income) + max(0, student_allowance_parent2_annual_income) - student_allowance_dependent_students_count * student_allowance_other_dependent_students_abatement)
+  - name: student_allowance_weekly_parental_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Week
+    unit: NZD
+    source: Student Allowances Regulations 1998 reg 2
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: weekly parental income , in relation to any person, means the amount of parental income in relation to that person divided by 52.
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          student_allowance_annual_parental_income / student_allowance_parental_income_weeks_per_year
   - name: student_allowance_weekly_student_income
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance calculators
+    source: Student Allowances Regulations 1998 reg 43
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/43
+              excerpt: Where the personal income or combined income of a person for a week is required to be calculated for the purposes of these regulations
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          student_allowance_student_annual_income / 52
+          student_allowance_student_personal_income_for_week
   - name: student_allowance_weekly_partner_income
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance calculators
+    source: Student Allowances Regulations 1998 reg 43
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/43
+              excerpt: Where the personal income or combined income of a person for a week is required to be calculated for the purposes of these regulations
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           if student_allowance_has_recognised_partner > 0:
-              student_allowance_partner_annual_income / 52
+              student_allowance_partner_personal_income_for_week
           else:
               0
   - name: student_allowance_combined_weekly_income
@@ -492,14 +756,20 @@ rules:
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance calculators
+    source: Student Allowances Regulations 1998 reg 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: the personal income of that student; and
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: the spousal or partner's income of that student
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -508,19 +778,28 @@ rules:
     kind: derived
     entity: Person
     dtype: Rate
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 reg 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: both of them are of or over 24 ; or
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: one or both of them are younger than 24 and at least 1 of them has a supported child
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           if student_allowance_has_partner and (
-              student_allowance_partner_age >= 24
+              (
+                  student_allowance_student_age >= student_allowance_partner_age_threshold
+                  and student_allowance_partner_age >= student_allowance_partner_age_threshold
+              )
               or student_allowance_has_children
           ):
               1
@@ -530,14 +809,20 @@ rules:
     kind: derived
     entity: Person
     dtype: Rate
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 reg 2 and Schedule 2 clause 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: parental home , in relation to a student, means a home where the student is living with a parent
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: is living in the same home as their spouse or partner
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -555,14 +840,20 @@ rules:
     kind: derived
     entity: Person
     dtype: Rate
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student whose combined income for the week is more than $569.40
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: Despite subclause (1), the basic grant is not payable for the week if the student’s combined income for the week is $1,185.75 or more.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -570,6 +861,8 @@ rules:
               student_allowance_has_recognised_partner > 0
               and student_allowance_combined_weekly_income
               > student_allowance_partner_income_threshold
+              and student_allowance_combined_weekly_income
+              < student_allowance_partner_income_upper_limit
           ):
               1
           else:
@@ -578,14 +871,15 @@ rules:
     kind: derived
     entity: Person
     dtype: Rate
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clause 1
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student whose combined income for the week is not more than $569.40
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -603,116 +897,202 @@ rules:
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clauses 3 and 4
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: The following table sets out the value of a basic grant payable for a week to a single student
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/2/clause/4
+              excerpt: The value of an independent circumstances grant payable for a week to a student is $378.64.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          if student_allowance_student_age >= 18 and student_allowance_student_age <= 23:
-              if student_allowance_lives_at_home > 0:
-                  student_allowance_single_under_24_home_rate
-              else:
-                  student_allowance_single_under_24_away_rate
+          if student_allowance_is_independent_circumstances:
+              student_allowance_independent_circumstances_gross_rate
           else:
-              if student_allowance_is_independent_circumstances:
-                  student_allowance_independent_circumstances_gross_rate
+              if student_allowance_student_age < student_allowance_rate_band_age_threshold:
+                  if student_allowance_lives_at_home > 0:
+                      student_allowance_single_under_24_home_rate
+                  else:
+                      student_allowance_single_under_24_away_rate
               else:
-                  if student_allowance_student_age >= 24 and student_allowance_lives_at_home > 0:
+                  if student_allowance_lives_at_home > 0:
                       student_allowance_age_24_plus_home_rate
                   else:
-                      if student_allowance_student_age >= 24 and student_allowance_lives_at_home <= 0:
-                          student_allowance_age_24_plus_away_rate
-                      else:
-                          0
+                      student_allowance_age_24_plus_away_rate
   - name: student_allowance_couple_no_children_gross
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clauses 1 and 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student whose combined income for the week is not more than $569.40
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student whose combined income for the week is more than $569.40
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is not enrolled in more than half of a full-time course
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, and is not eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, although is eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course and receives a grant
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          if student_allowance_lives_at_home > 0:
-              if student_allowance_has_earning_partner > 0:
+          if student_allowance_has_earning_partner > 0:
+              if student_allowance_lives_at_home > 0:
                   student_allowance_couple_home_earning_partner_rate
               else:
-                  if student_allowance_has_dependent_partner > 0:
-                      student_allowance_couple_dependent_partner_rate
-                  else:
-                      0
-          else:
-              if student_allowance_has_earning_partner > 0:
                   student_allowance_couple_away_earning_partner_rate
-              else:
-                  if student_allowance_has_dependent_partner > 0:
-                      student_allowance_couple_dependent_partner_rate
+          else:
+              if student_allowance_has_dependent_partner > 0:
+                  if student_allowance_partner_enrolled_more_than_half_full_time:
+                      if (
+                          student_allowance_partner_receives_grant
+                          or student_allowance_partner_eligible_for_grant
+                      ):
+                          student_allowance_couple_low_income_enrolled_eligible_childless_rate
+                      else:
+                          student_allowance_couple_low_income_enrolled_not_eligible_childless_rate
                   else:
-                      0
+                      student_allowance_couple_dependent_partner_rate
+              else:
+                  0
   - name: student_allowance_students_with_children_gross
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2 clauses 1 to 3
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: the student has 1 or more supported children | 820.69
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: The student has 1 or more supported children
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: 1 | The student has 1 or more supported children | 624.21
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is not enrolled in more than half of a full-time course
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, and is not eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course but does not receive, although is eligible for, a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The student’s spouse or partner is enrolled in more than half of a full-time course and receives a grant
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: the student’s spouse or partner is enrolled in more than half of a full-time course and—
     versions:
       - effective_from: '2026-04-01'
         formula: |-
           if student_allowance_has_recognised_partner <= 0 and student_allowance_has_children:
               student_allowance_single_with_children_rate
           else:
-              if student_allowance_lives_at_home > 0:
-                  if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
-                      student_allowance_at_home_with_earning_partner_and_children_rate
-                  else:
-                      if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
-                          student_allowance_with_children_dependent_partner_rate
+              if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
+                  if (
+                      student_allowance_partner_enrolled_more_than_half_full_time
+                      and student_allowance_partner_receives_grant
+                  ):
+                      if student_allowance_lives_at_home > 0:
+                          student_allowance_at_home_with_earning_partner_receiving_grant_and_children_rate
                       else:
-                          0
+                          student_allowance_away_with_earning_partner_receiving_grant_and_children_rate
+                  else:
+                      if student_allowance_lives_at_home > 0:
+                          student_allowance_at_home_with_earning_partner_and_children_rate
+                      else:
+                          student_allowance_away_with_earning_partner_and_children_rate
               else:
-                  if student_allowance_has_earning_partner > 0 and student_allowance_has_children:
-                      student_allowance_away_with_earning_partner_and_children_rate
-                  else:
-                      if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
-                          student_allowance_with_children_dependent_partner_rate
+                  if student_allowance_has_dependent_partner > 0 and student_allowance_has_children:
+                      if student_allowance_partner_enrolled_more_than_half_full_time:
+                          if student_allowance_partner_receives_grant:
+                              student_allowance_couple_low_income_enrolled_receiving_children_rate
+                          else:
+                              if student_allowance_partner_eligible_for_grant:
+                                  student_allowance_couple_low_income_enrolled_eligible_children_rate
+                              else:
+                                  student_allowance_couple_low_income_enrolled_not_eligible_children_rate
                       else:
-                          0
+                          student_allowance_with_children_dependent_partner_rate
+                  else:
+                      0
   - name: student_allowance_weekly_gross_allowance
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink student allowance rate calculator
+    source: Student Allowances Regulations 1998 Schedule 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: The following table sets out the value of a basic grant payable for a week to a single student
+          - path: versions[0].formula
+            kind: parameter_table
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: The following table sets out the value of a basic grant payable for a week to a married or partnered student
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -729,170 +1109,136 @@ rules:
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 reg 2 and Schedule 2 clause 3
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: (30.30303% × (the amount of item A up to a maximum of $71.41)) + (27.93296% × (any amount of item A exceeding $71.41)) where A is the average gross weekly income of the student’s parents or parent less $1,386.71.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: weekly parental income , in relation to any person, means the amount of parental income in relation to that person divided by 52.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          if student_allowance_annual_parental_income <= student_allowance_parental_income_lower_limit:
-              student_allowance_weekly_basic_allowance_at_home
-          else:
-              if (
-                  student_allowance_annual_parental_income
-                  > student_allowance_parental_income_abatement_threshold_at_home
-              ):
-                  max(
-                      0,
-                      student_allowance_weekly_basic_allowance_at_home
-                      - (
-                          (
-                              student_allowance_parental_income_abatement_threshold_at_home
-                              - student_allowance_parental_income_lower_limit
-                          )
-                          * 0.3030303
-                          + (
-                              student_allowance_annual_parental_income
-                              - student_allowance_parental_income_abatement_threshold_at_home
-                          )
-                          * 0.2793296
-                      ) / 52
-                  )
-              else:
-                  max(
-                      0,
-                      student_allowance_weekly_basic_allowance_at_home
-                      - (
-                          0.3030303
-                          * (
-                              student_allowance_annual_parental_income
-                              - student_allowance_parental_income_lower_limit
-                          )
-                          / 52
-                      )
-                  )
+          max(0, student_allowance_weekly_basic_allowance_at_home - student_allowance_parental_income_first_band_rate * min(max(0, student_allowance_weekly_parental_income - student_allowance_weekly_parental_income_lower_limit), student_allowance_parental_income_first_band_width_at_home) - student_allowance_parental_income_second_band_rate * max(0, student_allowance_weekly_parental_income - student_allowance_weekly_parental_income_lower_limit - student_allowance_parental_income_first_band_width_at_home))
   - name: student_allowance_abated_weekly_allowance_away
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 reg 2 and Schedule 2 clause 3
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: (30.30303% × (the amount of item A up to a maximum of $259.51)) + (27.93296% × (any amount of item A exceeding $259.51)) where A is the average gross weekly income of the student’s parents or parent less $1,386.71.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/2
+              excerpt: weekly parental income , in relation to any person, means the amount of parental income in relation to that person divided by 52.
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          if student_allowance_annual_parental_income <= student_allowance_parental_income_lower_limit:
-              student_allowance_weekly_basic_allowance_away
-          else:
-              if (
-                  student_allowance_annual_parental_income
-                  > student_allowance_parental_income_abatement_threshold_away
-              ):
-                  max(
-                      0,
-                      student_allowance_weekly_basic_allowance_away
-                      - (
-                          (
-                              student_allowance_parental_income_abatement_threshold_away
-                              - student_allowance_parental_income_lower_limit
-                          )
-                          * 0.3030303
-                          + (
-                              student_allowance_annual_parental_income
-                              - student_allowance_parental_income_abatement_threshold_away
-                          )
-                          * 0.2793296
-                      ) / 52
-                  )
-              else:
-                  max(
-                      0,
-                      student_allowance_weekly_basic_allowance_away
-                      - (
-                          0.3030303
-                          * (
-                              student_allowance_annual_parental_income
-                              - student_allowance_parental_income_lower_limit
-                          )
-                          / 52
-                      )
-                  )
+          max(0, student_allowance_weekly_basic_allowance_away - student_allowance_parental_income_first_band_rate * min(max(0, student_allowance_weekly_parental_income - student_allowance_weekly_parental_income_lower_limit), student_allowance_parental_income_first_band_width_away) - student_allowance_parental_income_second_band_rate * max(0, student_allowance_weekly_parental_income - student_allowance_weekly_parental_income_lower_limit - student_allowance_parental_income_first_band_width_away))
   - name: student_allowance_weekly_allowance
     kind: derived
     entity: Person
     dtype: Money
     period: Week
     unit: NZD
-    source: StudyLink parental-income calculator
+    source: Student Allowances Regulations 1998 regs 4 and 43, Schedule 2, and StudyLink parental-income guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/1
+              excerpt: However, if the student’s personal income exceeds $284.70 for the week, the value of the basic grant for the week is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/1/clause/2
+              excerpt: However, if the student’s personal income exceeds $284.70 for the week, the value of the basic grant payable to the student for the week is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/1/subpart/2/clause/3
+              excerpt: If the student’s personal income exceeds $284.70 for the week, the value of the basic grant payable for the week to the student is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/schedule/2/part/2/clause/4
+              excerpt: However, if the student’s personal income exceeds $284.70 for the week, the value of the independent circumstances grant for the week is reduced by an amount equalling the excess.
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/1998/0277/regulation/4
+              excerpt: A student's parental income must be assessed if the student is single, younger than 24 , without a supported child or children
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/guidance/studylink/student-allowance-parental-income/block-2
+              excerpt: You can't get a Student Allowance if their joint earnings while you study are more than
     versions:
       - effective_from: '2026-04-01'
         formula: |-
-          if student_allowance_lives_at_home > 0:
-              if (
-                  student_allowance_annual_parental_income
-                  > student_allowance_parental_income_upper_limit_at_home
-              ):
-                  0
-              else:
-                  max(
-                      0,
-                      student_allowance_abated_weekly_allowance_at_home
-                      - max(
+          if (
+              student_allowance_has_recognised_partner <= 0
+              and not student_allowance_has_children
+              and not student_allowance_is_independent_circumstances
+              and student_allowance_student_age < student_allowance_rate_band_age_threshold
+          ):
+              if student_allowance_lives_at_home > 0:
+                  if (
+                      student_allowance_annual_parental_income
+                      > student_allowance_parental_income_upper_limit_at_home
+                  ):
+                      0
+                  else:
+                      max(
                           0,
-                          student_allowance_weekly_student_income
-                          - student_allowance_weekly_student_income_threshold
+                          student_allowance_abated_weekly_allowance_at_home
+                          - max(
+                              0,
+                              student_allowance_weekly_student_income
+                              - student_allowance_weekly_student_income_threshold
+                          )
                       )
-                  )
+              else:
+                  if (
+                      student_allowance_annual_parental_income
+                      > student_allowance_parental_income_upper_limit_away
+                  ):
+                      0
+                  else:
+                      max(
+                          0,
+                          student_allowance_abated_weekly_allowance_away
+                          - max(
+                              0,
+                              student_allowance_weekly_student_income
+                              - student_allowance_weekly_student_income_threshold
+                          )
+                      )
           else:
-              if (
-                  student_allowance_annual_parental_income
-                  > student_allowance_parental_income_upper_limit_away
-              ):
-                  0
-              else:
-                  max(
+              max(
+                  0,
+                  student_allowance_weekly_gross_allowance
+                  - max(
                       0,
-                      student_allowance_abated_weekly_allowance_away
-                      - max(
-                          0,
-                          student_allowance_weekly_student_income
-                          - student_allowance_weekly_student_income_threshold
-                      )
+                      student_allowance_weekly_student_income
+                      - student_allowance_weekly_student_income_threshold
                   )
-  - name: student_allowance_annual_allowance
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    unit: NZD
-    source: StudyLink parental-income calculator
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
-    versions:
-      - effective_from: '2026-04-01'
-        formula: |-
-          student_allowance_weekly_allowance * 52
+              )
