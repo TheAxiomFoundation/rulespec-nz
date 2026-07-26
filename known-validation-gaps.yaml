@@ -16,12 +16,6 @@ validate_failures:
       fingerprint: sha256:34601fe501652a6c5a7699bc3a2e2c92411bf085a8d76bd80bd2d001ddc4e87e
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/regulations/student_allowances/core.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:0dcab3ef3c645de4145e6c72e7131f93ff5cfdd42812c03c658bc4a430bbdaf0
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/acc/weekly_compensation.yaml:
     active:
       expires: '2026-10-10'

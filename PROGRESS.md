@@ -7,7 +7,7 @@
 - Goal: bring the four drifted-waiver modules to full validation passage, remove only waivers for modules that pass, and keep all generated provenance artifacts consistent.
 - Network note: `git fetch origin main repin/nz-rulespec-2026-07-25` failed twice because this sandbox could not resolve `github.com`; `gh pr view 103` independently reported the same head SHA (`615f3900a2796a8a62b86740062701f29c3e011f`).
 - Current baseline: residence grounding clean; student-loan repayments 4 grounding issues; child support 11 grounding issues; student allowances 25 grounding issues.
-- Passage count: 2 of 4 (`nz/statutes/common/residence.yaml` and `nz/statutes/student_loan/repayments.yaml`).
+- Passage count: 3 of 4 (`nz/statutes/common/residence.yaml`, `nz/statutes/student_loan/repayments.yaml`, and `nz/regulations/student_allowances/core.yaml`).
 
 ## Done
 
@@ -28,7 +28,13 @@
 - Completed the child-support source audit without editing the module. Only the `35` care threshold has a current source (s 31); the 18.45% living allowance, flat 18%/26%/33% rates, fixed maximums, and six annual dollar amounts have no honest support in the bound corpus and implement the repealed pre-2015 model.
 - Confirmed that current ss 30–36 instead require the income-shares, care-cost, child-expenditure, fixed living-allowance, and nil-case machinery. PR #91 is parked because its attempted replacement also omits critical Schedule 3, rounding, derivation, nil-condition, and eligibility logic.
 - Left `nz/statutes/child_support/core_formula.yaml` and its immutable waiver byte-for-byte unchanged. Fixing only `35` would drift the waiver while the other ten failures remain; a full re-encode belongs in the parked child-support work.
+- Re-grounded all 25 reported student-allowance issues statute-first: regulations 2, 4, 7, and 43 now state the conversions and eligibility partitions, while Schedule 2 clauses 1–4 state the weekly rates, income thresholds, parental-income bands, and abatement percentages. StudyLink guidance is retained only for the operative annual parental threshold and cutoffs.
+- Replaced the unsupported annual band breakpoints with the statutory weekly widths ($71.41 and $259.51), promoted the sourced 52-week conversions and long abatement decimals to parameters, and removed the unused tax-rate parameters and unsupported `weekly allowance * 52` annual output.
+- Corrected the recognised-partner age condition and added Schedule 2's $1,185.75 combined-income cutoff. Companion coverage now includes the high-parental-income zero, under-age basic-grant zero, partnered cutoff, and every derived output.
+- Student-allowance grounding is CLEAN; all 11 engine companion cases pass; nonnegative-reduction, zero-branch, derived-output, scalar-table, and interval guards all report no issues; 23 focused repository tests pass.
+- Refreshed the inventory and provenance ledger. The ledger moved from 99 to 58 blocked atoms and from 83 to 42 affected rules; the module now contributes 48 inventoried rules and no blocked proof atoms.
+- Deleted only the now-clean student-allowance waiver and repinned the exact waiver-set SHA to `c8b551976764ea05d8950041aebce28ca884f1a06b590929c573ccb173723909`.
 
 ## Next
 
-- Apply the statute-first/guidance-rate grounding map for student allowances, then regenerate artifacts and remove its waiver only if all local passage checks are clean.
+- Run all four module checks and the full repository suite, then write the final report with the child-support re-encode blocker documented precisely.

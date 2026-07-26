@@ -795,271 +795,6 @@
       ]
     },
     {
-      "path": "nz/regulations/student_allowances/core.yaml",
-      "surface_ids": [
-        "nz/regulations/student_allowances/core"
-      ],
-      "source_families": [
-        "nz_regulations_student_allowances_core"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parents_living_apart_abatement",
-          "name": "student_allowance_parents_living_apart_abatement",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_other_dependent_students_abatement",
-          "name": "student_allowance_other_dependent_students_abatement",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_lower_limit",
-          "name": "student_allowance_parental_income_lower_limit",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_upper_limit_at_home",
-          "name": "student_allowance_parental_income_upper_limit_at_home",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_upper_limit_away",
-          "name": "student_allowance_parental_income_upper_limit_away",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_abatement_threshold_at_home",
-          "name": "student_allowance_parental_income_abatement_threshold_at_home",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_abatement_threshold_away",
-          "name": "student_allowance_parental_income_abatement_threshold_away",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_basic_allowance_at_home",
-          "name": "student_allowance_weekly_basic_allowance_at_home",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_basic_allowance_away",
-          "name": "student_allowance_weekly_basic_allowance_away",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_student_income_threshold",
-          "name": "student_allowance_weekly_student_income_threshold",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_partner_income_threshold",
-          "name": "student_allowance_partner_income_threshold",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_independent_circumstances_gross_rate",
-          "name": "student_allowance_independent_circumstances_gross_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_age_24_plus_home_rate",
-          "name": "student_allowance_age_24_plus_home_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_age_24_plus_away_rate",
-          "name": "student_allowance_age_24_plus_away_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_single_under_24_home_rate",
-          "name": "student_allowance_single_under_24_home_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_single_under_24_away_rate",
-          "name": "student_allowance_single_under_24_away_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_couple_home_earning_partner_rate",
-          "name": "student_allowance_couple_home_earning_partner_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_couple_away_earning_partner_rate",
-          "name": "student_allowance_couple_away_earning_partner_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_couple_dependent_partner_rate",
-          "name": "student_allowance_couple_dependent_partner_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_single_with_children_rate",
-          "name": "student_allowance_single_with_children_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_at_home_with_earning_partner_and_children_rate",
-          "name": "student_allowance_at_home_with_earning_partner_and_children_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_away_with_earning_partner_and_children_rate",
-          "name": "student_allowance_away_with_earning_partner_and_children_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_with_children_dependent_partner_rate",
-          "name": "student_allowance_with_children_dependent_partner_rate",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_tax_rate_1",
-          "name": "student_allowance_tax_rate_1",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_tax_rate_2",
-          "name": "student_allowance_tax_rate_2",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_annual_parental_income",
-          "name": "student_allowance_annual_parental_income",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_student_income",
-          "name": "student_allowance_weekly_student_income",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_partner_income",
-          "name": "student_allowance_weekly_partner_income",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_combined_weekly_income",
-          "name": "student_allowance_combined_weekly_income",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_has_recognised_partner",
-          "name": "student_allowance_has_recognised_partner",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_lives_at_home",
-          "name": "student_allowance_lives_at_home",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_has_earning_partner",
-          "name": "student_allowance_has_earning_partner",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_has_dependent_partner",
-          "name": "student_allowance_has_dependent_partner",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_single_student_no_children_gross",
-          "name": "student_allowance_single_student_no_children_gross",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_couple_no_children_gross",
-          "name": "student_allowance_couple_no_children_gross",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_students_with_children_gross",
-          "name": "student_allowance_students_with_children_gross",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance",
-          "name": "student_allowance_weekly_gross_allowance",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_at_home",
-          "name": "student_allowance_abated_weekly_allowance_at_home",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_away",
-          "name": "student_allowance_abated_weekly_allowance_away",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_allowance",
-          "name": "student_allowance_weekly_allowance",
-          "kind": "derived",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_annual_allowance",
-          "name": "student_allowance_annual_allowance",
-          "kind": "derived",
-          "source_family": "core"
-        }
-      ]
-    },
-    {
       "path": "nz/statutes/acc/weekly_compensation.yaml",
       "surface_ids": [
         "nz/statutes/acc/weekly_compensation"
@@ -5226,6 +4961,313 @@
           "name": "student_loan_weekly_deduction",
           "kind": "derived",
           "source_family": "repayments"
+        }
+      ]
+    },
+    {
+      "path": "nz/regulations/student_allowances/core.yaml",
+      "surface_ids": [
+        "nz/regulations/student_allowances/core"
+      ],
+      "source_families": [
+        "nz_regulations_student_allowances_core"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parents_living_apart_abatement",
+          "name": "student_allowance_parents_living_apart_abatement",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_other_dependent_students_abatement",
+          "name": "student_allowance_other_dependent_students_abatement",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_lower_limit",
+          "name": "student_allowance_parental_income_lower_limit",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_upper_limit_at_home",
+          "name": "student_allowance_parental_income_upper_limit_at_home",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_upper_limit_away",
+          "name": "student_allowance_parental_income_upper_limit_away",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_first_band_width_at_home",
+          "name": "student_allowance_parental_income_first_band_width_at_home",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_first_band_width_away",
+          "name": "student_allowance_parental_income_first_band_width_away",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_parental_income_lower_limit",
+          "name": "student_allowance_weekly_parental_income_lower_limit",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_first_band_rate",
+          "name": "student_allowance_parental_income_first_band_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_second_band_rate",
+          "name": "student_allowance_parental_income_second_band_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_weeks_per_year",
+          "name": "student_allowance_parental_income_weeks_per_year",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_personal_income_assessment_weeks",
+          "name": "student_allowance_personal_income_assessment_weeks",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_basic_grant_minimum_age",
+          "name": "student_allowance_basic_grant_minimum_age",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_rate_band_age_threshold",
+          "name": "student_allowance_rate_band_age_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_partner_age_threshold",
+          "name": "student_allowance_partner_age_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_basic_allowance_at_home",
+          "name": "student_allowance_weekly_basic_allowance_at_home",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_basic_allowance_away",
+          "name": "student_allowance_weekly_basic_allowance_away",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_student_income_threshold",
+          "name": "student_allowance_weekly_student_income_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_partner_income_threshold",
+          "name": "student_allowance_partner_income_threshold",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_partner_income_upper_limit",
+          "name": "student_allowance_partner_income_upper_limit",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_independent_circumstances_gross_rate",
+          "name": "student_allowance_independent_circumstances_gross_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_age_24_plus_home_rate",
+          "name": "student_allowance_age_24_plus_home_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_age_24_plus_away_rate",
+          "name": "student_allowance_age_24_plus_away_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_single_under_24_home_rate",
+          "name": "student_allowance_single_under_24_home_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_single_under_24_away_rate",
+          "name": "student_allowance_single_under_24_away_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_home_earning_partner_rate",
+          "name": "student_allowance_couple_home_earning_partner_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_away_earning_partner_rate",
+          "name": "student_allowance_couple_away_earning_partner_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_dependent_partner_rate",
+          "name": "student_allowance_couple_dependent_partner_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_single_with_children_rate",
+          "name": "student_allowance_single_with_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_at_home_with_earning_partner_and_children_rate",
+          "name": "student_allowance_at_home_with_earning_partner_and_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_away_with_earning_partner_and_children_rate",
+          "name": "student_allowance_away_with_earning_partner_and_children_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_with_children_dependent_partner_rate",
+          "name": "student_allowance_with_children_dependent_partner_rate",
+          "kind": "parameter",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_annual_parental_income",
+          "name": "student_allowance_annual_parental_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_parental_income",
+          "name": "student_allowance_weekly_parental_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_student_income",
+          "name": "student_allowance_weekly_student_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_partner_income",
+          "name": "student_allowance_weekly_partner_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_combined_weekly_income",
+          "name": "student_allowance_combined_weekly_income",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_has_recognised_partner",
+          "name": "student_allowance_has_recognised_partner",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_lives_at_home",
+          "name": "student_allowance_lives_at_home",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_has_earning_partner",
+          "name": "student_allowance_has_earning_partner",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_has_dependent_partner",
+          "name": "student_allowance_has_dependent_partner",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_single_student_no_children_gross",
+          "name": "student_allowance_single_student_no_children_gross",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_couple_no_children_gross",
+          "name": "student_allowance_couple_no_children_gross",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_students_with_children_gross",
+          "name": "student_allowance_students_with_children_gross",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_gross_allowance",
+          "name": "student_allowance_weekly_gross_allowance",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_at_home",
+          "name": "student_allowance_abated_weekly_allowance_at_home",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_abated_weekly_allowance_away",
+          "name": "student_allowance_abated_weekly_allowance_away",
+          "kind": "derived",
+          "source_family": "core"
+        },
+        {
+          "id": "nz:regulations/student_allowances/core#student_allowance_weekly_allowance",
+          "name": "student_allowance_weekly_allowance",
+          "kind": "derived",
+          "source_family": "core"
         }
       ]
     }
