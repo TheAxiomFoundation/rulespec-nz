@@ -1,56 +1,52 @@
 format: rulespec/v1
 module:
-  summary: |-
-    Child Support Act 1991 and Inland Revenue child support formula guidance
-    define the core child support formula parameters. The formula uses a living
-    allowance, basic child support percentage, and multi-child allocation rules.
-    NOTE: The full formula with shared care, multi-parent, and variation
-    provisions requires comprehensive extraction beyond this core module.
-    The nztaxmicrosim oracle child-support function is explicitly simplified
-    and excluded as canonical authority.
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_path: nz/statute/act/public/1991/0142/section/35a
+    corpus_citation_path: nz/statute/act/public/1991/0142/section/30
+  summary: |-
+    Child Support Act 1991, Part 1 (post-1 April 2015 income-shares scheme,
+    substituted by the Child Support Amendment Act 2013). The annual amount of
+    child support payable under a formula assessment for a qualifying child is
+    (i% - c%) x p, where i% is the liable parent's income percentage (s 33),
+    c% is the liable parent's care cost percentage (s 16, Schedule 2), and p is
+    the child expenditure amount for the child (s 30(2)). A parent's child
+    support income amount (s 34) is adjusted income minus the living allowance
+    (s 35A), dependent child allowances (s 35B) and any multi-group allowance
+    (s 36), floored at nil. Where the total formula amount is below the minimum
+    annual rate (s 32, s 72(1)(a)) the minimum annual rate is assessed instead.
+
+    care_proportion is a fraction (0-1) of ongoing daily care; the care cost
+    percentage is selected from the Schedule 2 bands, with the two sloped bands
+    adding 2 percentage points of care-cost per percentage point of care over
+    the band floor (slope coefficient 2.0 in fraction terms).
+
+    IRD publishes three annually-determined dollar figures that are NOT verbatim
+    in the bound PCO corpus (they are Inland Revenue determinations under the
+    statutory mechanism, not literal statute text): the living allowance
+    ($29,909 for 2025-26 / $30,557 for 2026-27, s 35A via Schedule 4 of the
+    Social Security Act 2018 grossed up under s RD 11(3) of the Income Tax Act
+    2007 and annualised); the minimum annual rate ($1,175 for 2025-26 / $1,211
+    for 2026-27, s 72(1)(a) uprated from the 2013 base of $871 by the annual
+    inflation percentage); and the dollar child expenditure table approved each
+    year by the Commissioner under s 36D from the Schedule 3 marginal-expenditure
+    percentages applied to annualised average weekly earnings (AWE), with
+    marginal expenditure capped at 2.5 x AWE (Schedule 3 footnote). Those three
+    figures are supplied here as module inputs and are verified against the IRD
+    rates page in the companion tests; grounding them as literals requires
+    ingesting the IRD child support rates page and the annual child expenditure
+    table into the corpus (see PR body "needs corpus ingestion").
+    Oracle: https://www.ird.govt.nz/child-support/how-much-you-might-get-or-pay/rates
 units:
   - name: NZD
     kind: currency
     minor_units: 2
 rules:
-  - name: cs_living_allowance_percentage
+  # ---- Care cost percentage bands (s 16, Schedule 2) ---------------------
+  - name: cs_care_band2_lower_care_proportion
     kind: parameter
     dtype: Rate
-    source: Child Support Act 1991 schedule 1
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
-    versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          0.1845
-  - name: cs_child_support_rate_standard
-    kind: parameter
-    dtype: Rate
-    source: Child Support Act 1991 s 40; schedule 2
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/40
-    versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          0.18
-  - name: cs_child_support_rate_one_child
-    kind: parameter
-    dtype: Rate
-    source: Child Support Act 1991 schedule 2
+    source: Child Support Act 1991 Schedule 2 item 2
     metadata:
       proof:
         atoms:
@@ -58,14 +54,14 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '28% to 34% | 24%'
     versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          0.18
-  - name: cs_child_support_rate_two_children
+      - effective_from: '2015-04-01'
+        formula: '0.28'
+  - name: cs_care_band2_care_cost_percentage
     kind: parameter
     dtype: Rate
-    source: Child Support Act 1991 schedule 2
+    source: Child Support Act 1991 Schedule 2 item 2
     metadata:
       proof:
         atoms:
@@ -73,14 +69,14 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '28% to 34% | 24%'
     versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          0.26
-  - name: cs_child_support_rate_three_or_more_children
+      - effective_from: '2015-04-01'
+        formula: '0.24'
+  - name: cs_care_band3_lower_care_proportion
     kind: parameter
     dtype: Rate
-    source: Child Support Act 1991 schedule 2
+    source: Child Support Act 1991 Schedule 2 item 3
     metadata:
       proof:
         atoms:
@@ -88,247 +84,299 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '35% to 47% | 25% plus 2% for each percentage point over 35%'
     versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          0.33
-  - name: cs_maximum_child_support_annual_rate
+      - effective_from: '2015-04-01'
+        formula: '0.35'
+  - name: cs_care_band3_base_care_cost_percentage
     kind: parameter
-    dtype: Money
-    unit: NZD
-    source: Child Support Act 1991 schedule 1
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 3
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
-          - path: versions[1].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
-          - path: versions[2].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
-    versions:
-      - effective_from: '2025-04-01'
-        formula: |-
-          43217.04
-      - effective_from: '2026-04-01'
-        formula: |-
-          44303.40
-      - effective_from: '2027-04-01'
-        formula: |-
-          45303.60
-  - name: cs_minimum_child_support_annual_rate
-    kind: parameter
-    dtype: Money
-    unit: NZD
-    source: Child Support Act 1991 schedule 1
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/72
-          - path: versions[1].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/72
-          - path: versions[2].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/72
-    versions:
-      - effective_from: '2025-04-01'
-        formula: |-
-          1368.84
-      - effective_from: '2026-04-01'
-        formula: |-
-          1402.56
-      - effective_from: '2027-04-01'
-        formula: |-
-          1435.08
-  - name: cs_child_support_income
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    unit: NZD
-    source: Child Support Act 1991 schedule 1
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/1
-    versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          max(0, cs_liable_parents_taxable_income - (cs_liable_parents_taxable_income * cs_living_allowance_percentage))
-  - name: cs_annual_child_support_entitlement
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    unit: NZD
-    source: Child Support Act 1991 schedule 2
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
             source:
               corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '35% to 47% | 25% plus 2% for each percentage point over 35%'
     versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-            min(
-                max(
-                    cs_child_support_income * cs_applicable_child_support_rate,
-                    cs_minimum_child_support_annual_rate
-                ),
-                cs_maximum_child_support_annual_rate
-            )
-  - name: cs_applicable_child_support_rate
+      - effective_from: '2015-04-01'
+        formula: '0.25'
+  - name: cs_care_slope_coefficient
+    kind: parameter
+    dtype: Number
+    source: Child Support Act 1991 Schedule 2 items 3 and 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: 25% plus 2% for each percentage point over 35%
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '2.0'
+  - name: cs_care_band4_lower_care_proportion
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '48% to 52% | 50%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.48'
+  - name: cs_care_band4_care_cost_percentage
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '48% to 52% | 50%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.50'
+  - name: cs_care_band5_lower_care_proportion
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '53% to 65% | 51% plus 2% for each percentage point over 53%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.53'
+  - name: cs_care_band5_base_care_cost_percentage
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '53% to 65% | 51% plus 2% for each percentage point over 53%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.51'
+  - name: cs_care_band6_lower_care_proportion
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '66% to 72% | 76%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.66'
+  - name: cs_care_band6_care_cost_percentage
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '66% to 72% | 76%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.76'
+  - name: cs_care_band7_lower_care_proportion
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '73% to 100% | 100%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '0.73'
+  - name: cs_care_band7_care_cost_percentage
+    kind: parameter
+    dtype: Rate
+    source: Child Support Act 1991 Schedule 2 item 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: '73% to 100% | 100%'
+    versions:
+      - effective_from: '2015-04-01'
+        formula: '1.00'
+  - name: care_cost_percentage
     kind: derived
     entity: Person
     dtype: Rate
     period: Year
-    source: Child Support Act 1991 schedule 2
+    source: Child Support Act 1991 s 16(2) and Schedule 2
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/16
+              excerpt: The care cost percentage that applies is the relevant percentage set out in, or determined in accordance with, column 2 of the table in Schedule 2
+          - path: versions[0].formula
+            kind: parameter_table
             source:
               corpus_citation_path: nz/statute/act/public/1991/0142/schedule/2
+              excerpt: 'Column 2: Care cost percentage'
     versions:
-      - effective_from: '2020-04-01'
+      - effective_from: '2015-04-01'
         formula: |-
-          if cs_child_support_qualifying_children_count <= 1:
-              cs_child_support_rate_one_child
-          else:
-              if cs_child_support_qualifying_children_count == 2:
-                  cs_child_support_rate_two_children
-              else:
-                  cs_child_support_rate_three_or_more_children
-  - name: cs_receiving_carer_meets_formula_care_threshold
-    kind: derived
-    entity: Person
-    dtype: Judgment
-    period: Year
-    source: Child Support Act 1991 s 5; IRD sharing care guidance
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/guidance/ird/child-support/types/formula-assessment/sharing-care
-    versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          cs_child_support_child_care_percent_with_receiving_carer >= 35
-  - name: cs_liable_parent_is_formula_assessment_liable
-    kind: derived
-    entity: Person
-    dtype: Judgment
-    period: Year
-    source: Child Support Act 1991 ss 4, 5, and 8; IRD child support overview
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/4
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/8
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/guidance/ird/child-support/overview
-    versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          (
-              cs_liable_parent_is_parent_of_child
-              and cs_liable_parent_is_nz_resident_or_agreement_country
-              and not cs_liable_parent_lives_with_receiving_carer
-          )
-  - name: cs_formula_assessment_applies
-    kind: derived
-    entity: Person
-    dtype: Judgment
-    period: Year
-    source: Child Support Act 1991 ss 4, 5, and 8; IRD child support overview
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/4
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/8
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/guidance/ird/child-support/overview
-    versions:
-      - effective_from: '2020-04-01'
-        formula: |-
-          (
-              cs_receiving_carer_meets_formula_care_threshold
-              and cs_liable_parent_is_formula_assessment_liable
-          )
-  - name: cs_annual_child_support_payable
+          if care_proportion >= cs_care_band7_lower_care_proportion: cs_care_band7_care_cost_percentage
+          else: if care_proportion >= cs_care_band6_lower_care_proportion: cs_care_band6_care_cost_percentage
+          else: if care_proportion >= cs_care_band5_lower_care_proportion: cs_care_band5_base_care_cost_percentage + cs_care_slope_coefficient * (care_proportion - cs_care_band5_lower_care_proportion)
+          else: if care_proportion >= cs_care_band4_lower_care_proportion: cs_care_band4_care_cost_percentage
+          else: if care_proportion >= cs_care_band3_lower_care_proportion: cs_care_band3_base_care_cost_percentage + cs_care_slope_coefficient * (care_proportion - cs_care_band3_lower_care_proportion)
+          else: if care_proportion >= cs_care_band2_lower_care_proportion: cs_care_band2_care_cost_percentage
+          else: 0
+  # ---- Child support income amount (s 34) --------------------------------
+  - name: child_support_income_amount
     kind: derived
     entity: Person
     dtype: Money
     period: Year
     unit: NZD
-    source: Child Support Act 1991 ss 4, 5, and 8; schedule 1; schedule 2
+    source: Child Support Act 1991 s 34
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/4
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/34
+              excerpt: the person's adjusted income (determined under section 35 ) for the child support year minus each of the following
           - path: versions[0].formula
-            kind: formula
+            kind: condition
             source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/5
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: nz/statute/act/public/1991/0142/section/8
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/34
+              excerpt: If the result of the calculation in subsection (1) is zero or less, the parent's child support income amount must be treated as being nil.
     versions:
-      - effective_from: '2020-04-01'
+      - effective_from: '2015-04-01'
         formula: |-
-          if cs_formula_assessment_applies:
-              cs_annual_child_support_entitlement
-          else:
-              0
+          max(0, adjusted_income - living_allowance - dependent_child_allowance - multi_group_allowance)
+  # ---- Income percentage (s 33) ------------------------------------------
+  - name: income_percentage
+    kind: derived
+    entity: Person
+    dtype: Rate
+    period: Year
+    source: Child Support Act 1991 s 33
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/33
+              excerpt: the percentage figure derived by dividing the person's child support income amount (as determined under section 34 ) by the sum of the child support income amounts, in relation to that child, of all the parents of the child
+    versions:
+      - effective_from: '2015-04-01'
+        formula: |-
+          if (child_support_income_amount + other_parents_child_support_income_amount) > 0: child_support_income_amount / (child_support_income_amount + other_parents_child_support_income_amount)
+          else: 0
+  # ---- Child expenditure amount (s 30(2)) --------------------------------
+  - name: child_expenditure_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Child Support Act 1991 s 30(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/30
+              excerpt: The child expenditure amount for a qualifying child in a child support year is
+    versions:
+      - effective_from: '2015-04-01'
+        formula: |-
+          if number_of_children_in_child_support_group > 0: child_expenditure_table_amount / number_of_children_in_child_support_group
+          else: 0
+  # ---- Annual amount of child support for a qualifying child (s 30(1)) ----
+  - name: annual_amount_of_child_support
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Child Support Act 1991 s 30(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/30
+              excerpt: the parent's income percentage minus the parent's care cost percentage, multiplied by the child expenditure amount for the child
+    versions:
+      - effective_from: '2015-04-01'
+        formula: |-
+          max(0, (income_percentage - care_cost_percentage) * child_expenditure_amount)
+  # ---- Assessed annual rate with minimum floor (s 31, s 32, s 72(1)(a)) ---
+  - name: assessed_annual_rate
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Child Support Act 1991 s 31, s 32
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/31
+              excerpt: The annual amount of child support payable under a formula assessment by a liable parent in respect of a qualifying child is nil
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1991/0142/section/32
+              excerpt: the total amount payable by the parent is less than the minimum annual rate referred to in section 72(1)
+    versions:
+      - effective_from: '2015-04-01'
+        formula: |-
+          if total_annual_formula_amount <= 0: 0
+          else: if total_annual_formula_amount < minimum_annual_rate: minimum_annual_rate
+          else: total_annual_formula_amount

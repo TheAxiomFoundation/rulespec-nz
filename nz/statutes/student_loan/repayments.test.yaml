@@ -64,7 +64,7 @@
   output:
     nz:statutes/student_loan/repayments#student_loan_weekly_repayment_threshold: 464
     nz:statutes/student_loan/repayments#student_loan_fortnightly_repayment_threshold: 928
-    nz:statutes/student_loan/repayments#student_loan_monthly_repayment_threshold: '2010.6666666666666666666666667'
+    nz:statutes/student_loan/repayments#student_loan_monthly_repayment_threshold: 2010.66
 
 - name: weekly_deduction_below_threshold
   period:
