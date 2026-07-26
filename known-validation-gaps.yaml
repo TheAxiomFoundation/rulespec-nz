@@ -46,12 +46,6 @@ validate_failures:
       fingerprint: sha256:25a7d861ad32a73848aaf8dd727d9a5f3346c66c814a00e8ab538405bf47eeb7
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/common/residence.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:270a7bd9001adf4884d77153bba33b239f23cdbab40e293ce97f47971182093e
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/housing_restructuring/income_related_rent.yaml:
     active:
       expires: '2026-10-10'
