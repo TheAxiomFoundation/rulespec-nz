@@ -28,6 +28,9 @@
   GST remains grounding-clean and all six companion cases pass.
 - Re-pointed both StudyLink guidance atoms to text-bearing blocks.
   Common residence remains grounding-clean and all four companion cases pass.
+- Re-pointed all six RWT guidance atoms and added the negative-income zero case.
+  All eight companion cases pass; grounding now reports only the five
+  deliberately untouched Schedule 1 Part B atoms.
 
 ## Next
 
