@@ -260,7 +260,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    private_pem = args.private_key.read_bytes()
+    # The custody key must live outside the repository. Nothing downstream
+    # enforces this: copytree would duplicate an in-repo key into staging,
+    # .pem is an allowed extension under verification/releases/, and a later
+    # `git add -A` would publish it with verification still green. Refuse the
+    # operator error rather than document against it.
+    key_path = args.private_key.resolve()
+    if key_path.is_relative_to(ROOT):
+        raise CutError(
+            "refusing to sign with a private key inside the repository "
+            f"({key_path.relative_to(ROOT)}): move it outside the working tree "
+            "so it cannot be staged, copied, or committed"
+        )
+    private_pem = key_path.read_bytes()
     public_key_path = ROOT / CHAIN.anchor_relative / CHAIN.producer_public_key_filename
     if not public_key_path.is_file():
         raise CutError(f"committed producer public key is absent: {public_key_path}")

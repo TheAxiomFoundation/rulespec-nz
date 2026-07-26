@@ -10,10 +10,15 @@ uv tool install "receipt>=0.5"
 receipt verify --spec verification/spec.py
 ```
 
-No account, no API key, no network access, no cooperation from us. `openssl`
-and Python are the only tools involved. The command exits `0` if the corpus is
-exactly what it says it is and `1` otherwise (`2` for usage errors — a missing
-spec or a bad path), and it prints why either way.
+The clone and the install need the network; verification itself does not, and
+you can disconnect before running it. This corpus was cut against `receipt`
+0.5.0 — a later release may verify *more* strictly, never less, since every
+pass is fail-closed. To reproduce exactly what we ran, pin `receipt==0.5.0`.
+
+No account, no API key, no cooperation from us. `openssl` and Python are the
+only tools involved. The command exits `0` if the corpus is exactly what it
+says it is and `1` otherwise (`2` for usage errors — a missing spec or a bad
+path), and it prints why either way.
 
 ## What a passing verdict establishes
 
@@ -58,10 +63,9 @@ head against the repository on GitHub (or run with `--base-ref` against a ref
 you trust).
 
 **It does not re-run any verification gate.** The journal *declares* which
-gates ran on this commit, and the command reports those declarations without
-executing them. Each declaration carries a reproducibility tier, because
-"anyone can re-run the full suite" is not true here and we would rather say so
-than imply otherwise:
+gates ran, and the command reports those declarations without executing them.
+Each declaration carries a reproducibility tier, because "anyone can re-run the
+full suite" is not true here and we would rather say so than imply otherwise:
 
 | Tier | Meaning | Count |
 |---|---|---|
@@ -85,6 +89,28 @@ offline re-run would not be the same check.
 the overclaim against the pinned workflow before genesis was cut. The
 underlying checks are deterministic over public inputs — it is the supervisor
 wrapper that an outsider cannot reproduce.)
+
+### What the declarations are *about*
+
+Every declaration names a `subjectCommit` and states its `subjectScope`, and
+neither is this commit. A journal is part of the commit that carries it, so it
+cannot cite a CI run of itself — the run necessarily precedes the commit. Read
+the declarations as claims about the commit they name:
+
+- For content-determined gates, the subject is the rule content at
+  `89a7d25`, which is byte-identical to this release's `nz/` tree. You can
+  check that yourself: `git diff 89a7d25 HEAD -- nz/` is empty.
+- For the four gates whose result depends on the CI *event* context —
+  `repo/tracked-paths`, `waivers/ratchet-audit`, `schema/retired-freeze`, and
+  `guard/manual-rulespec-changes` — the outcome is a property of that commit
+  and that run. It is recorded as history and explicitly does **not** transfer
+  to this tree. Their `subjectScope` says so.
+
+This is the X/X+1 publication problem named in
+[axiom-encode#1192](https://github.com/TheAxiomFoundation/axiom-encode/issues/1192)
+requirement 5. The notary cutover resolves it properly with detached
+attestations; until then the honest move is to state the subject rather than
+let "declared" imply "declared about the tree you are holding".
 
 **One declared gate did not run at all.** `guard/manual-rulespec-changes` is
 disabled in this repository's workflow (`run-generated-guard: false`), so no
@@ -113,14 +139,28 @@ Both exit `1`. The first fails on the file's digest, the second on the
 closed-world sweep. Restore with `git checkout nz/ && rm -f
 nz/statutes/gst/smuggled.yaml`.
 
-You can also confirm the timestamps independently, without `receipt`:
+You can also confirm the timestamps independently, without `receipt` — using
+`openssl ts -verify`, which checks the token's signature against a trust
+anchor. (`openssl ts -reply -text` only *decodes* a token; it verifies
+nothing, so a token from any signer would print convincingly.)
 
 ```bash
-openssl ts -reply -in verification/releases/manifests/*.freetsa.tsr -text | head -20
-shasum -a 256 verification/releases/manifests/*.json
+MANIFEST=$(ls verification/releases/manifests/*.json)
+DIGEST=$(shasum -a 256 "$MANIFEST" | cut -d' ' -f1)
+for TSA in freetsa digicert; do
+  openssl ts -verify -digest "$DIGEST" \
+    -in "${MANIFEST%.json}.$TSA.tsr" \
+    -CAfile "verification/releases/anchors/$(ls verification/releases/anchors | grep "^$TSA\|^digicert")" \
+    -no_check_time && echo "$TSA: token verifies over the manifest digest"
+done
 ```
 
-The `Message data` digest in the token is the SHA-256 of the manifest file.
+Both must print `Verification: OK`. That proves each authority signed *this
+manifest's digest*, against the root certificate committed in this repository.
+Note what it does not prove: that those root certificates are the authorities'
+genuine roots. If you want to close that too, fetch the roots from
+[FreeTSA](https://freetsa.org/) and DigiCert yourself and compare against
+`verification/releases/anchors/`.
 
 ## Reading the trust configuration
 
