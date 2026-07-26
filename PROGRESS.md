@@ -35,11 +35,13 @@
   subpart RD containers, and the absent KiwiSaver guidance atom to exact
   statutory/guidance text. Payroll is grounding-clean and both companion cases
   pass; its waiver is now eligible for deletion after the final module edit.
+- Re-pointed eleven supported ACC/LOPE guidance atoms plus the Accident
+  Compensation Act document root, and added three zero/floor companion cases.
+  All eight companion cases pass. ACC now has only two local grounding issues:
+  the deliberately unrepointed 2025 LOPE atom and the unsupported literal `940`.
 
 ## Next
 
-- Re-point each supported atom and add missing zero-return companion cases.
-- Verify module grounding and companion tests after each coherent module batch.
 - Remove only waivers justified by full passage and repin the waiver fingerprint.
 - Regenerate inventory, scorecard, provenance ledger, and migration constants after
   the final module edit, then run the prescribed full suite.

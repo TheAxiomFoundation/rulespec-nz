@@ -26,7 +26,8 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/weekly-compensation-for-employees/block-3
+              excerpt: We calculate your payment based on 80% of your average weekly earnings before your injury.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -41,7 +42,8 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
+              corpus_citation_path: nz/guidance/acc/weekly-compensation-for-employees/block-14
+              excerpt: We can make weekly payments at 80% of the weekly minimum wage.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -65,11 +67,13 @@ rules:
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/client-payment-rates-2026-04/block-2
+              excerpt: The new gross minimum rate of weekly compensation payable to a full-time earner will be $766.40 (equal to 80% of the adult minimum wage of $958.00 for a 40-hour week).
           - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
+              corpus_citation_path: nz/guidance/acc/client-payment-rates-2026-04/block-2
+              excerpt: The new gross minimum rate of weekly compensation payable to a full-time earner will be $766.40 (equal to 80% of the adult minimum wage of $958.00 for a 40-hour week).
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -90,7 +94,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/client-payment-rates-2026-04/block-2
+              excerpt: The new gross minimum rate of weekly compensation payable to a full-time earner will be $766.40 (equal to 80% of the adult minimum wage of $958.00 for a 40-hour week).
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -108,7 +113,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2001/0049
+              corpus_citation_path: nz/statute/act/public/2001/0049/schedule/1/part/2/clause/46
+              excerpt: The maximum amount of weekly compensation for loss of earnings that the Corporation is liable to pay to a claimant is $1,341.31 a week, whatever amount is calculated under this schedule.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -125,7 +131,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/weekly-compensation/block-1
+              excerpt: You need to be an employee, self-employed or a shareholder-employee. This must be at the time of the accident and on the day of, or day before your medical certificate shows you are unable to do some or all of your usual work duties.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -146,7 +153,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/weekly-compensation-for-employees/block-3
+              excerpt: There is also a maximum weekly amount based on a 40-hour week.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -167,7 +175,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/client-payment-rates-2026-04/block-2
+              excerpt: The new gross minimum rate of weekly compensation payable to a full-time earner will be $766.40 (equal to 80% of the adult minimum wage of $958.00 for a 40-hour week).
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -195,7 +204,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/weekly-compensation
+              corpus_citation_path: nz/guidance/acc/weekly-compensation-for-employees/block-8
+              excerpt: If you earn any income while receiving weekly compensation, we'll adjust your payments. This is called abatement, and helps reduce the risk of overpayment. Your total income should not be more than your usual pay, so you'll need to tell us if you work or earn income while receiving weekly compensation.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -216,7 +226,19 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
+              corpus_citation_path: nz/guidance/acc/weekly-compensation-for-employees/block-13
+              excerpt: |-
+                If your injury is stopping you from starting full-time work of at least 30 hours per week, we may be able to pay you for loss of earnings. You could be eligible if:
+
+                you've turned 18
+
+                you were injured before you turned 18, or injured after turning 18 but you've been in full-time study or training
+
+                you can't work because of your injury for six months or more
+
+                you're no longer in full-time study or training
+
+                you're earning or already getting weekly compensation but it's less than what we'd pay for loss of potential earnings.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -240,7 +262,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/acc/loss-of-potential-earnings
+              corpus_citation_path: nz/guidance/acc/weekly-compensation-for-employees/block-14
+              excerpt: We can make weekly payments at 80% of the weekly minimum wage.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
