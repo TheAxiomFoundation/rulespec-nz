@@ -22,12 +22,6 @@ validate_failures:
       fingerprint: sha256:3d882bd4d84dd328b22b9216525603efdec532da4c9b5671fb005c131f7ad7f0
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/child_support/core_formula.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:722eef6506190c08ce4cff5c0d3d7f0b6e2e86cce1f08bf1e2a84006331ba04b
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/citizenship/by_grant.yaml:
     active:
       expires: '2026-10-10'

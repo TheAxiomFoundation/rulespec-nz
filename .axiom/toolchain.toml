@@ -1,4 +1,4 @@
 [toolchain]
 axiom_corpus_release = "nz-rulespec-2026-07-25"
 axiom_corpus_release_content_sha256 = "fec362b985739f27910f0e950fc03e298528a42cdff6f694b19c9ed0850c8405"
-validation_waiver_set_sha256 = "c8b551976764ea05d8950041aebce28ca884f1a06b590929c573ccb173723909"
+validation_waiver_set_sha256 = "506ff102e1036289be7f41f37b6ab41bdceb73e17e06fbe396123b8d50e53b55"

@@ -880,109 +880,6 @@
       ]
     },
     {
-      "path": "nz/statutes/child_support/core_formula.yaml",
-      "surface_ids": [
-        "nz/statutes/child_support/core_formula"
-      ],
-      "source_families": [
-        "nz_statutes_child_support_core_formula"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_living_allowance_percentage",
-          "name": "cs_living_allowance_percentage",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_standard",
-          "name": "cs_child_support_rate_standard",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_one_child",
-          "name": "cs_child_support_rate_one_child",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_two_children",
-          "name": "cs_child_support_rate_two_children",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_child_support_rate_three_or_more_children",
-          "name": "cs_child_support_rate_three_or_more_children",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_maximum_child_support_annual_rate",
-          "name": "cs_maximum_child_support_annual_rate",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_minimum_child_support_annual_rate",
-          "name": "cs_minimum_child_support_annual_rate",
-          "kind": "parameter",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_child_support_income",
-          "name": "cs_child_support_income",
-          "kind": "derived",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_annual_child_support_entitlement",
-          "name": "cs_annual_child_support_entitlement",
-          "kind": "derived",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_applicable_child_support_rate",
-          "name": "cs_applicable_child_support_rate",
-          "kind": "derived",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_receiving_carer_meets_formula_care_threshold",
-          "name": "cs_receiving_carer_meets_formula_care_threshold",
-          "kind": "derived",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_liable_parent_is_formula_assessment_liable",
-          "name": "cs_liable_parent_is_formula_assessment_liable",
-          "kind": "derived",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_formula_assessment_applies",
-          "name": "cs_formula_assessment_applies",
-          "kind": "derived",
-          "source_family": "core_formula"
-        },
-        {
-          "id": "nz:statutes/child_support/core_formula#cs_annual_child_support_payable",
-          "name": "cs_annual_child_support_payable",
-          "kind": "derived",
-          "source_family": "core_formula"
-        }
-      ]
-    },
-    {
       "path": "nz/statutes/citizenship/by_grant.yaml",
       "surface_ids": [
         "nz/statutes/citizenship/by_grant"
@@ -5292,6 +5189,139 @@
           "name": "student_allowance_weekly_allowance",
           "kind": "derived",
           "source_family": "core"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/child_support/core_formula.yaml",
+      "surface_ids": [
+        "nz/statutes/child_support/core_formula"
+      ],
+      "source_families": [
+        "nz_statutes_child_support_core_formula"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band2_lower_care_proportion",
+          "name": "cs_care_band2_lower_care_proportion",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band2_care_cost_percentage",
+          "name": "cs_care_band2_care_cost_percentage",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band3_lower_care_proportion",
+          "name": "cs_care_band3_lower_care_proportion",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band3_base_care_cost_percentage",
+          "name": "cs_care_band3_base_care_cost_percentage",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_slope_coefficient",
+          "name": "cs_care_slope_coefficient",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band4_lower_care_proportion",
+          "name": "cs_care_band4_lower_care_proportion",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band4_care_cost_percentage",
+          "name": "cs_care_band4_care_cost_percentage",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band5_lower_care_proportion",
+          "name": "cs_care_band5_lower_care_proportion",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band5_base_care_cost_percentage",
+          "name": "cs_care_band5_base_care_cost_percentage",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band6_lower_care_proportion",
+          "name": "cs_care_band6_lower_care_proportion",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band6_care_cost_percentage",
+          "name": "cs_care_band6_care_cost_percentage",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band7_lower_care_proportion",
+          "name": "cs_care_band7_lower_care_proportion",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#cs_care_band7_care_cost_percentage",
+          "name": "cs_care_band7_care_cost_percentage",
+          "kind": "parameter",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#care_cost_percentage",
+          "name": "care_cost_percentage",
+          "kind": "derived",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#child_support_income_amount",
+          "name": "child_support_income_amount",
+          "kind": "derived",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#income_percentage",
+          "name": "income_percentage",
+          "kind": "derived",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#child_expenditure_amount",
+          "name": "child_expenditure_amount",
+          "kind": "derived",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#annual_amount_of_child_support",
+          "name": "annual_amount_of_child_support",
+          "kind": "derived",
+          "source_family": "core_formula"
+        },
+        {
+          "id": "nz:statutes/child_support/core_formula#assessed_annual_rate",
+          "name": "assessed_annual_rate",
+          "kind": "derived",
+          "source_family": "core_formula"
         }
       ]
     }
