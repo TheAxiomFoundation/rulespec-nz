@@ -39,10 +39,12 @@
   Compensation Act document root, and added three zero/floor companion cases.
   All eight companion cases pass. ACC now has only two local grounding issues:
   the deliberately unrepointed 2025 LOPE atom and the unsupported literal `940`.
+- Deleted the now-clean payroll waiver, reducing active waivers from 14 to 13,
+  and repinned the waiver-set SHA-256 to
+  `0213c6a6f6feadf5a90ce37811b33a95dcea1129e0372aee995209b431c22be7`.
 
 ## Next
 
-- Remove only waivers justified by full passage and repin the waiver fingerprint.
 - Regenerate inventory, scorecard, provenance ledger, and migration constants after
   the final module edit, then run the prescribed full suite.
 - Write the required external report in `ops/nz-lane/`.
