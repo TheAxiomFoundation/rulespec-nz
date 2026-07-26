@@ -94,6 +94,7 @@ ORACLE_IWTC_THRESHOLD_DIVISOR = Decimal("52.2")
 ORACLE_IWTC_WEEKLY_THRESHOLD = (
     ORACLE_IWTC_ANNUAL_THRESHOLD / ORACLE_IWTC_THRESHOLD_DIVISOR
 )
+ORACLE_ACC_WEEKLY_RATE = Decimal("0.0175")
 
 D0 = Decimal(0)
 D1 = Decimal(1)
@@ -282,6 +283,14 @@ def verify_inputs(
     engine_root = require_directory(engine_root, "engine root")
     engine_binary = require_file(engine_binary, "engine binary")
     composition_path = require_file(composition_path, "composition")
+    expected_engine_binary = (
+        engine_root / "target" / "release" / "axiom-rules-engine"
+    ).resolve()
+    if engine_binary != expected_engine_binary:
+        raise HarnessError(
+            "engine binary must be the release binary under the pinned engine "
+            f"checkout: expected {expected_engine_binary}, found {engine_binary}"
+        )
 
     if rulespec_root.name != "rulespec-nz":
         raise HarnessError(
@@ -352,27 +361,27 @@ def verify_inputs(
     if engine_dirty:
         raise HarnessError(f"engine checkout has tracked modifications: {engine_root}")
 
-    treasury_root = treasury_root.expanduser().resolve()
-    treasury_present = treasury_root.is_dir()
-    treasury_sha: str | None = None
-    parameter_sha: str | None = None
-    if treasury_present:
-        treasury_sha = git_sha(treasury_root)
-        if treasury_sha != EXPECTED_ORACLE_COMMIT:
-            raise HarnessError(
-                f"Treasury checkout SHA mismatch: expected {EXPECTED_ORACLE_COMMIT}, "
-                f"found {treasury_sha}"
-            )
-        parameter_path = require_file(
-            treasury_root / EXPECTED_PARAMETER_FILE,
-            "Treasury parameter file",
+    treasury_root = require_directory(
+        treasury_root, "Treasury source checkout"
+    )
+    treasury_present = True
+    treasury_sha: str | None = git_sha(treasury_root)
+    parameter_sha: str | None
+    if treasury_sha != EXPECTED_ORACLE_COMMIT:
+        raise HarnessError(
+            f"Treasury checkout SHA mismatch: expected {EXPECTED_ORACLE_COMMIT}, "
+            f"found {treasury_sha}"
         )
-        parameter_sha = sha256_file(parameter_path)
-        if parameter_sha != EXPECTED_PARAMETER_SHA256:
-            raise HarnessError(
-                "Treasury parameter SHA-256 mismatch: expected "
-                f"{EXPECTED_PARAMETER_SHA256}, found {parameter_sha}"
-            )
+    parameter_path = require_file(
+        treasury_root / EXPECTED_PARAMETER_FILE,
+        "Treasury parameter file",
+    )
+    parameter_sha = sha256_file(parameter_path)
+    if parameter_sha != EXPECTED_PARAMETER_SHA256:
+        raise HarnessError(
+            "Treasury parameter SHA-256 mismatch: expected "
+            f"{EXPECTED_PARAMETER_SHA256}, found {parameter_sha}"
+        )
 
     provenance = Provenance(
         oracle_path=oracle_path,
@@ -697,7 +706,9 @@ class ModelEvaluator:
             dict[str, Decimal | str],
         ] = {}
         self._gross_benefit_cache: dict[Decimal, Decimal] = {}
-        self._as_cutout_cache: dict[tuple[bool, int], Decimal] = {}
+        self._as_cutout_cache: dict[
+            tuple[bool, int, bool], Decimal
+        ] = {}
         self.tax_rates = selected_parameter_values(
             compiled, "individual_income_tax_bracket_rates"
         )
@@ -706,6 +717,12 @@ class ModelEvaluator:
         )
         self.ftc_eldest_annual = selected_parameter_values(
             compiled, "family_tax_credit_eldest_child_annual_amount"
+        )[0]
+        self.wff_abatement_threshold = selected_parameter_values(
+            compiled, "wff_family_credit_abatement_threshold"
+        )[0]
+        self.wff_abatement_rate = selected_parameter_values(
+            compiled, "wff_family_credit_abatement_rate"
         )[0]
         self.benefit_income_test_lower_threshold = selected_parameter_values(
             compiled, "main_benefit_income_test_lower_weekly_threshold"
@@ -1156,8 +1173,17 @@ class ModelEvaluator:
         )
         return scalar_decimal(values, WEP_RATE_OUTPUT) / WEEKS_IN_MODEL_YEAR
 
-    def accommodation_cutout(self, scenario: Scenario) -> Decimal:
-        key = (scenario.partnered, len(scenario.children))
+    def accommodation_cutout(
+        self,
+        scenario: Scenario,
+        *,
+        treasury_host_aligned: bool,
+    ) -> Decimal:
+        key = (
+            scenario.partnered,
+            len(scenario.children),
+            treasury_host_aligned,
+        )
         if key in self._as_cutout_cache:
             return self._as_cutout_cache[key]
         if not scenario.partnered and scenario.children:
@@ -1181,10 +1207,15 @@ class ModelEvaluator:
                     f"Jobseeker schedule for {scenario.id}"
                 )
             raw_cutout = anchor + at_anchor / reduction_per_dollar
-        annual_ceiling = (
-            raw_cutout * WEEKS_IN_MODEL_YEAR
-        ).to_integral_value(rounding=ROUND_CEILING)
-        cutout = annual_ceiling / WEEKS_IN_MODEL_YEAR
+        if treasury_host_aligned:
+            # Raw IncomeExplorer imposes this annual-dollar ceiling. Regulation
+            # 18 instead asks for the exact income level that extinguishes JSS.
+            annual_ceiling = (
+                raw_cutout * WEEKS_IN_MODEL_YEAR
+            ).to_integral_value(rounding=ROUND_CEILING)
+            cutout = annual_ceiling / WEEKS_IN_MODEL_YEAR
+        else:
+            cutout = raw_cutout
         self._as_cutout_cache[key] = cutout
         return cutout
 
@@ -1195,13 +1226,23 @@ class ModelEvaluator:
         weekly_wages: Decimal,
         net_benefit: Decimal,
         eldest_ftc_annual: Decimal,
-    ) -> tuple[Decimal, Decimal]:
+        treasury_host_aligned: bool,
+    ) -> tuple[Decimal, Decimal, Decimal, Decimal]:
         zero_income_benefit = sum(
             self.zero_income_jobseeker_components(scenario), D0
         )
         base_rate = zero_income_benefit
         if scenario.children:
-            base_rate += eldest_ftc_annual / WEEKS_IN_MODEL_YEAR
+            # Social Security Regulations 2018 reg 17 uses the annual FTC rate
+            # divided by 52. Treasury raw emtr() instead divides by 365/7; that
+            # source-host convention is retained only in the labeled diagnostic.
+            base_rate += eldest_ftc_annual / (
+                WEEKS_IN_MODEL_YEAR if treasury_host_aligned else D52
+            )
+        cutout = self.accommodation_cutout(
+            scenario,
+            treasury_host_aligned=treasury_host_aligned,
+        )
         rent = scenario.accommodation_rent
         area = scenario.accommodation_area
         inputs: dict[str, bool | int | Decimal] = {
@@ -1221,7 +1262,7 @@ class ModelEvaluator:
             "accommodation_supplement_joint_owner_with_resident": False,
             "accommodation_supplement_non_beneficiary": net_benefit == 0,
             "accommodation_supplement_non_beneficiary_income_cutout_weekly_amount": (
-                self.accommodation_cutout(scenario)
+                cutout
             ),
             "accommodation_supplement_owner_weekly_payment_share": D0,
             "accommodation_supplement_owner_weekly_required_payments": (
@@ -1250,13 +1291,19 @@ class ModelEvaluator:
         }
         values = self._evaluate(
             entity="Family",
-            entity_id=f"{scenario.id}:as:{decimal_text(weekly_wages)}",
+            entity_id=(
+                f"{scenario.id}:as:"
+                f"{'treasury-host' if treasury_host_aligned else 'statutory'}:"
+                f"{decimal_text(weekly_wages)}"
+            ),
             inputs=inputs,
             outputs=[AS_UNROUNDED_OUTPUT, AS_ROUNDED_OUTPUT],
         )
         return (
             scalar_decimal(values, AS_UNROUNDED_OUTPUT),
             scalar_decimal(values, AS_ROUNDED_OUTPUT),
+            base_rate,
+            cutout,
         )
 
     def evaluate_state(
@@ -1356,11 +1403,29 @@ class ModelEvaluator:
             )
         ietc = ietc1 + ietc2
         winter_energy = self.winter_energy_average(scenario, net_benefit)
-        as_unrounded, as_rounded = self.accommodation_values(
+        (
+            as_unrounded,
+            as_rounded,
+            as_base_rate,
+            as_cutout,
+        ) = self.accommodation_values(
             scenario=scenario,
             weekly_wages=weekly_wages,
             net_benefit=net_benefit,
             eldest_ftc_annual=self.ftc_eldest_annual,
+            treasury_host_aligned=False,
+        )
+        (
+            as_treasury_host_aligned,
+            _as_treasury_host_aligned_rounded,
+            as_treasury_host_base_rate,
+            as_treasury_host_cutout,
+        ) = self.accommodation_values(
+            scenario=scenario,
+            weekly_wages=weekly_wages,
+            net_benefit=net_benefit,
+            eldest_ftc_annual=self.ftc_eldest_annual,
+            treasury_host_aligned=True,
         )
         net_income = (
             net_wage
@@ -1393,6 +1458,11 @@ class ModelEvaluator:
             "Net_Income": net_income,
             "Net_Income_annual": net_income * WEEKS_IN_MODEL_YEAR,
             "AS_Amount_statutory_rounded": as_rounded,
+            "AS_Amount_treasury_host_aligned": as_treasury_host_aligned,
+            "AS_statutory_base_rate": as_base_rate,
+            "AS_treasury_host_base_rate": as_treasury_host_base_rate,
+            "AS_statutory_cutout": as_cutout,
+            "AS_treasury_host_cutout": as_treasury_host_cutout,
             "gross_benefit_taxable_weekly": gross_benefit_total,
             "wage2_tax": tax2,
             "wage2_ACC_levy": acc2,
@@ -1422,12 +1492,38 @@ def sweep_scenario(
     for wage in EXPECTED_SAMPLE_WAGES:
         state: dict[str, Decimal | str | None] = dict(states[wage])
         if wage == 1500:
-            current = scalar_decimal(states[1499], "Net_Income")
-            following = scalar_decimal(states[1500], "Net_Income")
+            current_state = states[1499]
+            following_state = states[1500]
         else:
-            current = scalar_decimal(states[wage], "Net_Income")
-            following = scalar_decimal(states[wage + 1], "Net_Income")
+            current_state = states[wage]
+            following_state = states[wage + 1]
+        current = scalar_decimal(current_state, "Net_Income")
+        following = scalar_decimal(following_state, "Net_Income")
         state["EMTR"] = D1 - (following - current)
+        rulespec_acc_marginal = (
+            scalar_decimal(following_state, "wage1_ACC_levy")
+            - scalar_decimal(current_state, "wage1_ACC_levy")
+        )
+        state["EMTR_ACC_rounding_component"] = (
+            rulespec_acc_marginal - ORACLE_ACC_WEEKLY_RATE
+        )
+        current_wff = scalar_decimal(current_state, "WFF_abated")
+        following_wff = scalar_decimal(following_state, "WFF_abated")
+        continuous_wff_marginal_loss = (
+            evaluator.wff_abatement_rate
+            if (
+                scalar_decimal(current_state, "family_scheme_income")
+                > evaluator.wff_abatement_threshold
+                and current_wff > 0
+                and following_wff > 0
+            )
+            else D0
+        )
+        state["EMTR_WFF_complete_dollar_component"] = (
+            current_wff
+            - following_wff
+            - continuous_wff_marginal_loss
+        )
         net_income = scalar_decimal(state, "Net_Income")
         state["RR"] = baseline / net_income if net_income != 0 else None
         gross_income = Decimal(wage) + scenario.gross_wage2
@@ -1492,11 +1588,10 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
     ),
     "B_AS_UPSTREAM_VINTAGE": (
         "b",
-        "Accommodation Supplement upstream vintage",
-        "The Schedule 4 Part 7 and Social Security Regulations 2018 regs "
-        "17–18 amount formula is fed by enacted benefit/FTC base rates and an "
-        "enacted-rate benefit cutout, while Treasury feeds the same style of "
-        "formula from BEFU25 values.",
+        "Accommodation Supplement compound difference, primary vintage",
+        "A Treasury-host-aligned diagnostic establishes a BEFU25-versus-enacted "
+        "benefit/FTC effect. The statutory primary also retains smaller reg "
+        "17–18 host conventions: FTC divided by 52 and the exact JSS cutout.",
     ),
     "B_COMPOUND_NET_INCOME": (
         "b",
@@ -1518,11 +1613,25 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
         "The net-wage residual is the propagation of annual-cent ACC rounding "
         "through a weekly value (and, for partner wages, the same conversion).",
     ),
+    "C_COMPOUND_NET_INCOME": (
+        "c",
+        "Compound period/rounding difference",
+        "No established forecast-vintage component is active; the aggregate "
+        "difference is inherited from documented statutory period or rounding "
+        "conventions.",
+    ),
     "C_IETC_WHOLE_DOLLARS": (
         "c",
         "IETC statutory whole-dollar convention",
         "RuleSpec retains the annual statutory whole-dollar calculation before "
         "converting by 365/7; Treasury's R flow is continuous weekly arithmetic.",
+    ),
+    "C_AS_STATUTORY_HOST": (
+        "c",
+        "Accommodation Supplement statutory host convention",
+        "The statutory primary uses the reg 17 annual FTC amount divided by 52 "
+        "and reg 18's exact JSS vanishing point; raw Treasury uses 365/7 and an "
+        "annual-dollar-ceiled cutout.",
     ),
     "C_EMTR_DISCRETE_ROUNDING": (
         "c",
@@ -1530,7 +1639,8 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
         "Both sides use the same weekly $1 forward interval. The residual is "
         "caused by RuleSpec's annual-cent ACC rounding and, where applicable, "
         "the complete-dollar WFF abatement base before conversion back to a "
-        "week.",
+        "week, with any remaining amount bounded by the oracle's six-decimal "
+        "display envelope.",
     ),
     "D_UNEXPLAINED": (
         "d",
@@ -1560,6 +1670,7 @@ def classify_discrepancy(
     column: str,
     treasury_state: Mapping[str, Any],
     rulespec_state: Mapping[str, Decimal | str | None],
+    signed_delta: Decimal,
     absolute_delta: Decimal,
 ) -> tuple[str, str]:
     if absolute_delta <= ORACLE_SIX_DECIMAL_TOLERANCE:
@@ -1608,7 +1719,18 @@ def classify_discrepancy(
     if column == "IETC_abated":
         return "c", "C_IETC_WHOLE_DOLLARS"
     if column == "AS_Amount":
-        return "b", "B_AS_UPSTREAM_VINTAGE"
+        treasury_as = dec(treasury_state["AS_Amount"])
+        aligned_as = scalar_decimal(
+            rulespec_state, "AS_Amount_treasury_host_aligned"
+        )
+        if outside_oracle_precision(treasury_as, aligned_as):
+            return "b", "B_AS_UPSTREAM_VINTAGE"
+        if outside_oracle_precision(
+            aligned_as,
+            scalar_decimal(rulespec_state, "AS_Amount"),
+        ):
+            return "c", "C_AS_STATUTORY_HOST"
+        return "d", "D_UNEXPLAINED"
     if column in {"Net_Income", "Net_Income_annual"}:
         material_vintage_columns = (
             "wage1_tax",
@@ -1629,13 +1751,32 @@ def classify_discrepancy(
                 continue
             if name == "wage1_tax" and not benefit_vintage_active:
                 continue
+            if name == "AS_Amount" and not outside_oracle_precision(
+                dec(treasury_state["AS_Amount"]),
+                scalar_decimal(
+                    rulespec_state,
+                    "AS_Amount_treasury_host_aligned",
+                ),
+            ):
+                continue
             material_vintage_difference = True
             break
         if material_vintage_difference:
             return "b", "B_COMPOUND_NET_INCOME"
-        return "c", "C_NET_WAGE_ROUNDING"
+        return "c", "C_COMPOUND_NET_INCOME"
     if column == "EMTR":
-        return "c", "C_EMTR_DISCRETE_ROUNDING"
+        explained = (
+            scalar_decimal(
+                rulespec_state, "EMTR_ACC_rounding_component"
+            )
+            + scalar_decimal(
+                rulespec_state,
+                "EMTR_WFF_complete_dollar_component",
+            )
+        )
+        if abs(signed_delta - explained) <= ORACLE_SIX_DECIMAL_TOLERANCE:
+            return "c", "C_EMTR_DISCRETE_ROUNDING"
+        return "d", "D_UNEXPLAINED"
     return "d", "D_UNEXPLAINED"
 
 
@@ -1676,6 +1817,7 @@ def build_comparison_rows(
                     column=column,
                     treasury_state=treasury_state,
                     rulespec_state=rulespec_state,
+                    signed_delta=signed_delta,
                     absolute_delta=absolute_delta,
                 )
                 expected_class = CLASSIFICATION_DETAILS[reason_code][0]
@@ -1721,11 +1863,13 @@ VINTAGE_PARAMETERS = (
         rulespec_name="sole_parent_support_weekly_rate",
         unit="NZD/week",
         statute=(
-            "Social Security Act 2018 Sch 4 pt 2 cl 1; Social Security "
-            "(Rates of Benefits and Allowances) Order 2026 cl 5"
+            "Social Security Act 2018 Sch 4 pt 2 cl 1 (SPS) and pt 1 "
+            "cl 1(f) (lone-parent JSS); Social Security (Rates of Benefits "
+            "and Allowances) Order 2026 cl 5"
         ),
         corpus_citation_path=(
-            "nz/statute/act/public/2018/0032/schedule/4/part/2/clause/lms118467"
+            "nz/statute/act/public/2018/0032/schedule/4/part/2/clause/lms118467; "
+            "nz/statute/act/public/2018/0032/schedule/4/part/1/clause/lms118447"
         ),
     ),
     VintageParameter(
@@ -1764,7 +1908,10 @@ VINTAGE_PARAMETERS = (
         treasury_value=Decimal("7524"),
         rulespec_name="family_tax_credit_eldest_child_annual_amount",
         unit="NZD/year",
-        statute="Income Tax Act 2007 s MD 3(4)(a)",
+        statute=(
+            "Income Tax Act 2007 s MD 3(4)(a); Income Tax (Tax Credit) "
+            "Order 2025 cl 4"
+        ),
         corpus_citation_path=(
             "nz/statute/act/public/2007/0097/section/md-3"
         ),
@@ -1775,7 +1922,10 @@ VINTAGE_PARAMETERS = (
         treasury_value=Decimal("6130"),
         rulespec_name="family_tax_credit_subsequent_child_annual_amount",
         unit="NZD/year",
-        statute="Income Tax Act 2007 s MD 3(4)(b)",
+        statute=(
+            "Income Tax Act 2007 s MD 3(4)(b); Income Tax (Tax Credit) "
+            "Order 2025 cl 4"
+        ),
         corpus_citation_path=(
             "nz/statute/act/public/2007/0097/section/md-3"
         ),
@@ -1801,7 +1951,10 @@ VINTAGE_PARAMETERS = (
         treasury_value=Decimal("36504"),
         rulespec_name="minimum_family_tax_credit_prescribed_amount",
         unit="NZD/year",
-        statute="Income Tax Act 2007 s ME 1(3)(a)",
+        statute=(
+            "Income Tax Act 2007 s ME 1(3)(a); Income Tax (Tax Credit) "
+            "Order 2025 cl 5"
+        ),
         corpus_citation_path=(
             "nz/statute/act/public/2007/0097/section/me-1"
         ),
@@ -1812,7 +1965,10 @@ VINTAGE_PARAMETERS = (
         treasury_value=Decimal("3838"),
         rulespec_name="best_start_tax_credit_prescribed_amount",
         unit="NZD/year",
-        statute="Income Tax Act 2007 s MG 2(2)(a)",
+        statute=(
+            "Income Tax Act 2007 s MG 2(2)(a); Income Tax (Tax Credit) "
+            "Order 2025 cl 6"
+        ),
         corpus_citation_path=(
             "nz/statute/act/public/2007/0097/section/mg-2"
         ),
@@ -1924,7 +2080,9 @@ def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
             for row in rows
         ),
         "matches_at_six_decimal_oracle_precision": class_counts.get("match", 0),
-        "discrepancies": len(rows) - class_counts.get("match", 0),
+        "differences_outside_six_decimal_envelope": (
+            len(rows) - class_counts.get("match", 0)
+        ),
         "classification_counts": {
             key: class_counts.get(key, 0)
             for key in ("match", "a", "b", "c", "d")
@@ -2135,6 +2293,9 @@ def build_as_diagnostic_rows(
         for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
             state = sweeps[scenario.id][wage]
             before_rounding = scalar_decimal(state, "AS_Amount")
+            treasury_host_aligned = scalar_decimal(
+                state, "AS_Amount_treasury_host_aligned"
+            )
             statutory = scalar_decimal(
                 state, "AS_Amount_statutory_rounded"
             )
@@ -2146,12 +2307,33 @@ def build_as_diagnostic_rows(
                     "scenario_id": scenario.id,
                     "weekly_wage": wage,
                     "treasury_raw_unrounded": treasury_value,
-                    "rulespec_before_rounding": before_rounding,
+                    "rulespec_statutory_inputs_before_rounding": before_rounding,
+                    "rulespec_treasury_host_aligned_before_rounding": (
+                        treasury_host_aligned
+                    ),
                     "rulespec_statutory_rounded": statutory,
-                    "like_for_like_signed_delta": (
+                    "total_signed_delta": (
                         before_rounding - treasury_value
                     ),
+                    "forecast_vintage_component_under_treasury_host_convention": (
+                        treasury_host_aligned - treasury_value
+                    ),
+                    "statutory_host_convention_component": (
+                        before_rounding - treasury_host_aligned
+                    ),
                     "legal_rounding_uplift": statutory - before_rounding,
+                    "rulespec_statutory_base_rate": scalar_decimal(
+                        state, "AS_statutory_base_rate"
+                    ),
+                    "rulespec_treasury_host_base_rate": scalar_decimal(
+                        state, "AS_treasury_host_base_rate"
+                    ),
+                    "rulespec_statutory_cutout": scalar_decimal(
+                        state, "AS_statutory_cutout"
+                    ),
+                    "rulespec_treasury_host_cutout": scalar_decimal(
+                        state, "AS_treasury_host_cutout"
+                    ),
                 }
             )
     return result
@@ -2164,12 +2346,19 @@ def build_diagnostic_rows(
 ) -> list[dict[str, Any]]:
     fields = (
         "AS_Amount_statutory_rounded",
+        "AS_Amount_treasury_host_aligned",
+        "AS_statutory_base_rate",
+        "AS_treasury_host_base_rate",
+        "AS_statutory_cutout",
+        "AS_treasury_host_cutout",
         "gross_benefit_taxable_weekly",
         "wage2_tax",
         "wage2_ACC_levy",
         "net_wage2",
         "family_scheme_income",
         "iwtc_entitlement",
+        "EMTR_ACC_rounding_component",
+        "EMTR_WFF_complete_dollar_component",
     )
     return [
         {
@@ -2185,64 +2374,100 @@ def build_diagnostic_rows(
     ]
 
 
-EMTR_RESIDUAL_PATTERNS = (
-    {
-        "signed_delta_12dp": Decimal("-0.000047945205"),
-        "expected_count": 23,
-        "explanation": (
-            "annual-cent ACC rounding only"
-        ),
-    },
-    {
-        "signed_delta_12dp": Decimal("-0.000047548557"),
-        "expected_count": 2,
-        "explanation": (
-            "annual-cent ACC rounding plus a sub-six-decimal oracle display "
-            "rounding residue"
-        ),
-    },
-    {
-        "signed_delta_12dp": Decimal("0.004472602740"),
-        "expected_count": 2,
-        "explanation": (
-            "ACC rounding plus a +0.004520547945 WFF complete-dollar effect"
-        ),
-    },
-    {
-        "signed_delta_12dp": Decimal("-0.000801369863"),
-        "expected_count": 5,
-        "explanation": (
-            "ACC rounding plus a -0.000753424658 WFF complete-dollar effect"
-        ),
-    },
-)
-
-
 def validate_emtr_residual_patterns(
     rows: Sequence[ComparisonRow],
+    sweeps: Mapping[str, Mapping[int, Mapping[str, Decimal | str | None]]],
 ) -> list[dict[str, Any]]:
     quantum = Decimal("0.000000000001")
-    observed = Counter(
-        row.signed_delta.quantize(quantum)
-        for row in rows
-        if row.column == "EMTR"
-    )
-    expected = {
-        item["signed_delta_12dp"]: item["expected_count"]
-        for item in EMTR_RESIDUAL_PATTERNS
-    }
-    if observed != expected:
-        raise HarnessError(
-            "EMTR residuals no longer match the source-decomposed ACC/WFF "
-            f"patterns: expected {expected!r}, found {dict(observed)!r}"
+    diagnostics: list[dict[str, Any]] = []
+    for row in rows:
+        if row.column != "EMTR":
+            continue
+        state = sweeps[row.scenario_id][row.weekly_wage]
+        acc_component = scalar_decimal(
+            state, "EMTR_ACC_rounding_component"
         )
-    return [
-        {
-            **item,
-            "percentage_points": item["signed_delta_12dp"] * Decimal(100),
-        }
-        for item in EMTR_RESIDUAL_PATTERNS
-    ]
+        wff_component = scalar_decimal(
+            state, "EMTR_WFF_complete_dollar_component"
+        )
+        display_rounding_remainder = (
+            row.signed_delta - acc_component - wff_component
+        )
+        if (
+            abs(display_rounding_remainder)
+            > ORACLE_SIX_DECIMAL_TOLERANCE
+        ):
+            raise HarnessError(
+                "EMTR residual is not accounted for by ACC rounding, WFF "
+                "complete-dollar arithmetic, and the six-decimal oracle "
+                f"envelope at {row.scenario_id} wage {row.weekly_wage}: "
+                f"{decimal_text(display_rounding_remainder)}"
+            )
+        diagnostics.append(
+            {
+                "scenario_id": row.scenario_id,
+                "weekly_wage": row.weekly_wage,
+                "signed_delta": row.signed_delta,
+                "signed_delta_12dp": row.signed_delta.quantize(quantum),
+                "acc_annual_cent_component": acc_component,
+                "wff_complete_dollar_component": wff_component,
+                "oracle_display_rounding_remainder": (
+                    display_rounding_remainder
+                ),
+            }
+        )
+    if len(diagnostics) != 32:
+        raise HarnessError(
+            f"expected 32 EMTR decomposition rows, found {len(diagnostics)}"
+        )
+
+    grouped: dict[Decimal, list[dict[str, Any]]] = {}
+    for item in diagnostics:
+        grouped.setdefault(item["signed_delta_12dp"], []).append(item)
+    patterns: list[dict[str, Any]] = []
+    for signed_delta in sorted(grouped):
+        members = grouped[signed_delta]
+        acc_values = [
+            item["acc_annual_cent_component"] for item in members
+        ]
+        wff_values = [
+            item["wff_complete_dollar_component"] for item in members
+        ]
+        display_values = [
+            abs(item["oracle_display_rounding_remainder"])
+            for item in members
+        ]
+        wff_affected = sum(value != 0 for value in wff_values)
+        patterns.append(
+            {
+                "signed_delta_12dp": signed_delta,
+                "percentage_points": signed_delta * Decimal(100),
+                "count": len(members),
+                "acc_component_min": min(acc_values),
+                "acc_component_max": max(acc_values),
+                "wff_component_min": min(wff_values),
+                "wff_component_max": max(wff_values),
+                "maximum_absolute_oracle_display_remainder": max(
+                    display_values
+                ),
+                "wff_affected_points": wff_affected,
+                "explanation": (
+                    "ACC annual-cent rounding plus MD 13 complete-dollar WFF "
+                    "arithmetic and at most six-decimal oracle display rounding"
+                    if wff_affected
+                    else "ACC annual-cent rounding and at most six-decimal "
+                    "oracle display rounding"
+                ),
+                "locations": [
+                    {
+                        "scenario_id": item["scenario_id"],
+                        "weekly_wage": item["weekly_wage"],
+                    }
+                    for item in members
+                ],
+            }
+        )
+    return patterns
 
 
 def report_number(value: Decimal, places: int = 6) -> str:
@@ -2269,8 +2494,8 @@ def headline_text(statistics: Mapping[str, Any]) -> str:
         f"only {within} of {total} weekly net-income points are within $1 "
         f"(maximum gap ${report_number(maximum, 2)})—although all 32 EMTRs "
         f"are within {report_number(emtr_max, 2)} percentage points, with the "
-        "material level gaps traced mainly to enacted 2026 rates that post-date "
-        "the forecast vintage."
+        "material level gaps traced mainly to later-enacted rates for 2026/27 "
+        "that post-date the forecast vintage."
     )
 
 
@@ -2327,6 +2552,21 @@ def render_report(
     as_rows: Sequence[Mapping[str, Any]],
 ) -> str:
     headline = headline_text(statistics)
+    emtr_wff_points = sum(
+        int(item["wff_affected_points"]) for item in emtr_patterns
+    )
+    emtr_acc_only_points = 32 - emtr_wff_points
+    maximum_emtr_display_remainder = max(
+        item["maximum_absolute_oracle_display_remainder"]
+        for item in emtr_patterns
+    )
+    material_as_rows = [
+        item
+        for item in as_rows
+        if abs(item["total_signed_delta"])
+        > ORACLE_SIX_DECIMAL_TOLERANCE
+    ]
+    material_as_count = len(material_as_rows)
     lines: list[str] = [
         "# Treasury IncomeExplorer EMTR reproduction audit",
         "",
@@ -2363,8 +2603,8 @@ def render_report(
             f"{statistics['nonzero_deltas_within_snapshot_precision']} |"
         ),
         (
-            "| Material discrepancies | "
-            f"{statistics['discrepancies']} / "
+            "| Differences outside six-decimal snapshot envelope | "
+            f"{statistics['differences_outside_six_decimal_envelope']} / "
             f"{statistics['primary_cells']} |"
         ),
         (
@@ -2430,7 +2670,11 @@ def render_report(
             (
                 f"| (a) our encoding bug | "
                 f"{statistics['classification_counts']['a']} | "
-                "No class-(a) residual remains in the final matrix. |"
+                + (
+                    "No class-(a) residual remains in the final matrix. |"
+                    if statistics["classification_counts"]["a"] == 0
+                    else "See the classified matrix rows below. |"
+                )
             ),
             (
                 f"| (b) BEFU25 vs enacted law | "
@@ -2446,17 +2690,28 @@ def render_report(
             (
                 f"| (d) unexplained | "
                 f"{statistics['classification_counts']['d']} | "
-                "No material residual is left unexplained. |"
+                + (
+                    "No difference outside the snapshot envelope is assigned "
+                    "class (d) under the documented classification. |"
+                    if statistics["classification_counts"]["d"] == 0
+                    else "See the unexplained matrix rows below. |"
+                )
             ),
             "",
-            "A genuine class-(a) defect was found during the audit and corrected "
-            "before this final run: the lone-parent Accommodation Supplement "
-            "cutout initially used the staged SPS/JSS-with-children test. "
-            "Treasury's source instead combines the lone-parent JSS base with "
-            "the flat JSS scale. The correction follows Social Security Act "
-            "2018 Schedule 2 Income Tests 1 and 3 and is checkpointed in local "
-            "audit commit `3364877`. The post-fix sweep contains no class-(a) "
-            "cell.",
+            "Two genuine class-(a) defects were found during the audit and "
+            "corrected before this final run. First, the lone-parent "
+            "Accommodation Supplement cutout initially used the staged "
+            "SPS/JSS-with-children test; Treasury's source-defined branch "
+            "combines the lone-parent JSS base with the flat JSS scale. That "
+            "correction follows Social Security Act 2018 Schedule 2 Income "
+            "Tests 1 and 3 and is checkpointed in local audit commit `3364877`. "
+            "Second, the initial AS primary retained Treasury's host conventions "
+            "for delegated inputs. The final statutory primary instead follows "
+            "Social Security Regulations 2018 reg 17 (annual eldest FTC divided "
+            "by 52) and reg 18 (the exact income that extinguishes JSS). "
+            "Treasury's `365/7` divisor and annual-dollar ceiling are now a "
+            "labeled diagnostic only. The final sweep's class-(a) count is "
+            f"{statistics['classification_counts']['a']}.",
             "",
             "Observed reason codes:",
             "",
@@ -2503,8 +2758,13 @@ def render_report(
             "The benefit evidence is Social Security Act 2018 Schedule 4 "
             "Parts 1–2, as amended by the Social Security (Rates of Benefits "
             "and Allowances) Order 2026 clause 5. The WFF evidence is Income "
-            "Tax Act 2007 ss MD 3, MD 10, ME 1, and MG 2; the 2026/27 IWTC "
-            "$7,670 base is enacted by the Taxation (Annual Rates for 2025-26, "
+            "Tax Act 2007 ss MD 3, MD 10, ME 1, and MG 2. The "
+            "[Income Tax (Tax Credit) Order 2025]"
+            "(https://www.legislation.govt.nz/secondary-legislation/"
+            "pco-drafted/2025/260/en/latest/) cls 4–6 establishes the "
+            "post-snapshot 2026/27 FTC, MFTC, and Best Start amounts. The "
+            "2026/27 IWTC $7,670 base is enacted by the Taxation (Annual Rates "
+            "for 2025-26, "
             "Compliance Simplification, and Remedial Measures) Act 2026 "
             "ss 2 and 105. Local evidence bundles are:",
             "",
@@ -2514,13 +2774,18 @@ def render_report(
             "2026-06-17-wff-tax-credits.jsonl`",
             "",
             "Accommodation Supplement maxima themselves do not explain the "
-            "11 AS residuals. The residuals are the algebraic propagation of "
-            "those dated benefit/FTC inputs into Social Security Act 2018 "
-            "Schedule 4 Part 7 and Social Security Regulations 2018 regs "
-            "17–18. The primary matrix therefore compares Treasury's raw "
-            "unrounded `AS_Amount` with RuleSpec's amount before rounding. "
-            "RuleSpec's legal whole-dollar payment under reg 19 is preserved "
-            "separately in "
+            f"{material_as_count} AS differences outside the envelope. Each AS "
+            "row is decomposed into (1) the BEFU25-versus-enacted difference "
+            "under Treasury's own host conventions and (2) the additional "
+            "statutory host-convention difference: reg 17 divides annual eldest "
+            "FTC by 52, while raw Treasury divides by `365/7`; reg 18 uses the "
+            "exact JSS vanishing point, while raw Treasury applies an annual-"
+            "dollar ceiling. A row is class (b) only when its Treasury-host-"
+            "aligned diagnostic independently has a vintage difference; the "
+            "smaller class-(c) component is disclosed rather than folded into "
+            "the vintage claim. The primary matrix uses RuleSpec's statutory "
+            "inputs before reg 19 whole-dollar rounding. All components and the "
+            "legally rounded payment are preserved in "
             "[as_rounding_diagnostic.csv](as_rounding_diagnostic.csv).",
             "",
             "### Class (c): period and rounding convention",
@@ -2542,8 +2807,9 @@ def render_report(
             "not divide the aggregate once |",
             "| Winter Energy Payment | Per-winter total | Divide by `365/7` to "
             "match Treasury's annual-average snapshot convention |",
-            "| Accommodation Supplement | Weekly | No conversion; compare "
-            "pre-round amount |",
+            "| Accommodation Supplement | Weekly; reg 17 annual FTC input is "
+            "divided by 52 | No output conversion; compare the statutory-input "
+            "pre-round amount and emit a Treasury-host-aligned diagnostic |",
             "",
             "Treasury applies ACC as an unrounded weekly 1.75%. RuleSpec applies "
             "the annual including-GST PAYE levy and whole-cent rounding before "
@@ -2555,41 +2821,58 @@ def render_report(
             "`data/corpus/provisions/nz/agency/"
             "2026-06-17-ird-acc-levy-rates.jsonl`.",
             "",
-            "All 32 EMTR residuals were checked interval by interval. The "
-            "observed patterns are:",
+            f"All 32 EMTR residuals fall into {len(emtr_patterns)} "
+            "source-consistent numerical patterns. For each interval the "
+            "harness calculates the RuleSpec annual-cent ACC component and "
+            "MD 13 complete-dollar WFF component; any remainder must fit inside "
+            "the oracle's six-decimal envelope before this report is written:",
             "",
             "| RuleSpec − Treasury EMTR | Percentage points | Points | "
-            "Decomposition |",
-            "|---:|---:|---:|---|",
+            "WFF-affected | Max display remainder | Decomposition |",
+            "|---:|---:|---:|---:|---:|---|",
         ]
     )
     for item in emtr_patterns:
         lines.append(
             f"| {report_number(item['signed_delta_12dp'], 12)} | "
             f"{report_number(item['percentage_points'], 9)} | "
-            f"{item['expected_count']} | {item['explanation']} |"
+            f"{item['count']} | {item['wff_affected_points']} | "
+            f"{report_number(item['maximum_absolute_oracle_display_remainder'], 12)} | "
+            f"{item['explanation']} |"
         )
     lines.extend(
         [
             "",
-            "The seven WFF-affected intervals are the exact interaction between "
+            f"The {emtr_wff_points} WFF-affected intervals are consistent with "
+            "the "
+            "interaction between "
             "Income Tax Act 2007 s MD 13's complete-dollar abatement base and a "
-            "$1 weekly step (`365/7` annual dollars). The other 25 intervals "
-            "are ACC annual-cent rounding alone in the unrounded source "
-            "decomposition; 23 display the canonical residual directly and two "
-            "also contain a sub-`0.0000005` residue from the oracle's six-"
-            "decimal JSON rounding. This decomposition is why the EMTR rows are "
-            "class (c), rather than an unexplained blanket label.",
+            f"$1 weekly step (`365/7` annual dollars). The other "
+            f"{emtr_acc_only_points} intervals have no computed WFF component. "
+            "The maximum remainder after ACC and WFF decomposition is "
+            f"`{decimal_text(maximum_emtr_display_remainder)}`, within the "
+            "six-decimal JSON envelope. This calculation supports class (c) "
+            "for the EMTR rows; any interval outside that envelope would be "
+            "classified (d).",
             "",
             "## Method",
             "",
             "1. Verify the pinned oracle commit, parameter-file hash, RuleSpec "
-            "SHA, engine SHA, composition hash, and clean tracked source trees.",
+            "SHA, engine SHA, composition hash, and clean tracked RuleSpec and "
+            "engine source trees.",
             "2. Compile the ten-module composition from scratch in a temporary "
             "directory and execute every query in engine `explain` mode.",
             "3. Map each stylised profile to explicit person, child, and family "
             "inputs. The compiled program has no relations, so aggregation is "
             "performed transparently in the host harness.",
+            "   Treasury's raw branch threshold "
+            "`1226.7 / 52.2 = $23.50/week` is retained host-side: when the "
+            "pinned model enables IWTC and disallows IWTC to beneficiaries, "
+            "that branch zeroes benefit amounts. This is a disclosed raw-source "
+            "flow convention, not a RuleSpec policy parameter.",
+            "   Wage tax is calculated as tax on grossed taxable benefit plus "
+            "wages minus tax on grossed taxable benefit, matching raw "
+            "`emtr()` rather than taxing wages in isolation.",
             "4. Evaluate the eight displayed weekly wages plus each hidden "
             "`w+1` endpoint and `$1,499`.",
             "5. Calculate `EMTR = 1 - (NetIncome(w+1) - NetIncome(w))`. At the "
@@ -2626,10 +2909,10 @@ def render_report(
             "- IETC residence and disqualifying-support conditions are assumed, "
             "not evidenced by the snapshot.",
             "- Winter Energy Payment uses the RuleSpec per-winter rate, host-"
-            "gated only when Treasury's raw flow has positive net benefit, and "
-            "annual-averaged. Full legal entitlement, election, absence, and "
-            "care-facility rules under Social Security Act 2018 ss 71–75 and "
-            "220 are not evaluated.",
+            "gated only when the RuleSpec-side reconstruction has positive net "
+            "benefit (mirroring Treasury's raw gate), and annual-averaged. Full "
+            "legal entitlement, election, absence, and care-facility rules "
+            "under Social Security Act 2018 ss 71–75 and 220 are not evaluated.",
             "- Accommodation Supplement compares the amount formula before "
             "legal rounding and assumes eligibility/takeup. Assets, social "
             "housing, student allowance, residential/disability care, duplicate "
@@ -2662,11 +2945,14 @@ def render_report(
             f"| Treasury commit | `{EXPECTED_ORACLE_COMMIT}` |",
             f"| Treasury parameter SHA-256 | `{EXPECTED_PARAMETER_SHA256}` |",
             f"| RuleSpec commit | `{provenance.rulespec_sha}` |",
-            f"| Engine commit | `{provenance.engine_sha}` |",
-            f"| Engine binary SHA-256 | `{provenance.engine_binary_sha256}` |",
+            f"| Engine source checkout commit | `{provenance.engine_sha}` |",
+            f"| Executed engine binary SHA-256 | "
+            f"`{provenance.engine_binary_sha256}` |",
             f"| Composition SHA-256 | `{provenance.composition_sha256}` |",
             f"| Compiled artifact SHA-256 | `{compiled_artifact_sha256}` |",
-            f"| Compiled derived outputs | {compiled_counts['derived_outputs']} |",
+            f"| Compiled derived outputs | "
+            f"{compiled_counts['derived_outputs']} total (174 imported + 2 "
+            "bridge rules) |",
             f"| Compiled parameters | {compiled_counts['parameters']} |",
             f"| Compiled input slots | {compiled_counts['input_slots']} |",
             f"| Engine evaluations in one fresh pass | {engine_call_count} |",
@@ -2694,7 +2980,8 @@ def render_report(
             "",
             "Values are weekly unless the unit says annual. `|Δ|` is the "
             "absolute delta; relative delta is `|RuleSpec − Treasury| / "
-            "|Treasury|`. A zero Treasury denominator is `n/a`. The exact "
+            "|Treasury|`. An exact zero-over-zero match is shown as `0%`; "
+            "otherwise a zero Treasury denominator is `n/a`. The exact "
             "signed deltas and unrounded engine decimals are in "
             "[comparison.csv](comparison.csv).",
             "",
@@ -2795,7 +3082,9 @@ def build_audit_artifacts(
         )
         statistics = summary_statistics(comparison_rows)
         vintage_rows = build_vintage_parameter_rows(compiled, provenance)
-        emtr_patterns = validate_emtr_residual_patterns(comparison_rows)
+        emtr_patterns = validate_emtr_residual_patterns(
+            comparison_rows, sweeps
+        )
         secondary_rows = build_secondary_rate_rows(
             oracle=oracle,
             scenarios=scenarios,
@@ -2869,7 +3158,9 @@ def build_audit_artifacts(
                         "annual-average convention"
                     ),
                     "accommodation_supplement": (
-                        "weekly, before legal whole-dollar rounding"
+                        "weekly statutory primary: reg 17 FTC /52, exact reg "
+                        "18 JSS cutout, before reg 19 rounding; Treasury-host-"
+                        "aligned inputs emitted only as diagnostics"
                     ),
                 },
                 "determinism": (
@@ -2877,7 +3168,9 @@ def build_audit_artifacts(
                     "passes and requires byte-identical artifacts"
                 ),
                 "parameter_policy": (
-                    "no Treasury values are injected into RuleSpec"
+                    "no Treasury amount is injected as a RuleSpec parameter; "
+                    "the disclosed raw-flow IWTC branch threshold is retained "
+                    "host-side"
                 ),
             },
             "statistics": statistics,
@@ -2942,10 +3235,17 @@ def build_audit_artifacts(
                     "scenario_id",
                     "weekly_wage",
                     "treasury_raw_unrounded",
-                    "rulespec_before_rounding",
+                    "rulespec_statutory_inputs_before_rounding",
+                    "rulespec_treasury_host_aligned_before_rounding",
                     "rulespec_statutory_rounded",
-                    "like_for_like_signed_delta",
+                    "total_signed_delta",
+                    "forecast_vintage_component_under_treasury_host_convention",
+                    "statutory_host_convention_component",
                     "legal_rounding_uplift",
+                    "rulespec_statutory_base_rate",
+                    "rulespec_treasury_host_base_rate",
+                    "rulespec_statutory_cutout",
+                    "rulespec_treasury_host_cutout",
                 ),
             ),
         }
