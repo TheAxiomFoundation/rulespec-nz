@@ -53,7 +53,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance/block-7
+              excerpt: The rate of GST is 15%, so they multiply the $100 price by 0.15 and get $15.
     versions:
       - effective_from: '2010-10-01'
         formula: gst_exclusive_amount * gst_standard_rate
@@ -74,7 +75,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance/block-7
+              excerpt: Hine can add $15 to the original $100 price. The total price is $115 including GST.
     versions:
       - effective_from: '2010-10-01'
         formula: gst_exclusive_amount * (1 + gst_standard_rate)
@@ -91,7 +93,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance/block-7
+              excerpt: Arthur takes the total price with GST, $115, and multiplies it by 3. They divide that total by 23 and get $15. This is the GST part of the total price.
     versions:
       - effective_from: '2010-10-01'
         formula: |-
@@ -115,7 +118,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance
+              corpus_citation_path: nz/guidance/ird/gst-calculation-guidance/block-7
+              excerpt: Arthur takes away the GST amount, $15, from the total price, $115, and gets $100. The original price was $100 not including GST.
     versions:
       - effective_from: '2010-10-01'
         formula: |-
@@ -136,7 +140,8 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods/block-1
+              excerpt: A low value good is a physical good valued at NZ$1,000 or less, excluding GST.
     versions:
       - effective_from: '2019-12-01'
         formula: |-
@@ -157,7 +162,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods/block-1
+              excerpt: From 1 December 2019, overseas businesses that sell low value goods to consumers in New Zealand may need to register for, collect and return GST.
     versions:
       - effective_from: '2019-12-01'
         formula: |-
@@ -183,7 +189,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods/block-1
+              excerpt: From 1 December 2019, overseas businesses that sell low value goods to consumers in New Zealand may need to register for, collect and return GST.
     versions:
       - effective_from: '2019-12-01'
         formula: |-
@@ -208,7 +215,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods
+              corpus_citation_path: nz/guidance/ird/gst-low-value-imported-goods/block-1
+              excerpt: From 1 December 2019, overseas businesses that sell low value goods to consumers in New Zealand may need to register for, collect and return GST.
     versions:
       - effective_from: '2019-12-01'
         formula: |-

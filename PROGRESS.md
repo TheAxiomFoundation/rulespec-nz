@@ -24,6 +24,8 @@
   minimum-wage versions have separate atoms.
 - Confirmed that the historical ACC value `940` appears nowhere in the NZ
   corpus. Its two 2025 proof atoms cannot be honestly re-pointed.
+- Re-pointed all eight GST guidance atoms to exact text in block 7 and block 1.
+  GST remains grounding-clean and all six companion cases pass.
 
 ## Next
 
