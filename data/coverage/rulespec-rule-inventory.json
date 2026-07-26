@@ -4994,12 +4994,6 @@
           "source_family": "core"
         },
         {
-          "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_lower_limit",
-          "name": "student_allowance_parental_income_lower_limit",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
           "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_upper_limit_at_home",
           "name": "student_allowance_parental_income_upper_limit_at_home",
           "kind": "parameter",
@@ -5044,18 +5038,6 @@
         {
           "id": "nz:regulations/student_allowances/core#student_allowance_parental_income_weeks_per_year",
           "name": "student_allowance_parental_income_weeks_per_year",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_personal_income_assessment_weeks",
-          "name": "student_allowance_personal_income_assessment_weeks",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
-          "id": "nz:regulations/student_allowances/core#student_allowance_basic_grant_minimum_age",
-          "name": "student_allowance_basic_grant_minimum_age",
           "kind": "parameter",
           "source_family": "core"
         },
