@@ -72,22 +72,24 @@
   },
   {
     "gateId": "rulespec/proofs-and-claims",
-    "tier": "public",
+    "tier": "ci-attested",
     "outcome": "pass",
     "evidence": {
       "step": "Validate RuleSpec proofs and claims",
       "mechanism": "axiom-encode checks every proof atom and claim against the pinned corpus release object",
-      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802",
+      "whyNotReproducible": "runs under the protected signing supervisor at /opt/axiom-verification, provisioned with signing trust roots from GitHub organization variables (AXIOM_ENCODE_APPLY_SIGNING_PUBLIC_KEY, AXIOM_ENCODE_EVAL_SIGNING_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_RETIRED_PUBLIC_KEY) that a third party outside the organization cannot read; the proof and claim checks themselves are deterministic over the pinned public corpus release"
     }
   },
   {
     "gateId": "rulespec/money-proof-atoms",
-    "tier": "public",
+    "tier": "ci-attested",
     "outcome": "pass",
     "evidence": {
       "step": "Require money proof atoms",
       "mechanism": "every policy-bearing monetary value must cite a provision; known-missing-money-atoms.yaml carries the visible backlog and is attested by digest in this journal",
-      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
+      "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802",
+      "whyNotReproducible": "runs under the protected signing supervisor at /opt/axiom-verification, provisioned with signing trust roots from GitHub organization variables (AXIOM_ENCODE_APPLY_SIGNING_PUBLIC_KEY, AXIOM_ENCODE_EVAL_SIGNING_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_RETIRED_PUBLIC_KEY) that a third party outside the organization cannot read; the money-atom scan itself is deterministic over the repository tree and the attested ratchet"
     }
   },
   {
@@ -138,7 +140,7 @@
     "evidence": {
       "step": "Validate RuleSpec YAML",
       "mechanism": "axiom-encode validation run under the protected signing supervisor at /opt/axiom-verification",
-      "whyNotReproducible": "the supervisor is provisioned with signing trust roots supplied from GitHub organization variables (AXIOM_ENCODE_APPLY_SIGNING_PUBLIC_KEY, AXIOM_ENCODE_EVAL_SIGNING_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_PUBLIC_KEY), which a third party outside the organization cannot read; the underlying validation is otherwise deterministic over public inputs",
+      "whyNotReproducible": "the supervisor is provisioned with signing trust roots from GitHub organization variables (AXIOM_ENCODE_APPLY_SIGNING_PUBLIC_KEY, AXIOM_ENCODE_EVAL_SIGNING_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_PUBLIC_KEY, AXIOM_CORPUS_RELEASE_RETIRED_PUBLIC_KEY) that a third party outside the organization cannot read; the underlying validation is otherwise deterministic over public inputs",
       "run": "https://github.com/TheAxiomFoundation/rulespec-nz/actions/runs/30103243802"
     }
   },

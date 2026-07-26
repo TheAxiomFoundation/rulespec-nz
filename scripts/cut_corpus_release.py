@@ -40,6 +40,7 @@ import json
 import os
 import pathlib
 import shutil
+import subprocess
 import sys
 import tempfile
 import urllib.request
@@ -212,9 +213,25 @@ def request_timestamp(endpoint: str, query: bytes) -> bytes:
     return payload
 
 
-def stamp(digest: str, workspace: pathlib.Path, name: str) -> bytes:
-    import subprocess
+def _git_branch() -> str:
+    """The branch this cut actually happened on — recorded, not asserted."""
 
+    completed = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    branch = completed.stdout.strip()
+    if completed.returncode != 0 or not branch or branch == "HEAD":
+        raise CutError(
+            "cannot determine the current git branch for producer provenance"
+        )
+    return branch
+
+
+def stamp(digest: str, workspace: pathlib.Path, name: str) -> bytes:
     query = workspace / f"{name}.tsq"
     completed = subprocess.run(
         ["openssl", "ts", "-query", "-digest", digest, "-sha256", "-cert",
@@ -255,14 +272,19 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     journal_path = ROOT / CHAIN.state_relative
+    existing_raw = journal_path.read_bytes() if journal_path.is_file() else b""
     existing = load_existing_rows(journal_path)
     appended = build_rows(ROOT, existing)
     if not appended:
         print("corpus is already fully witnessed at this state; nothing to cut.")
         return 0
 
-    rows = existing + appended
-    journal_bytes = b"".join(canonical_bytes(row) + b"\n" for row in rows)
+    # Splice exact bytes: already-witnessed rows are carried forward verbatim,
+    # never re-serialized, so byte preservation holds by construction rather
+    # than by a parse/canonicalize round-trip happening to be stable.
+    journal_bytes = existing_raw + b"".join(
+        canonical_bytes(row) + b"\n" for row in appended
+    )
     lines = journal_bytes.decode("utf-8").split("\n")[:-1]
 
     # The immutable prefix is sealed ONCE, at genesis, over the rows that
@@ -312,7 +334,10 @@ def main(argv: list[str] | None = None) -> int:
             ).hexdigest(),
         },
         "createdAtUtc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "producer": {"repo": "TheAxiomFoundation/rulespec-nz", "branch": "main"},
+        "producer": {
+            "repo": "TheAxiomFoundation/rulespec-nz",
+            "branch": _git_branch(),
+        },
     }
     manifest_bytes = canonical_bytes(manifest) + b"\n"
     manifest_digest = hashlib.sha256(manifest_bytes).hexdigest()

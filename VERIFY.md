@@ -12,7 +12,8 @@ receipt verify --spec verification/spec.py
 
 No account, no API key, no network access, no cooperation from us. `openssl`
 and Python are the only tools involved. The command exits `0` if the corpus is
-exactly what it says it is and `1` otherwise, and it prints why either way.
+exactly what it says it is and `1` otherwise (`2` for usage errors — a missing
+spec or a bad path), and it prints why either way.
 
 ## What a passing verdict establishes
 
@@ -50,6 +51,12 @@ Ed25519 key, and the manifest's digest is timestamped by two independent RFC
 No cryptography can. It proves that what you are reading is what was published,
 unchanged.
 
+**It does not prove your clone holds the newest release.** A stale clone whose
+chain was honestly witnessed also passes — the verdict proves custody of what
+is present, not freshness. To check you have the latest, compare the release
+head against the repository on GitHub (or run with `--base-ref` against a ref
+you trust).
+
 **It does not re-run any verification gate.** The journal *declares* which
 gates ran on this commit, and the command reports those declarations without
 executing them. Each declaration carries a reproducibility tier, because
@@ -58,19 +65,26 @@ than imply otherwise:
 
 | Tier | Meaning | Count |
 |---|---|---|
-| `public` | You can re-run it yourself from public inputs. | 13 |
-| `ci-attested` | You cannot re-run it as we ran it; only the CI run's identity vouches. | 4 |
+| `public` | You can re-run it yourself from public inputs. | 11 |
+| `ci-attested` | You cannot re-run it as we ran it; only the CI run's identity vouches. | 6 |
 
-The four `ci-attested` gates are honest about why. Three of them —
-`rulespec/validate-yaml`, `waivers/ratchet-audit`, and
-`guard/manual-rulespec-changes` — run under a protected signing supervisor
-provisioned with trust roots supplied from GitHub **organization variables**,
-which someone outside the organization cannot read. That is a real limitation
-and, by the design principle this repository is adopting, a defect worth
-naming: those roots belong in committed code, exactly like the ones in
-`verification/spec.py`. The fourth, `schema/retired-freeze`, behaves
-differently outside a CI event context, so an offline re-run would not be the
-same check.
+The six `ci-attested` gates are honest about why. Five of them —
+`rulespec/validate-yaml`, `waivers/ratchet-audit`,
+`rulespec/proofs-and-claims`, `rulespec/money-proof-atoms`, and
+`guard/manual-rulespec-changes` (which did not run at all; see below) — run
+under a protected signing supervisor provisioned with trust roots supplied
+from GitHub **organization variables**, which someone outside the organization
+cannot read. That is a real limitation and, by the design principle this
+repository is adopting, a defect worth naming: those roots belong in committed
+code, exactly like the ones in `verification/spec.py`. The sixth,
+`schema/retired-freeze`, behaves differently outside a CI event context, so an
+offline re-run would not be the same check.
+
+(An earlier draft of this corpus tiered `proofs-and-claims` and
+`money-proof-atoms` as `public`; a pre-publication cross-family review caught
+the overclaim against the pinned workflow before genesis was cut. The
+underlying checks are deterministic over public inputs — it is the supervisor
+wrapper that an outsider cannot reproduce.)
 
 **One declared gate did not run at all.** `guard/manual-rulespec-changes` is
 disabled in this repository's workflow (`run-generated-guard: false`), so no
