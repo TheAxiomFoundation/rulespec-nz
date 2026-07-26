@@ -57,8 +57,18 @@
   the staged SPS/JSS-with-children income test. The full sweep was rerun after
   the correction; no class-(a) mapping residual remains in the 640 primary
   comparison cells.
+- Built the complete 4 × 8 × 20 primary matrix with exact signed, absolute, and
+  relative deltas. Of 640 cells, 298 are numerically exact, 100 more are inside
+  the six-decimal oracle envelope, 174 material differences are class (b), 68
+  are class (c), and none remain class (a) or (d).
+- Decomposed all 32 EMTR residuals into annual-cent ACC rounding, seven
+  complete-dollar WFF interactions, and two sub-envelope JSON display residues.
+- Added deterministic CSV, JSON, AS-rounding, secondary-rate, checksum, and
+  Markdown report generation. A temporary end-to-end run completed two fresh
+  compile/evaluate passes with byte-identical artifacts; the generated files
+  passed row-count, JSON parse, and SHA-256 validation.
 
 ## Next
 
-- Generate all requested matrices and classify every discrepancy.
-- Verify a clean rerun and finish `REPORT.md`.
+- Complete the final adversarial review, write the canonical artifacts, and
+  checkpoint the finished audit.

@@ -1493,9 +1493,10 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
     "B_AS_UPSTREAM_VINTAGE": (
         "b",
         "Accommodation Supplement upstream vintage",
-        "The Schedule 4 Part 7 amount formula is fed by enacted benefit/FTC "
-        "base rates and an enacted-rate benefit cutout, while Treasury feeds "
-        "the same style of formula from BEFU25 values.",
+        "The Schedule 4 Part 7 and Social Security Regulations 2018 regs "
+        "17–18 amount formula is fed by enacted benefit/FTC base rates and an "
+        "enacted-rate benefit cutout, while Treasury feeds the same style of "
+        "formula from BEFU25 values.",
     ),
     "B_COMPOUND_NET_INCOME": (
         "b",
@@ -1528,8 +1529,8 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
         "EMTR discrete rounding convention",
         "Both sides use the same weekly $1 forward interval. The residual is "
         "caused by RuleSpec's annual-cent ACC rounding and, where applicable, "
-        "the complete-dollar WFF/Best Start abatement base before conversion "
-        "back to a week.",
+        "the complete-dollar WFF abatement base before conversion back to a "
+        "week.",
     ),
     "D_UNEXPLAINED": (
         "d",
@@ -1618,23 +1619,19 @@ def classify_discrepancy(
             "BestStart_Total",
             "AS_Amount",
         )
-        if any(
-            outside_oracle_precision(
+        material_vintage_difference = False
+        for name in material_vintage_columns:
+            component_differs = outside_oracle_precision(
                 dec(treasury_state[name]),
                 scalar_decimal(rulespec_state, name),
             )
-            and name
-            not in {"wage1_tax"}
-            or (
-                name == "wage1_tax"
-                and benefit_vintage_active
-                and outside_oracle_precision(
-                    dec(treasury_state[name]),
-                    scalar_decimal(rulespec_state, name),
-                )
-            )
-            for name in material_vintage_columns
-        ):
+            if not component_differs:
+                continue
+            if name == "wage1_tax" and not benefit_vintage_active:
+                continue
+            material_vintage_difference = True
+            break
+        if material_vintage_difference:
             return "b", "B_COMPOUND_NET_INCOME"
         return "c", "C_NET_WAGE_ROUNDING"
     if column == "EMTR":
@@ -1703,3 +1700,1394 @@ def build_comparison_rows(
                     )
                 )
     return rows
+
+
+@dataclass(frozen=True)
+class VintageParameter:
+    label: str
+    treasury_name: str
+    treasury_value: Decimal
+    rulespec_name: str
+    unit: str
+    statute: str
+    corpus_citation_path: str
+
+
+VINTAGE_PARAMETERS = (
+    VintageParameter(
+        label="Sole Parent Support / lone-parent JSS",
+        treasury_name="Benefits_SPS_Rate",
+        treasury_value=Decimal("517.39"),
+        rulespec_name="sole_parent_support_weekly_rate",
+        unit="NZD/week",
+        statute=(
+            "Social Security Act 2018 Sch 4 pt 2 cl 1; Social Security "
+            "(Rates of Benefits and Allowances) Order 2026 cl 5"
+        ),
+        corpus_citation_path=(
+            "nz/statute/act/public/2018/0032/schedule/4/part/2/clause/lms118467"
+        ),
+    ),
+    VintageParameter(
+        label="JSS partnered with children, each adult",
+        treasury_name="Benefits_JSS_Rate_CoupleParent",
+        treasury_value=Decimal("332.05"),
+        rulespec_name=(
+            "jobseeker_support_partnered_both_main_benefits_with_children_weekly_rate"
+        ),
+        unit="NZD/week",
+        statute=(
+            "Social Security Act 2018 Sch 4 pt 1 cl 1(g)(ii); Social "
+            "Security (Rates of Benefits and Allowances) Order 2026 cl 5"
+        ),
+        corpus_citation_path=(
+            "nz/statute/act/public/2018/0032/schedule/4/part/1/clause/lms118447"
+        ),
+    ),
+    VintageParameter(
+        label="JSS single, no children",
+        treasury_name="Benefits_JSS_Rate_Single",
+        treasury_value=Decimal("369.60"),
+        rulespec_name="jobseeker_support_single_no_children_standard_weekly_rate",
+        unit="NZD/week",
+        statute=(
+            "Social Security Act 2018 Sch 4 pt 1 cl 1(d); Social Security "
+            "(Rates of Benefits and Allowances) Order 2026 cl 5"
+        ),
+        corpus_citation_path=(
+            "nz/statute/act/public/2018/0032/schedule/4/part/1/clause/lms118447"
+        ),
+    ),
+    VintageParameter(
+        label="Family Tax Credit, eldest child",
+        treasury_name="FamilyAssistance_FTC_Rates_FirstChild",
+        treasury_value=Decimal("7524"),
+        rulespec_name="family_tax_credit_eldest_child_annual_amount",
+        unit="NZD/year",
+        statute="Income Tax Act 2007 s MD 3(4)(a)",
+        corpus_citation_path=(
+            "nz/statute/act/public/2007/0097/section/md-3"
+        ),
+    ),
+    VintageParameter(
+        label="Family Tax Credit, subsequent child",
+        treasury_name="FamilyAssistance_FTC_Rates_SubsequentChild",
+        treasury_value=Decimal("6130"),
+        rulespec_name="family_tax_credit_subsequent_child_annual_amount",
+        unit="NZD/year",
+        statute="Income Tax Act 2007 s MD 3(4)(b)",
+        corpus_citation_path=(
+            "nz/statute/act/public/2007/0097/section/md-3"
+        ),
+    ),
+    VintageParameter(
+        label="In-Work Tax Credit, base",
+        treasury_name="FamilyAssistance_IWTC_Rates_UpTo3Children",
+        treasury_value=Decimal("5070"),
+        rulespec_name="in_work_tax_credit_base_annual_amount",
+        unit="NZD/year",
+        statute=(
+            "Income Tax Act 2007 s MD 10(3)(a); Taxation (Annual Rates for "
+            "2025-26, Compliance Simplification, and Remedial Measures) "
+            "Act 2026 ss 2, 105"
+        ),
+        corpus_citation_path=(
+            "nz/statute/act/public/2026/0008/section/105"
+        ),
+    ),
+    VintageParameter(
+        label="Minimum Family Tax Credit prescribed amount",
+        treasury_name="FamilyAssistance_MFTC_Rates_MinimumIncome",
+        treasury_value=Decimal("36504"),
+        rulespec_name="minimum_family_tax_credit_prescribed_amount",
+        unit="NZD/year",
+        statute="Income Tax Act 2007 s ME 1(3)(a)",
+        corpus_citation_path=(
+            "nz/statute/act/public/2007/0097/section/me-1"
+        ),
+    ),
+    VintageParameter(
+        label="Best Start prescribed amount, each eligible child",
+        treasury_name="FamilyAssistance_BestStart_Rates_Age0",
+        treasury_value=Decimal("3838"),
+        rulespec_name="best_start_tax_credit_prescribed_amount",
+        unit="NZD/year",
+        statute="Income Tax Act 2007 s MG 2(2)(a)",
+        corpus_citation_path=(
+            "nz/statute/act/public/2007/0097/section/mg-2"
+        ),
+    ),
+)
+
+
+def read_top_level_yaml_decimal(path: Path, name: str) -> Decimal:
+    prefix = f"{name}:"
+    with path.open(encoding="utf-8") as source:
+        for raw_line in source:
+            if raw_line.startswith(prefix):
+                value = raw_line[len(prefix) :].strip()
+                try:
+                    return Decimal(value)
+                except Exception as exc:
+                    raise HarnessError(
+                        f"Treasury YAML value {name!r} is not a scalar decimal"
+                    ) from exc
+    raise HarnessError(f"Treasury YAML has no top-level parameter {name!r}")
+
+
+def build_vintage_parameter_rows(
+    compiled: Mapping[str, Any],
+    provenance: Provenance,
+) -> list[dict[str, Any]]:
+    parameter_path = provenance.treasury_root / EXPECTED_PARAMETER_FILE
+    if provenance.treasury_present:
+        treasury_jss_sole_parent = read_top_level_yaml_decimal(
+            parameter_path, "Benefits_JSS_Rate_SoleParent"
+        )
+        if treasury_jss_sole_parent != Decimal("517.39"):
+            raise HarnessError(
+                "pinned Treasury Benefits_JSS_Rate_SoleParent changed: "
+                f"{decimal_text(treasury_jss_sole_parent)}"
+            )
+    rows: list[dict[str, Any]] = []
+    for spec in VINTAGE_PARAMETERS:
+        if provenance.treasury_present:
+            observed_treasury = read_top_level_yaml_decimal(
+                parameter_path, spec.treasury_name
+            )
+            if observed_treasury != spec.treasury_value:
+                raise HarnessError(
+                    f"pinned Treasury {spec.treasury_name} changed: expected "
+                    f"{decimal_text(spec.treasury_value)}, found "
+                    f"{decimal_text(observed_treasury)}"
+                )
+        rulespec_values = selected_parameter_values(
+            compiled, spec.rulespec_name
+        )
+        if set(rulespec_values) != {0}:
+            raise HarnessError(
+                f"expected scalar RuleSpec parameter {spec.rulespec_name}"
+            )
+        rulespec_value = rulespec_values[0]
+        rows.append(
+            {
+                "label": spec.label,
+                "treasury_parameter": spec.treasury_name,
+                "treasury_befu25": spec.treasury_value,
+                "rulespec_parameter": spec.rulespec_name,
+                "rulespec_enacted": rulespec_value,
+                "signed_delta": rulespec_value - spec.treasury_value,
+                "unit": spec.unit,
+                "statute": spec.statute,
+                "corpus_citation_path": spec.corpus_citation_path,
+            }
+        )
+    return rows
+
+
+def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
+    class_counts = Counter(row.classification for row in rows)
+    reason_counts = Counter(row.reason_code for row in rows)
+    net_income_rows = [row for row in rows if row.column == "Net_Income"]
+    emtr_rows = [row for row in rows if row.column == "EMTR"]
+    dollar_rows = [
+        row
+        for row in rows
+        if row.column not in {"hours1", "EMTR"}
+    ]
+    if len(net_income_rows) != 32 or len(emtr_rows) != 32:
+        raise HarnessError("comparison summary did not contain 32 NI and EMTR rows")
+    maximum_net = max(
+        net_income_rows,
+        key=lambda row: (
+            row.absolute_delta,
+            row.scenario_id,
+            row.weekly_wage,
+        ),
+    )
+    maximum_emtr = max(
+        emtr_rows,
+        key=lambda row: (
+            row.absolute_delta,
+            row.scenario_id,
+            row.weekly_wage,
+        ),
+    )
+    return {
+        "primary_cells": len(rows),
+        "dollar_cells": len(dollar_rows),
+        "exact_numeric_matches": sum(
+            row.absolute_delta == 0 for row in rows
+        ),
+        "nonzero_deltas_within_snapshot_precision": sum(
+            D0 < row.absolute_delta <= ORACLE_SIX_DECIMAL_TOLERANCE
+            for row in rows
+        ),
+        "matches_at_six_decimal_oracle_precision": class_counts.get("match", 0),
+        "discrepancies": len(rows) - class_counts.get("match", 0),
+        "classification_counts": {
+            key: class_counts.get(key, 0)
+            for key in ("match", "a", "b", "c", "d")
+        },
+        "reason_counts": dict(sorted(reason_counts.items())),
+        "weekly_net_income_points_within_1_nzd": sum(
+            row.absolute_delta <= D1 for row in net_income_rows
+        ),
+        "weekly_net_income_points": len(net_income_rows),
+        "maximum_weekly_net_income_absolute_delta": maximum_net.absolute_delta,
+        "maximum_weekly_net_income_delta_location": {
+            "scenario_id": maximum_net.scenario_id,
+            "weekly_wage": maximum_net.weekly_wage,
+        },
+        "maximum_emtr_absolute_delta": maximum_emtr.absolute_delta,
+        "maximum_emtr_absolute_delta_percentage_points": (
+            maximum_emtr.absolute_delta * Decimal(100)
+        ),
+        "maximum_emtr_delta_location": {
+            "scenario_id": maximum_emtr.scenario_id,
+            "weekly_wage": maximum_emtr.weekly_wage,
+        },
+        "emtr_points_within_half_percentage_point": sum(
+            row.absolute_delta <= Decimal("0.005") for row in emtr_rows
+        ),
+        "emtr_points": len(emtr_rows),
+    }
+
+
+def comparison_row_json(row: ComparisonRow) -> dict[str, Any]:
+    detail = CLASSIFICATION_DETAILS[row.reason_code]
+    return {
+        "scenario_id": row.scenario_id,
+        "scenario_description": row.scenario_description,
+        "weekly_wage": row.weekly_wage,
+        "column": row.column,
+        "unit": row.unit,
+        "treasury": row.treasury,
+        "rulespec": row.rulespec,
+        "signed_delta_rulespec_minus_treasury": row.signed_delta,
+        "absolute_delta": row.absolute_delta,
+        "relative_absolute_delta": row.relative_delta,
+        "classification": row.classification,
+        "reason_code": row.reason_code,
+        "reason_title": detail[1],
+        "reason": detail[2],
+    }
+
+
+def json_ready(value: Any) -> Any:
+    if isinstance(value, Decimal):
+        return decimal_text(value)
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, Mapping):
+        return {
+            str(key): json_ready(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, (list, tuple)):
+        return [json_ready(item) for item in value]
+    return value
+
+
+def json_text(value: Any) -> str:
+    return json.dumps(
+        json_ready(value),
+        indent=2,
+        sort_keys=True,
+        ensure_ascii=False,
+    ) + "\n"
+
+
+def comparison_csv_text(rows: Sequence[ComparisonRow]) -> str:
+    target = io.StringIO(newline="")
+    fieldnames = (
+        "scenario_id",
+        "scenario_description",
+        "weekly_wage",
+        "column",
+        "unit",
+        "treasury",
+        "rulespec",
+        "signed_delta_rulespec_minus_treasury",
+        "absolute_delta",
+        "relative_absolute_delta",
+        "classification",
+        "reason_code",
+        "reason_title",
+    )
+    writer = csv.DictWriter(target, fieldnames=fieldnames, lineterminator="\n")
+    writer.writeheader()
+    for row in rows:
+        writer.writerow(
+            {
+                "scenario_id": row.scenario_id,
+                "scenario_description": row.scenario_description,
+                "weekly_wage": row.weekly_wage,
+                "column": row.column,
+                "unit": row.unit,
+                "treasury": decimal_text(row.treasury),
+                "rulespec": decimal_text(row.rulespec),
+                "signed_delta_rulespec_minus_treasury": decimal_text(
+                    row.signed_delta
+                ),
+                "absolute_delta": decimal_text(row.absolute_delta),
+                "relative_absolute_delta": (
+                    ""
+                    if row.relative_delta is None
+                    else decimal_text(row.relative_delta)
+                ),
+                "classification": row.classification,
+                "reason_code": row.reason_code,
+                "reason_title": CLASSIFICATION_DETAILS[row.reason_code][1],
+            }
+        )
+    return target.getvalue()
+
+
+def build_secondary_rate_rows(
+    *,
+    oracle: Mapping[str, Any],
+    scenarios: Sequence[Scenario],
+    sweeps: Mapping[str, Mapping[int, Mapping[str, Decimal | str | None]]],
+) -> list[dict[str, Any]]:
+    oracle_by_id = {str(item["id"]): item for item in oracle["scenarios"]}
+    result: list[dict[str, Any]] = []
+    for scenario in scenarios:
+        raw = oracle_by_id[scenario.id]
+        for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
+            for column in ("RR", "PTR"):
+                treasury_raw = raw["sampled_outputs"][index][column]
+                rulespec_raw = sweeps[scenario.id][wage][column]
+                treasury_value = (
+                    None if treasury_raw is None else dec(treasury_raw)
+                )
+                if rulespec_raw is not None and not isinstance(
+                    rulespec_raw, Decimal
+                ):
+                    raise HarnessError(
+                        f"expected Decimal or null for {scenario.id} {column}"
+                    )
+                if treasury_value is None or rulespec_raw is None:
+                    signed_delta = None
+                    absolute_delta = None
+                    relative_delta = None
+                else:
+                    signed_delta = rulespec_raw - treasury_value
+                    absolute_delta = abs(signed_delta)
+                    relative_delta = (
+                        absolute_delta / abs(treasury_value)
+                        if treasury_value != 0
+                        else (D0 if absolute_delta == 0 else None)
+                    )
+                result.append(
+                    {
+                        "scenario_id": scenario.id,
+                        "weekly_wage": wage,
+                        "column": column,
+                        "treasury": treasury_value,
+                        "rulespec": rulespec_raw,
+                        "signed_delta_rulespec_minus_treasury": signed_delta,
+                        "absolute_delta": absolute_delta,
+                        "relative_absolute_delta": relative_delta,
+                    }
+                )
+    return result
+
+
+def generic_csv_text(
+    rows: Sequence[Mapping[str, Any]],
+    fieldnames: Sequence[str],
+) -> str:
+    target = io.StringIO(newline="")
+    writer = csv.DictWriter(
+        target,
+        fieldnames=fieldnames,
+        lineterminator="\n",
+        extrasaction="ignore",
+    )
+    writer.writeheader()
+    for row in rows:
+        writer.writerow(
+            {
+                field: (
+                    ""
+                    if row.get(field) is None
+                    else decimal_text(row[field])
+                    if isinstance(row[field], Decimal)
+                    else row[field]
+                )
+                for field in fieldnames
+            }
+        )
+    return target.getvalue()
+
+
+def build_as_diagnostic_rows(
+    *,
+    oracle: Mapping[str, Any],
+    scenarios: Sequence[Scenario],
+    sweeps: Mapping[str, Mapping[int, Mapping[str, Decimal | str | None]]],
+) -> list[dict[str, Any]]:
+    oracle_by_id = {str(item["id"]): item for item in oracle["scenarios"]}
+    result: list[dict[str, Any]] = []
+    for scenario in scenarios:
+        raw = oracle_by_id[scenario.id]
+        for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
+            state = sweeps[scenario.id][wage]
+            before_rounding = scalar_decimal(state, "AS_Amount")
+            statutory = scalar_decimal(
+                state, "AS_Amount_statutory_rounded"
+            )
+            treasury_value = dec(
+                raw["sampled_outputs"][index]["AS_Amount"]
+            )
+            result.append(
+                {
+                    "scenario_id": scenario.id,
+                    "weekly_wage": wage,
+                    "treasury_raw_unrounded": treasury_value,
+                    "rulespec_before_rounding": before_rounding,
+                    "rulespec_statutory_rounded": statutory,
+                    "like_for_like_signed_delta": (
+                        before_rounding - treasury_value
+                    ),
+                    "legal_rounding_uplift": statutory - before_rounding,
+                }
+            )
+    return result
+
+
+def build_diagnostic_rows(
+    *,
+    scenarios: Sequence[Scenario],
+    sweeps: Mapping[str, Mapping[int, Mapping[str, Decimal | str | None]]],
+) -> list[dict[str, Any]]:
+    fields = (
+        "AS_Amount_statutory_rounded",
+        "gross_benefit_taxable_weekly",
+        "wage2_tax",
+        "wage2_ACC_levy",
+        "net_wage2",
+        "family_scheme_income",
+        "iwtc_entitlement",
+    )
+    return [
+        {
+            "scenario_id": scenario.id,
+            "weekly_wage": wage,
+            **{
+                field: sweeps[scenario.id][wage][field]
+                for field in fields
+            },
+        }
+        for scenario in scenarios
+        for wage in EXPECTED_SAMPLE_WAGES
+    ]
+
+
+EMTR_RESIDUAL_PATTERNS = (
+    {
+        "signed_delta_12dp": Decimal("-0.000047945205"),
+        "expected_count": 23,
+        "explanation": (
+            "annual-cent ACC rounding only"
+        ),
+    },
+    {
+        "signed_delta_12dp": Decimal("-0.000047548557"),
+        "expected_count": 2,
+        "explanation": (
+            "annual-cent ACC rounding plus a sub-six-decimal oracle display "
+            "rounding residue"
+        ),
+    },
+    {
+        "signed_delta_12dp": Decimal("0.004472602740"),
+        "expected_count": 2,
+        "explanation": (
+            "ACC rounding plus a +0.004520547945 WFF complete-dollar effect"
+        ),
+    },
+    {
+        "signed_delta_12dp": Decimal("-0.000801369863"),
+        "expected_count": 5,
+        "explanation": (
+            "ACC rounding plus a -0.000753424658 WFF complete-dollar effect"
+        ),
+    },
+)
+
+
+def validate_emtr_residual_patterns(
+    rows: Sequence[ComparisonRow],
+) -> list[dict[str, Any]]:
+    quantum = Decimal("0.000000000001")
+    observed = Counter(
+        row.signed_delta.quantize(quantum)
+        for row in rows
+        if row.column == "EMTR"
+    )
+    expected = {
+        item["signed_delta_12dp"]: item["expected_count"]
+        for item in EMTR_RESIDUAL_PATTERNS
+    }
+    if observed != expected:
+        raise HarnessError(
+            "EMTR residuals no longer match the source-decomposed ACC/WFF "
+            f"patterns: expected {expected!r}, found {dict(observed)!r}"
+        )
+    return [
+        {
+            **item,
+            "percentage_points": item["signed_delta_12dp"] * Decimal(100),
+        }
+        for item in EMTR_RESIDUAL_PATTERNS
+    ]
+
+
+def report_number(value: Decimal, places: int = 6) -> str:
+    return format(value, f".{places}f")
+
+
+def report_relative(value: Decimal | None) -> str:
+    if value is None:
+        return "n/a"
+    return f"{report_number(value * Decimal(100), 6)}%"
+
+
+def markdown_cell(value: Any) -> str:
+    return str(value).replace("|", "\\|").replace("\n", " ")
+
+
+def headline_text(statistics: Mapping[str, Any]) -> str:
+    within = statistics["weekly_net_income_points_within_1_nzd"]
+    total = statistics["weekly_net_income_points"]
+    maximum = statistics["maximum_weekly_net_income_absolute_delta"]
+    emtr_max = statistics["maximum_emtr_absolute_delta_percentage_points"]
+    return (
+        "RuleSpec does not reproduce the pinned BEFU25 dollar levels—"
+        f"only {within} of {total} weekly net-income points are within $1 "
+        f"(maximum gap ${report_number(maximum, 2)})—although all 32 EMTRs "
+        f"are within {report_number(emtr_max, 2)} percentage points, with the "
+        "material level gaps traced mainly to enacted 2026 rates that post-date "
+        "the forecast vintage."
+    )
+
+
+def scenario_summary_rows(
+    rows: Sequence[ComparisonRow],
+    scenarios: Sequence[Scenario],
+) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for scenario in scenarios:
+        scenario_rows = [
+            row for row in rows if row.scenario_id == scenario.id
+        ]
+        net_rows = [
+            row for row in scenario_rows if row.column == "Net_Income"
+        ]
+        emtr_rows = [
+            row for row in scenario_rows if row.column == "EMTR"
+        ]
+        classes = Counter(row.classification for row in scenario_rows)
+        result.append(
+            {
+                "scenario_id": scenario.id,
+                "net_income_within_1": sum(
+                    row.absolute_delta <= D1 for row in net_rows
+                ),
+                "max_net_income_delta": max(
+                    row.absolute_delta for row in net_rows
+                ),
+                "max_emtr_delta_pp": max(
+                    row.absolute_delta for row in emtr_rows
+                )
+                * Decimal(100),
+                "b_cells": classes.get("b", 0),
+                "c_cells": classes.get("c", 0),
+                "a_or_d_cells": (
+                    classes.get("a", 0) + classes.get("d", 0)
+                ),
+            }
+        )
+    return result
+
+
+def render_report(
+    *,
+    provenance: Provenance,
+    compiled_artifact_sha256: str,
+    compiled_counts: Mapping[str, int],
+    engine_call_count: int,
+    scenarios: Sequence[Scenario],
+    rows: Sequence[ComparisonRow],
+    statistics: Mapping[str, Any],
+    vintage_rows: Sequence[Mapping[str, Any]],
+    emtr_patterns: Sequence[Mapping[str, Any]],
+    as_rows: Sequence[Mapping[str, Any]],
+) -> str:
+    headline = headline_text(statistics)
+    lines: list[str] = [
+        "# Treasury IncomeExplorer EMTR reproduction audit",
+        "",
+        "## Headline",
+        "",
+        f"> {headline}",
+        "",
+        "This is a comparison against the pinned output of Treasury's raw "
+        "`R/emtr.R#emtr` function, not against the IncomeExplorer UI wrapper. "
+        "The final matrix has 640 primary cells: 4 scenarios × 8 wage points × "
+        "19 dollar/control columns plus EMTR.",
+        "",
+        "## What we can honestly say",
+        "",
+        "> We cannot claim an end-to-end reproduction of IncomeExplorer; this "
+        "audit provides a reproducible, pointwise comparison of RuleSpec's "
+        "enacted 2026/27 amount rules against a pinned TY27 BEFU25 output of "
+        "Treasury's raw `emtr()` function for four stylised families, "
+        "conditional on explicit host-side eligibility assumptions.",
+        "",
+        f"The numerical result is: {headline}",
+        "",
+        "## Result summary",
+        "",
+        "| Measure | Result |",
+        "|---|---:|",
+        (
+            "| Exact numeric matches | "
+            f"{statistics['exact_numeric_matches']} / "
+            f"{statistics['primary_cells']} |"
+        ),
+        (
+            "| Additional matches inside six-decimal snapshot envelope | "
+            f"{statistics['nonzero_deltas_within_snapshot_precision']} |"
+        ),
+        (
+            "| Material discrepancies | "
+            f"{statistics['discrepancies']} / "
+            f"{statistics['primary_cells']} |"
+        ),
+        (
+            "| Weekly Net Income within $1 | "
+            f"{statistics['weekly_net_income_points_within_1_nzd']} / 32 |"
+        ),
+        (
+            "| Maximum weekly Net Income absolute delta | "
+            f"${report_number(statistics['maximum_weekly_net_income_absolute_delta'], 6)} "
+            f"at `{statistics['maximum_weekly_net_income_delta_location']['scenario_id']}`, "
+            f"wage ${statistics['maximum_weekly_net_income_delta_location']['weekly_wage']} |"
+        ),
+        (
+            "| EMTR within 0.5 percentage point | "
+            f"{statistics['emtr_points_within_half_percentage_point']} / 32 |"
+        ),
+        (
+            "| Maximum EMTR absolute delta | "
+            f"{report_number(statistics['maximum_emtr_absolute_delta_percentage_points'], 6)} "
+            "percentage points |"
+        ),
+        (
+            "| Remaining class-(a) encoding bugs | "
+            f"{statistics['classification_counts']['a']} |"
+        ),
+        (
+            "| Genuinely unexplained class-(d) cells | "
+            f"{statistics['classification_counts']['d']} |"
+        ),
+        "",
+        "Scenario-level summary:",
+        "",
+        "| Scenario | NI within $1 | Max weekly NI |Δ| | Max EMTR |Δ| (pp) | "
+        "(b) cells | (c) cells | (a)+(d) |",
+        "|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for item in scenario_summary_rows(rows, scenarios):
+        lines.append(
+            f"| `{item['scenario_id']}` | {item['net_income_within_1']} / 8 | "
+            f"${report_number(item['max_net_income_delta'], 6)} | "
+            f"{report_number(item['max_emtr_delta_pp'], 6)} | "
+            f"{item['b_cells']} | {item['c_cells']} | "
+            f"{item['a_or_d_cells']} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "The comparison treats an absolute delta of at most "
+            "`0.0000005` as a match because the pinned JSON generator rounded "
+            "every numeric output to six decimals. Raw deltas are retained in "
+            "[comparison.csv](comparison.csv) and "
+            "[comparison.json](comparison.json); they are not zeroed.",
+            "",
+            "## Discrepancy classification",
+            "",
+            "| Class | Cells | Conclusion |",
+            "|---|---:|---|",
+            (
+                f"| match | {statistics['classification_counts']['match']} | "
+                "Exact or within the oracle's six-decimal rounding envelope. |"
+            ),
+            (
+                f"| (a) our encoding bug | "
+                f"{statistics['classification_counts']['a']} | "
+                "No class-(a) residual remains in the final matrix. |"
+            ),
+            (
+                f"| (b) BEFU25 vs enacted law | "
+                f"{statistics['classification_counts']['b']} | "
+                "Prescribed benefit/credit levels or their downstream effects. |"
+            ),
+            (
+                f"| (c) unit/period convention | "
+                f"{statistics['classification_counts']['c']} | "
+                "Annual-cent or complete-dollar statutory arithmetic viewed "
+                "through a weekly $1 interval. |"
+            ),
+            (
+                f"| (d) unexplained | "
+                f"{statistics['classification_counts']['d']} | "
+                "No material residual is left unexplained. |"
+            ),
+            "",
+            "A genuine class-(a) defect was found during the audit and corrected "
+            "before this final run: the lone-parent Accommodation Supplement "
+            "cutout initially used the staged SPS/JSS-with-children test. "
+            "Treasury's source instead combines the lone-parent JSS base with "
+            "the flat JSS scale. The correction follows Social Security Act "
+            "2018 Schedule 2 Income Tests 1 and 3 and is checkpointed in local "
+            "audit commit `3364877`. The post-fix sweep contains no class-(a) "
+            "cell.",
+            "",
+            "Observed reason codes:",
+            "",
+            "| Code | Class | Cells | Evidence |",
+            "|---|:---:|---:|---|",
+        ]
+    )
+    observed_reasons = Counter(row.reason_code for row in rows)
+    for reason_code in sorted(observed_reasons):
+        category, title, explanation = CLASSIFICATION_DETAILS[reason_code]
+        lines.append(
+            f"| `{reason_code}` | {category} | "
+            f"{observed_reasons[reason_code]} | "
+            f"{markdown_cell(title)} — {markdown_cell(explanation)} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "### Class (b): pinned forecast vintage versus enacted 2026/27 law",
+            "",
+            "Treasury commit `741a6ca4f5d27b1dc00b43dc395e39ffc4040a4b` "
+            "(12 August 2025) pins `TY27_BEFU25.yaml`. RuleSpec selects law "
+            "effective 1 April 2026. These are different vintages, not errors "
+            "on either side.",
+            "",
+            "| Parameter | Treasury BEFU25 | RuleSpec enacted | Signed delta | "
+            "Unit | Statutory source |",
+            "|---|---:|---:|---:|---|---|",
+        ]
+    )
+    for item in vintage_rows:
+        lines.append(
+            f"| {markdown_cell(item['label'])} | "
+            f"{report_number(item['treasury_befu25'], 2)} | "
+            f"{report_number(item['rulespec_enacted'], 2)} | "
+            f"{report_number(item['signed_delta'], 2)} | "
+            f"{item['unit']} | {markdown_cell(item['statute'])}; "
+            f"`{item['corpus_citation_path']}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "The benefit evidence is Social Security Act 2018 Schedule 4 "
+            "Parts 1–2, as amended by the Social Security (Rates of Benefits "
+            "and Allowances) Order 2026 clause 5. The WFF evidence is Income "
+            "Tax Act 2007 ss MD 3, MD 10, ME 1, and MG 2; the 2026/27 IWTC "
+            "$7,670 base is enacted by the Taxation (Annual Rates for 2025-26, "
+            "Compliance Simplification, and Remedial Measures) Act 2026 "
+            "ss 2 and 105. Local evidence bundles are:",
+            "",
+            "- `data/corpus/provisions/nz/statute/"
+            "2026-06-17-social-security-main-benefit-rates.jsonl`",
+            "- `data/corpus/provisions/nz/statute/"
+            "2026-06-17-wff-tax-credits.jsonl`",
+            "",
+            "Accommodation Supplement maxima themselves do not explain the "
+            "11 AS residuals. The residuals are the algebraic propagation of "
+            "those dated benefit/FTC inputs into Social Security Act 2018 "
+            "Schedule 4 Part 7 and Social Security Regulations 2018 regs "
+            "17–18. The primary matrix therefore compares Treasury's raw "
+            "unrounded `AS_Amount` with RuleSpec's amount before rounding. "
+            "RuleSpec's legal whole-dollar payment under reg 19 is preserved "
+            "separately in "
+            "[as_rounding_diagnostic.csv](as_rounding_diagnostic.csv).",
+            "",
+            "### Class (c): period and rounding convention",
+            "",
+            "The engine performs no automatic period conversion. The harness "
+            "uses these explicit alignments:",
+            "",
+            "| Component | RuleSpec source period | Treasury comparison |",
+            "|---|---|---|",
+            "| Main benefits | Weekly amount (despite a legacy `period: Year` "
+            "label) | No conversion |",
+            "| Income tax, ACC, FTC, Best Start, IETC | Annual | Divide by "
+            "`365/7` |",
+            "| IWTC base and MFTC | Annual rules expressed over weekly periods "
+            "| Divide by `52` |",
+            "| IWTC abatement | Annual | Divide by `365/7`, then subtract from "
+            "the `/52` base |",
+            "| WFF total | Mixed | Add converted FTC and IWTC components; do "
+            "not divide the aggregate once |",
+            "| Winter Energy Payment | Per-winter total | Divide by `365/7` to "
+            "match Treasury's annual-average snapshot convention |",
+            "| Accommodation Supplement | Weekly | No conversion; compare "
+            "pre-round amount |",
+            "",
+            "Treasury applies ACC as an unrounded weekly 1.75%. RuleSpec applies "
+            "the annual including-GST PAYE levy and whole-cent rounding before "
+            "weekly conversion. The RuleSpec source is Accident Compensation "
+            "(Earners' Levy) Regulations 2025 regs 4, 5, and 8 plus Inland "
+            "Revenue's 1.75% PAYE-facing rate; local evidence is "
+            "`data/corpus/provisions/nz/regulation/"
+            "2026-06-17-acc-earners-levy-2025-formulas.jsonl` and "
+            "`data/corpus/provisions/nz/agency/"
+            "2026-06-17-ird-acc-levy-rates.jsonl`.",
+            "",
+            "All 32 EMTR residuals were checked interval by interval. The "
+            "observed patterns are:",
+            "",
+            "| RuleSpec − Treasury EMTR | Percentage points | Points | "
+            "Decomposition |",
+            "|---:|---:|---:|---|",
+        ]
+    )
+    for item in emtr_patterns:
+        lines.append(
+            f"| {report_number(item['signed_delta_12dp'], 12)} | "
+            f"{report_number(item['percentage_points'], 9)} | "
+            f"{item['expected_count']} | {item['explanation']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "The seven WFF-affected intervals are the exact interaction between "
+            "Income Tax Act 2007 s MD 13's complete-dollar abatement base and a "
+            "$1 weekly step (`365/7` annual dollars). The other 25 intervals "
+            "are ACC annual-cent rounding alone in the unrounded source "
+            "decomposition; 23 display the canonical residual directly and two "
+            "also contain a sub-`0.0000005` residue from the oracle's six-"
+            "decimal JSON rounding. This decomposition is why the EMTR rows are "
+            "class (c), rather than an unexplained blanket label.",
+            "",
+            "## Method",
+            "",
+            "1. Verify the pinned oracle commit, parameter-file hash, RuleSpec "
+            "SHA, engine SHA, composition hash, and clean tracked source trees.",
+            "2. Compile the ten-module composition from scratch in a temporary "
+            "directory and execute every query in engine `explain` mode.",
+            "3. Map each stylised profile to explicit person, child, and family "
+            "inputs. The compiled program has no relations, so aggregation is "
+            "performed transparently in the host harness.",
+            "4. Evaluate the eight displayed weekly wages plus each hidden "
+            "`w+1` endpoint and `$1,499`.",
+            "5. Calculate `EMTR = 1 - (NetIncome(w+1) - NetIncome(w))`. At the "
+            "$1,500 display point, carry the `$1,499 → $1,500` interval, exactly "
+            "matching Treasury's `zoo::na.locf` endpoint convention.",
+            "6. Compare RuleSpec against Treasury without replacing or tuning "
+            "any RuleSpec parameter. Signed deltas are always RuleSpec minus "
+            "Treasury; the report matrix shows absolute and relative deltas.",
+            "",
+            "Treasury's app does something different: its server calls "
+            "`calculate_income()`, whose `WFF_or_Benefit: Max` wrapper may "
+            "select between transfers. The pinned snapshot explicitly calls "
+            "raw `emtr()` and bypasses that wrapper, so this audit does too.",
+            "",
+            "## Coverage gaps",
+            "",
+            "This is a conditional amount comparison, not a legal entitlement "
+            "determination. The snapshot supplies only partnered status, an "
+            "hourly wage, child ages, partner wage/hours, housing costs/type, "
+            "and AS area. It does not supply all facts required by the statutes.",
+            "",
+            "- Main-benefit residence, immigration, work availability, medical, "
+            "student, strike, concurrent-benefit, and other entitlement facts "
+            "are not established. Adult age 25 and other profile facts are host "
+            "assumptions. The amount schedules are evaluated conditionally.",
+            "- FTC and Best Start use full-year entitlement days and full care "
+            "for the listed children. Full principal-caregiver, residence, "
+            "shared-care, date-of-birth/due-date, and parental-leave conditions "
+            "are not established.",
+            "- IWTC's statutory eligibility closure is populated with explicit "
+            "stylised assumptions because the snapshot omits those facts. MFTC "
+            "full-time/no-benefit eligibility is inferred from the raw model's "
+            "profile convention.",
+            "- IETC residence and disqualifying-support conditions are assumed, "
+            "not evidenced by the snapshot.",
+            "- Winter Energy Payment uses the RuleSpec per-winter rate, host-"
+            "gated only when Treasury's raw flow has positive net benefit, and "
+            "annual-averaged. Full legal entitlement, election, absence, and "
+            "care-facility rules under Social Security Act 2018 ss 71–75 and "
+            "220 are not evaluated.",
+            "- Accommodation Supplement compares the amount formula before "
+            "legal rounding and assumes eligibility/takeup. Assets, social "
+            "housing, student allowance, residential/disability care, duplicate "
+            "partner claims, and other ss 65–69 exclusions are not evaluated.",
+            "- The lone-parent profile in this grid has children aged 0, 1, and "
+            "10. The harness does not generalise Treasury's separate lone-parent "
+            "JSS branch for a youngest child aged 14 or over.",
+            "- The only profile with two Best Start-aged children remains below "
+            "the $79,000 abatement threshold throughout the requested grid. "
+            "This audit therefore does not test Treasury's aggregate-child "
+            "abatement against RuleSpec's per-child composition above that "
+            "threshold.",
+            "- RR and PTR are computed and emitted in "
+            "[secondary_rates.csv](secondary_rates.csv), but are outside the "
+            "requested dollar-plus-EMTR validation matrix.",
+            "- Person/child/family aggregation is host-side because the compiled "
+            "composition has no relations.",
+            "",
+            "Treasury itself describes the UI profiles as theoretical, assumes "
+            "full AS take-up, omits the AS asset test, and excludes NZ Super, "
+            "FamilyBoost, Supported Living Payment, youth payments, IRRS/TAS, "
+            "KiwiSaver, student loans/allowances, paid parental leave, and child "
+            "support pass-on. Those programs are not silently filled in here.",
+            "",
+            "## Provenance and reproducibility",
+            "",
+            "| Item | Verified value |",
+            "|---|---|",
+            f"| Oracle snapshot SHA-256 | `{provenance.oracle_sha256}` |",
+            f"| Treasury commit | `{EXPECTED_ORACLE_COMMIT}` |",
+            f"| Treasury parameter SHA-256 | `{EXPECTED_PARAMETER_SHA256}` |",
+            f"| RuleSpec commit | `{provenance.rulespec_sha}` |",
+            f"| Engine commit | `{provenance.engine_sha}` |",
+            f"| Engine binary SHA-256 | `{provenance.engine_binary_sha256}` |",
+            f"| Composition SHA-256 | `{provenance.composition_sha256}` |",
+            f"| Compiled artifact SHA-256 | `{compiled_artifact_sha256}` |",
+            f"| Compiled derived outputs | {compiled_counts['derived_outputs']} |",
+            f"| Compiled parameters | {compiled_counts['parameters']} |",
+            f"| Compiled input slots | {compiled_counts['input_slots']} |",
+            f"| Engine evaluations in one fresh pass | {engine_call_count} |",
+            "| Tax-year interval | `2026-04-01` to `2027-03-31` |",
+            "",
+            "Run from the Foundation workspace:",
+            "",
+            "```sh",
+            "python3 ops/nz-lane/emtr_reproduction/run.py",
+            "```",
+            "",
+            "The command performs two independent fresh compilations and "
+            "evaluations in temporary directories, compares every generated "
+            "artifact byte-for-byte, and only then writes the output files. "
+            "`SHA256SUMS` covers every report/data artifact. No network access "
+            "or manual intermediate file is required.",
+            "",
+            "This should not yet graduate into `rulespec-nz` as a claim of "
+            "Treasury reproduction. After the entitlement closures and the "
+            "forecast-vintage/enacted-law baseline are made explicit product "
+            "choices, the pinned matrix would be valuable as a dual-vintage "
+            "regression test.",
+            "",
+            "## Full comparison matrix",
+            "",
+            "Values are weekly unless the unit says annual. `|Δ|` is the "
+            "absolute delta; relative delta is `|RuleSpec − Treasury| / "
+            "|Treasury|`. A zero Treasury denominator is `n/a`. The exact "
+            "signed deltas and unrounded engine decimals are in "
+            "[comparison.csv](comparison.csv).",
+            "",
+        ]
+    )
+
+    rows_by_scenario: dict[str, list[ComparisonRow]] = {
+        scenario.id: [] for scenario in scenarios
+    }
+    for row in rows:
+        rows_by_scenario[row.scenario_id].append(row)
+    for scenario in scenarios:
+        lines.extend(
+            [
+                f"### `{scenario.id}`",
+                "",
+                scenario.description,
+                "",
+                "| Wage | Metric | Unit | Treasury | RuleSpec | Abs delta | "
+                "Relative | Class |",
+                "|---:|---|---|---:|---:|---:|---:|---|",
+            ]
+        )
+        for row in rows_by_scenario[scenario.id]:
+            class_label = (
+                "match"
+                if row.classification == "match"
+                else f"({row.classification}) `{row.reason_code}`"
+            )
+            lines.append(
+                f"| {row.weekly_wage} | `{row.column}` | {row.unit} | "
+                f"{report_number(row.treasury, 6)} | "
+                f"{report_number(row.rulespec, 6)} | "
+                f"{report_number(row.absolute_delta, 9)} | "
+                f"{report_relative(row.relative_delta)} | {class_label} |"
+            )
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def build_audit_artifacts(
+    *,
+    rulespec_root: Path,
+    engine_root: Path,
+    engine_binary: Path,
+    treasury_root: Path,
+    composition_path: Path,
+) -> tuple[dict[str, str], dict[str, Any]]:
+    oracle, provenance = verify_inputs(
+        rulespec_root=rulespec_root,
+        engine_root=engine_root,
+        engine_binary=engine_binary,
+        treasury_root=treasury_root,
+        composition_path=composition_path,
+    )
+    with tempfile.TemporaryDirectory(prefix="axiom-emtr-fresh-") as raw_temp:
+        temp_root = Path(raw_temp)
+        compiled_path = temp_root / "composition.json"
+        engine, compiled, _compile_stdout = Engine.compile(
+            binary=provenance.engine_binary,
+            composition=provenance.composition_path,
+            rulespec_root=provenance.rulespec_root,
+            artifact=compiled_path,
+        )
+        compiled_artifact_sha256 = sha256_file(compiled_path)
+        compiled_counts = {
+            "derived_outputs": len(compiled["program"]["derived"]),
+            "parameters": len(compiled["program"]["parameters"]),
+            "input_slots": len(
+                compiled["metadata"]["input_catalog"]
+            ),
+            "relations": len(compiled["program"]["relations"]),
+        }
+        if compiled_counts != {
+            "derived_outputs": 176,
+            "parameters": 129,
+            "input_slots": 328,
+            "relations": 0,
+        }:
+            raise HarnessError(
+                f"unexpected composition shape: {compiled_counts!r}"
+            )
+
+        scenarios = [
+            Scenario.from_oracle(raw)
+            for raw in oracle["scenarios"]
+        ]
+        evaluator = ModelEvaluator(engine, compiled)
+        sweeps = {
+            scenario.id: sweep_scenario(evaluator, scenario)
+            for scenario in scenarios
+        }
+        comparison_rows = build_comparison_rows(
+            oracle=oracle,
+            scenarios=scenarios,
+            sweeps=sweeps,
+        )
+        statistics = summary_statistics(comparison_rows)
+        vintage_rows = build_vintage_parameter_rows(compiled, provenance)
+        emtr_patterns = validate_emtr_residual_patterns(comparison_rows)
+        secondary_rows = build_secondary_rate_rows(
+            oracle=oracle,
+            scenarios=scenarios,
+            sweeps=sweeps,
+        )
+        as_rows = build_as_diagnostic_rows(
+            oracle=oracle,
+            scenarios=scenarios,
+            sweeps=sweeps,
+        )
+        diagnostic_rows = build_diagnostic_rows(
+            scenarios=scenarios,
+            sweeps=sweeps,
+        )
+
+        scenario_json = [
+            {
+                "id": scenario.id,
+                "description": scenario.description,
+                "inputs": {
+                    "partnered": scenario.partnered,
+                    "wage1_hourly": scenario.wage1_hourly,
+                    "children_ages": scenario.children,
+                    "gross_wage2": scenario.gross_wage2,
+                    "hours2": scenario.hours2,
+                    "accommodation_costs": scenario.accommodation_costs,
+                    "accommodation_rent": scenario.accommodation_rent,
+                    "accommodation_area": scenario.accommodation_area,
+                },
+            }
+            for scenario in scenarios
+        ]
+        machine_payload = {
+            "schema_version": 1,
+            "headline": headline_text(statistics),
+            "scope": {
+                "comparison_target": (
+                    "pinned Treasury raw R/emtr.R#emtr snapshot"
+                ),
+                "not_compared": (
+                    "IncomeExplorer calculate_income UI wrapper and "
+                    "WFF_or_Benefit: Max"
+                ),
+                "tax_year": {
+                    "start": EXPECTED_PERIOD_START,
+                    "end": EXPECTED_PERIOD_END,
+                },
+                "sampled_weekly_wages": EXPECTED_SAMPLE_WAGES,
+                "primary_columns": COMPARISON_COLUMNS,
+                "oracle_match_tolerance": ORACLE_SIX_DECIMAL_TOLERANCE,
+            },
+            "provenance": provenance.as_json(),
+            "compiled_program": {
+                **compiled_counts,
+                "artifact_sha256": compiled_artifact_sha256,
+                "engine_evaluations": engine.call_count,
+            },
+            "methodology": {
+                "emtr": (
+                    "weekly $1 forward difference; the displayed $1,500 "
+                    "value carries the $1,499 to $1,500 interval"
+                ),
+                "delta_sign": "rulespec minus treasury",
+                "period_conversions": {
+                    "tax_acc_ftc_best_start_ietc": "divide annual by 365/7",
+                    "benefits": "already weekly; no conversion",
+                    "iwtc_base_mftc": "divide annual by 52",
+                    "iwtc_abatement": "divide annual by 365/7",
+                    "winter_energy": (
+                        "divide per-winter amount by 365/7 for snapshot "
+                        "annual-average convention"
+                    ),
+                    "accommodation_supplement": (
+                        "weekly, before legal whole-dollar rounding"
+                    ),
+                },
+                "determinism": (
+                    "CLI performs two independent fresh compile/evaluate "
+                    "passes and requires byte-identical artifacts"
+                ),
+                "parameter_policy": (
+                    "no Treasury values are injected into RuleSpec"
+                ),
+            },
+            "statistics": statistics,
+            "classification_definitions": {
+                code: {
+                    "classification": detail[0],
+                    "title": detail[1],
+                    "explanation": detail[2],
+                }
+                for code, detail in sorted(
+                    CLASSIFICATION_DETAILS.items()
+                )
+            },
+            "vintage_parameter_evidence": vintage_rows,
+            "emtr_residual_patterns": emtr_patterns,
+            "scenarios": scenario_json,
+            "comparisons": [
+                comparison_row_json(row)
+                for row in comparison_rows
+            ],
+            "secondary_rates": secondary_rows,
+            "accommodation_supplement_rounding_diagnostics": as_rows,
+            "engine_state_diagnostics": diagnostic_rows,
+            "coverage_statement": (
+                "Conditional stylised-family amount comparison; not full "
+                "statutory entitlement evaluation or UI reproduction."
+            ),
+        }
+
+        report = render_report(
+            provenance=provenance,
+            compiled_artifact_sha256=compiled_artifact_sha256,
+            compiled_counts=compiled_counts,
+            engine_call_count=engine.call_count,
+            scenarios=scenarios,
+            rows=comparison_rows,
+            statistics=statistics,
+            vintage_rows=vintage_rows,
+            emtr_patterns=emtr_patterns,
+            as_rows=as_rows,
+        )
+        artifacts: dict[str, str] = {
+            "REPORT.md": report,
+            "comparison.csv": comparison_csv_text(comparison_rows),
+            "comparison.json": json_text(machine_payload),
+            "secondary_rates.csv": generic_csv_text(
+                secondary_rows,
+                (
+                    "scenario_id",
+                    "weekly_wage",
+                    "column",
+                    "treasury",
+                    "rulespec",
+                    "signed_delta_rulespec_minus_treasury",
+                    "absolute_delta",
+                    "relative_absolute_delta",
+                ),
+            ),
+            "as_rounding_diagnostic.csv": generic_csv_text(
+                as_rows,
+                (
+                    "scenario_id",
+                    "weekly_wage",
+                    "treasury_raw_unrounded",
+                    "rulespec_before_rounding",
+                    "rulespec_statutory_rounded",
+                    "like_for_like_signed_delta",
+                    "legal_rounding_uplift",
+                ),
+            ),
+        }
+        artifacts["SHA256SUMS"] = "".join(
+            f"{hashlib.sha256(content.encode('utf-8')).hexdigest()}  {name}\n"
+            for name, content in sorted(artifacts.items())
+        )
+        run_summary = {
+            "headline": machine_payload["headline"],
+            "statistics": statistics,
+            "compiled_artifact_sha256": compiled_artifact_sha256,
+            "engine_evaluations": engine.call_count,
+            "artifact_names": tuple(sorted(artifacts)),
+        }
+        return artifacts, run_summary
+
+
+def compare_fresh_artifacts(
+    first: Mapping[str, str],
+    second: Mapping[str, str],
+) -> None:
+    if set(first) != set(second):
+        raise HarnessError(
+            "fresh runs generated different artifact names: "
+            f"{sorted(first)} != {sorted(second)}"
+        )
+    mismatches = [
+        name
+        for name in sorted(first)
+        if first[name].encode("utf-8") != second[name].encode("utf-8")
+    ]
+    if mismatches:
+        details = {
+            name: (
+                hashlib.sha256(first[name].encode("utf-8")).hexdigest(),
+                hashlib.sha256(second[name].encode("utf-8")).hexdigest(),
+            )
+            for name in mismatches
+        }
+        raise HarnessError(
+            f"fresh-run artifacts are not deterministic: {details!r}"
+        )
+
+
+def write_artifacts(output_dir: Path, artifacts: Mapping[str, str]) -> None:
+    destination = output_dir.expanduser().resolve()
+    destination.mkdir(parents=True, exist_ok=True)
+    for name, content in sorted(artifacts.items()):
+        (destination / name).write_text(content, encoding="utf-8")
+
+
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Reproduce the pinned Treasury EMTR comparison with RuleSpec NZ"
+        )
+    )
+    parser.add_argument(
+        "--rulespec-root",
+        type=Path,
+        default=DEFAULT_RULESPEC_ROOT,
+    )
+    parser.add_argument(
+        "--engine-root",
+        type=Path,
+        default=DEFAULT_ENGINE_ROOT,
+    )
+    parser.add_argument(
+        "--engine-binary",
+        type=Path,
+        default=None,
+        help=(
+            "Defaults to <engine-root>/target/release/"
+            "axiom-rules-engine"
+        ),
+    )
+    parser.add_argument(
+        "--treasury-root",
+        type=Path,
+        default=DEFAULT_TREASURY_ROOT,
+    )
+    parser.add_argument(
+        "--composition",
+        type=Path,
+        default=DEFAULT_COMPOSITION,
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=HERE,
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
+    engine_binary = (
+        args.engine_binary
+        if args.engine_binary is not None
+        else args.engine_root / "target" / "release" / "axiom-rules-engine"
+    )
+    try:
+        first, summary = build_audit_artifacts(
+            rulespec_root=args.rulespec_root,
+            engine_root=args.engine_root,
+            engine_binary=engine_binary,
+            treasury_root=args.treasury_root,
+            composition_path=args.composition,
+        )
+        second, second_summary = build_audit_artifacts(
+            rulespec_root=args.rulespec_root,
+            engine_root=args.engine_root,
+            engine_binary=engine_binary,
+            treasury_root=args.treasury_root,
+            composition_path=args.composition,
+        )
+        compare_fresh_artifacts(first, second)
+        if json_text(summary) != json_text(second_summary):
+            raise HarnessError(
+                "fresh-run summaries are not deterministic"
+            )
+        write_artifacts(args.output_dir, first)
+    except HarnessError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    print(
+        json.dumps(
+            json_ready(
+                {
+                    **summary,
+                    "deterministic_fresh_runs": 2,
+                    "output_dir": str(
+                        args.output_dir.expanduser().resolve()
+                    ),
+                }
+            ),
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
