@@ -31,6 +31,10 @@
 - Re-pointed all six RWT guidance atoms and added the negative-income zero case.
   All eight companion cases pass; grounding now reports only the five
   deliberately untouched Schedule 1 Part B atoms.
+- Re-pointed both PAYE guidance roots, the student-loan guidance root, both
+  subpart RD containers, and the absent KiwiSaver guidance atom to exact
+  statutory/guidance text. Payroll is grounding-clean and both companion cases
+  pass; its waiver is now eligible for deletion after the final module edit.
 
 ## Next
 
