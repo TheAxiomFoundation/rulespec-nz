@@ -6,6 +6,7 @@
 - Base: local `origin/repin/nz-rulespec-2026-07-25` at `615f3900a2796a8a62b86740062701f29c3e011f`
 - Goal: bring the four drifted-waiver modules to full validation passage, remove only waivers for modules that pass, and keep all generated provenance artifacts consistent.
 - Network note: `git fetch origin main repin/nz-rulespec-2026-07-25` failed twice because this sandbox could not resolve `github.com`; `gh pr view 103` independently reported the same head SHA (`615f3900a2796a8a62b86740062701f29c3e011f`).
+- Concurrent branch note: during final verification, separate external activity fast-forwarded and pushed the shared repin branch through `756c7f0`, then added `213d52c`. This worktree did not push, merge, or alter that shared branch.
 - Current baseline: residence grounding clean; student-loan repayments 4 grounding issues; child support 11 grounding issues; student allowances 25 grounding issues.
 - Passage count: 3 of 4 (`nz/statutes/common/residence.yaml`, `nz/statutes/student_loan/repayments.yaml`, and `nz/regulations/student_allowances/core.yaml`).
 - Final verification: all three repaired modules are grounding-clean; their 4, 9, and 21 engine companion cases pass; child support retains its expected 11 grounding issues while all 11 existing companions pass; the repository suite reports 279 passed, 1 skipped, and 1 deselected.
@@ -37,6 +38,7 @@
 - Student-allowance grounding is CLEAN; all 21 engine companion cases pass; nonnegative-reduction, zero-branch, derived-output, scalar-table, and interval guards all report no issues; 27 focused repository tests pass.
 - Refreshed the inventory and provenance ledger. The ledger has 1,239 atoms (1,181 resolved and 58 blocked) across 40 modules and 17 blockers; the student-allowance module now contributes 52 inventoried rules and no blocked proof atoms.
 - Deleted only the now-clean student-allowance waiver and repinned the exact waiver-set SHA to `c8b551976764ea05d8950041aebce28ca884f1a06b590929c573ccb173723909`.
+- Final integrity checks confirm 754 inventoried and scorecard rules, all six deterministic allowance guards clean, 22 focused inventory/provenance tests passing, no PIE diff, and a clean worktree.
 - Wrote the per-module final report to `/Users/maxghenis/TheAxiomFoundation/ops/nz-lane/drift-modules-report.md`.
 
 ## Next
