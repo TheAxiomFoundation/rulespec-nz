@@ -4,9 +4,9 @@
   "release_selector_sha256": "03558a39482d62c876c2189656f69346f2c5bb28b0d99298084f6c03b1783ce7",
   "publication_state": "merged_published_activated",
   "atomic_module_count": 40,
-  "proof_atom_count": 1234,
-  "resolved_proof_atom_count": 1184,
-  "blocked_proof_atom_count": 50,
+  "proof_atom_count": 1240,
+  "resolved_proof_atom_count": 1199,
+  "blocked_proof_atom_count": 41,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -186,51 +186,6 @@
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },
     {
-      "citation_path": "nz/guidance/ird/pir-rates-kiwisaver-pie",
-      "blocked_proof_atom_count": 6,
-      "affected_module_count": 1,
-      "affected_rule_count": 6,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_determined_pir_rate",
-          "declared_source": "Income Tax Act 2007 section HM 6; IRD PIR determination rules"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_rate_10_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_rate_17_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_rate_28",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_two_year_lookback_taxable_income_threshold_high",
-          "declared_source": "Income Tax Act 2007 section HM 6; IRD PIR guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_two_year_lookback_taxable_income_threshold_low",
-          "declared_source": "Income Tax Act 2007 section HM 6; IRD PIR guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue prescribed investor rate guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/your-pir-prescribed-investor-rate",
-        "https://www.ird.govt.nz/investing/pie-tax"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
       "citation_path": "nz/guidance/ird/rwt-rates",
       "blocked_proof_atom_count": 6,
       "affected_module_count": 1,
@@ -337,25 +292,10 @@
     },
     {
       "citation_path": "nz/statute/act/public/2007/0097/schedule/1/part/b",
-      "blocked_proof_atom_count": 8,
-      "affected_module_count": 2,
-      "affected_rule_count": 8,
+      "blocked_proof_atom_count": 5,
+      "affected_module_count": 1,
+      "affected_rule_count": 5,
       "affected_rules": [
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_rate_10_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_rate_17_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/investment/pie.yaml",
-          "rule": "pie_rate_28",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD PIR guidance"
-        },
         {
           "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
           "rule": "rwt_rate_10_5",

@@ -1,16 +1,33 @@
 format: rulespec/v1
 module:
   summary: |-
-    Income Tax Act 2007 subpart HM (PIE provisions) and Inland Revenue
-    prescribed investor rate (PIR) guidance define the tax on portfolio
-    investment entity (PIE) income. The PIR depends on the investor's taxable
-    income from the two preceding tax years (two-year lookback) and their
-    PIE income type (savings, withdrawal, etc.). Current PIR rates are 10.5%,
-    17.5%, and 28%.
+    Income Tax Act 2007 subpart HM and schedule 6 define the tax on portfolio
+    investment entity (PIE) income. Schedule 6 table 1 sets the prescribed
+    investor rate (PIR) for an investor in a multi-rate PIE: 10.5%, 17.5%, or
+    28% for a New Zealand resident natural person, selected by a two-limb
+    income test over either of the 2 income years before the relevant tax
+    year.
+
+    Both qualifying rows carry TWO limbs, and each must hold. Row 6 (10.5%)
+    requires taxable income of $15,600 or less AND taxable income plus
+    attributed PIE income, less any attributable PIE loss, of $53,500 or
+    less. Row 4 (17.5%) requires taxable income of $53,500 or less AND the
+    same combined measure of $78,100 or less. Anything else takes the 28%
+    default in rows 1 to 3. The statute reads "or less", so the thresholds
+    are inclusive bounds.
+
+    Threshold versions follow Taxation (Budget Measures) Act 2024 s 39, which
+    replaced $48,000 with $53,500 and $70,000 with $78,100 in row 4, and
+    $14,000 with $15,600 and $48,000 with $53,500 in row 6, applying for the
+    2025-26 and later income years.
+
+    Out of scope by name: the zero rates and variable foreign-investor rates
+    in rows 7B to 10, the trustee notification rows 3, 5, and 7, and the
+    retirement scheme contribution rates in schedule 6 table 2.
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
+    corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
 units:
   - name: NZD
     kind: currency
@@ -19,18 +36,15 @@ rules:
   - name: pie_rate_10_5
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    source: Income Tax Act 2007 schedule 6 table 1 (row 6)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '| 0.105'
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -38,18 +52,15 @@ rules:
   - name: pie_rate_17_5
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    source: Income Tax Act 2007 schedule 6 table 1 (rows 4 and 5)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '| 0.175'
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -57,18 +68,15 @@ rules:
   - name: pie_rate_28
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD PIR guidance
+    source: Income Tax Act 2007 schedule 6 table 1 (rows 1 to 3)
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '| 0.280'
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -77,67 +85,154 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Income Tax Act 2007 section HM 6; IRD PIR guidance
+    source: Income Tax Act 2007 schedule 6 table 1 (row 6 paragraph (a)); Taxation (Budget Measures) Act 2024 s 39
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
-          - path: versions[0].formula
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'In schedule 6, table 1 , row 6, column 2, paragraph (a), replace $14,000 with $15,600 .'
+          - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '$15,600 or less in taxable income'
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'Subsections (1) to (10) apply for the 2025–26 and later income years'
     versions:
       - effective_from: '2020-04-01'
         formula: |-
           14000
-  - name: pie_two_year_lookback_taxable_income_threshold_high
+      - effective_from: '2025-04-01'
+        formula: |-
+          15600
+  - name: pie_lookback_combined_income_threshold_low
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Income Tax Act 2007 section HM 6; IRD PIR guidance
+    source: Income Tax Act 2007 schedule 6 table 1 (row 6 paragraph (b)); Taxation (Budget Measures) Act 2024 s 39
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
-          - path: versions[0].formula
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'In schedule 6, table 1 , row 6, column 2, paragraph (b), replace $48,000 with $53,500 .'
+          - path: versions[1].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '$53,500 or less in the sum of their taxable income and attributed PIE income after subtracting any attributable PIE loss'
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'Subsections (1) to (10) apply for the 2025–26 and later income years'
     versions:
       - effective_from: '2020-04-01'
         formula: |-
           48000
+      - effective_from: '2025-04-01'
+        formula: |-
+          53500
+  - name: pie_two_year_lookback_taxable_income_threshold_high
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 schedule 6 table 1 (row 4 paragraph (a)); Taxation (Budget Measures) Act 2024 s 39
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'In schedule 6, table 1 , row 4, column 2, paragraph (a), replace $48,000 with $53,500 .'
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '$53,500 or less in taxable income'
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'Subsections (1) to (10) apply for the 2025–26 and later income years'
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          48000
+      - effective_from: '2025-04-01'
+        formula: |-
+          53500
+  - name: pie_lookback_combined_income_threshold_high
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Income Tax Act 2007 schedule 6 table 1 (row 4 paragraph (b)); Taxation (Budget Measures) Act 2024 s 39
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'In schedule 6, table 1 , row 4, column 2, paragraph (b), replace $70,000 with $78,100 .'
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: '$78,100 or less in the sum of their taxable income and attributed PIE income after subtracting any attributable PIE loss'
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2024/0019/section/39
+              excerpt: 'Subsections (1) to (10) apply for the 2025–26 and later income years'
+    versions:
+      - effective_from: '2020-04-01'
+        formula: |-
+          70000
+      - effective_from: '2025-04-01'
+        formula: |-
+          78100
   - name: pie_determined_pir_rate
     kind: derived
     entity: Person
     dtype: Rate
-    source: Income Tax Act 2007 section HM 6; IRD PIR determination rules
+    source: Income Tax Act 2007 schedule 6 table 1
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/section/hm-6
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: 'The prescribed investor rate for a person who is an investor in a multi-rate PIE is set out in table 1.'
           - path: versions[0].formula
-            kind: formula
+            kind: condition
             source:
-              corpus_citation_path: nz/guidance/ird/pir-rates-kiwisaver-pie
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: 'in either of the 2 income years before the relevant tax year, derives— a $15,600 or less in taxable income; and b $53,500 or less in the sum of their taxable income and attributed PIE income after subtracting any attributable PIE loss.'
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/6/clause/1
+              excerpt: 'a $53,500 or less in taxable income; and b $78,100 or less in the sum of their taxable income and attributed PIE income after subtracting any attributable PIE loss'
     versions:
       - effective_from: '2020-04-01'
         formula: |-
           if pir_has_notified_pie_scheme_of_pir:
               pir_notified_rate
           else:
-              if two_year_lookback_taxable_income < pie_two_year_lookback_taxable_income_threshold_low:
+              if two_year_lookback_taxable_income <= pie_two_year_lookback_taxable_income_threshold_low and two_year_lookback_combined_pie_income <= pie_lookback_combined_income_threshold_low:
                   pie_rate_10_5
-              elif two_year_lookback_taxable_income < pie_two_year_lookback_taxable_income_threshold_high:
+              elif two_year_lookback_taxable_income <= pie_two_year_lookback_taxable_income_threshold_high and two_year_lookback_combined_pie_income <= pie_lookback_combined_income_threshold_high:
                   pie_rate_17_5
               else:
                   pie_rate_28

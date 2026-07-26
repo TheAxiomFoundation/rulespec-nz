@@ -46,12 +46,6 @@ validate_failures:
       fingerprint: sha256:e168cc9856798f678e6b4981c86a2ce4e3bc1653a04fd8f4dce3434dd72fb424
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/income_tax/investment/pie.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:3d8228b6a602eac3baffdb01e72d0ea3bc9c741545b5b67eb3c19872cded5ae1
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/income_tax/withholding/resident_withholding_tax.yaml:
     active:
       expires: '2026-10-10'

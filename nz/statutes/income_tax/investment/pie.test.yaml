@@ -1,4 +1,11 @@
-- name: pie_rate_parameters
+# Companion tests for the prescribed investor rate (PIE).
+# Schedule 6 table 1 selects the rate on a two-limb test over either of the 2
+# income years before the relevant tax year: row 6 (10.5%) needs taxable income
+# <= $15,600 AND taxable-plus-attributed-PIE income <= $53,500; row 4 (17.5%)
+# needs <= $53,500 and <= $78,100. Both bounds are inclusive ("or less").
+# Thresholds are the 2025-26 values set by Taxation (Budget Measures) Act 2024
+# s 39. Expected values are hand-computed with exact decimals.
+- name: rate parameters
   period:
     period_kind: tax_year
     start: '2025-04-01'
@@ -9,17 +16,20 @@
     nz:statutes/income_tax/investment/pie#pie_rate_17_5: 0.175
     nz:statutes/income_tax/investment/pie#pie_rate_28: 0.28
 
-- name: pie_threshold_parameters
+- name: threshold parameters carry the 2025-26 values
+  # Taxation (Budget Measures) Act 2024 s 39, applying for 2025-26 and later.
   period:
     period_kind: tax_year
     start: '2025-04-01'
     end: '2026-03-31'
   input: {}
   output:
-    nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_low: 14000
-    nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_high: 48000
+    nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_low: 15600
+    nz:statutes/income_tax/investment/pie#pie_lookback_combined_income_threshold_low: 53500
+    nz:statutes/income_tax/investment/pie#pie_two_year_lookback_taxable_income_threshold_high: 53500
+    nz:statutes/income_tax/investment/pie#pie_lookback_combined_income_threshold_high: 78100
 
-- name: pie_pir_rate_low_income
+- name: both row 6 limbs satisfied takes 10.5 percent
   period:
     period_kind: tax_year
     start: '2025-04-01'
@@ -28,10 +38,12 @@
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
     nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
     nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 10000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 20000
   output:
     nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.105
 
-- name: pie_pir_rate_mid_income
+- name: taxable income exactly at the row 6 threshold still takes 10.5 percent
+  # Schedule 6 row 6 reads "$15,600 or less" and "$53,500 or less" - inclusive bounds.
   period:
     period_kind: tax_year
     start: '2025-04-01'
@@ -39,11 +51,26 @@
   input:
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
     nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
-    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 30000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 15600
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 53500
+  output:
+    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.105
+
+- name: row 6 fails on its combined limb alone and falls to 17.5 percent
+  # Taxable income qualifies for row 6 but attributed PIE income pushes the combined measure over.
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 15600
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 53501
   output:
     nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.175
 
-- name: pie_pir_rate_high_income
+- name: both row 4 limbs satisfied takes 17.5 percent
   period:
     period_kind: tax_year
     start: '2025-04-01'
@@ -51,31 +78,89 @@
   input:
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
     nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
-    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 100000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 40000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 60000
+  output:
+    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.175
+
+- name: taxable income exactly at the row 4 threshold still takes 17.5 percent
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 53500
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 78100
+  output:
+    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.175
+
+- name: row 4 fails on its combined limb alone and falls to 28 percent
+  # The default rate in rows 1 to 3 applies when neither qualifying row holds.
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 53500
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 78101
   output:
     nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.28
 
-- name: pie_notified_pir_rate_takes_precedence
+- name: income above both taxable thresholds takes 28 percent
   period:
     period_kind: tax_year
     start: '2025-04-01'
     end: '2026-03-31'
   input:
-    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: true
-    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0.175
-    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 100000
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 90000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 95000
   output:
-    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.175
+    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.28
 
-- name: pie_tax_on_income_calculation
+- name: a notified rate overrides the income test
   period:
     period_kind: tax_year
     start: '2025-04-01'
     end: '2026-03-31'
   input:
-    nz:statutes/income_tax/investment/pie#input.pie_taxable_income: 50000
     nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: true
     nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0.28
-    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 100000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 10000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 20000
   output:
-    nz:statutes/income_tax/investment/pie#pie_tax_on_income: 14000
+    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.28
+
+- name: tax on PIE income applies the determined rate
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 10000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 20000
+    nz:statutes/income_tax/investment/pie#input.pie_taxable_income: 5000
+  output:
+    nz:statutes/income_tax/investment/pie#pie_determined_pir_rate: 0.105
+    nz:statutes/income_tax/investment/pie#pie_tax_on_income: 525.0
+
+- name: negative PIE taxable income yields no tax
+  period:
+    period_kind: tax_year
+    start: '2025-04-01'
+    end: '2026-03-31'
+  input:
+    nz:statutes/income_tax/investment/pie#input.pir_has_notified_pie_scheme_of_pir: false
+    nz:statutes/income_tax/investment/pie#input.pir_notified_rate: 0
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_taxable_income: 10000
+    nz:statutes/income_tax/investment/pie#input.two_year_lookback_combined_pie_income: 20000
+    nz:statutes/income_tax/investment/pie#input.pie_taxable_income: -1000
+  output:
+    nz:statutes/income_tax/investment/pie#pie_tax_on_income: 0
