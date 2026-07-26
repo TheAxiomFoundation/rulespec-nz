@@ -19,7 +19,7 @@ validate_failures:
   nz/regulations/student_allowances/core.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:11f75e2fe0b05880db59bab930792eeafb5db2f0a7250d20d301c624327264f1
+      fingerprint: sha256:0dcab3ef3c645de4145e6c72e7131f93ff5cfdd42812c03c658bc4a430bbdaf0
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/acc/weekly_compensation.yaml:
@@ -31,7 +31,7 @@ validate_failures:
   nz/statutes/child_support/core_formula.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:586523a97d59233d5217d1b37a14827c6615f27af4b400cfe99457e49a3c044b
+      fingerprint: sha256:722eef6506190c08ce4cff5c0d3d7f0b6e2e86cce1f08bf1e2a84006331ba04b
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/citizenship/by_grant.yaml:
@@ -49,7 +49,7 @@ validate_failures:
   nz/statutes/common/residence.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:50c1174ea5f2b29bafaf6fb4766583725f2f738cec62381005006d16a6de9c25
+      fingerprint: sha256:270a7bd9001adf4884d77153bba33b239f23cdbab40e293ce97f47971182093e
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/statutes/housing_restructuring/income_related_rent.yaml:
@@ -109,6 +109,6 @@ validate_failures:
   nz/statutes/student_loan/repayments.yaml:
     active:
       expires: '2026-10-10'
-      fingerprint: sha256:ccbe180a1e028da4f858802b3a62b0966deb1b84476f7c0a71f454b76ea47166
+      fingerprint: sha256:be4d66bfd6fa00cd660f98cb6f8cacc3ad131a0221cab8b40840dfa6c89418bf
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
