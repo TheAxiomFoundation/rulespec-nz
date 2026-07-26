@@ -25,8 +25,10 @@
 - Refreshed the student-loan inventory entry and provenance ledger. The ledger moved from 109 to 99 blocked atoms and from 19 to 17 blockers, retiring the module's broad-act and empty-Schedule-1 debt.
 - Deleted only the now-clean student-loan waiver and repinned the exact waiver-set SHA to `6158036d6c911b45a30ffeb88e85f001bd30054b6c1be710688f046952891fe3`.
 - Corrected the annual-threshold rule's remaining free-text source label from the unrelated Schedule 1 to s 4, matching its proof atom; regenerated artifacts remained byte-identical, grounding stayed CLEAN, all 9 engine cases passed, and 26 focused repository tests passed.
+- Completed the child-support source audit without editing the module. Only the `35` care threshold has a current source (s 31); the 18.45% living allowance, flat 18%/26%/33% rates, fixed maximums, and six annual dollar amounts have no honest support in the bound corpus and implement the repealed pre-2015 model.
+- Confirmed that current ss 30–36 instead require the income-shares, care-cost, child-expenditure, fixed living-allowance, and nil-case machinery. PR #91 is parked because its attempted replacement also omits critical Schedule 3, rounding, derivation, nil-condition, and eligibility logic.
+- Left `nz/statutes/child_support/core_formula.yaml` and its immutable waiver byte-for-byte unchanged. Fixing only `35` would drift the waiver while the other ten failures remain; a full re-encode belongs in the parked child-support work.
 
 ## Next
 
-- Finish the issue-by-issue source mapping for child support without duplicating PR #91's parked re-encode; leave its immutable waiver in place if the current repealed scheme cannot be made honest.
 - Apply the statute-first/guidance-rate grounding map for student allowances, then regenerate artifacts and remove its waiver only if all local passage checks are clean.
