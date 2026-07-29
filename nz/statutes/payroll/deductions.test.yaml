@@ -26,4 +26,8 @@
     nz:statutes/payroll/deductions#input.kiwisaver_employee_deduction: 0
     nz:statutes/payroll/deductions#input.student_loan_annual_deduction: 0
   output:
+    nz:statutes/payroll/deductions#paye_income_tax_component: 0
+    nz:statutes/payroll/deductions#paye_acc_levy_component: 0
+    nz:statutes/payroll/deductions#paye_kiwisaver_employee_component: 0
+    nz:statutes/payroll/deductions#paye_student_loan_component: 0
     nz:statutes/payroll/deductions#paye_total_deduction: 0

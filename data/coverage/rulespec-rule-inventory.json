@@ -971,146 +971,6 @@
       "rules": []
     },
     {
-      "path": "nz/statutes/common/residence.yaml",
-      "surface_ids": [
-        "nz/statutes/common/residence"
-      ],
-      "source_families": [
-        "nz_statutes_common_residence"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_new_zealand_citizen",
-          "name": "common_new_zealand_citizen",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_residence_class_visa_holder",
-          "name": "common_residence_class_visa_holder",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_temporary_entry_class_visa_holder",
-          "name": "common_temporary_entry_class_visa_holder",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_unlawfully_resident_or_present_in_new_zealand",
-          "name": "common_unlawfully_resident_or_present_in_new_zealand",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_ordinarily_resident_in_new_zealand",
-          "name": "common_ordinarily_resident_in_new_zealand",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_entitled_to_be_in_new_zealand_indefinitely",
-          "name": "common_entitled_to_be_in_new_zealand_indefinitely",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_lawful_presence_requirement",
-          "name": "common_lawful_presence_requirement",
-          "source_family": "residence"
-        },
-        {
-          "kind": "derived",
-          "id": "nz:statutes/common/residence#common_resident_status",
-          "name": "common_resident_status",
-          "source_family": "residence"
-        }
-      ]
-    },
-    {
-      "path": "nz/statutes/gst/rate.yaml",
-      "surface_ids": [
-        "nz/statutes/gst/rate"
-      ],
-      "source_families": [
-        "nz_statutes_gst_rate"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/gst/rate#gst_standard_rate",
-          "name": "gst_standard_rate",
-          "kind": "parameter",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_component_from_exclusive_amount",
-          "name": "gst_component_from_exclusive_amount",
-          "kind": "derived",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_inclusive_amount_from_exclusive_amount",
-          "name": "gst_inclusive_amount_from_exclusive_amount",
-          "kind": "derived",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_component_from_inclusive_amount",
-          "name": "gst_component_from_inclusive_amount",
-          "kind": "derived",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_exclusive_amount_from_inclusive_amount",
-          "name": "gst_exclusive_amount_from_inclusive_amount",
-          "kind": "derived",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_threshold",
-          "name": "gst_low_value_imported_goods_threshold",
-          "kind": "parameter",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_subject_to_gst",
-          "name": "gst_low_value_imported_goods_subject_to_gst",
-          "kind": "derived",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_component",
-          "name": "gst_low_value_imported_goods_component",
-          "kind": "derived",
-          "source_family": "rate"
-        },
-        {
-          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_total_payable",
-          "name": "gst_low_value_imported_goods_total_payable",
-          "kind": "derived",
-          "source_family": "rate"
-        }
-      ]
-    },
-    {
       "path": "nz/statutes/housing_restructuring/income_related_rent.yaml",
       "surface_ids": [
         "nz/statutes/housing_restructuring/income_related_rent"
@@ -2794,55 +2654,6 @@
           "name": "ppl_transferred_total_entitlement",
           "kind": "derived",
           "source_family": "paid_parental_leave"
-        }
-      ]
-    },
-    {
-      "path": "nz/statutes/payroll/deductions.yaml",
-      "surface_ids": [
-        "nz/statutes/payroll/deductions"
-      ],
-      "source_families": [
-        "nz_statutes_payroll_deductions"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/payroll/deductions#paye_income_tax_component",
-          "name": "paye_income_tax_component",
-          "kind": "derived",
-          "source_family": "deductions"
-        },
-        {
-          "id": "nz:statutes/payroll/deductions#paye_acc_levy_component",
-          "name": "paye_acc_levy_component",
-          "kind": "derived",
-          "source_family": "deductions"
-        },
-        {
-          "id": "nz:statutes/payroll/deductions#paye_kiwisaver_employee_component",
-          "name": "paye_kiwisaver_employee_component",
-          "kind": "derived",
-          "source_family": "deductions"
-        },
-        {
-          "id": "nz:statutes/payroll/deductions#paye_student_loan_component",
-          "name": "paye_student_loan_component",
-          "kind": "derived",
-          "source_family": "deductions"
-        },
-        {
-          "id": "nz:statutes/payroll/deductions#paye_total_deduction",
-          "name": "paye_total_deduction",
-          "kind": "derived",
-          "source_family": "deductions"
         }
       ]
     },
@@ -5334,6 +5145,195 @@
           "name": "pie_tax_on_income",
           "kind": "derived",
           "source_family": "pie"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/common/residence.yaml",
+      "surface_ids": [
+        "nz/statutes/common/residence"
+      ],
+      "source_families": [
+        "nz_statutes_common_residence"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/common/residence#common_new_zealand_citizen",
+          "name": "common_new_zealand_citizen",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_residence_class_visa_holder",
+          "name": "common_residence_class_visa_holder",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_temporary_entry_class_visa_holder",
+          "name": "common_temporary_entry_class_visa_holder",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_unlawfully_resident_or_present_in_new_zealand",
+          "name": "common_unlawfully_resident_or_present_in_new_zealand",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_ordinarily_resident_in_new_zealand",
+          "name": "common_ordinarily_resident_in_new_zealand",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_entitled_to_be_in_new_zealand_indefinitely",
+          "name": "common_entitled_to_be_in_new_zealand_indefinitely",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_lawful_presence_requirement",
+          "name": "common_lawful_presence_requirement",
+          "kind": "derived",
+          "source_family": "residence"
+        },
+        {
+          "id": "nz:statutes/common/residence#common_resident_status",
+          "name": "common_resident_status",
+          "kind": "derived",
+          "source_family": "residence"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/gst/rate.yaml",
+      "surface_ids": [
+        "nz/statutes/gst/rate"
+      ],
+      "source_families": [
+        "nz_statutes_gst_rate"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/gst/rate#gst_standard_rate",
+          "name": "gst_standard_rate",
+          "kind": "parameter",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_component_from_exclusive_amount",
+          "name": "gst_component_from_exclusive_amount",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_inclusive_amount_from_exclusive_amount",
+          "name": "gst_inclusive_amount_from_exclusive_amount",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_component_from_inclusive_amount",
+          "name": "gst_component_from_inclusive_amount",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_exclusive_amount_from_inclusive_amount",
+          "name": "gst_exclusive_amount_from_inclusive_amount",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_threshold",
+          "name": "gst_low_value_imported_goods_threshold",
+          "kind": "parameter",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_subject_to_gst",
+          "name": "gst_low_value_imported_goods_subject_to_gst",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_component",
+          "name": "gst_low_value_imported_goods_component",
+          "kind": "derived",
+          "source_family": "rate"
+        },
+        {
+          "id": "nz:statutes/gst/rate#gst_low_value_imported_goods_total_payable",
+          "name": "gst_low_value_imported_goods_total_payable",
+          "kind": "derived",
+          "source_family": "rate"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/payroll/deductions.yaml",
+      "surface_ids": [
+        "nz/statutes/payroll/deductions"
+      ],
+      "source_families": [
+        "nz_statutes_payroll_deductions"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/payroll/deductions#paye_income_tax_component",
+          "name": "paye_income_tax_component",
+          "kind": "derived",
+          "source_family": "deductions"
+        },
+        {
+          "id": "nz:statutes/payroll/deductions#paye_acc_levy_component",
+          "name": "paye_acc_levy_component",
+          "kind": "derived",
+          "source_family": "deductions"
+        },
+        {
+          "id": "nz:statutes/payroll/deductions#paye_kiwisaver_employee_component",
+          "name": "paye_kiwisaver_employee_component",
+          "kind": "derived",
+          "source_family": "deductions"
+        },
+        {
+          "id": "nz:statutes/payroll/deductions#paye_student_loan_component",
+          "name": "paye_student_loan_component",
+          "kind": "derived",
+          "source_family": "deductions"
+        },
+        {
+          "id": "nz:statutes/payroll/deductions#paye_total_deduction",
+          "name": "paye_total_deduction",
+          "kind": "derived",
+          "source_family": "deductions"
         }
       ]
     }

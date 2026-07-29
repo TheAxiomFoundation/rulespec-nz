@@ -28,11 +28,13 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/rd
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-10
+              excerpt: The amount of tax for a PAYE income payment that a person must withhold and pay to the Commissioner under section RA 5 (Tax obligations for employment-related taxes) is the relevant amount under schedule 2 (Basic tax rates for PAYE income payments).
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/paye-deduction-tables
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables/block-2
+              excerpt: When you pay an employee their salary or wages, you need to make deductions for PAYE.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -76,7 +78,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/kiwisaver-contribution-rates
+              corpus_citation_path: nz/statute/act/public/2006/0040/section/66
+              excerpt: The employer must make deductions of contributions from each payment of the employee’s gross salary or wages of an amount equal to the contribution rate .
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -98,7 +101,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions
+              corpus_citation_path: nz/guidance/ird/student-loan-repayment-deductions/block-3
+              excerpt: The amount you have to pay to your student loan each year is 12% of every dollar you earn over the repayment threshold.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -116,11 +120,26 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/subpart/rd
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-10
+              excerpt: The Commissioner may provide tables for the calculation of an amount of tax for a PAYE income payment that may incorporate other relevant information.
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/paye-deduction-tables
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables/block-2
+              excerpt: |-
+                When you pay an employee their salary or wages, you need to make deductions for PAYE.
+
+                You may also need to make deductions for:
+
+                child support
+
+                student loan repayments
+
+                KiwiSaver employee contributions
+
+                KiwiSaver employer net contributions
+
+                employer superannuation contribution tax (ESCT) .
     versions:
       - effective_from: '2025-04-01'
         formula: |-
