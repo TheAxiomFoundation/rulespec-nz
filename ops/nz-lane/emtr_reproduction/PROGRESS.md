@@ -2,7 +2,9 @@
 
 ## State
 
-- Status: in progress; the diverse-family-grid extension began on 2026-07-29.
+- Status: in progress; implementation and classification are complete, with
+  final same-path deterministic regeneration and artifact validation pending.
+  The diverse-family-grid extension began on 2026-07-29.
 - The completed 2026-07-26 four-scenario audit is the continuity baseline; its
   pinned Treasury oracle now regenerates byte-for-byte before every expanded
   harness pass.
@@ -75,8 +77,9 @@
   evaluation passes (377 engine calls each) produced byte-identical files.
   Validated 640 primary rows, 64 secondary-rate rows, 32 AS diagnostics, JSON
   structure, component recomposition, and every `SHA256SUMS` entry.
-- Final headline: only 3 of 32 weekly Net Income points are within $1 (maximum
-  gap $77.62), while all 32 EMTR points are within 0.45 percentage points.
+- Preserved the original audit's stronger continuity result: 434 of 608
+  dollar/control cells agree to the cent and all 174 cent-level exceptions are
+  named forecast-vintage differences, with zero unexplained.
 - Read the completed `PROGRESS.md` and `REPORT.md`, confirmed the external
   artifact layout, and confirmed local audit branch
   `audit/treasury-emtr-reproduction` points to checkpoint `aa8832f`.
@@ -112,13 +115,17 @@
   Treasury has no native boarder branch.
 - Added `generate_treasury_emtr_snapshot_expanded.R`. In baseline mode it
   reproduces the canonical 25,888-byte pinned oracle exactly; in expanded mode
-  it actually runs pinned raw `emtr()` for all 11 profiles and 102 sampled
+  it actually runs pinned raw `emtr()` for all 11 profiles and 104 sampled
   wage points, rounds Treasury numeric outputs to six decimals, preserves the
   original four scenario objects unchanged in value and schema, and emits
   explicit per-scenario provenance.
-- Ran two independent expanded generator passes. They were byte-identical at
-  87,581 bytes with SHA-256
-  `f1726d104fece98a260834b29f5bb29749c94fa32de5c89b2a15afb32ac01cba`.
+- Added source-produced Treasury marginal diagnostics for all eight raw
+  `emtr()` net-income components to the expanded provenance. The generator,
+  rather than the Python comparison, computes every Treasury-side component
+  value and forward difference.
+- Ran two independent expanded generator passes after adding the diagnostics
+  and the exact IETC transition points. They were byte-identical with SHA-256
+  `6bed8c0a91e4ba6416238ef1cf381bc8033f3122f3eeb5766074d763929293fd`.
 - Extended the Python harness to regenerate and byte-check the baseline before
   it accepts the expanded oracle; verify the R version, generator, Treasury
   checkout, and parameter file; load per-scenario dense wage points; map the
@@ -128,16 +135,33 @@
   child-level pre-abatement amounts are summed and the single family-income
   abatement is applied once. The former per-child result is retained as a
   diagnostic so the before/after effect can be reported.
-- Completed an exploratory 2,040-cell expanded sweep. It isolated 17 provisional
-  class-(d) rows to new Best Start, IETC/benefit-boundary, Winter Energy, and
-  boarder-proxy marginal intervals; these are deliberately not accepted by the
-  final validator until each has a source-backed decomposition.
+- Extended the report renderer from four scenarios and 32 points to all 11
+  scenarios and 104 points. It includes the continuity gate, scenario coverage,
+  class evidence, the Best Start before/after diagnostic, component-level EMTR
+  decomposition, full per-scenario tables, provenance, reproducibility
+  instructions, and explicit remaining coverage gaps.
+- Completed the 2,080-cell expanded classification. Of 1,976 amount/control
+  cells, 1,454 agree to the cent; the 522 cent-level exceptions are 520 named
+  forecast-vintage cells and two documented convention cells. Across all
+  primary cells there are zero remaining class-(a) encoding bugs and zero
+  unexplained class-(d) cells.
+- Classified the 104 EMTR cells from exact component recomposition rather than
+  closeness: eight are forecast-vintage effects and 96 are source-backed
+  conventions (annual-cent ACC rounding, complete-dollar WFF abatement, Best
+  Start family abatement, and IETC whole-dollar income rules). The validator
+  aborts on a component remainder over `0.000004` or any unexplained row.
+- Preserved the original four-scenario result exactly at 434 of 608
+  amount/control cells agreeing to the cent, with all 174 exceptions classified
+  as forecast vintage.
+- Confirmed the expanded headline is dollar exactness: 1,454 of 1,976
+  amount/control cells agree to the cent; every exception is named, with zero
+  remaining encoding bugs and zero unexplained.
 
 ## Next
 
-- Add Treasury component-level marginal diagnostics to the scenario provenance,
-  use them to classify every expanded residual without weakening the existing
-  evidence standard, and remove all unexplained rows.
-- Replace the report's four-scenario/32-point assumptions, document the Best
-  Start aggregation fix and boarder limitation, then prove two fresh end-to-end
-  runs byte-identical before finalising the living report.
+- Commit the completed generator, harness, classification, report renderer, and
+  this checkpoint to the local-only audit branch.
+- Run the canonical end-to-end command twice from fresh R regeneration at the
+  same output path, compare every artifact byte-for-byte, validate row counts,
+  schema invariants, checksums, pinned hashes, and the clean isolated worktree,
+  then commit the final generated artifacts and completed progress record.

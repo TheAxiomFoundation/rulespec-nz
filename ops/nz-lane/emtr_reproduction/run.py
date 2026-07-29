@@ -75,6 +75,32 @@ EXPANDED_SCENARIOS = (
     "large_family_four_children_age_bands",
 )
 EXPECTED_SCENARIOS = ORIGINAL_SCENARIOS + EXPANDED_SCENARIOS
+EXPECTED_ADDITIONAL_WAGES: dict[str, tuple[int, ...]] = {
+    **{scenario_id: () for scenario_id in ORIGINAL_SCENARIOS},
+    "lone_parent_two_teens_jss": (),
+    "couple_two_best_start_children_binding": (
+        775,
+        776,
+        1125,
+        1126,
+        1476,
+        1477,
+    ),
+    "couple_two_children_dual_full_time": (121, 122),
+    "single_childless_ietc_focused": (
+        688,
+        689,
+        692,
+        693,
+        1265,
+        1266,
+        1342,
+        1343,
+    ),
+    "lone_parent_two_children_area4_high_rent_cap": (),
+    "couple_childless_boarder_proxy": (),
+    "large_family_four_children_age_bands": (),
+}
 EXPECTED_OUTPUT_COLUMNS = (
     "gross_wage1",
     "hours1",
@@ -98,6 +124,19 @@ EXPECTED_OUTPUT_COLUMNS = (
     "EMTR",
     "RR",
     "PTR",
+)
+EMTR_COMPONENT_BASE_COLUMNS = (
+    "net_wage",
+    "net_benefit",
+    "WFF_abated",
+    "MFTC",
+    "IETC_abated",
+    "WinterEnergy",
+    "BestStart_Total",
+    "AS_Amount",
+)
+TREASURY_EMTR_COMPONENT_COLUMNS = tuple(
+    f"EMTR_{column}" for column in EMTR_COMPONENT_BASE_COLUMNS
 )
 
 # IncomeExplorer TY27_BEFU25 raw branch:
@@ -314,6 +353,32 @@ class RegeneratedOracle:
     rscript_version: str
 
 
+def serialized_scenario_objects(snapshot_text: str) -> tuple[str, ...]:
+    """Extract each serialized scenario object without normalising its bytes."""
+
+    marker = '"scenarios": ['
+    marker_index = snapshot_text.find(marker)
+    if marker_index < 0:
+        raise HarnessError("oracle JSON has no scenarios array")
+    cursor = marker_index + len(marker)
+    decoder = json.JSONDecoder()
+    result: list[str] = []
+    while True:
+        while (
+            cursor < len(snapshot_text)
+            and snapshot_text[cursor] in " \t\r\n,"
+        ):
+            cursor += 1
+        if cursor >= len(snapshot_text):
+            raise HarnessError("oracle scenarios array is unterminated")
+        if snapshot_text[cursor] == "]":
+            break
+        _value, end = decoder.raw_decode(snapshot_text, cursor)
+        result.append(snapshot_text[cursor:end])
+        cursor = end
+    return tuple(result)
+
+
 def regenerate_treasury_oracles(
     *,
     rulespec_root: Path,
@@ -431,6 +496,7 @@ def verify_inputs(
     composition_path: Path,
     oracle_generator: Path,
     rscript: Path,
+    output_dir: Path,
 ) -> tuple[dict[str, Any], Provenance]:
     rulespec_root = require_directory(rulespec_root, "RuleSpec root")
     engine_root = require_directory(engine_root, "engine root")
@@ -455,9 +521,13 @@ def verify_inputs(
     )
     rscript = require_file(rscript, "Rscript 4.3.0")
     oracle = regenerated.oracle
-    oracle_path = (HERE / EXPANDED_ORACLE_NAME).resolve()
-    with regenerated.baseline_oracle_path.open(encoding="utf-8") as source:
-        baseline_oracle = json.load(source)
+    oracle_path = (
+        output_dir.expanduser().resolve() / EXPANDED_ORACLE_NAME
+    )
+    baseline_text = regenerated.baseline_oracle_path.read_text(
+        encoding="utf-8"
+    )
+    baseline_oracle = json.loads(baseline_text)
 
     pinned = oracle.get("oracle", {})
     checks: tuple[tuple[str, Any, Any], ...] = (
@@ -518,7 +588,19 @@ def verify_inputs(
     ):
         raise HarnessError(
             "expanded oracle did not preserve the original four scenario "
-            "objects byte-for-byte in value and schema"
+            "objects in value and schema"
+        )
+    baseline_serialized_scenarios = serialized_scenario_objects(baseline_text)
+    expanded_serialized_scenarios = serialized_scenario_objects(
+        regenerated.expanded_text
+    )
+    if (
+        expanded_serialized_scenarios[: len(ORIGINAL_SCENARIOS)]
+        != baseline_serialized_scenarios
+    ):
+        raise HarnessError(
+            "expanded oracle did not preserve the serialized bytes of the "
+            "original four scenario objects"
         )
     for raw_scenario in oracle.get("scenarios", ()):
         scenario_id = str(raw_scenario["id"])
@@ -539,16 +621,54 @@ def verify_inputs(
                 "additional_weekly_gross_wage", ()
             )
         )
+        if additional != EXPECTED_ADDITIONAL_WAGES[scenario_id]:
+            raise HarnessError(
+                f"{scenario_id} additional wages changed: expected "
+                f"{EXPECTED_ADDITIONAL_WAGES[scenario_id]!r}, "
+                f"found {additional!r}"
+            )
         expected_wages = tuple(sorted(set(displayed + additional)))
         actual_wages = tuple(
-            int(dec(item["gross_wage1"]))
+            dec(item["gross_wage1"])
             for item in raw_scenario.get("sampled_outputs", ())
         )
-        if actual_wages != expected_wages:
+        if actual_wages != tuple(Decimal(wage) for wage in expected_wages):
             raise HarnessError(
                 f"{scenario_id} sampled wages mismatch: expected "
                 f"{expected_wages!r}, found {actual_wages!r}"
             )
+        component_rows = scenario_metadata.get(
+            "treasury_emtr_components", ()
+        )
+        component_wages = tuple(
+            dec(item["gross_wage1"]) for item in component_rows
+        )
+        if component_wages != actual_wages:
+            raise HarnessError(
+                f"{scenario_id} Treasury EMTR component wages mismatch"
+            )
+        expected_component_keys = (
+            "gross_wage1",
+            *TREASURY_EMTR_COMPONENT_COLUMNS,
+        )
+        for index, component_row in enumerate(component_rows):
+            if tuple(component_row) != expected_component_keys:
+                raise HarnessError(
+                    f"{scenario_id} Treasury EMTR component columns changed"
+                )
+            component_sum = sum(
+                (dec(component_row[column]) for column in
+                 TREASURY_EMTR_COMPONENT_COLUMNS),
+                D0,
+            )
+            treasury_emtr = dec(
+                raw_scenario["sampled_outputs"][index]["EMTR"]
+            )
+            if abs(component_sum - treasury_emtr) > Decimal("0.000004"):
+                raise HarnessError(
+                    f"{scenario_id} Treasury EMTR components do not "
+                    f"recompose at wage {decimal_text(component_wages[index])}"
+                )
 
     rulespec_sha = git_sha(rulespec_root)
     engine_sha = git_sha(engine_root)
@@ -795,6 +915,9 @@ SOLE_PARENT_OUTPUT = output_id(
     BENEFIT_MODULE, "sole_parent_support_net_weekly_payment"
 )
 FTC_OUTPUT = output_id(WFF_MODULE, "family_tax_credit_after_abatement")
+FTC_BEFORE_OUTPUT = output_id(
+    WFF_MODULE, "family_tax_credit_before_abatement"
+)
 IWTC_BEFORE_OUTPUT = output_id(WFF_MODULE, "in_work_tax_credit_before_abatement")
 IWTC_REMAINING_ABATEMENT_OUTPUT = output_id(
     WFF_MODULE, "wff_abatement_remaining_after_family_tax_credit"
@@ -819,6 +942,10 @@ AS_UNROUNDED_OUTPUT = output_id(
 )
 AS_ROUNDED_OUTPUT = output_id(
     AS_MODULE, "accommodation_supplement_rounded_weekly_payment"
+)
+AS_QUALIFYING_COST_OUTPUT = output_id(
+    AS_MODULE,
+    "accommodation_supplement_weekly_qualifying_accommodation_costs",
 )
 FSI_OUTPUT = output_id(FSI_MODULE, "family_scheme_income")
 
@@ -870,6 +997,57 @@ class Scenario:
     ) -> "Scenario":
         inputs = raw["inputs"]
         rulespec_profile = provenance.get("rulespec_profile", {})
+        profile_checks = (
+            ("partnered", bool(inputs["Partnered"])),
+            ("wage1_hourly", dec(inputs["wage1_hourly"])),
+            (
+                "children_ages",
+                tuple(normalize_children(inputs["Children_ages"])),
+            ),
+            ("partner_weekly_wage", dec(inputs["gross_wage2"])),
+            ("partner_hours", dec(inputs["hours2"])),
+            ("accommodation_area", int(inputs["AS_Area"])),
+        )
+        for name, expected in profile_checks:
+            raw_value = rulespec_profile.get(name)
+            actual = (
+                tuple(normalize_children(raw_value))
+                if name == "children_ages"
+                else bool(raw_value)
+                if name == "partnered"
+                else int(raw_value)
+                if name == "accommodation_area"
+                else dec(raw_value)
+            )
+            if actual != expected:
+                raise HarnessError(
+                    f"{raw['id']} RuleSpec provenance {name} does not "
+                    "match the raw Treasury profile"
+                )
+        boarder = bool(rulespec_profile.get("boarder", False))
+        accommodation_type = rulespec_profile.get("accommodation_type")
+        if boarder:
+            if accommodation_type != "board":
+                raise HarnessError(
+                    f"{raw['id']} boarder provenance lacks board type"
+                )
+        else:
+            expected_type = (
+                "rent" if inputs["AS_Accommodation_Rent"] else "mortgage"
+            )
+            if accommodation_type != expected_type:
+                raise HarnessError(
+                    f"{raw['id']} accommodation type does not match "
+                    "Treasury rent/mortgage input"
+                )
+            if (
+                dec(rulespec_profile.get("accommodation_cost"))
+                != dec(inputs["AS_Accommodation_Costs"])
+            ):
+                raise HarnessError(
+                    f"{raw['id']} accommodation cost does not match "
+                    "Treasury input"
+                )
         displayed = tuple(
             int(value)
             for value in provenance.get(
@@ -896,12 +1074,10 @@ class Scenario:
             accommodation_costs=dec(inputs["AS_Accommodation_Costs"]),
             accommodation_rent=bool(inputs["AS_Accommodation_Rent"]),
             accommodation_area=int(inputs["AS_Area"]),
-            accommodation_boarder=bool(
-                rulespec_profile.get("boarder", False)
-            ),
+            accommodation_boarder=boarder,
             weekly_board_and_lodgings_paid=dec(
                 rulespec_profile.get("accommodation_cost", 0)
-                if rulespec_profile.get("boarder", False)
+                if boarder
                 else 0
             ),
             sampled_wages=sampled_wages,
@@ -974,6 +1150,24 @@ class ModelEvaluator:
         )[0]
         self.wff_abatement_rate = selected_parameter_values(
             compiled, "wff_family_credit_abatement_rate"
+        )[0]
+        self.best_start_abatement_threshold = selected_parameter_values(
+            compiled, "best_start_abatement_threshold"
+        )[0]
+        self.best_start_abatement_rate = selected_parameter_values(
+            compiled, "best_start_abatement_rate"
+        )[0]
+        self.ietc_abatement_threshold = selected_parameter_values(
+            compiled, "independent_earner_tax_credit_abatement_threshold"
+        )[0]
+        self.ietc_abatement_rate = selected_parameter_values(
+            compiled, "independent_earner_tax_credit_abatement_rate"
+        )[0]
+        self.ietc_minimum_income = selected_parameter_values(
+            compiled, "independent_earner_tax_credit_minimum_net_income"
+        )[0]
+        self.ietc_full_year_amount = selected_parameter_values(
+            compiled, "independent_earner_tax_credit_full_year_amount"
         )[0]
         self.benefit_income_test_lower_threshold = selected_parameter_values(
             compiled, "main_benefit_income_test_lower_weekly_threshold"
@@ -1332,6 +1526,7 @@ class ModelEvaluator:
             entity_id=f"{scenario.id}:family:{decimal_text(weekly_wages)}",
             inputs=inputs,
             outputs=[
+                FTC_BEFORE_OUTPUT,
                 FTC_OUTPUT,
                 IWTC_BEFORE_OUTPUT,
                 IWTC_REMAINING_ABATEMENT_OUTPUT,
@@ -1347,7 +1542,7 @@ class ModelEvaluator:
         scenario: Scenario,
         annual_base_income: Decimal,
         annual_wages: Decimal,
-    ) -> tuple[Decimal, Decimal]:
+    ) -> tuple[Decimal, Decimal, Decimal]:
         eligible_children = [
             index for index, age in enumerate(scenario.children) if age in (0, 1, 2)
         ]
@@ -1390,9 +1585,19 @@ class ModelEvaluator:
             D0,
             total_before_abatement - (family_abatement or D0),
         )
+        continuous_total = max(
+            D0,
+            total_before_abatement
+            - max(
+                D0,
+                annual_base_income - self.best_start_abatement_threshold,
+            )
+            * self.best_start_abatement_rate,
+        )
         return (
             aggregate_total / WEEKS_IN_MODEL_YEAR,
             per_child_total / WEEKS_IN_MODEL_YEAR,
+            continuous_total / WEEKS_IN_MODEL_YEAR,
         )
 
     def ietc_for_person(
@@ -1403,7 +1608,7 @@ class ModelEvaluator:
         weekly_wage: Decimal,
         weekly_benefit: Decimal,
         family_support_payable: bool,
-    ) -> Decimal:
+    ) -> tuple[Decimal, Decimal]:
         primary = person == 1
         inputs: dict[str, bool | int | Decimal] = {
             "independent_earner_tax_credit_net_income": (
@@ -1434,7 +1639,24 @@ class ModelEvaluator:
             inputs=inputs,
             outputs=[IETC_OUTPUT],
         )
-        return scalar_decimal(values, IETC_OUTPUT) / WEEKS_IN_MODEL_YEAR
+        actual = scalar_decimal(values, IETC_OUTPUT) / WEEKS_IN_MODEL_YEAR
+        annual_income = weekly_wage * WEEKS_IN_MODEL_YEAR
+        status_eligible = weekly_benefit <= 0 and not family_support_payable
+        continuous = D0
+        if (
+            status_eligible
+            and annual_income >= self.ietc_minimum_income
+        ):
+            continuous = max(
+                D0,
+                self.ietc_full_year_amount
+                - max(
+                    D0,
+                    annual_income - self.ietc_abatement_threshold,
+                )
+                * self.ietc_abatement_rate,
+            ) / WEEKS_IN_MODEL_YEAR
+        return actual, continuous
 
     def winter_energy_average(
         self,
@@ -1510,7 +1732,7 @@ class ModelEvaluator:
         net_benefit: Decimal,
         eldest_ftc_annual: Decimal,
         treasury_host_aligned: bool,
-    ) -> tuple[Decimal, Decimal, Decimal, Decimal]:
+    ) -> tuple[Decimal, Decimal, Decimal, Decimal, Decimal]:
         zero_income_benefit = sum(
             self.zero_income_jobseeker_components(scenario), D0
         )
@@ -1585,13 +1807,18 @@ class ModelEvaluator:
                 f"{decimal_text(weekly_wages)}"
             ),
             inputs=inputs,
-            outputs=[AS_UNROUNDED_OUTPUT, AS_ROUNDED_OUTPUT],
+            outputs=[
+                AS_UNROUNDED_OUTPUT,
+                AS_ROUNDED_OUTPUT,
+                AS_QUALIFYING_COST_OUTPUT,
+            ],
         )
         return (
             scalar_decimal(values, AS_UNROUNDED_OUTPUT),
             scalar_decimal(values, AS_ROUNDED_OUTPUT),
             base_rate,
             cutout,
+            scalar_decimal(values, AS_QUALIFYING_COST_OUTPUT),
         )
 
     def evaluate_state(
@@ -1653,6 +1880,10 @@ class ModelEvaluator:
             wage_tax_total=tax1 + tax2,
             hours_total=hours_total,
         )
+        ftc_before = (
+            scalar_decimal(family_values, FTC_BEFORE_OUTPUT)
+            / WEEKS_IN_MODEL_YEAR
+        )
         ftc = scalar_decimal(family_values, FTC_OUTPUT) / WEEKS_IN_MODEL_YEAR
         iwtc_before = scalar_decimal(family_values, IWTC_BEFORE_OUTPUT) / D52
         iwtc_remaining_abatement = (
@@ -1662,18 +1893,36 @@ class ModelEvaluator:
         iwtc = max(D0, iwtc_before - iwtc_remaining_abatement)
         mftc = scalar_decimal(family_values, MFTC_OUTPUT) / D52
         wff = ftc + iwtc
+        family_scheme_income = scalar_decimal(family_values, FSI_OUTPUT)
+        continuous_wff = max(
+            D0,
+            ftc_before
+            + iwtc_before
+            - (
+                max(
+                    D0,
+                    family_scheme_income - self.wff_abatement_threshold,
+                )
+                * self.wff_abatement_rate
+                / WEEKS_IN_MODEL_YEAR
+            ),
+        )
 
         annual_wages = weekly_wages * WEEKS_IN_MODEL_YEAR
         annual_base_income = (
             weekly_wages + gross_benefit_total
         ) * WEEKS_IN_MODEL_YEAR
-        best_start, best_start_per_child = self.best_start_total(
+        (
+            best_start,
+            best_start_per_child,
+            best_start_continuous,
+        ) = self.best_start_total(
             scenario=scenario,
             annual_base_income=annual_base_income,
             annual_wages=annual_wages,
         )
         family_support_payable = (wff + mftc + best_start) > 0
-        ietc1 = self.ietc_for_person(
+        ietc1, ietc1_continuous = self.ietc_for_person(
             scenario=scenario,
             person=1,
             weekly_wage=weekly_wage1,
@@ -1681,8 +1930,9 @@ class ModelEvaluator:
             family_support_payable=family_support_payable,
         )
         ietc2 = D0
+        ietc2_continuous = D0
         if scenario.partnered:
-            ietc2 = self.ietc_for_person(
+            ietc2, ietc2_continuous = self.ietc_for_person(
                 scenario=scenario,
                 person=2,
                 weekly_wage=weekly_wage2,
@@ -1690,12 +1940,14 @@ class ModelEvaluator:
                 family_support_payable=family_support_payable,
             )
         ietc = ietc1 + ietc2
+        ietc_continuous = ietc1_continuous + ietc2_continuous
         winter_energy = self.winter_energy_average(scenario, net_benefit)
         (
             as_unrounded,
             as_rounded,
             as_base_rate,
             as_cutout,
+            as_qualifying_cost,
         ) = self.accommodation_values(
             scenario=scenario,
             weekly_wages=weekly_wages,
@@ -1708,6 +1960,7 @@ class ModelEvaluator:
             _as_treasury_host_aligned_rounded,
             as_treasury_host_base_rate,
             as_treasury_host_cutout,
+            _as_treasury_host_qualifying_cost,
         ) = self.accommodation_values(
             scenario=scenario,
             weekly_wages=weekly_wages,
@@ -1744,6 +1997,9 @@ class ModelEvaluator:
             "BestStart_Total_naive_per_child_abatement": (
                 best_start_per_child
             ),
+            "BestStart_Total_continuous_abatement": (
+                best_start_continuous
+            ),
             "AS_Amount": as_unrounded,
             "WFF_abated": wff,
             "Net_Income": net_income,
@@ -1754,11 +2010,14 @@ class ModelEvaluator:
             "AS_treasury_host_base_rate": as_treasury_host_base_rate,
             "AS_statutory_cutout": as_cutout,
             "AS_treasury_host_cutout": as_treasury_host_cutout,
+            "AS_qualifying_accommodation_cost": as_qualifying_cost,
             "gross_benefit_taxable_weekly": gross_benefit_total,
             "wage2_tax": tax2,
             "wage2_ACC_levy": acc2,
             "net_wage2": net_wage2,
             "family_scheme_income": scalar_decimal(family_values, FSI_OUTPUT),
+            "WFF_abated_continuous_abatement": continuous_wff,
+            "IETC_abated_continuous_abatement": ietc_continuous,
             "iwtc_entitlement": str(
                 family_values[IWTC_ENTITLEMENT_OUTPUT]
             ),
@@ -1792,6 +2051,48 @@ def sweep_scenario(
         current = scalar_decimal(current_state, "Net_Income")
         following = scalar_decimal(following_state, "Net_Income")
         state["EMTR"] = D1 - (following - current)
+        for component in EMTR_COMPONENT_BASE_COLUMNS:
+            current_component = scalar_decimal(current_state, component)
+            following_component = scalar_decimal(
+                following_state, component
+            )
+            state[f"RuleSpec_EMTR_{component}"] = (
+                D1 - (following_component - current_component)
+                if component == "net_wage"
+                else current_component - following_component
+            )
+        state["RuleSpec_EMTR_AS_Amount_treasury_host_aligned"] = (
+            scalar_decimal(
+                current_state, "AS_Amount_treasury_host_aligned"
+            )
+            - scalar_decimal(
+                following_state, "AS_Amount_treasury_host_aligned"
+            )
+        )
+        state["RuleSpec_EMTR_BestStart_Total_naive_per_child_abatement"] = (
+            scalar_decimal(
+                current_state,
+                "BestStart_Total_naive_per_child_abatement",
+            )
+            - scalar_decimal(
+                following_state,
+                "BestStart_Total_naive_per_child_abatement",
+            )
+        )
+        recomposed_emtr = sum(
+            (
+                scalar_decimal(state, f"RuleSpec_EMTR_{component}")
+                for component in EMTR_COMPONENT_BASE_COLUMNS
+            ),
+            D0,
+        )
+        if abs(recomposed_emtr - scalar_decimal(state, "EMTR")) > (
+            ENGINE_DECIMAL_TOLERANCE * Decimal(10)
+        ):
+            raise HarnessError(
+                f"RuleSpec EMTR components do not recompose for "
+                f"{scenario.id} wage {wage}"
+            )
         rulespec_acc_marginal = (
             scalar_decimal(following_state, "wage1_ACC_levy")
             - scalar_decimal(current_state, "wage1_ACC_levy")
@@ -1799,22 +2100,42 @@ def sweep_scenario(
         state["EMTR_ACC_rounding_component"] = (
             rulespec_acc_marginal - ORACLE_ACC_WEEKLY_RATE
         )
-        current_wff = scalar_decimal(current_state, "WFF_abated")
-        following_wff = scalar_decimal(following_state, "WFF_abated")
-        continuous_wff_marginal_loss = (
-            evaluator.wff_abatement_rate
-            if (
-                scalar_decimal(current_state, "family_scheme_income")
-                > evaluator.wff_abatement_threshold
-                and current_wff > 0
-                and following_wff > 0
+        continuous_fields = {
+            "WFF": (
+                "WFF_abated",
+                "WFF_abated_continuous_abatement",
+            ),
+            "BestStart": (
+                "BestStart_Total",
+                "BestStart_Total_continuous_abatement",
+            ),
+            "IETC": (
+                "IETC_abated",
+                "IETC_abated_continuous_abatement",
+            ),
+        }
+        for label, (actual_field, continuous_field) in (
+            continuous_fields.items()
+        ):
+            actual_loss = (
+                scalar_decimal(current_state, actual_field)
+                - scalar_decimal(following_state, actual_field)
             )
-            else D0
+            continuous_loss = (
+                scalar_decimal(current_state, continuous_field)
+                - scalar_decimal(following_state, continuous_field)
+            )
+            state[f"EMTR_{label}_complete_dollar_component"] = (
+                actual_loss - continuous_loss
+            )
+        state["EMTR_WFF_discrete_bound"] = (
+            evaluator.wff_abatement_rate / WEEKS_IN_MODEL_YEAR
         )
-        state["EMTR_WFF_complete_dollar_component"] = (
-            current_wff
-            - following_wff
-            - continuous_wff_marginal_loss
+        state["EMTR_BestStart_discrete_bound"] = (
+            evaluator.best_start_abatement_rate / WEEKS_IN_MODEL_YEAR
+        )
+        state["EMTR_IETC_discrete_bound"] = (
+            evaluator.ietc_abatement_rate / WEEKS_IN_MODEL_YEAR
         )
         net_income = scalar_decimal(state, "Net_Income")
         state["RR"] = baseline / net_income if net_income != 0 else None
@@ -1826,6 +2147,263 @@ def sweep_scenario(
         )
         sampled[wage] = state
     return sampled
+
+
+def attach_treasury_emtr_components(
+    *,
+    oracle: Mapping[str, Any],
+    scenarios: Sequence[Scenario],
+    sweeps: Mapping[
+        str,
+        Mapping[int, dict[str, Decimal | str | None]],
+    ],
+) -> None:
+    provenance = oracle["scenario_provenance"]
+    for scenario in scenarios:
+        component_rows = provenance[scenario.id][
+            "treasury_emtr_components"
+        ]
+        if len(component_rows) != len(scenario.sampled_wages):
+            raise HarnessError(
+                f"{scenario.id} Treasury EMTR component row count changed"
+            )
+        for index, wage in enumerate(scenario.sampled_wages):
+            raw = component_rows[index]
+            if dec(raw["gross_wage1"]) != Decimal(wage):
+                raise HarnessError(
+                    f"{scenario.id} Treasury EMTR component row {index} "
+                    f"is not wage {wage}"
+                )
+            state = sweeps[scenario.id][wage]
+            for column in TREASURY_EMTR_COMPONENT_COLUMNS:
+                state[f"Treasury_{column}"] = dec(raw[column])
+
+
+def validate_expanded_coverage(
+    *,
+    oracle: Mapping[str, Any],
+    scenarios: Sequence[Scenario],
+    sweeps: Mapping[
+        str,
+        Mapping[int, Mapping[str, Decimal | str | None]],
+    ],
+) -> dict[str, Any]:
+    scenario_by_id = {scenario.id: scenario for scenario in scenarios}
+    raw_by_id = {str(item["id"]): item for item in oracle["scenarios"]}
+
+    expected_profiles: dict[str, tuple[Any, ...]] = {
+        "lone_parent_two_teens_jss": (
+            False, Decimal("18.5"), (14, 16), D0, D0, D0, True, 2,
+            False, D0,
+        ),
+        "couple_two_best_start_children_binding": (
+            True, Decimal("18.5"), (1, 2), Decimal(740), Decimal(40),
+            D0, True, 2, False, D0,
+        ),
+        "couple_two_children_dual_full_time": (
+            True, Decimal("18.5"), (6, 15), Decimal(740), Decimal(40),
+            D0, True, 2, False, D0,
+        ),
+        "single_childless_ietc_focused": (
+            False, Decimal(25), (), D0, D0, D0, True, 2, False, D0,
+        ),
+        "lone_parent_two_children_area4_high_rent_cap": (
+            False, Decimal("18.5"), (6, 15), D0, D0, Decimal(600),
+            True, 4, False, D0,
+        ),
+        "couple_childless_boarder_proxy": (
+            True, Decimal("18.5"), (), D0, D0, Decimal(248), True, 2,
+            True, Decimal(400),
+        ),
+        "large_family_four_children_age_bands": (
+            False, Decimal("18.5"), (3, 6, 13, 16), D0, D0, D0,
+            True, 1, False, D0,
+        ),
+    }
+    for scenario_id, expected in expected_profiles.items():
+        scenario = scenario_by_id[scenario_id]
+        actual = (
+            scenario.partnered,
+            scenario.wage1_hourly,
+            scenario.children,
+            scenario.gross_wage2,
+            scenario.hours2,
+            scenario.accommodation_costs,
+            scenario.accommodation_rent,
+            scenario.accommodation_area,
+            scenario.accommodation_boarder,
+            scenario.weekly_board_and_lodgings_paid,
+        )
+        if actual != expected:
+            raise HarnessError(
+                f"expanded scenario semantics changed for {scenario_id}: "
+                f"{actual!r}"
+            )
+
+    def treasury_state(scenario_id: str, wage: int) -> Mapping[str, Any]:
+        scenario = scenario_by_id[scenario_id]
+        index = scenario.sampled_wages.index(wage)
+        return raw_by_id[scenario_id]["sampled_outputs"][index]
+
+    best_start_id = "couple_two_best_start_children_binding"
+    best_start_rows: list[dict[str, Any]] = []
+    for wage in (775, 1000, 1125, 1476):
+        state = sweeps[best_start_id][wage]
+        row = {
+            "weekly_wage": wage,
+            "treasury": dec(
+                treasury_state(best_start_id, wage)["BestStart_Total"]
+            ),
+            "rulespec_after_aggregate_once": scalar_decimal(
+                state, "BestStart_Total"
+            ),
+            "rulespec_before_naive_per_child_abatement": scalar_decimal(
+                state, "BestStart_Total_naive_per_child_abatement"
+            ),
+        }
+        if (
+            row["rulespec_after_aggregate_once"]
+            < row["rulespec_before_naive_per_child_abatement"]
+        ):
+            raise HarnessError(
+                "Best Start aggregate-once correction is not active at "
+                f"wage {wage}"
+            )
+        best_start_rows.append(row)
+    if not any(
+        row["rulespec_after_aggregate_once"]
+        > row["rulespec_before_naive_per_child_abatement"]
+        for row in best_start_rows
+    ):
+        raise HarnessError(
+            "Best Start aggregate-once and naive per-child results never diverge"
+        )
+    treasury_best_start_at_zero = dec(
+        treasury_state(best_start_id, 0)["BestStart_Total"]
+    )
+    if not any(
+        D0 < row["treasury"] < treasury_best_start_at_zero
+        for row in best_start_rows
+    ):
+        raise HarnessError("Treasury Best Start abatement is not binding")
+
+    dual_id = "couple_two_children_dual_full_time"
+    dual_state = sweeps[dual_id][740]
+    if (
+        scalar_decimal(dual_state, "hours1") != Decimal(40)
+        or scalar_decimal(dual_state, "wage2_tax") <= 0
+        or scalar_decimal(dual_state, "wage2_ACC_levy") <= 0
+    ):
+        raise HarnessError(
+            "dual-full-time partner tax/ACC path is not active"
+        )
+
+    ietc_id = "single_childless_ietc_focused"
+    ietc_state = sweeps[ietc_id][740]
+    treasury_ietc = dec(treasury_state(ietc_id, 740)["IETC_abated"])
+    if (
+        treasury_ietc <= 0
+        or scalar_decimal(ietc_state, "IETC_abated") <= 0
+        or scalar_decimal(ietc_state, "net_benefit") != 0
+    ):
+        raise HarnessError("focused IETC profile does not pay IETC")
+
+    area4_id = "lone_parent_two_children_area4_high_rent_cap"
+    cap_wages = tuple(
+        wage
+        for wage in scenario_by_id[area4_id].sampled_wages
+        if (
+            dec(treasury_state(area4_id, wage)["AS_Amount"])
+            == Decimal(120)
+            and scalar_decimal(sweeps[area4_id][wage], "AS_Amount")
+            == Decimal(120)
+        )
+    )
+    if not cap_wages:
+        raise HarnessError("Area 4 high-rent scenario never binds the $120 cap")
+
+    boarder_id = "couple_childless_boarder_proxy"
+    qualifying_costs = {
+        scalar_decimal(
+            sweeps[boarder_id][wage],
+            "AS_qualifying_accommodation_cost",
+        )
+        for wage in scenario_by_id[boarder_id].sampled_wages
+    }
+    if qualifying_costs != {Decimal(248)}:
+        raise HarnessError(
+            "RuleSpec boarder path did not convert $400 to $248"
+        )
+
+    large_id = "large_family_four_children_age_bands"
+    large_zero = sweeps[large_id][0]
+    if (
+        scalar_decimal(large_zero, "WinterEnergy") <= 0
+        or scalar_decimal(large_zero, "FTC_abated") <= 0
+    ):
+        raise HarnessError(
+            "large-family FTC/Winter Energy paths are not active"
+        )
+
+    jss_id = "lone_parent_two_teens_jss"
+    if scalar_decimal(sweeps[jss_id][0], "net_benefit") <= 0:
+        raise HarnessError("14+ lone-parent JSS branch is not active")
+
+    original_ietc_id = "single_no_children_area2_no_housing_costs"
+    original_ietc_positive_wages = tuple(
+        wage
+        for wage in scenario_by_id[original_ietc_id].sampled_wages
+        if dec(
+            treasury_state(original_ietc_id, wage)["IETC_abated"]
+        ) > 0
+    )
+    if not original_ietc_positive_wages:
+        raise HarnessError(
+            "continuity snapshot unexpectedly has no positive IETC"
+        )
+
+    return {
+        "scenario_count": len(scenarios),
+        "sampled_point_count": sum(
+            len(scenario.sampled_wages) for scenario in scenarios
+        ),
+        "best_start_aggregate_fix": best_start_rows,
+        "dual_full_time_partner_at_wage_740": {
+            "primary_hours": scalar_decimal(dual_state, "hours1"),
+            "partner_hours": scenario_by_id[dual_id].hours2,
+            "partner_weekly_tax": scalar_decimal(dual_state, "wage2_tax"),
+            "partner_weekly_acc": scalar_decimal(
+                dual_state, "wage2_ACC_levy"
+            ),
+        },
+        "focused_ietc_at_wage_740": {
+            "treasury": treasury_ietc,
+            "rulespec": scalar_decimal(ietc_state, "IETC_abated"),
+        },
+        "original_profile_positive_ietc_wages": (
+            original_ietc_positive_wages
+        ),
+        "area4_cap": {
+            "weekly_maximum": Decimal(120),
+            "binding_wages_on_both_sides": cap_wages,
+        },
+        "boarder_proxy": {
+            "weekly_board_and_lodgings": Decimal(400),
+            "rulespec_qualifying_cost": Decimal(248),
+            "treasury_supplied_rent_like_cost": Decimal(248),
+            "native_treasury_boarder_input": False,
+        },
+        "large_family_at_wage_0": {
+            "children": scenario_by_id[large_id].children,
+            "rulespec_ftc": scalar_decimal(large_zero, "FTC_abated"),
+            "rulespec_winter_energy": scalar_decimal(
+                large_zero, "WinterEnergy"
+            ),
+            "treasury_winter_energy": dec(
+                treasury_state(large_id, 0)["WinterEnergy"]
+            ),
+        },
+    }
 
 
 @dataclass(frozen=True)
@@ -1892,6 +2470,29 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
         "or tax-credit vintage difference; smaller class-(c) rounding effects "
         "may also be present.",
     ),
+    "B_WINTER_ENERGY_BENEFIT_GATE": (
+        "b",
+        "Winter Energy benefit-gate vintage interaction",
+        "Winter Energy uses the same rate on both sides, but its positive-main-"
+        "benefit gate changes in this interval because the BEFU25 benefit amount "
+        "and the enacted 2026/27 amount extinguish at different wages.",
+    ),
+    "B_IETC_UPSTREAM_VINTAGE_GATE": (
+        "b",
+        "IETC eligibility gate moved by another instrument's vintage",
+        "IETC parameters agree, but Income Tax Act 2007 s LC 13 excludes a "
+        "person receiving a main benefit or WFF. A BEFU25-versus-enacted "
+        "benefit, WFF, or Best Start boundary therefore changes whether IETC "
+        "is present.",
+    ),
+    "B_EMTR_INSTRUMENT_VINTAGE": (
+        "b",
+        "Named-instrument vintage boundary in EMTR",
+        "Treasury's own component EMTRs and RuleSpec's independently recomputed "
+        "components isolate the difference to a main-benefit, WFF, MFTC, Best "
+        "Start, downstream IETC/Winter Energy gate, or Accommodation Supplement "
+        "boundary moved by BEFU25-versus-enacted instrument amounts.",
+    ),
     "C_ACC_ANNUAL_CENTS": (
         "c",
         "ACC period/rounding convention",
@@ -1927,12 +2528,12 @@ CLASSIFICATION_DETAILS: dict[str, tuple[str, str, str]] = {
     ),
     "C_EMTR_DISCRETE_ROUNDING": (
         "c",
-        "EMTR discrete rounding convention",
-        "Both sides use the same weekly $1 forward interval. The residual is "
-        "caused by RuleSpec's annual-cent ACC rounding and, where applicable, "
-        "the complete-dollar WFF abatement base before conversion back to a "
-        "week, with any remaining amount bounded by the oracle's six-decimal "
-        "display envelope.",
+        "EMTR statutory discreteness/period convention",
+        "Both sides use the same weekly $1 forward interval. Component "
+        "recomposition confines the residual to annual-cent ACC rounding, "
+        "complete-dollar WFF, Best Start, or IETC arithmetic, statutory "
+        "Accommodation Supplement host inputs, and six-decimal Treasury "
+        "component display rounding.",
     ),
     "D_UNEXPLAINED": (
         "d",
@@ -2009,7 +2610,18 @@ def classify_discrepancy(
     }:
         return "b", "B_WFF_VINTAGE"
     if column == "IETC_abated":
+        ietc_discrete_bound = scalar_decimal(
+            rulespec_state, "EMTR_IETC_discrete_bound"
+        )
+        if absolute_delta > (
+            ietc_discrete_bound + ORACLE_SIX_DECIMAL_TOLERANCE
+        ):
+            return "b", "B_IETC_UPSTREAM_VINTAGE_GATE"
         return "c", "C_IETC_WHOLE_DOLLARS"
+    if column == "WinterEnergy":
+        if benefit_vintage_active:
+            return "b", "B_WINTER_ENERGY_BENEFIT_GATE"
+        return "d", "D_UNEXPLAINED"
     if column == "AS_Amount":
         treasury_as = dec(treasury_state["AS_Amount"])
         aligned_as = scalar_decimal(
@@ -2057,18 +2669,111 @@ def classify_discrepancy(
             return "b", "B_COMPOUND_NET_INCOME"
         return "c", "C_COMPOUND_NET_INCOME"
     if column == "EMTR":
-        explained = (
-            scalar_decimal(
-                rulespec_state, "EMTR_ACC_rounding_component"
+        component_tolerance = Decimal("0.000004")
+        component_deltas = {
+            component: (
+                scalar_decimal(
+                    rulespec_state,
+                    f"RuleSpec_EMTR_{component}",
+                )
+                - scalar_decimal(
+                    rulespec_state,
+                    f"Treasury_EMTR_{component}",
+                )
             )
-            + scalar_decimal(
-                rulespec_state,
-                "EMTR_WFF_complete_dollar_component",
-            )
+            for component in EMTR_COMPONENT_BASE_COLUMNS
+        }
+        recomposed = sum(component_deltas.values(), D0)
+        if abs(signed_delta - recomposed) > component_tolerance:
+            return "d", "D_UNEXPLAINED"
+
+        vintage_components: list[str] = []
+        unexplained_components: list[str] = []
+
+        net_wage_delta = component_deltas["net_wage"]
+        acc_component = scalar_decimal(
+            rulespec_state, "EMTR_ACC_rounding_component"
         )
-        if abs(signed_delta - explained) <= ORACLE_SIX_DECIMAL_TOLERANCE:
-            return "c", "C_EMTR_DISCRETE_ROUNDING"
-        return "d", "D_UNEXPLAINED"
+        if abs(net_wage_delta) > component_tolerance and (
+            abs(net_wage_delta - acc_component) > component_tolerance
+        ):
+            vintage_components.append("net_wage")
+
+        if abs(component_deltas["net_benefit"]) > component_tolerance:
+            vintage_components.append("net_benefit")
+
+        discrete_convention_components = {
+            "WFF_abated": (
+                "EMTR_WFF_complete_dollar_component",
+                "EMTR_WFF_discrete_bound",
+            ),
+            "IETC_abated": (
+                "EMTR_IETC_complete_dollar_component",
+                "EMTR_IETC_discrete_bound",
+            ),
+            "BestStart_Total": (
+                "EMTR_BestStart_complete_dollar_component",
+                "EMTR_BestStart_discrete_bound",
+            ),
+        }
+        for component, (
+            convention_field,
+            bound_field,
+        ) in discrete_convention_components.items():
+            component_delta = component_deltas[component]
+            if abs(component_delta) <= component_tolerance:
+                continue
+            convention_component = scalar_decimal(
+                rulespec_state, convention_field
+            )
+            bound = scalar_decimal(rulespec_state, bound_field)
+            if abs(convention_component) > bound + component_tolerance:
+                unexplained_components.append(component)
+            elif (
+                abs(component_delta - convention_component)
+                > component_tolerance
+            ):
+                vintage_components.append(component)
+
+        if abs(component_deltas["MFTC"]) > component_tolerance:
+            vintage_components.append("MFTC")
+        if abs(component_deltas["WinterEnergy"]) > component_tolerance:
+            vintage_components.append("WinterEnergy")
+
+        as_delta = component_deltas["AS_Amount"]
+        if abs(as_delta) > component_tolerance:
+            treasury_as_component = scalar_decimal(
+                rulespec_state, "Treasury_EMTR_AS_Amount"
+            )
+            aligned_as_delta = (
+                scalar_decimal(
+                    rulespec_state,
+                    "RuleSpec_EMTR_AS_Amount_treasury_host_aligned",
+                )
+                - treasury_as_component
+            )
+            if abs(aligned_as_delta) > component_tolerance:
+                vintage_components.append("AS_Amount")
+
+        known_components = {
+            "net_wage",
+            "net_benefit",
+            *discrete_convention_components,
+            "MFTC",
+            "WinterEnergy",
+            "AS_Amount",
+        }
+        for component, component_delta in component_deltas.items():
+            if (
+                component not in known_components
+                and abs(component_delta) > component_tolerance
+            ):
+                unexplained_components.append(component)
+        if unexplained_components:
+            return "d", "D_UNEXPLAINED"
+        if vintage_components:
+            return "b", "B_EMTR_INSTRUMENT_VINTAGE"
+        return "c", "C_EMTR_DISCRETE_ROUNDING"
     return "d", "D_UNEXPLAINED"
 
 
@@ -2156,7 +2861,7 @@ VINTAGE_PARAMETERS = (
         unit="NZD/week",
         statute=(
             "Social Security Act 2018 Sch 4 pt 2 cl 1 (SPS) and pt 1 "
-            "cl 1(f) (lone-parent JSS); Social Security (Rates of Benefits "
+            "cl 1(e) (lone-parent JSS); Social Security (Rates of Benefits "
             "and Allowances) Order 2026 cl 5"
         ),
         corpus_citation_path=(
@@ -2341,7 +3046,7 @@ def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
     dollar_rows = [
         row
         for row in rows
-        if row.column not in {"hours1", "EMTR"}
+        if row.column != "EMTR"
     ]
     if not net_income_rows or len(net_income_rows) != len(emtr_rows):
         raise HarnessError(
@@ -2371,6 +3076,17 @@ def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
     )
     return {
         "primary_cells": len(rows),
+        "amount_control_cells": len(dollar_rows),
+        "amount_control_cells_agree_to_cent": (
+            len(dollar_rows) - len(dollar_outside_cent)
+        ),
+        "amount_control_cells_outside_cent": len(dollar_outside_cent),
+        "amount_control_cells_outside_cent_by_class": {
+            key: dollar_outside_cent_classes.get(key, 0)
+            for key in ("match", "a", "b", "c", "d")
+        },
+        # Backward-compatible machine keys retained for consumers of the
+        # original audit. They include the hours/control identity column.
         "dollar_cells": len(dollar_rows),
         "dollar_cells_agree_to_cent": (
             len(dollar_rows) - len(dollar_outside_cent)
@@ -2659,6 +3375,7 @@ def build_diagnostic_rows(
         "AS_treasury_host_base_rate",
         "AS_statutory_cutout",
         "AS_treasury_host_cutout",
+        "AS_qualifying_accommodation_cost",
         "gross_benefit_taxable_weekly",
         "wage2_tax",
         "wage2_ACC_levy",
@@ -2666,8 +3383,26 @@ def build_diagnostic_rows(
         "family_scheme_income",
         "iwtc_entitlement",
         "BestStart_Total_naive_per_child_abatement",
+        "BestStart_Total_continuous_abatement",
+        "WFF_abated_continuous_abatement",
+        "IETC_abated_continuous_abatement",
+        "RuleSpec_EMTR_AS_Amount_treasury_host_aligned",
+        "RuleSpec_EMTR_BestStart_Total_naive_per_child_abatement",
         "EMTR_ACC_rounding_component",
         "EMTR_WFF_complete_dollar_component",
+        "EMTR_BestStart_complete_dollar_component",
+        "EMTR_IETC_complete_dollar_component",
+        "EMTR_WFF_discrete_bound",
+        "EMTR_BestStart_discrete_bound",
+        "EMTR_IETC_discrete_bound",
+        *(
+            f"RuleSpec_EMTR_{component}"
+            for component in EMTR_COMPONENT_BASE_COLUMNS
+        ),
+        *(
+            f"Treasury_{component}"
+            for component in TREASURY_EMTR_COMPONENT_COLUMNS
+        ),
     )
     return [
         {
@@ -2687,85 +3422,144 @@ def validate_emtr_residual_patterns(
     rows: Sequence[ComparisonRow],
     sweeps: Mapping[str, Mapping[int, Mapping[str, Decimal | str | None]]],
 ) -> list[dict[str, Any]]:
-    quantum = Decimal("0.000000000001")
+    component_tolerance = Decimal("0.000004")
     diagnostics: list[dict[str, Any]] = []
     for row in rows:
         if row.column != "EMTR":
             continue
         state = sweeps[row.scenario_id][row.weekly_wage]
-        acc_component = scalar_decimal(
-            state, "EMTR_ACC_rounding_component"
+        component_deltas = {
+            component: (
+                scalar_decimal(state, f"RuleSpec_EMTR_{component}")
+                - scalar_decimal(state, f"Treasury_EMTR_{component}")
+            )
+            for component in EMTR_COMPONENT_BASE_COLUMNS
+        }
+        component_recomposition_remainder = (
+            row.signed_delta - sum(component_deltas.values(), D0)
         )
-        wff_component = scalar_decimal(
-            state, "EMTR_WFF_complete_dollar_component"
+        if abs(component_recomposition_remainder) > component_tolerance:
+            raise HarnessError(
+                "Treasury and RuleSpec EMTR components do not recompose at "
+                f"{row.scenario_id} wage {row.weekly_wage}: "
+                f"{decimal_text(component_recomposition_remainder)}"
+            )
+        if row.classification == "d":
+            raise HarnessError(
+                "unexplained EMTR difference remains at "
+                f"{row.scenario_id} wage {row.weekly_wage}"
+            )
+
+        as_convention_component = (
+            scalar_decimal(state, "RuleSpec_EMTR_AS_Amount")
+            - scalar_decimal(
+                state,
+                "RuleSpec_EMTR_AS_Amount_treasury_host_aligned",
+            )
         )
-        display_rounding_remainder = (
-            row.signed_delta - acc_component - wff_component
+        convention_components = {
+            "ACC annual cents": scalar_decimal(
+                state, "EMTR_ACC_rounding_component"
+            ),
+            "WFF complete dollars": scalar_decimal(
+                state, "EMTR_WFF_complete_dollar_component"
+            ),
+            "Best Start complete dollars": scalar_decimal(
+                state, "EMTR_BestStart_complete_dollar_component"
+            ),
+            "IETC complete dollars": scalar_decimal(
+                state, "EMTR_IETC_complete_dollar_component"
+            ),
+            "AS statutory host": as_convention_component,
+        }
+        convention_recomposition_remainder = (
+            row.signed_delta - sum(convention_components.values(), D0)
         )
         if (
-            abs(display_rounding_remainder)
-            > ORACLE_SIX_DECIMAL_TOLERANCE
+            row.classification == "c"
+            and abs(convention_recomposition_remainder)
+            > component_tolerance
         ):
             raise HarnessError(
-                "EMTR residual is not accounted for by ACC rounding, WFF "
-                "complete-dollar arithmetic, and the six-decimal oracle "
-                f"envelope at {row.scenario_id} wage {row.weekly_wage}: "
-                f"{decimal_text(display_rounding_remainder)}"
+                "class-(c) EMTR difference is not accounted for by source-"
+                f"defined conventions at {row.scenario_id} wage "
+                f"{row.weekly_wage}: "
+                f"{decimal_text(convention_recomposition_remainder)}"
             )
+
+        material_components = tuple(
+            component
+            for component, value in component_deltas.items()
+            if abs(value) > component_tolerance
+        )
+        material_conventions = tuple(
+            component
+            for component, value in convention_components.items()
+            if abs(value) > component_tolerance
+        )
         diagnostics.append(
             {
                 "scenario_id": row.scenario_id,
                 "weekly_wage": row.weekly_wage,
+                "classification": row.classification,
                 "signed_delta": row.signed_delta,
-                "signed_delta_12dp": row.signed_delta.quantize(quantum),
-                "acc_annual_cent_component": acc_component,
-                "wff_complete_dollar_component": wff_component,
-                "oracle_display_rounding_remainder": (
-                    display_rounding_remainder
+                "component_deltas": component_deltas,
+                "material_components": material_components,
+                "convention_components": convention_components,
+                "material_conventions": material_conventions,
+                "component_recomposition_remainder": (
+                    component_recomposition_remainder
+                ),
+                "convention_recomposition_remainder": (
+                    convention_recomposition_remainder
                 ),
             }
         )
-    if len(diagnostics) != 32:
+    expected_count = sum(row.column == "EMTR" for row in rows)
+    if len(diagnostics) != expected_count:
         raise HarnessError(
-            f"expected 32 EMTR decomposition rows, found {len(diagnostics)}"
+            f"expected {expected_count} EMTR decomposition rows, "
+            f"found {len(diagnostics)}"
         )
 
-    grouped: dict[Decimal, list[dict[str, Any]]] = {}
+    grouped: dict[
+        tuple[str, tuple[str, ...], tuple[str, ...]],
+        list[dict[str, Any]],
+    ] = {}
     for item in diagnostics:
-        grouped.setdefault(item["signed_delta_12dp"], []).append(item)
+        key = (
+            item["classification"],
+            item["material_components"],
+            item["material_conventions"],
+        )
+        grouped.setdefault(key, []).append(item)
     patterns: list[dict[str, Any]] = []
-    for signed_delta in sorted(grouped):
-        members = grouped[signed_delta]
-        acc_values = [
-            item["acc_annual_cent_component"] for item in members
-        ]
-        wff_values = [
-            item["wff_complete_dollar_component"] for item in members
-        ]
-        display_values = [
-            abs(item["oracle_display_rounding_remainder"])
-            for item in members
-        ]
-        wff_affected = sum(value != 0 for value in wff_values)
+    for key in sorted(grouped):
+        classification, material_components, material_conventions = key
+        members = grouped[key]
         patterns.append(
             {
-                "signed_delta_12dp": signed_delta,
-                "percentage_points": signed_delta * Decimal(100),
+                "classification": classification,
+                "material_components": material_components,
+                "material_conventions": material_conventions,
                 "count": len(members),
-                "acc_component_min": min(acc_values),
-                "acc_component_max": max(acc_values),
-                "wff_component_min": min(wff_values),
-                "wff_component_max": max(wff_values),
-                "maximum_absolute_oracle_display_remainder": max(
-                    display_values
+                "maximum_absolute_signed_delta": max(
+                    abs(item["signed_delta"]) for item in members
                 ),
-                "wff_affected_points": wff_affected,
+                "maximum_absolute_component_recomposition_remainder": max(
+                    abs(item["component_recomposition_remainder"])
+                    for item in members
+                ),
+                "maximum_absolute_convention_recomposition_remainder": max(
+                    abs(item["convention_recomposition_remainder"])
+                    for item in members
+                ),
                 "explanation": (
-                    "ACC annual-cent rounding plus MD 13 complete-dollar WFF "
-                    "arithmetic and at most six-decimal oracle display rounding"
-                    if wff_affected
-                    else "ACC annual-cent rounding and at most six-decimal "
-                    "oracle display rounding"
+                    "named-instrument vintage boundary"
+                    if classification == "b"
+                    else "source-defined statutory convention"
+                    if classification == "c"
+                    else "match at total six-decimal precision"
                 ),
                 "locations": [
                     {
@@ -2794,14 +3588,15 @@ def markdown_cell(value: Any) -> str:
 
 
 def headline_text(statistics: Mapping[str, Any]) -> str:
-    cent_matches = statistics["dollar_cells_agree_to_cent"]
-    dollar_cells = statistics["dollar_cells"]
-    outside = statistics["dollar_cells_outside_cent_by_class"]
+    cent_matches = statistics["amount_control_cells_agree_to_cent"]
+    amount_control_cells = statistics["amount_control_cells"]
+    outside = statistics["amount_control_cells_outside_cent_by_class"]
     return (
         f"RuleSpec agrees with pinned Treasury to the cent in {cent_matches} "
-        f"of {dollar_cells} dollar cells; cent-level exceptions comprise "
+        f"of {amount_control_cells} amount/control cells. Every cent-level "
+        f"exception is classified: "
         f"{outside['b']} named BEFU25-versus-enacted instrument-vintage cells "
-        f"and {outside['c']} documented convention cells, with "
+        f"and {outside['c']} documented convention cells; "
         f"{outside['a']} remaining encoding bugs and {outside['d']} unexplained."
     )
 
@@ -2821,21 +3616,28 @@ def scenario_summary_rows(
         emtr_rows = [
             row for row in scenario_rows if row.column == "EMTR"
         ]
+        amount_control_rows = [
+            row for row in scenario_rows if row.column != "EMTR"
+        ]
         classes = Counter(row.classification for row in scenario_rows)
         result.append(
             {
                 "scenario_id": scenario.id,
                 "points": len(net_rows),
-                "net_income_within_1": sum(
-                    row.absolute_delta <= D1 for row in net_rows
+                "amount_control_cells": len(amount_control_rows),
+                "amount_control_cells_agree_to_cent": sum(
+                    row.absolute_delta < Decimal("0.005")
+                    for row in amount_control_rows
                 ),
                 "max_net_income_delta": max(
                     row.absolute_delta for row in net_rows
                 ),
-                "max_emtr_delta_pp": max(
-                    row.absolute_delta for row in emtr_rows
-                )
-                * Decimal(100),
+                "emtr_b": sum(
+                    row.classification == "b" for row in emtr_rows
+                ),
+                "emtr_c": sum(
+                    row.classification == "c" for row in emtr_rows
+                ),
                 "b_cells": classes.get("b", 0),
                 "c_cells": classes.get("c", 0),
                 "a_or_d_cells": (
@@ -2848,6 +3650,7 @@ def scenario_summary_rows(
 
 def render_report(
     *,
+    oracle: Mapping[str, Any],
     provenance: Provenance,
     compiled_artifact_sha256: str,
     compiled_counts: Mapping[str, int],
@@ -2855,26 +3658,21 @@ def render_report(
     scenarios: Sequence[Scenario],
     rows: Sequence[ComparisonRow],
     statistics: Mapping[str, Any],
+    baseline_statistics: Mapping[str, Any],
     vintage_rows: Sequence[Mapping[str, Any]],
     emtr_patterns: Sequence[Mapping[str, Any]],
     as_rows: Sequence[Mapping[str, Any]],
+    coverage_evidence: Mapping[str, Any],
 ) -> str:
+    """Render the living expanded-grid audit report."""
+
     headline = headline_text(statistics)
-    emtr_wff_points = sum(
-        int(item["wff_affected_points"]) for item in emtr_patterns
-    )
-    emtr_acc_only_points = 32 - emtr_wff_points
-    maximum_emtr_display_remainder = max(
-        item["maximum_absolute_oracle_display_remainder"]
-        for item in emtr_patterns
-    )
-    material_as_rows = [
-        item
+    observed_reasons = Counter(row.reason_code for row in rows)
+    material_as_count = sum(
+        abs(item["total_signed_delta"]) > ORACLE_SIX_DECIMAL_TOLERANCE
         for item in as_rows
-        if abs(item["total_signed_delta"])
-        > ORACLE_SIX_DECIMAL_TOLERANCE
-    ]
-    material_as_count = len(material_as_rows)
+    )
+    provenance_by_id = oracle["scenario_provenance"]
     lines: list[str] = [
         "# Treasury IncomeExplorer EMTR reproduction audit",
         "",
@@ -2882,90 +3680,250 @@ def render_report(
         "",
         f"> {headline}",
         "",
-        "This is a comparison against the pinned output of Treasury's raw "
-        "`R/emtr.R#emtr` function, not against the IncomeExplorer UI wrapper. "
-        "The final matrix has 640 primary cells: 4 scenarios × 8 wage points × "
-        "19 dollar/control columns plus EMTR.",
+        "This is a dollar-exactness audit of amount/control outputs. EMTR is "
+        "retained as a diagnostic and classified component-by-component; it is "
+        "not used to soften the dollar result into a percentage-point claim.",
+        "",
+        "The expanded matrix has "
+        f"{statistics['primary_cells']} primary cells: "
+        f"{len(scenarios)} scenarios at "
+        f"{coverage_evidence['sampled_point_count']} scenario/wage points, "
+        "with 19 amount/control columns and one EMTR column per point.",
         "",
         "## What we can honestly say",
         "",
-        "> We cannot claim an end-to-end reproduction of IncomeExplorer; this "
-        "audit provides a reproducible, pointwise comparison of RuleSpec's "
-        "enacted 2026/27 amount rules against a pinned TY27 BEFU25 output of "
-        "Treasury's raw `emtr()` function for four stylised families, "
-        "conditional on explicit host-side eligibility assumptions.",
+        "> RuleSpec's enacted 2026/27 amount rules are compared pointwise with "
+        "a freshly regenerated, pinned TY27 BEFU25 output from Treasury's raw "
+        "`R/emtr.R#emtr` function. The comparison is conditional on explicit "
+        "host-side eligibility assumptions; it is not an end-to-end "
+        "IncomeExplorer UI reproduction or a legal entitlement determination.",
         "",
         f"The numerical result is: {headline}",
+        "",
+        "The original four scenarios remain a strict continuity slice: "
+        f"{baseline_statistics['amount_control_cells_agree_to_cent']} of "
+        f"{baseline_statistics['amount_control_cells']} amount/control cells "
+        "agree to the cent, and all "
+        f"{baseline_statistics['amount_control_cells_outside_cent']} cent-level "
+        "differences remain class (b) forecast-vintage effects. The first four "
+        "serialized scenario objects in the expanded oracle are byte-identical "
+        "to the pinned snapshot objects.",
+        "",
+        "## Oracle regeneration gate",
+        "",
+        "Before either comparison pass, the harness runs the R generator in "
+        "baseline mode against the pinned Treasury checkout. It stops unless "
+        "the result is byte-identical to RuleSpec's pinned snapshot. It then "
+        "runs the same generator in expanded mode; no Treasury-side value is "
+        "hand-computed, extrapolated, or copied from RuleSpec.",
+        "",
+        "| Check | Verified result |",
+        "|---|---|",
+        f"| Baseline snapshot | 25,888 bytes; SHA-256 "
+        f"`{provenance.baseline_oracle_sha256}`; byte-identical |",
+        f"| Expanded snapshot | generated by R; SHA-256 "
+        f"`{provenance.oracle_sha256}` |",
+        f"| Treasury commit | `{EXPECTED_ORACLE_COMMIT}` |",
+        f"| Parameter file | `{EXPECTED_PARAMETER_FILE}`; SHA-256 "
+        f"`{EXPECTED_PARAMETER_SHA256}` |",
+        f"| R runtime | `{markdown_cell(provenance.rscript_version)}` |",
+        f"| Generator | `{provenance.oracle_generator_path.name}`; SHA-256 "
+        f"`{provenance.oracle_generator_sha256}` |",
+        "| Original four scenario objects | identical serialized bytes in "
+        "baseline and expanded JSON |",
         "",
         "## Result summary",
         "",
         "| Measure | Result |",
         "|---|---:|",
         (
-            "| Exact numeric matches | "
-            f"{statistics['exact_numeric_matches']} / "
+            "| Amount/control cells agreeing to the cent | "
+            f"{statistics['amount_control_cells_agree_to_cent']} / "
+            f"{statistics['amount_control_cells']} |"
+        ),
+        (
+            "| Cent-level exceptions: forecast vintage (b) | "
+            f"{statistics['amount_control_cells_outside_cent_by_class']['b']} |"
+        ),
+        (
+            "| Cent-level exceptions: convention (c) | "
+            f"{statistics['amount_control_cells_outside_cent_by_class']['c']} |"
+        ),
+        (
+            "| Cent-level exceptions: remaining bug (a) | "
+            f"{statistics['amount_control_cells_outside_cent_by_class']['a']} |"
+        ),
+        (
+            "| Cent-level exceptions: unexplained (d) | "
+            f"{statistics['amount_control_cells_outside_cent_by_class']['d']} |"
+        ),
+        (
+            "| All primary cells matching at six-decimal oracle precision | "
+            f"{statistics['matches_at_six_decimal_oracle_precision']} / "
             f"{statistics['primary_cells']} |"
         ),
         (
-            "| Additional matches inside six-decimal snapshot envelope | "
-            f"{statistics['nonzero_deltas_within_snapshot_precision']} |"
+            "| All primary class-(b) cells | "
+            f"{statistics['classification_counts']['b']} |"
         ),
         (
-            "| Differences outside six-decimal snapshot envelope | "
-            f"{statistics['differences_outside_six_decimal_envelope']} / "
-            f"{statistics['primary_cells']} |"
+            "| All primary class-(c) cells | "
+            f"{statistics['classification_counts']['c']} |"
         ),
         (
-            "| Weekly Net Income within $1 | "
-            f"{statistics['weekly_net_income_points_within_1_nzd']} / 32 |"
-        ),
-        (
-            "| Maximum weekly Net Income absolute delta | "
-            f"${report_number(statistics['maximum_weekly_net_income_absolute_delta'], 6)} "
-            f"at `{statistics['maximum_weekly_net_income_delta_location']['scenario_id']}`, "
-            f"wage ${statistics['maximum_weekly_net_income_delta_location']['weekly_wage']} |"
-        ),
-        (
-            "| EMTR within 0.5 percentage point | "
-            f"{statistics['emtr_points_within_half_percentage_point']} / 32 |"
-        ),
-        (
-            "| Maximum EMTR absolute delta | "
-            f"{report_number(statistics['maximum_emtr_absolute_delta_percentage_points'], 6)} "
-            "percentage points |"
-        ),
-        (
-            "| Remaining class-(a) encoding bugs | "
-            f"{statistics['classification_counts']['a']} |"
-        ),
-        (
-            "| Genuinely unexplained class-(d) cells | "
+            "| All primary class-(a) / class-(d) cells | "
+            f"{statistics['classification_counts']['a']} / "
             f"{statistics['classification_counts']['d']} |"
         ),
         "",
         "Scenario-level summary:",
         "",
-        "| Scenario | NI within $1 | Max weekly NI |Δ| | Max EMTR |Δ| (pp) | "
-        "(b) cells | (c) cells | (a)+(d) |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "| Scenario | Points | Amount/control to cent | Max weekly NI |Δ| | "
+        "(b) cells | (c) cells | EMTR (b)/(c) | (a)+(d) |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for item in scenario_summary_rows(rows, scenarios):
         lines.append(
-            f"| `{item['scenario_id']}` | {item['net_income_within_1']} / 8 | "
+            f"| `{item['scenario_id']}` | {item['points']} | "
+            f"{item['amount_control_cells_agree_to_cent']} / "
+            f"{item['amount_control_cells']} | "
             f"${report_number(item['max_net_income_delta'], 6)} | "
-            f"{report_number(item['max_emtr_delta_pp'], 6)} | "
             f"{item['b_cells']} | {item['c_cells']} | "
+            f"{item['emtr_b']} / {item['emtr_c']} | "
             f"{item['a_or_d_cells']} |"
         )
 
     lines.extend(
         [
             "",
-            "The comparison treats an absolute delta of at most "
-            "`0.0000005` as a match because the pinned JSON generator rounded "
-            "every numeric output to six decimals. Raw deltas are retained in "
+            "An amount/control cell agrees to the cent when its absolute delta "
+            "is less than half a cent. A delta of at most `0.0000005` is a "
+            "snapshot-precision match because Treasury outputs are rounded to "
+            "six decimals. Exact signed deltas are retained in "
             "[comparison.csv](comparison.csv) and "
-            "[comparison.json](comparison.json); they are not zeroed.",
+            "[comparison.json](comparison.json).",
+            "",
+            "## Expanded coverage",
+            "",
+            "| New scenario | What is exercised | Extra wages | Verified outcome |",
+            "|---|---|---|---|",
+            (
+                "| `lone_parent_two_teens_jss` | Youngest child 14+: Treasury "
+                "`R/emtr.R:310-319` JSS parent rate with Income Test 1 | none | "
+                "Positive RuleSpec JSS at wage $0; mapping follows "
+                "[SSA 2018 s 33](https://www.legislation.govt.nz/act/public/"
+                "2018/0032/latest/DLM6783171.html) and Schedule 4 pt 1 cl 1(e). |"
+            ),
+            (
+                "| `couple_two_best_start_children_binding` | Two eligible "
+                "children, full-time partner, aggregate Best Start abatement | "
+                "775/776, 1125/1126, 1476/1477 | Abatement binds inside the "
+                "grid; aggregate-once and old naive composition diverge. |"
+            ),
+            (
+                "| `couple_two_children_dual_full_time` | Partner wage tax/ACC "
+                "and joint WFF abatement | 121/122 | At wage $740 both adults "
+                "are at 40 hours; partner weekly tax and ACC are "
+                f"${report_number(coverage_evidence['dual_full_time_partner_at_wage_740']['partner_weekly_tax'], 6)} "
+                "and "
+                f"${report_number(coverage_evidence['dual_full_time_partner_at_wage_740']['partner_weekly_acc'], 2)}. |"
+            ),
+            (
+                "| `single_childless_ietc_focused` | Positive IETC and its "
+                "benefit-release, abatement, and extinction boundaries | "
+                "688/689, 692/693, 1265/1266, 1342/1343 | At wage $740, "
+                f"Treasury/RuleSpec pay ${report_number(coverage_evidence['focused_ietc_at_wage_740']['treasury'], 6)} / "
+                f"${report_number(coverage_evidence['focused_ietc_at_wage_740']['rulespec'], 6)} weekly. |"
+            ),
+            (
+                "| `lone_parent_two_children_area4_high_rent_cap` | Area 4 "
+                "renter and AS maximum | none | The $120 weekly maximum binds "
+                "on both sides at wages "
+                f"{', '.join(str(value) for value in coverage_evidence['area4_cap']['binding_wages_on_both_sides'])}. |"
+            ),
+            (
+                "| `couple_childless_boarder_proxy` | RuleSpec boarder cost "
+                "composition and downstream raw-Treasury AS arithmetic | none | "
+                "$400 board becomes $248 qualifying cost in RuleSpec; Treasury "
+                "is actually run with a rent-like $248 because raw `emtr()` has "
+                "no boarder input. |"
+            ),
+            (
+                "| `large_family_four_children_age_bands` | Four children "
+                "aged 3, 6, 13, 16; FTC/IWTC subsequent-child scaling and "
+                "dependent Winter Energy rate | none | FTC and Winter Energy "
+                "are both positive at wage $0; Treasury/RuleSpec Winter Energy "
+                f"is ${report_number(coverage_evidence['large_family_at_wage_0']['treasury_winter_energy'], 6)} / "
+                f"${report_number(coverage_evidence['large_family_at_wage_0']['rulespec_winter_energy'], 6)} weekly. |"
+            ),
+            "",
+            "The prompt's statement that the old grid had IETC identically zero "
+            "does not match the pinned data: the original childless profile "
+            "already pays IETC at wages "
+            f"{', '.join(str(value) for value in coverage_evidence['original_profile_positive_ietc_wages'])}. "
+            "The focused profile nevertheless closes the real gap by sampling "
+            "Treasury's forecast benefit/IETC transition (688/689), RuleSpec's "
+            "enacted transition (692/693), and the LC 13 abatement/extinction "
+            "kinks.",
+            "",
+            "### Boarder limitation",
+            "",
+            "[Social Security Act 2018 s 65AAA]"
+            "(https://www.legislation.govt.nz/act/public/2025/27/en/latest/"
+            "sections/LMS1442953/) makes a boarder's accommodation cost 62% of "
+            "board and lodgings for 2026/27. RuleSpec therefore receives $400 "
+            "and independently emits $248. Treasury's raw signature exposes "
+            "only accommodation cost, rent/mortgage, and area "
+            "(`R/emtr.R:164-183`); its UI likewise has no boarder choice. Feeding "
+            "$248 to Treasury tests downstream arithmetic, not Treasury's "
+            "missing 62% transformation. This remains a named coverage gap.",
+            "",
+            "## Class-(a) defect found and fixed",
+            "",
+            "The binding two-child scenario exposed a host-composition defect. "
+            "RuleSpec's Best Start module is child-entity based. The old harness "
+            "summed each child's *post-abatement* result, thereby subtracting the "
+            "same family abatement once per child. The fixed harness sums the "
+            "per-child gross credits and subtracts one family abatement.",
+            "",
+            "[Income Tax Act 2007 MG 1]"
+            "(https://www.legislation.govt.nz/act/public/2007/0097/latest/"
+            "LMS63782.html), [MG 2]"
+            "(https://www.legislation.govt.nz/act/public/2007/0097/latest/"
+            "LMS63785.html), and [MG 3]"
+            "(https://www.legislation.govt.nz/act/public/2007/0097/latest/"
+            "LMS63788.html) provide the per-child base and the person's/couple's "
+            "single family-income abatement. The decisive multi-child "
+            "administrative cross-check is [IRD's 2026/27 IR271 table]"
+            "(https://www.ird.govt.nz/-/media/project/ir/home/documents/"
+            "forms-and-guides/ir200---ir299/ir271/ir271-2027.pdf): moving above "
+            "the threshold reduces the one-, two-, and three-child family totals "
+            "by the same amount, not once per child.",
+            "",
+            "| Primary wage | Treasury | Before: naive per-child abatement | "
+            "After: aggregate once |",
+            "|---:|---:|---:|---:|",
+        ]
+    )
+    for item in coverage_evidence["best_start_aggregate_fix"]:
+        lines.append(
+            f"| {item['weekly_wage']} | "
+            f"{report_number(item['treasury'], 6)} | "
+            f"{report_number(item['rulespec_before_naive_per_child_abatement'], 6)} | "
+            f"{report_number(item['rulespec_after_aggregate_once'], 6)} |"
+        )
+    lines.extend(
+        [
+            "",
+            "This was a harness aggregation bug, not a defect in the underlying "
+            "RuleSpec child-level amount formula. It is fixed in `run.py`; the "
+            "isolated RuleSpec worktree remains unchanged. The final matrix has "
+            f"{statistics['classification_counts']['a']} class-(a) cells.",
+            "",
+            "The prior four-family phase also fixed two host mappings before its "
+            "final run: the source-specific lone-parent AS cutout and the "
+            "statutory reg 17–18 AS delegated inputs. Those corrections remain "
+            "in place.",
             "",
             "## Discrepancy classification",
             "",
@@ -2973,53 +3931,27 @@ def render_report(
             "|---|---:|---|",
             (
                 f"| match | {statistics['classification_counts']['match']} | "
-                "Exact or within the oracle's six-decimal rounding envelope. |"
+                "Exact or inside the six-decimal oracle envelope. |"
             ),
             (
-                f"| (a) our encoding bug | "
-                f"{statistics['classification_counts']['a']} | "
-                + (
-                    "No class-(a) residual remains in the final matrix. |"
-                    if statistics["classification_counts"]["a"] == 0
-                    else "See the classified matrix rows below. |"
-                )
+                f"| (a) our bug | {statistics['classification_counts']['a']} | "
+                "No encoding defect remains in the final matrix. |"
             ),
             (
-                f"| (b) BEFU25 vs enacted law | "
-                f"{statistics['classification_counts']['b']} | "
-                "Prescribed benefit/credit levels or their downstream effects. |"
+                f"| (b) forecast vintage | "
+                f"{statistics['classification_counts']['b']} | Named benefit, "
+                "FTC, IWTC, MFTC, or Best Start amount differences and their "
+                "tax/eligibility/AS boundary effects. |"
             ),
             (
-                f"| (c) unit/period convention | "
-                f"{statistics['classification_counts']['c']} | "
-                "Annual-cent or complete-dollar statutory arithmetic viewed "
-                "through a weekly $1 interval. |"
+                f"| (c) convention | {statistics['classification_counts']['c']} | "
+                "Statutory complete-dollar, annual-cent, period, or AS host "
+                "conventions, all numerically decomposed. |"
             ),
             (
-                f"| (d) unexplained | "
-                f"{statistics['classification_counts']['d']} | "
-                + (
-                    "No difference outside the snapshot envelope is assigned "
-                    "class (d) under the documented classification. |"
-                    if statistics["classification_counts"]["d"] == 0
-                    else "See the unexplained matrix rows below. |"
-                )
+                f"| (d) unexplained | {statistics['classification_counts']['d']} | "
+                "No unexplained cell remains. |"
             ),
-            "",
-            "Two genuine class-(a) defects were found during the audit and "
-            "corrected before this final run. First, the lone-parent "
-            "Accommodation Supplement cutout initially used the staged "
-            "SPS/JSS-with-children test; Treasury's source-defined branch "
-            "combines the lone-parent JSS base with the flat JSS scale. That "
-            "correction follows Social Security Act 2018 Schedule 2 Income "
-            "Tests 1 and 3 and is checkpointed in local audit commit `3364877`. "
-            "Second, the initial AS primary retained Treasury's host conventions "
-            "for delegated inputs. The final statutory primary instead follows "
-            "Social Security Regulations 2018 reg 17 (annual eldest FTC divided "
-            "by 52) and reg 18 (the exact income that extinguishes JSS). "
-            "Treasury's `365/7` divisor and annual-dollar ceiling are now a "
-            "labeled diagnostic only. The final sweep's class-(a) count is "
-            f"{statistics['classification_counts']['a']}.",
             "",
             "Observed reason codes:",
             "",
@@ -3027,7 +3959,6 @@ def render_report(
             "|---|:---:|---:|---|",
         ]
     )
-    observed_reasons = Counter(row.reason_code for row in rows)
     for reason_code in sorted(observed_reasons):
         category, title, explanation = CLASSIFICATION_DETAILS[reason_code]
         lines.append(
@@ -3039,12 +3970,21 @@ def render_report(
     lines.extend(
         [
             "",
-            "### Class (b): pinned forecast vintage versus enacted 2026/27 law",
+            "### Class (b): BEFU25 forecast versus enacted 2026/27 law",
             "",
             "Treasury commit `741a6ca4f5d27b1dc00b43dc395e39ffc4040a4b` "
-            "(12 August 2025) pins `TY27_BEFU25.yaml`. RuleSpec selects law "
-            "effective 1 April 2026. These are different vintages, not errors "
-            "on either side.",
+            "pins the 12 August 2025 `TY27_BEFU25.yaml` forecast. RuleSpec selects "
+            "law effective 1 April 2026. The enacted benefit evidence is the "
+            "[Social Security (Rates of Benefits and Allowances) Order 2026]"
+            "(https://www.legislation.govt.nz/regulation/public/2026/0036/"
+            "latest/LMS1573997.html); the enacted FTC, MFTC, and Best Start "
+            "amounts are in [Income Tax (Tax Credit) Order 2025 cls 4–6]"
+            "(https://legislation.govt.nz/secondary-legislation/pco-drafted/"
+            "2025/260/en/2025-11-17.pdf). IWTC is sourced to Income Tax Act "
+            "2007 s MD 10 as amended by [the 2026 annual-rates Act s 105]"
+            "(https://www.legislation.govt.nz/act/public/2026/8/en/latest/). "
+            "These named "
+            "vintages, not fitting tolerances, drive class (b).",
             "",
             "| Parameter | Treasury BEFU25 | RuleSpec enacted | Signed delta | "
             "Unit | Statutory source |",
@@ -3063,208 +4003,147 @@ def render_report(
     lines.extend(
         [
             "",
-            "The benefit evidence is Social Security Act 2018 Schedule 4 "
-            "Parts 1–2, as amended by the Social Security (Rates of Benefits "
-            "and Allowances) Order 2026 clause 5. The WFF evidence is Income "
-            "Tax Act 2007 ss MD 3, MD 10, ME 1, and MG 2. The "
-            "[Income Tax (Tax Credit) Order 2025]"
-            "(https://www.legislation.govt.nz/secondary-legislation/"
-            "pco-drafted/2025/260/en/latest/) cls 4–6 establishes the "
-            "post-snapshot 2026/27 FTC, MFTC, and Best Start amounts. The "
-            "2026/27 IWTC $7,670 base is enacted by the Taxation (Annual Rates "
-            "for 2025-26, "
-            "Compliance Simplification, and Remedial Measures) Act 2026 "
-            "ss 2 and 105. Local evidence bundles are:",
+            f"The {material_as_count} Accommodation Supplement amount rows "
+            "outside the six-decimal envelope are independently decomposed in "
+            "[as_rounding_diagnostic.csv](as_rounding_diagnostic.csv). A row is "
+            "class (b) only when the Treasury-host-aligned RuleSpec diagnostic "
+            "still differs; reg 17's `/52` FTC input, reg 18's exact JSS cutout, "
+            "and reg 19 rounding remain separately visible conventions.",
             "",
-            "- `data/corpus/provisions/nz/statute/"
-            "2026-06-17-social-security-main-benefit-rates.jsonl`",
-            "- `data/corpus/provisions/nz/statute/"
-            "2026-06-17-wff-tax-credits.jsonl`",
+            "### EMTR classification by source component",
             "",
-            "Accommodation Supplement maxima themselves do not explain the "
-            f"{material_as_count} AS differences outside the envelope. Each AS "
-            "row is decomposed into (1) the BEFU25-versus-enacted difference "
-            "under Treasury's own host conventions and (2) the additional "
-            "statutory host-convention difference: reg 17 divides annual eldest "
-            "FTC by 52, while raw Treasury divides by `365/7`; reg 18 uses the "
-            "exact JSS vanishing point, while raw Treasury applies an annual-"
-            "dollar ceiling. A row is class (b) only when its Treasury-host-"
-            "aligned diagnostic independently has a vintage difference; the "
-            "smaller class-(c) component is disclosed rather than folded into "
-            "the vintage claim. The primary matrix uses RuleSpec's statutory "
-            "inputs before reg 19 whole-dollar rounding. All components and the "
-            "legally rounded payment are preserved in "
-            "[as_rounding_diagnostic.csv](as_rounding_diagnostic.csv).",
+            "The expanded R generator records Treasury's own EMTR decomposition "
+            "for net wage, benefit, WFF, MFTC, IETC, Winter Energy, Best Start, "
+            "and AS at every sampled point. RuleSpec recomputes the same eight "
+            "components from fresh `$1` endpoint evaluations. Class-(c) rows "
+            "must also recompose from exact no-floor counterfactuals for MD 13 "
+            "WFF, MG 3 Best Start, LC 13 IETC, annual-cent ACC, and statutory AS "
+            "host inputs. The harness aborts on a component remainder over "
+            "`0.000004` or any class-(d) row.",
             "",
-            "### Class (c): period and rounding convention",
-            "",
-            "The engine performs no automatic period conversion. The harness "
-            "uses these explicit alignments:",
-            "",
-            "| Component | RuleSpec source period | Treasury comparison |",
-            "|---|---|---|",
-            "| Main benefits | Weekly amount (despite a legacy `period: Year` "
-            "label) | No conversion |",
-            "| Income tax, ACC, FTC, Best Start, IETC | Annual | Divide by "
-            "`365/7` |",
-            "| IWTC base and MFTC | Annual rules expressed over weekly periods "
-            "| Divide by `52` |",
-            "| IWTC abatement | Annual | Divide by `365/7`, then subtract from "
-            "the `/52` base |",
-            "| WFF total | Mixed | Add converted FTC and IWTC components; do "
-            "not divide the aggregate once |",
-            "| Winter Energy Payment | Per-winter total | Divide by `365/7` to "
-            "match Treasury's annual-average snapshot convention |",
-            "| Accommodation Supplement | Weekly; reg 17 annual FTC input is "
-            "divided by 52 | No output conversion; compare the statutory-input "
-            "pre-round amount and emit a Treasury-host-aligned diagnostic |",
-            "",
-            "Treasury applies ACC as an unrounded weekly 1.75%. RuleSpec applies "
-            "the annual including-GST PAYE levy and whole-cent rounding before "
-            "weekly conversion. The RuleSpec source is Accident Compensation "
-            "(Earners' Levy) Regulations 2025 regs 4, 5, and 8 plus Inland "
-            "Revenue's 1.75% PAYE-facing rate; local evidence is "
-            "`data/corpus/provisions/nz/regulation/"
-            "2026-06-17-acc-earners-levy-2025-formulas.jsonl` and "
-            "`data/corpus/provisions/nz/agency/"
-            "2026-06-17-ird-acc-levy-rates.jsonl`.",
-            "",
-            f"All 32 EMTR residuals fall into {len(emtr_patterns)} "
-            "source-consistent numerical patterns. For each interval the "
-            "harness calculates the RuleSpec annual-cent ACC component and "
-            "MD 13 complete-dollar WFF component; any remainder must fit inside "
-            "the oracle's six-decimal envelope before this report is written:",
-            "",
-            "| RuleSpec − Treasury EMTR | Percentage points | Points | "
-            "WFF-affected | Max display remainder | Decomposition |",
-            "|---:|---:|---:|---:|---:|---|",
+            "| Class | Material RuleSpec−Treasury components | Source conventions | "
+            "Points | Max |Δ| | Max component remainder |",
+            "|:---:|---|---|---:|---:|---:|",
         ]
     )
     for item in emtr_patterns:
+        components = ", ".join(item["material_components"]) or "none"
+        conventions = ", ".join(item["material_conventions"]) or "none"
         lines.append(
-            f"| {report_number(item['signed_delta_12dp'], 12)} | "
-            f"{report_number(item['percentage_points'], 9)} | "
-            f"{item['count']} | {item['wff_affected_points']} | "
-            f"{report_number(item['maximum_absolute_oracle_display_remainder'], 12)} | "
-            f"{item['explanation']} |"
+            f"| {item['classification']} | {markdown_cell(components)} | "
+            f"{markdown_cell(conventions)} | {item['count']} | "
+            f"{report_number(item['maximum_absolute_signed_delta'], 9)} | "
+            f"{report_number(item['maximum_absolute_component_recomposition_remainder'], 9)} |"
         )
     lines.extend(
         [
             "",
-            f"The {emtr_wff_points} WFF-affected intervals are consistent with "
-            "the "
-            "interaction between "
-            "Income Tax Act 2007 s MD 13's complete-dollar abatement base and a "
-            f"$1 weekly step (`365/7` annual dollars). The other "
-            f"{emtr_acc_only_points} intervals have no computed WFF component. "
-            "The maximum remainder after ACC and WFF decomposition is "
-            f"`{decimal_text(maximum_emtr_display_remainder)}`, within the "
-            "six-decimal JSON envelope. This calculation supports class (c) "
-            "for the EMTR rows; any interval outside that envelope would be "
-            "classified (d).",
+            "The eight class-(b) EMTR points are boundary evidence, not a claim "
+            "that percentage-point closeness is the target: Best Start/WFF "
+            "extinction at 1476, 1477, and 1500; dual-earner IWTC extinction at "
+            "1500; forecast/enacted childless JSS-to-IETC transitions at 688, "
+            "689, and 692; and the benefit-vintage wage-tax interaction in the "
+            "boarder proxy at 1000. The other non-matching EMTR rows recompose "
+            "from named class-(c) conventions.",
+            "",
+            "### Class (c): period and statutory discreteness",
+            "",
+            "| Component | RuleSpec source period/arithmetic | Treasury alignment |",
+            "|---|---|---|",
+            "| Main benefits | Weekly | none |",
+            "| Income tax, ACC, FTC, Best Start, IETC | Annual | divide by `365/7` |",
+            "| IWTC base and MFTC | Annual rules expressed over weekly periods | divide by `52` |",
+            "| IWTC abatement | Annual complete dollars | divide by `365/7`, subtract from `/52` base |",
+            "| WFF total | FTC plus IWTC after one family abatement | add converted components |",
+            "| Winter Energy | Per-winter total | divide by `365/7` for Treasury annual-average convention |",
+            "| Accommodation Supplement | Weekly; reg 17 FTC `/52`, exact reg 18 cutout | compare pre-reg-19-rounding primary; emit host-aligned diagnostic |",
             "",
             "## Method",
             "",
-            "1. Verify the pinned oracle commit, parameter-file hash, RuleSpec "
-            "SHA, engine SHA, composition hash, and clean tracked RuleSpec and "
-            "engine source trees.",
-            "2. Compile the ten-module composition from scratch in a temporary "
-            "directory and execute every query in engine `explain` mode.",
-            "3. Map each stylised profile to explicit person, child, and family "
-            "inputs. The compiled program has no relations, so aggregation is "
-            "performed transparently in the host harness.",
-            "   Treasury's raw branch threshold "
-            "`1226.7 / 52.2 = $23.50/week` is retained host-side: when the "
-            "pinned model enables IWTC and disallows IWTC to beneficiaries, "
-            "that branch zeroes benefit amounts. This is a disclosed raw-source "
-            "flow convention, not a RuleSpec policy parameter.",
-            "   Wage tax is calculated as tax on grossed taxable benefit plus "
-            "wages minus tax on grossed taxable benefit, matching raw "
-            "`emtr()` rather than taxing wages in isolation.",
-            "4. Evaluate the eight displayed weekly wages plus each hidden "
-            "`w+1` endpoint and `$1,499`.",
-            "5. Calculate `EMTR = 1 - (NetIncome(w+1) - NetIncome(w))`. At the "
-            "$1,500 display point, carry the `$1,499 → $1,500` interval, exactly "
-            "matching Treasury's `zoo::na.locf` endpoint convention.",
-            "6. Compare RuleSpec against Treasury without replacing or tuning "
-            "any RuleSpec parameter. Signed deltas are always RuleSpec minus "
-            "Treasury; the report matrix shows absolute and relative deltas.",
+            "1. Run the pinned Treasury R source with Rscript 4.3.0 and the "
+            "SHA-pinned parameter file. Require a byte-identical regeneration "
+            "of the original snapshot before generating the expanded oracle.",
+            "2. Verify the Treasury, RuleSpec, and engine commits; generator, "
+            "parameter, composition, and binary hashes; clean tracked RuleSpec "
+            "and engine trees; scenario semantics; dense wage coordinates; and "
+            "serialized continuity objects.",
+            "3. Compile the ten-module RuleSpec composition from scratch and run "
+            "all engine queries in `explain` mode.",
+            "4. Map every profile to explicit person, child, and family inputs. "
+            "The 14+ lone-parent path uses JSS with Income Test 1. Wage tax is "
+            "incremental tax above grossed taxable benefit, matching raw "
+            "`emtr()`.",
+            "5. Evaluate the common wages `0, 160, 250, 370, 555, 740, 1000, "
+            "1500` plus only the documented kink points: Best Start "
+            "`775/776, 1125/1126, 1476/1477`; dual-earner WFF `121/122`; IETC "
+            "`688/689, 692/693, 1265/1266, 1342/1343`.",
+            "6. Calculate `EMTR = 1 - (NetIncome(w+1) - NetIncome(w))`. Carry "
+            "the `$1,499 → $1,500` interval at the endpoint, matching "
+            "`zoo::na.locf`.",
+            "7. Compare without replacing any RuleSpec parameter. Deltas are "
+            "always RuleSpec minus Treasury. Two complete fresh passes must "
+            "produce byte-identical artifacts before anything is written.",
             "",
-            "Treasury's app does something different: its server calls "
-            "`calculate_income()`, whose `WFF_or_Benefit: Max` wrapper may "
-            "select between transfers. The pinned snapshot explicitly calls "
-            "raw `emtr()` and bypasses that wrapper, so this audit does too.",
+            "Treasury's app server instead calls `calculate_income()`, whose "
+            "`WFF_or_Benefit: Max` wrapper can select between transfers. This "
+            "audit deliberately calls raw `emtr()` on both the continuity and "
+            "expanded grids.",
             "",
             "## Coverage gaps",
             "",
-            "This is a conditional amount comparison, not a legal entitlement "
-            "determination. The snapshot supplies only partnered status, an "
-            "hourly wage, child ages, partner wage/hours, housing costs/type, "
-            "and AS area. It does not supply all facts required by the statutes.",
+            "The expanded grid closes the named profile gaps—14+ lone-parent "
+            "JSS, binding multi-child Best Start, dual full-time earnings, "
+            "positive IETC and its kinks, Area 4, a high-rent cap, and a "
+            "four-child family—but it still does not cover:",
             "",
-            "- Main-benefit residence, immigration, work availability, medical, "
-            "student, strike, concurrent-benefit, and other entitlement facts "
-            "are not established. Adult age 25 and other profile facts are host "
-            "assumptions. The amount schedules are evaluated conditionally.",
-            "- FTC and Best Start use full-year entitlement days and full care "
-            "for the listed children. Full principal-caregiver, residence, "
-            "shared-care, date-of-birth/due-date, and parental-leave conditions "
-            "are not established.",
-            "- IWTC's statutory eligibility closure is populated with explicit "
-            "stylised assumptions because the snapshot omits those facts. MFTC "
-            "full-time/no-benefit eligibility is inferred from the raw model's "
-            "profile convention.",
-            "- IETC residence and disqualifying-support conditions are assumed, "
-            "not evidenced by the snapshot.",
-            "- Winter Energy Payment uses the RuleSpec per-winter rate, host-"
-            "gated only when the RuleSpec-side reconstruction has positive net "
-            "benefit (mirroring Treasury's raw gate), and annual-averaged. Full "
-            "legal entitlement, election, absence, and care-facility rules "
-            "under Social Security Act 2018 ss 71–75 and 220 are not evaluated.",
-            "- Accommodation Supplement compares the amount formula before "
-            "legal rounding and assumes eligibility/takeup. Assets, social "
-            "housing, student allowance, residential/disability care, duplicate "
-            "partner claims, and other ss 65–69 exclusions are not evaluated.",
-            "- The lone-parent profile in this grid has children aged 0, 1, and "
-            "10. The harness does not generalise Treasury's separate lone-parent "
-            "JSS branch for a youngest child aged 14 or over.",
-            "- The only profile with two Best Start-aged children remains below "
-            "the $79,000 abatement threshold throughout the requested grid. "
-            "This audit therefore does not test Treasury's aggregate-child "
-            "abatement against RuleSpec's per-child composition above that "
-            "threshold.",
-            "- RR and PTR are computed and emitted in "
-            "[secondary_rates.csv](secondary_rates.csv), but are outside the "
-            "requested dollar-plus-EMTR validation matrix.",
-            "- Person/child/family aggregation is host-side because the compiled "
-            "composition has no relations.",
-            "",
-            "Treasury itself describes the UI profiles as theoretical, assumes "
-            "full AS take-up, omits the AS asset test, and excludes NZ Super, "
-            "FamilyBoost, Supported Living Payment, youth payments, IRRS/TAS, "
-            "KiwiSaver, student loans/allowances, paid parental leave, and child "
-            "support pass-on. Those programs are not silently filled in here.",
+            "- Treasury-native boarder treatment. Treasury has no boarder input; "
+            "the $248 run is a cost-normalised proxy and cannot independently "
+            "validate the statutory 62% transformation.",
+            "- Full entitlement closures: residence/immigration, work "
+            "availability, medical/student/strike/concurrent-benefit facts, "
+            "assets, social housing, duplicate claims, and take-up.",
+            "- Full WFF child eligibility: principal caregiver, residence, "
+            "shared care, exact birth/due dates, parental leave, and part-year "
+            "entitlement. Every listed child is assumed full-care for 365 days.",
+            "- Full IWTC, MFTC, IETC, and Winter Energy legal eligibility. "
+            "Omitted facts are supplied as disclosed stylised assumptions; WEP "
+            "is host-gated by positive reconstructed benefit.",
+            "- Relation-native person/child/family aggregation. The compiled "
+            "composition has zero relations, so the auditable host harness "
+            "performs aggregation, including the corrected Best Start family "
+            "abatement.",
+            "- The IncomeExplorer UI wrapper, population representativeness, "
+            "non-integer wage kinks, or exhaustive threshold coverage. RR and "
+            "PTR are emitted in `secondary_rates.csv` but remain outside the "
+            "primary matrix.",
+            "- NZ Super, Supported Living Payment, youth payments, FamilyBoost, "
+            "IRRS/TAS, KiwiSaver, student loans/allowances, paid parental leave, "
+            "and child-support pass-on.",
             "",
             "## Provenance and reproducibility",
             "",
             "| Item | Verified value |",
             "|---|---|",
-            f"| Oracle snapshot SHA-256 | `{provenance.oracle_sha256}` |",
-            f"| Treasury commit | `{EXPECTED_ORACLE_COMMIT}` |",
-            f"| Treasury parameter SHA-256 | `{EXPECTED_PARAMETER_SHA256}` |",
+            f"| Expanded oracle SHA-256 | `{provenance.oracle_sha256}` |",
+            f"| Baseline oracle SHA-256 | "
+            f"`{provenance.baseline_oracle_sha256}` |",
+            f"| Oracle generator SHA-256 | "
+            f"`{provenance.oracle_generator_sha256}` |",
+            f"| Treasury commit | `{provenance.treasury_sha}` |",
+            f"| Treasury parameter SHA-256 | "
+            f"`{provenance.treasury_parameter_sha256}` |",
             f"| RuleSpec commit | `{provenance.rulespec_sha}` |",
-            f"| Engine source checkout commit | `{provenance.engine_sha}` |",
-            f"| Executed engine binary SHA-256 | "
-            f"`{provenance.engine_binary_sha256}` |",
+            f"| Engine source commit | `{provenance.engine_sha}` |",
+            f"| Engine binary SHA-256 | `{provenance.engine_binary_sha256}` |",
             f"| Composition SHA-256 | `{provenance.composition_sha256}` |",
             f"| Compiled artifact SHA-256 | `{compiled_artifact_sha256}` |",
-            f"| Compiled derived outputs | "
-            f"{compiled_counts['derived_outputs']} total (174 imported + 2 "
-            "bridge rules) |",
-            f"| Compiled parameters | {compiled_counts['parameters']} |",
-            f"| Compiled input slots | {compiled_counts['input_slots']} |",
-            f"| Engine evaluations in one fresh pass | {engine_call_count} |",
+            f"| Compiled shape | {compiled_counts['derived_outputs']} derived, "
+            f"{compiled_counts['parameters']} parameters, "
+            f"{compiled_counts['input_slots']} inputs, "
+            f"{compiled_counts['relations']} relations |",
+            f"| Engine evaluations per fresh pass | {engine_call_count} |",
             "| Tax-year interval | `2026-04-01` to `2027-03-31` |",
+            "| Expanded snapshot `generated_at` | `2026-07-29` |",
             "",
             "Run from the Foundation workspace:",
             "",
@@ -3272,26 +4151,17 @@ def render_report(
             "python3 ops/nz-lane/emtr_reproduction/run.py",
             "```",
             "",
-            "The command performs two independent fresh compilations and "
-            "evaluations in temporary directories, compares every generated "
-            "artifact byte-for-byte, and only then writes the output files. "
-            "`SHA256SUMS` covers every report/data artifact. No network access "
-            "or manual intermediate file is required.",
-            "",
-            "This should not yet graduate into `rulespec-nz` as a claim of "
-            "Treasury reproduction. After the entitlement closures and the "
-            "forecast-vintage/enacted-law baseline are made explicit product "
-            "choices, the pinned matrix would be valuable as a dual-vintage "
-            "regression test.",
+            "The command performs the R regeneration gate and two independent "
+            "fresh compile/evaluate passes, compares every artifact byte-for-byte, "
+            "and only then writes the outputs. `SHA256SUMS` covers the report, "
+            "expanded oracle, and machine-readable comparison artifacts.",
             "",
             "## Full comparison matrix",
             "",
-            "Values are weekly unless the unit says annual. `|Δ|` is the "
-            "absolute delta; relative delta is `|RuleSpec − Treasury| / "
-            "|Treasury|`. An exact zero-over-zero match is shown as `0%`; "
-            "otherwise a zero Treasury denominator is `n/a`. The exact "
-            "signed deltas and unrounded engine decimals are in "
-            "[comparison.csv](comparison.csv).",
+            "Values are weekly unless the unit says annual. `|Δ|` is "
+            "`|RuleSpec − Treasury|`; relative delta divides by `|Treasury|`. "
+            "The tables include the denser kink points only in their relevant "
+            "scenarios.",
             "",
         ]
     )
@@ -3302,11 +4172,16 @@ def render_report(
     for row in rows:
         rows_by_scenario[row.scenario_id].append(row)
     for scenario in scenarios:
+        scenario_provenance = provenance_by_id[scenario.id]
+        tags = ", ".join(scenario_provenance["coverage_tags"])
+        wages = ", ".join(str(wage) for wage in scenario.sampled_wages)
         lines.extend(
             [
                 f"### `{scenario.id}`",
                 "",
                 scenario.description,
+                "",
+                f"Sampled wages: {wages}. Coverage tags: {tags}.",
                 "",
                 "| Wage | Metric | Unit | Treasury | RuleSpec | Abs delta | "
                 "Relative | Class |",
@@ -3340,6 +4215,7 @@ def build_audit_artifacts(
     composition_path: Path,
     oracle_generator: Path,
     rscript: Path,
+    output_dir: Path,
 ) -> tuple[dict[str, str], dict[str, Any]]:
     regenerated = regenerate_treasury_oracles(
         rulespec_root=rulespec_root,
@@ -3356,6 +4232,7 @@ def build_audit_artifacts(
         composition_path=composition_path,
         oracle_generator=oracle_generator,
         rscript=rscript,
+        output_dir=output_dir,
     )
     with tempfile.TemporaryDirectory(prefix="axiom-emtr-fresh-") as raw_temp:
         temp_root = Path(raw_temp)
@@ -3397,12 +4274,45 @@ def build_audit_artifacts(
             scenario.id: sweep_scenario(evaluator, scenario)
             for scenario in scenarios
         }
+        attach_treasury_emtr_components(
+            oracle=oracle,
+            scenarios=scenarios,
+            sweeps=sweeps,
+        )
+        coverage_evidence = validate_expanded_coverage(
+            oracle=oracle,
+            scenarios=scenarios,
+            sweeps=sweeps,
+        )
         comparison_rows = build_comparison_rows(
             oracle=oracle,
             scenarios=scenarios,
             sweeps=sweeps,
         )
         statistics = summary_statistics(comparison_rows)
+        baseline_statistics = summary_statistics(
+            [
+                row
+                for row in comparison_rows
+                if row.scenario_id in ORIGINAL_SCENARIOS
+            ]
+        )
+        baseline_continuity = (
+            baseline_statistics["amount_control_cells"],
+            baseline_statistics["amount_control_cells_agree_to_cent"],
+            baseline_statistics[
+                "amount_control_cells_outside_cent_by_class"
+            ],
+        )
+        if baseline_continuity != (
+            608,
+            434,
+            {"match": 0, "a": 0, "b": 174, "c": 0, "d": 0},
+        ):
+            raise HarnessError(
+                "original four-scenario continuity result changed: "
+                f"{baseline_continuity!r}"
+            )
         vintage_rows = build_vintage_parameter_rows(compiled, provenance)
         emtr_patterns = validate_emtr_residual_patterns(
             comparison_rows, sweeps
@@ -3506,6 +4416,7 @@ def build_audit_artifacts(
                 ),
             },
             "statistics": statistics,
+            "baseline_continuity_statistics": baseline_statistics,
             "classification_definitions": {
                 code: {
                     "classification": detail[0],
@@ -3526,6 +4437,7 @@ def build_audit_artifacts(
             "secondary_rates": secondary_rows,
             "accommodation_supplement_rounding_diagnostics": as_rows,
             "engine_state_diagnostics": diagnostic_rows,
+            "expanded_coverage_evidence": coverage_evidence,
             "coverage_statement": (
                 "Conditional stylised-family amount comparison; not full "
                 "statutory entitlement evaluation or UI reproduction."
@@ -3533,6 +4445,7 @@ def build_audit_artifacts(
         }
 
         report = render_report(
+            oracle=oracle,
             provenance=provenance,
             compiled_artifact_sha256=compiled_artifact_sha256,
             compiled_counts=compiled_counts,
@@ -3540,9 +4453,11 @@ def build_audit_artifacts(
             scenarios=scenarios,
             rows=comparison_rows,
             statistics=statistics,
+            baseline_statistics=baseline_statistics,
             vintage_rows=vintage_rows,
             emtr_patterns=emtr_patterns,
             as_rows=as_rows,
+            coverage_evidence=coverage_evidence,
         )
         artifacts: dict[str, str] = {
             "REPORT.md": report,
@@ -3699,6 +4614,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             composition_path=args.composition,
             oracle_generator=args.oracle_generator,
             rscript=args.rscript,
+            output_dir=args.output_dir,
         )
         second, second_summary = build_audit_artifacts(
             rulespec_root=args.rulespec_root,
@@ -3708,6 +4624,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             composition_path=args.composition,
             oracle_generator=args.oracle_generator,
             rscript=args.rscript,
+            output_dir=args.output_dir,
         )
         compare_fresh_artifacts(first, second)
         if json_text(summary) != json_text(second_summary):

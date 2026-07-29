@@ -205,7 +205,9 @@ expanded_only_scenarios <- list(
     AS_Accommodation_Costs = 0,
     AS_Accommodation_Rent = TRUE,
     AS_Area = 2L,
-    additional_weekly_gross_wage = c(688, 689, 1265, 1266, 1342, 1343)
+    additional_weekly_gross_wage = c(
+      688, 689, 692, 693, 1265, 1266, 1342, 1343
+    )
   ),
   list(
     id = "lone_parent_two_children_area4_high_rent_cap",
@@ -254,7 +256,9 @@ scenarios <- if (mode == "baseline") {
   c(baseline_scenarios, expanded_only_scenarios)
 }
 
-scenario_outputs <- lapply(scenarios, function(spec) {
+emtr_component_columns <- paste0("EMTR_", net_income_components)
+
+scenario_results <- lapply(scenarios, function(spec) {
   selected_wages <- sort(unique(c(
     sample_weekly_gross_wage,
     spec$additional_weekly_gross_wage
@@ -277,16 +281,32 @@ scenario_outputs <- lapply(scenarios, function(spec) {
   selected <- model_output[gross_wage1 %in% selected_wages, ..output_columns]
   selected <- selected[order(gross_wage1)]
 
+  selected_emtr_components <- model_output[
+    gross_wage1 %in% selected_wages,
+    c("gross_wage1", emtr_component_columns),
+    with = FALSE
+  ]
+  selected_emtr_components <- selected_emtr_components[order(gross_wage1)]
+
   list(
-    id = spec$id,
-    description = spec$description,
-    inputs = spec[setdiff(
-      names(spec),
-      c("id", "description", "additional_weekly_gross_wage")
-    )],
-    sampled_outputs = round_numeric_columns(selected)
+    snapshot = list(
+      id = spec$id,
+      description = spec$description,
+      inputs = spec[setdiff(
+        names(spec),
+        c("id", "description", "additional_weekly_gross_wage")
+      )],
+      sampled_outputs = round_numeric_columns(selected)
+    ),
+    emtr_components = round_numeric_columns(selected_emtr_components)
   )
 })
+
+scenario_outputs <- lapply(scenario_results, function(result) result$snapshot)
+scenario_emtr_components <- setNames(
+  lapply(scenario_results, function(result) result$emtr_components),
+  vapply(scenarios, function(spec) spec$id, character(1))
+)
 
 rulespec_profile <- function(
     partnered,
@@ -410,7 +430,7 @@ scenario_provenance <- list(
   ),
   single_childless_ietc_focused = provenance_entry(
     c("ietc", "childless_single", "no_main_benefit", "dense_kinks"),
-    c(688, 689, 1265, 1266, 1342, 1343),
+    c(688, 689, 692, 693, 1265, 1266, 1342, 1343),
     c(
       "R/emtr.R:251-269 weekly IETC scale, rate, and minimum-income conversion",
       "R/emtr.R:578-599 IETC eligibility, amount, and abatement"
@@ -447,7 +467,10 @@ scenario_provenance <- list(
     )
   ),
   large_family_four_children_age_bands = provenance_entry(
-    c("large_family", "four_children", "ftc_subsequent_child", "iwtc_subsequent_child"),
+    c(
+      "large_family", "four_children", "ftc_subsequent_child",
+      "iwtc_subsequent_child", "winter_energy_dependent_rate"
+    ),
     numeric(0),
     c(
       "R/emtr.R:493-495 FTC eldest-plus-subsequent-child composition",
@@ -491,6 +514,10 @@ snapshot <- list(
 )
 
 if (mode == "expanded") {
+  for (scenario_id in names(scenario_provenance)) {
+    scenario_provenance[[scenario_id]]$treasury_emtr_components <-
+      scenario_emtr_components[[scenario_id]]
+  }
   snapshot$scenario_provenance <- scenario_provenance
 }
 snapshot$scenarios <- scenario_outputs
