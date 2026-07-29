@@ -5,8 +5,8 @@
   "publication_state": "merged_published_activated",
   "atomic_module_count": 40,
   "proof_atom_count": 1240,
-  "resolved_proof_atom_count": 1199,
-  "blocked_proof_atom_count": 41,
+  "resolved_proof_atom_count": 1215,
+  "blocked_proof_atom_count": 25,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -93,99 +93,6 @@
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },
     {
-      "citation_path": "nz/guidance/ird/gst-calculation-guidance",
-      "blocked_proof_atom_count": 4,
-      "affected_module_count": 1,
-      "affected_rule_count": 4,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_component_from_exclusive_amount",
-          "declared_source": "Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance"
-        },
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_component_from_inclusive_amount",
-          "declared_source": "Inland Revenue GST calculation guidance"
-        },
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_exclusive_amount_from_inclusive_amount",
-          "declared_source": "Goods and Services Tax Act 1985 s 10(2); Inland Revenue GST calculation guidance"
-        },
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_inclusive_amount_from_exclusive_amount",
-          "declared_source": "Goods and Services Tax Act 1985 s 8(1); Inland Revenue GST calculation guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue calculating GST guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/gst/filing-and-paying-gst-and-refunds/calculating-gst"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/gst-low-value-imported-goods",
-      "blocked_proof_atom_count": 4,
-      "affected_module_count": 1,
-      "affected_rule_count": 4,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_low_value_imported_goods_component",
-          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
-        },
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_low_value_imported_goods_subject_to_gst",
-          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
-        },
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_low_value_imported_goods_threshold",
-          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
-        },
-        {
-          "module": "nz/statutes/gst/rate.yaml",
-          "rule": "gst_low_value_imported_goods_total_payable",
-          "declared_source": "Goods and Services Tax Act 1985 s 12; IRD low-value imported goods guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue GST on low-value imported goods guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/gst/gst-for-overseas-businesses/gst-on-low-value-imported-goods"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/paye-deduction-tables",
-      "blocked_proof_atom_count": 2,
-      "affected_module_count": 1,
-      "affected_rule_count": 2,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_income_tax_component",
-          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE tables"
-        },
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_total_deduction",
-          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE deduction tables"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue PAYE deduction guidance and tables",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay",
-        "https://www.ird.govt.nz/employing-staff/deducting-tax-from-employees-pay/paye-and-kiwisaver-deductions"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
       "citation_path": "nz/guidance/ird/rwt-rates",
       "blocked_proof_atom_count": 6,
       "affected_module_count": 1,
@@ -227,66 +134,6 @@
       "official_source_urls": [
         "https://www.ird.govt.nz/investing/rwt-resident-withholding-tax",
         "https://www.ird.govt.nz/investing/rwt-resident-withholding-tax/rwt-rates"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/student-loan-repayment-deductions",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_student_loan_component",
-          "declared_source": "Student Loan Scheme Act 2011 s 22; IRD student loan deduction tables"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue student loan repayment guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/student-loans/repaying-my-student-loan",
-        "https://www.ird.govt.nz/student-loans/repaying-my-student-loan/repayment-thresholds"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/studylink/ordinary-residence",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/common/residence.yaml",
-          "rule": "common_ordinarily_resident_in_new_zealand",
-          "declared_source": "Social Security Act 2018 and StudyLink ordinary-residence guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "StudyLink ordinary residence guidance",
-      "official_source_urls": [
-        "https://www.studylink.govt.nz/about-studylink/glossary/ordinarily-resident.html"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/studylink/student-allowances",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/common/residence.yaml",
-          "rule": "common_ordinarily_resident_in_new_zealand",
-          "declared_source": "Social Security Act 2018 and StudyLink ordinary-residence guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "StudyLink student allowance guidance and calculators",
-      "official_source_urls": [
-        "https://www.studylink.govt.nz/student-allowance",
-        "https://www.studylink.govt.nz/products/rates/calculators/parental-income-calculator.html",
-        "https://www.studylink.govt.nz/products/rates/calculators/student-allowance-rate-calculator.html"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
     },
@@ -347,50 +194,6 @@
         "https://www.legislation.govt.nz/act/public/2001/0049/latest/whole.html"
       ],
       "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
-    },
-    {
-      "citation_path": "nz/guidance/ird/kiwisaver-contribution-rates",
-      "blocked_proof_atom_count": 1,
-      "affected_module_count": 1,
-      "affected_rule_count": 1,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_kiwisaver_employee_component",
-          "declared_source": "KiwiSaver Act 2006 s 64; IRD KiwiSaver deduction guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue KiwiSaver contribution guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/kiwisaver/kiwisaver-individuals/growing-my-kiwisaver/making-contributions",
-        "https://www.ird.govt.nz/kiwisaver/kiwisaver-employers/employer-contributions-to-kiwisaver-and-complying-funds"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2007/0097/subpart/rd",
-      "blocked_proof_atom_count": 2,
-      "affected_module_count": 1,
-      "affected_rule_count": 2,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_income_tax_component",
-          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE tables"
-        },
-        {
-          "module": "nz/statutes/payroll/deductions.yaml",
-          "rule": "paye_total_deduction",
-          "declared_source": "Income Tax Act 2007 subpart RD; IRD PAYE deduction tables"
-        }
-      ],
-      "blocker_kind": "missing_exact_provision_or_segmentation",
-      "required_official_source_document": "Income Tax Act 2007",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
-      ],
-      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
     }
   ]
 }

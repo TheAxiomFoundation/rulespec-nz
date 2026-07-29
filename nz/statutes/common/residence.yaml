@@ -99,11 +99,13 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/student-allowances
+              corpus_citation_path: nz/guidance/studylink/student-allowances/block-5
+              excerpt: they don't meet the residency criteria
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/studylink/ordinary-residence
+              corpus_citation_path: nz/guidance/studylink/ordinary-residence/block-2
+              excerpt: Ordinarily resident means you normally and lawfully live in New Zealand, intend to stay here and consider New Zealand to be home.
     versions:
       - effective_from: '2026-04-01'
         formula: |-

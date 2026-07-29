@@ -64,12 +64,6 @@ validate_failures:
       fingerprint: sha256:fdc4bfc56bc664ddf93cd78d9830a29e7ac997d79faf28882ecc9d4d45b0a9fc
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
-  nz/statutes/payroll/deductions.yaml:
-    active:
-      expires: '2026-10-10'
-      fingerprint: sha256:5392d44a5b039989b2a411237fc5ee5b68f615247c1c542dc20a589f50e41b41
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
   nz/statutes/rates_rebates/rates_rebate.yaml:
     active:
       expires: '2026-10-10'
