@@ -89,11 +89,29 @@
   canonical SHA-256 `3f4ea311825b316d63910ce37c18e5980ef256df89d1eb5ec8442b4d1351c3c5`.
 - Confirmed all required pinned R packages are installed (`data.table`,
   `dplyr`, `jsonlite`, `openxlsx`, `yaml`, and `zoo`).
+- Completed the pinned-source branch audit. `R/emtr.R` selects the lone-parent
+  JSS rate with the SPS abatement scale when the youngest child is 14+, abates
+  TY27 Best Start once over the aggregate eligible-child amount, computes
+  partner tax/ACC separately while using joint income for benefits/WFF, and
+  supports Area 4 and AS caps. Raw `emtr()` and the UI expose only rent versus
+  mortgage; neither has a boarder input.
+- Fixed the expanded design at seven new profiles: 14+ lone parent; two
+  Best Start-aged children crossing $79,000; a separate dual-full-time couple;
+  focused childless IETC; Area 4 high-rent cap; a clearly labeled
+  cost-normalised boarder proxy; and four children spanning age bands.
+- Kept the common eight display wages and selected extra integer points only
+  around source-derived transitions: Best Start at 775/776 plus the
+  per-child/aggregate extinction diagnostics at 1125/1126 and 1476/1477;
+  joint WFF at 121/122; and IETC benefit-release/abatement/extinction at
+  688/689, 1265/1266, and 1342/1343.
+- Defined the boarder comparison honestly: RuleSpec receives $400 weekly board
+  with its statutory 62% qualifying-cost rule; Treasury is actually run with
+  the rent-like $248 qualifying-cost equivalent. This exercises the RuleSpec
+  boarder composition but cannot independently validate the 62% rule because
+  Treasury has no native boarder branch.
 
 ## Next
 
-- Read and map Treasury's separate lone-parent JSS, Best Start, IETC,
-  Accommodation Supplement, partner-wage, and family-size branches.
 - Add the required diverse scenarios, generate the expanded Treasury snapshot,
   extend the RuleSpec comparison, classify every residual, and prove two fresh
   runs byte-identical before finalising the living report.
