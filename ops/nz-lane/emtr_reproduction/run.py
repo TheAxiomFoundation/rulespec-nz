@@ -3129,9 +3129,6 @@ def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
             "scenario_id": maximum_emtr.scenario_id,
             "weekly_wage": maximum_emtr.weekly_wage,
         },
-        "emtr_points_within_half_percentage_point": sum(
-            row.absolute_delta <= Decimal("0.005") for row in emtr_rows
-        ),
         "emtr_points": len(emtr_rows),
     }
 
