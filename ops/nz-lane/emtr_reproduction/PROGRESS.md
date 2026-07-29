@@ -2,9 +2,9 @@
 
 ## State
 
-- Status: in progress; implementation and classification are complete, with
-  final same-path deterministic regeneration and artifact validation pending.
-  The diverse-family-grid extension began on 2026-07-29.
+- Status: complete as of 2026-07-29. The expanded oracle, comparison artifacts,
+  and living report are regenerated, byte-stable, checksummed, and ready for
+  handoff. The diverse-family-grid extension began on 2026-07-29.
 - The completed 2026-07-26 four-scenario audit is the continuity baseline; its
   pinned Treasury oracle now regenerates byte-for-byte before every expanded
   harness pass.
@@ -131,6 +131,10 @@
   checkout, and parameter file; load per-scenario dense wage points; map the
   14+ lone-parent JSS branch; exercise partner tax/ACC and boarder inputs; and
   emit the generated expanded oracle as a checksummed artifact.
+- Enforced a clean tracked Treasury checkout before R execution, in addition
+  to the existing exact HEAD and parameter-hash checks. The final machine and
+  Markdown provenance record clean tracked Treasury, RuleSpec, and engine
+  trees.
 - Corrected the host aggregation for multiple Best Start children: RuleSpec's
   child-level pre-abatement amounts are summed and the single family-income
   abatement is applied once. The former per-child result is retained as a
@@ -156,12 +160,33 @@
 - Confirmed the expanded headline is dollar exactness: 1,454 of 1,976
   amount/control cells agree to the cent; every exception is named, with zero
   remaining encoding bugs and zero unexplained.
+- Ran the final canonical command in two separate invocations. Each invocation
+  independently regenerated the baseline and expanded Treasury oracles and ran
+  two fresh RuleSpec compile/evaluate passes (883 engine evaluations per pass).
+  All seven generated artifacts and the command's JSON result were
+  byte-identical between invocations.
+- Ran the documented `python3 ops/nz-lane/emtr_reproduction/run.py` command as
+  a further clean invocation; all artifacts and stdout were byte-identical to
+  the preserved first final run.
+- Validated 2,080 comparison rows, 208 secondary-rate rows, 104 Accommodation
+  Supplement diagnostics, 11 scenario records, 104 sampled oracle rows, 104
+  Treasury component-diagnostic rows, all dense wage coordinates, zero class
+  (a)/(d) rows, and every `SHA256SUMS` entry.
+- Final canonical SHA-256 values:
+  - `REPORT.md`: `90242a19139f32293892a5fb6ae5e0990f55673670f06eb370ebc90dfd47ff23`
+  - `comparison.json`: `b2970a2c11f7e5cd88c1068c237ee5ee0035d923064ee915e112c1d010087f73`
+  - `comparison.csv`: `ccaa4dcb61b112587b47afb0e1892f670df354670fcd35f4d801edc621dd4bf2`
+  - expanded Treasury snapshot:
+    `6bed8c0a91e4ba6416238ef1cf381bc8033f3122f3eeb5766074d763929293fd`
+- Confirmed the pinned baseline snapshot remains unmodified at SHA-256
+  `3f4ea311825b316d63910ce37c18e5980ef256df89d1eb5ec8442b4d1351c3c5`,
+  and the Treasury parameter file remains
+  `de89898c78989e057bde7d006b725fed4615ff32731ad008b96148c5a74b683c`.
+- Confirmed the isolated RuleSpec worktree, pinned Treasury checkout, and
+  pinned engine checkout all have clean tracked trees after the final runs.
 
 ## Next
 
-- Commit the completed generator, harness, classification, report renderer, and
-  this checkpoint to the local-only audit branch.
-- Run the canonical end-to-end command twice from fresh R regeneration at the
-  same output path, compare every artifact byte-for-byte, validate row counts,
-  schema invariants, checksums, pinned hashes, and the clean isolated worktree,
-  then commit the final generated artifacts and completed progress record.
+- No work remains for the requested scope. `REPORT.md` lists the residual
+  coverage gaps for any future extension, including Treasury's lack of a
+  native boarder branch and the omitted entitlement/program families.
