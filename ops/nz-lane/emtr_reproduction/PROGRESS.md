@@ -79,12 +79,19 @@
 - Read the completed `PROGRESS.md` and `REPORT.md`, confirmed the external
   artifact layout, and confirmed local audit branch
   `audit/treasury-emtr-reproduction` points to checkpoint `aa8832f`.
+- Passed the honesty-critical oracle gate. The unchanged historical R generator
+  recovered from RuleSpec commit `943b27a` was run twice with
+  `/usr/local/bin/Rscript` against Treasury commit `741a6ca` and parameter SHA
+  `de89898c...`; both fresh raw outputs were byte-identical. The only raw-file
+  differences from the pinned snapshot were today's `generated_at` and the
+  historical `generator.script` key later migrated to `generator.adapter`.
+  Restoring those two metadata values yielded an exact 25,888-byte match and
+  canonical SHA-256 `3f4ea311825b316d63910ce37c18e5980ef256df89d1eb5ec8442b4d1351c3c5`.
+- Confirmed all required pinned R packages are installed (`data.table`,
+  `dplyr`, `jsonlite`, `openxlsx`, `yaml`, and `zoo`).
 
 ## Next
 
-- Re-run Treasury's pinned R source for the original four scenarios and require
-  a byte-identical match to
-  `rulespec-nz/data/oracles/treasury-emtr-snapshot.json`; stop on any mismatch.
 - Read and map Treasury's separate lone-parent JSS, Best Start, IETC,
   Accommodation Supplement, partner-wage, and family-size branches.
 - Add the required diverse scenarios, generate the expanded Treasury snapshot,
