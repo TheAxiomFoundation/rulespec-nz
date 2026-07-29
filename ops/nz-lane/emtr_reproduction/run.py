@@ -43,6 +43,9 @@ DEFAULT_TREASURY_ROOT = (
     Path.home() / "_axiom-worktrees" / "nz-treasury-income-explorer"
 )
 DEFAULT_COMPOSITION = HERE / "composition.yaml"
+DEFAULT_ORACLE_GENERATOR = HERE / "generate_treasury_emtr_snapshot_expanded.R"
+DEFAULT_RSCRIPT = Path("/usr/local/bin/Rscript")
+EXPANDED_ORACLE_NAME = "treasury-emtr-snapshot-expanded.json"
 
 EXPECTED_RULESPEC_SHA = "89a7d25dc03a4d045348620283332de10b1047da"
 EXPECTED_ENGINE_SHA = "d59969b53430ae2fd97eb4349d44ad23ce930d85"
@@ -54,13 +57,24 @@ EXPECTED_PARAMETER_SHA256 = (
 EXPECTED_MODEL_YEAR = 2027
 EXPECTED_PERIOD_START = "2026-04-01"
 EXPECTED_PERIOD_END = "2027-03-31"
+EXPECTED_EXPANDED_GENERATED_AT = "2026-07-29"
 EXPECTED_SAMPLE_WAGES = (0, 160, 250, 370, 555, 740, 1000, 1500)
-EXPECTED_SCENARIOS = (
+ORIGINAL_SCENARIOS = (
     "single_parent_three_children_area1_rent",
     "couple_two_children_area2_mortgage",
     "couple_one_child_partner_10h_area3_rent",
     "single_no_children_area2_no_housing_costs",
 )
+EXPANDED_SCENARIOS = (
+    "lone_parent_two_teens_jss",
+    "couple_two_best_start_children_binding",
+    "couple_two_children_dual_full_time",
+    "single_childless_ietc_focused",
+    "lone_parent_two_children_area4_high_rent_cap",
+    "couple_childless_boarder_proxy",
+    "large_family_four_children_age_bands",
+)
+EXPECTED_SCENARIOS = ORIGINAL_SCENARIOS + EXPANDED_SCENARIOS
 EXPECTED_OUTPUT_COLUMNS = (
     "gross_wage1",
     "hours1",
@@ -222,6 +236,12 @@ def output_id(module: str, rule: str) -> str:
 class Provenance:
     oracle_path: Path
     oracle_sha256: str
+    baseline_oracle_path: Path
+    baseline_oracle_sha256: str
+    oracle_generator_path: Path
+    oracle_generator_sha256: str
+    rscript_path: Path
+    rscript_version: str
     rulespec_root: Path
     rulespec_sha: str
     rulespec_tracked_dirty: bool
@@ -242,6 +262,18 @@ class Provenance:
             "oracle_snapshot": {
                 "path": str(self.oracle_path),
                 "sha256": self.oracle_sha256,
+                "generated_at": EXPECTED_EXPANDED_GENERATED_AT,
+            },
+            "baseline_oracle_regeneration": {
+                "path": str(self.baseline_oracle_path),
+                "sha256": self.baseline_oracle_sha256,
+                "byte_identical": True,
+            },
+            "oracle_generator": {
+                "path": str(self.oracle_generator_path),
+                "sha256": self.oracle_generator_sha256,
+                "rscript": str(self.rscript_path),
+                "rscript_version": self.rscript_version,
             },
             "rulespec": {
                 "root": str(self.rulespec_root),
@@ -271,13 +303,134 @@ class Provenance:
         }
 
 
+@dataclass(frozen=True)
+class RegeneratedOracle:
+    oracle: dict[str, Any]
+    expanded_text: str
+    baseline_oracle_path: Path
+    baseline_oracle_sha256: str
+    generator_path: Path
+    rscript_path: Path
+    rscript_version: str
+
+
+def regenerate_treasury_oracles(
+    *,
+    rulespec_root: Path,
+    treasury_root: Path,
+    oracle_generator: Path,
+    rscript: Path,
+) -> RegeneratedOracle:
+    baseline_oracle_path = require_file(
+        rulespec_root / "data" / "oracles" / "treasury-emtr-snapshot.json",
+        "pinned Treasury baseline oracle",
+    )
+    treasury_root = require_directory(
+        treasury_root, "Treasury source checkout"
+    )
+    oracle_generator = require_file(
+        oracle_generator, "Treasury oracle generator"
+    )
+    rscript = require_file(rscript, "Rscript 4.3.0")
+    parameter_path = require_file(
+        treasury_root / EXPECTED_PARAMETER_FILE,
+        "Treasury parameter file",
+    )
+
+    treasury_sha = git_sha(treasury_root)
+    if treasury_sha != EXPECTED_ORACLE_COMMIT:
+        raise HarnessError(
+            f"Treasury checkout SHA mismatch: expected {EXPECTED_ORACLE_COMMIT}, "
+            f"found {treasury_sha}"
+        )
+    parameter_sha = sha256_file(parameter_path)
+    if parameter_sha != EXPECTED_PARAMETER_SHA256:
+        raise HarnessError(
+            "Treasury parameter SHA-256 mismatch: expected "
+            f"{EXPECTED_PARAMETER_SHA256}, found {parameter_sha}"
+        )
+
+    version_process = run_checked(
+        [str(rscript), "--version"],
+        label="Rscript version check",
+    )
+    rscript_version = "\n".join(
+        part.strip()
+        for part in (version_process.stdout, version_process.stderr)
+        if part.strip()
+    )
+    if "version 4.3.0" not in rscript_version:
+        raise HarnessError(
+            "Treasury regeneration requires Rscript 4.3.0, found "
+            f"{rscript_version!r}"
+        )
+
+    with tempfile.TemporaryDirectory(
+        prefix="axiom-emtr-oracle-regeneration-"
+    ) as raw_temp:
+        temp_root = Path(raw_temp)
+        baseline_output = temp_root / "baseline.json"
+        expanded_output = temp_root / EXPANDED_ORACLE_NAME
+        common_args = (
+            str(rscript),
+            str(oracle_generator),
+            f"--repo={treasury_root}",
+            f"--parameter-file={parameter_path}",
+        )
+        run_checked(
+            [
+                *common_args,
+                "--mode=baseline",
+                f"--output={baseline_output}",
+            ],
+            label="Treasury baseline oracle regeneration",
+        )
+        regenerated_baseline = baseline_output.read_bytes()
+        pinned_baseline = baseline_oracle_path.read_bytes()
+        if regenerated_baseline != pinned_baseline:
+            raise HarnessError(
+                "STOP: pinned Treasury baseline did not regenerate "
+                "byte-for-byte; expected SHA-256 "
+                f"{hashlib.sha256(pinned_baseline).hexdigest()}, found "
+                f"{hashlib.sha256(regenerated_baseline).hexdigest()}"
+            )
+        run_checked(
+            [
+                *common_args,
+                "--mode=expanded",
+                f"--output={expanded_output}",
+            ],
+            label="expanded Treasury oracle regeneration",
+        )
+        expanded_text = expanded_output.read_text(encoding="utf-8")
+
+    try:
+        oracle = json.loads(expanded_text)
+    except json.JSONDecodeError as exc:
+        raise HarnessError(
+            f"expanded Treasury generator emitted invalid JSON: {exc}"
+        ) from exc
+    return RegeneratedOracle(
+        oracle=oracle,
+        expanded_text=expanded_text,
+        baseline_oracle_path=baseline_oracle_path,
+        baseline_oracle_sha256=sha256_file(baseline_oracle_path),
+        generator_path=oracle_generator,
+        rscript_path=rscript,
+        rscript_version=rscript_version,
+    )
+
+
 def verify_inputs(
     *,
+    regenerated: RegeneratedOracle,
     rulespec_root: Path,
     engine_root: Path,
     engine_binary: Path,
     treasury_root: Path,
     composition_path: Path,
+    oracle_generator: Path,
+    rscript: Path,
 ) -> tuple[dict[str, Any], Provenance]:
     rulespec_root = require_directory(rulespec_root, "RuleSpec root")
     engine_root = require_directory(engine_root, "engine root")
@@ -297,15 +450,22 @@ def verify_inputs(
             f"RuleSpec root basename must be rulespec-nz, got {rulespec_root.name!r}"
         )
 
-    oracle_path = require_file(
-        rulespec_root / "data" / "oracles" / "treasury-emtr-snapshot.json",
-        "Treasury oracle snapshot",
+    oracle_generator = require_file(
+        oracle_generator, "Treasury oracle generator"
     )
-    with oracle_path.open(encoding="utf-8") as source:
-        oracle = json.load(source)
+    rscript = require_file(rscript, "Rscript 4.3.0")
+    oracle = regenerated.oracle
+    oracle_path = (HERE / EXPANDED_ORACLE_NAME).resolve()
+    with regenerated.baseline_oracle_path.open(encoding="utf-8") as source:
+        baseline_oracle = json.load(source)
 
     pinned = oracle.get("oracle", {})
     checks: tuple[tuple[str, Any, Any], ...] = (
+        (
+            "generated_at",
+            oracle.get("generated_at"),
+            EXPECTED_EXPANDED_GENERATED_AT,
+        ),
         ("oracle.commit", pinned.get("commit"), EXPECTED_ORACLE_COMMIT),
         (
             "oracle.parameter_file",
@@ -318,6 +478,11 @@ def verify_inputs(
             EXPECTED_PARAMETER_SHA256,
         ),
         ("oracle.model_year", pinned.get("model_year"), EXPECTED_MODEL_YEAR),
+        (
+            "generator.adapter",
+            oracle.get("generator", {}).get("adapter"),
+            "treasury-income-explorer-emtr-snapshot-expanded",
+        ),
         (
             "generator.sampled_weekly_gross_wage",
             tuple(oracle.get("generator", {}).get("sampled_weekly_gross_wage", ())),
@@ -342,6 +507,48 @@ def verify_inputs(
     note = oracle.get("generator", {}).get("note")
     if note != "Treasury outputs are weekly unless the column name says annual.":
         raise HarnessError(f"unexpected generator.note: {note!r}")
+    scenario_provenance = oracle.get("scenario_provenance", {})
+    if tuple(scenario_provenance) != EXPECTED_SCENARIOS:
+        raise HarnessError(
+            "scenario provenance ids mismatch: expected "
+            f"{EXPECTED_SCENARIOS!r}, found {tuple(scenario_provenance)!r}"
+        )
+    if oracle.get("scenarios", [])[: len(ORIGINAL_SCENARIOS)] != baseline_oracle.get(
+        "scenarios", []
+    ):
+        raise HarnessError(
+            "expanded oracle did not preserve the original four scenario "
+            "objects byte-for-byte in value and schema"
+        )
+    for raw_scenario in oracle.get("scenarios", ()):
+        scenario_id = str(raw_scenario["id"])
+        scenario_metadata = scenario_provenance[scenario_id]
+        displayed = tuple(
+            int(value)
+            for value in scenario_metadata.get(
+                "displayed_weekly_gross_wage", ()
+            )
+        )
+        if displayed != EXPECTED_SAMPLE_WAGES:
+            raise HarnessError(
+                f"{scenario_id} display wages changed: {displayed!r}"
+            )
+        additional = tuple(
+            int(value)
+            for value in scenario_metadata.get(
+                "additional_weekly_gross_wage", ()
+            )
+        )
+        expected_wages = tuple(sorted(set(displayed + additional)))
+        actual_wages = tuple(
+            int(dec(item["gross_wage1"]))
+            for item in raw_scenario.get("sampled_outputs", ())
+        )
+        if actual_wages != expected_wages:
+            raise HarnessError(
+                f"{scenario_id} sampled wages mismatch: expected "
+                f"{expected_wages!r}, found {actual_wages!r}"
+            )
 
     rulespec_sha = git_sha(rulespec_root)
     engine_sha = git_sha(engine_root)
@@ -361,9 +568,7 @@ def verify_inputs(
     if engine_dirty:
         raise HarnessError(f"engine checkout has tracked modifications: {engine_root}")
 
-    treasury_root = require_directory(
-        treasury_root, "Treasury source checkout"
-    )
+    treasury_root = require_directory(treasury_root, "Treasury source checkout")
     treasury_present = True
     treasury_sha: str | None = git_sha(treasury_root)
     parameter_sha: str | None
@@ -385,7 +590,15 @@ def verify_inputs(
 
     provenance = Provenance(
         oracle_path=oracle_path,
-        oracle_sha256=sha256_file(oracle_path),
+        oracle_sha256=hashlib.sha256(
+            regenerated.expanded_text.encode("utf-8")
+        ).hexdigest(),
+        baseline_oracle_path=regenerated.baseline_oracle_path,
+        baseline_oracle_sha256=regenerated.baseline_oracle_sha256,
+        oracle_generator_path=oracle_generator,
+        oracle_generator_sha256=sha256_file(oracle_generator),
+        rscript_path=rscript,
+        rscript_version=regenerated.rscript_version,
         rulespec_root=rulespec_root,
         rulespec_sha=rulespec_sha,
         rulespec_tracked_dirty=rulespec_dirty,
@@ -595,6 +808,12 @@ WEP_RATE_OUTPUT = output_id(
     WEP_MODULE, "winter_energy_payment_rate_per_winter_period"
 )
 BEST_START_OUTPUT = output_id(WFF_MODULE, "best_start_tax_credit")
+BEST_START_BEFORE_OUTPUT = output_id(
+    WFF_MODULE, "best_start_tax_credit_before_abatement"
+)
+BEST_START_ABATEMENT_OUTPUT = output_id(
+    WFF_MODULE, "best_start_credit_abatement"
+)
 AS_UNROUNDED_OUTPUT = output_id(
     AS_MODULE, "accommodation_supplement_weekly_amount_before_rounding"
 )
@@ -639,10 +858,33 @@ class Scenario:
     accommodation_costs: Decimal
     accommodation_rent: bool
     accommodation_area: int
+    accommodation_boarder: bool
+    weekly_board_and_lodgings_paid: Decimal
+    sampled_wages: tuple[int, ...]
 
     @classmethod
-    def from_oracle(cls, raw: Mapping[str, Any]) -> "Scenario":
+    def from_oracle(
+        cls,
+        raw: Mapping[str, Any],
+        provenance: Mapping[str, Any],
+    ) -> "Scenario":
         inputs = raw["inputs"]
+        rulespec_profile = provenance.get("rulespec_profile", {})
+        displayed = tuple(
+            int(value)
+            for value in provenance.get(
+                "displayed_weekly_gross_wage",
+                EXPECTED_SAMPLE_WAGES,
+            )
+        )
+        additional = tuple(
+            int(value)
+            for value in provenance.get(
+                "additional_weekly_gross_wage",
+                (),
+            )
+        )
+        sampled_wages = tuple(sorted(set(displayed + additional)))
         return cls(
             id=str(raw["id"]),
             description=str(raw["description"]),
@@ -654,6 +896,15 @@ class Scenario:
             accommodation_costs=dec(inputs["AS_Accommodation_Costs"]),
             accommodation_rent=bool(inputs["AS_Accommodation_Rent"]),
             accommodation_area=int(inputs["AS_Area"]),
+            accommodation_boarder=bool(
+                rulespec_profile.get("boarder", False)
+            ),
+            weekly_board_and_lodgings_paid=dec(
+                rulespec_profile.get("accommodation_cost", 0)
+                if rulespec_profile.get("boarder", False)
+                else 0
+            ),
+            sampled_wages=sampled_wages,
         )
 
 
@@ -899,7 +1150,14 @@ class ModelEvaluator:
             per_person = self.jobseeker_payment(scenario, weekly_wages)
             scheduled = (per_person, per_person)
         elif scenario.children:
-            scheduled = (self.sole_parent_payment(scenario, weekly_wages),)
+            if min(scenario.children) >= 14:
+                # Treasury R/emtr.R lines 310-319 deliberately select the
+                # lone-parent JSS rate with the SPS income-test scale once the
+                # youngest child is 14. RuleSpec's Jobseeker branch encodes
+                # that same combination.
+                scheduled = (self.jobseeker_payment(scenario, weekly_wages),)
+            else:
+                scheduled = (self.sole_parent_payment(scenario, weekly_wages),)
         else:
             scheduled = (self.jobseeker_payment(scenario, weekly_wages),)
         if self.raw_iwtc_branch(scenario, weekly_wages):
@@ -1089,11 +1347,13 @@ class ModelEvaluator:
         scenario: Scenario,
         annual_base_income: Decimal,
         annual_wages: Decimal,
-    ) -> Decimal:
+    ) -> tuple[Decimal, Decimal]:
         eligible_children = [
             index for index, age in enumerate(scenario.children) if age in (0, 1, 2)
         ]
-        total = D0
+        total_before_abatement = D0
+        per_child_total = D0
+        family_abatement: Decimal | None = None
         for index in eligible_children:
             inputs = self.family_scheme_inputs(annual_base_income, annual_wages)
             inputs.update(
@@ -1107,10 +1367,33 @@ class ModelEvaluator:
                 entity="Child",
                 entity_id=f"{scenario.id}:child:{index}",
                 inputs=inputs,
-                outputs=[BEST_START_OUTPUT],
+                outputs=[
+                    BEST_START_BEFORE_OUTPUT,
+                    BEST_START_ABATEMENT_OUTPUT,
+                    BEST_START_OUTPUT,
+                ],
             )
-            total += scalar_decimal(values, BEST_START_OUTPUT)
-        return total / WEEKS_IN_MODEL_YEAR
+            child_before = scalar_decimal(values, BEST_START_BEFORE_OUTPUT)
+            child_abatement = scalar_decimal(
+                values, BEST_START_ABATEMENT_OUTPUT
+            )
+            total_before_abatement += child_before
+            per_child_total += scalar_decimal(values, BEST_START_OUTPUT)
+            if family_abatement is None:
+                family_abatement = child_abatement
+            elif child_abatement != family_abatement:
+                raise HarnessError(
+                    "Best Start family abatement changed between children for "
+                    f"{scenario.id}"
+                )
+        aggregate_total = max(
+            D0,
+            total_before_abatement - (family_abatement or D0),
+        )
+        return (
+            aggregate_total / WEEKS_IN_MODEL_YEAR,
+            per_child_total / WEEKS_IN_MODEL_YEAR,
+        )
 
     def ietc_for_person(
         self,
@@ -1244,12 +1527,13 @@ class ModelEvaluator:
             treasury_host_aligned=treasury_host_aligned,
         )
         rent = scenario.accommodation_rent
+        boarder = scenario.accommodation_boarder
         area = scenario.accommodation_area
         inputs: dict[str, bool | int | Decimal] = {
             "accommodation_supplement_additional_resident_in_social_housing": False,
             "accommodation_supplement_area_let_to_nonresidents": D0,
             "accommodation_supplement_base_rate_weekly_amount": base_rate,
-            "accommodation_supplement_boarder": False,
+            "accommodation_supplement_boarder": boarder,
             "accommodation_supplement_business_use_area": D0,
             "accommodation_supplement_costs_are_homeownership": not rent,
             "accommodation_supplement_has_dependent_children": bool(
@@ -1266,10 +1550,12 @@ class ModelEvaluator:
             ),
             "accommodation_supplement_owner_weekly_payment_share": D0,
             "accommodation_supplement_owner_weekly_required_payments": (
-                scenario.accommodation_costs if not rent else D0
+                scenario.accommodation_costs
+                if not rent and not boarder
+                else D0
             ),
             "accommodation_supplement_owns_premises_and_not_joint_owner_with_resident": (
-                not rent
+                not rent and not boarder
             ),
             "accommodation_supplement_relevant_weekly_income": weekly_wages,
             "accommodation_supplement_resides_in_area_1": area == 1,
@@ -1281,11 +1567,13 @@ class ModelEvaluator:
                 not scenario.partnered and bool(scenario.children)
             ),
             "accommodation_supplement_total_premises_area": D0,
-            "accommodation_supplement_weekly_board_and_lodgings_paid": D0,
+            "accommodation_supplement_weekly_board_and_lodgings_paid": (
+                scenario.weekly_board_and_lodgings_paid
+            ),
             "accommodation_supplement_weekly_boarder_payments_received": D0,
             "accommodation_supplement_weekly_contributions_received_from_additional_residents": D0,
             "accommodation_supplement_weekly_rent_paid": (
-                scenario.accommodation_costs if rent else D0
+                scenario.accommodation_costs if rent and not boarder else D0
             ),
             "accommodation_supplement_weekly_rent_received_from_other_residents": D0,
         }
@@ -1379,7 +1667,7 @@ class ModelEvaluator:
         annual_base_income = (
             weekly_wages + gross_benefit_total
         ) * WEEKS_IN_MODEL_YEAR
-        best_start = self.best_start_total(
+        best_start, best_start_per_child = self.best_start_total(
             scenario=scenario,
             annual_base_income=annual_base_income,
             annual_wages=annual_wages,
@@ -1453,6 +1741,9 @@ class ModelEvaluator:
             "IETC_abated": ietc,
             "WinterEnergy": winter_energy,
             "BestStart_Total": best_start,
+            "BestStart_Total_naive_per_child_abatement": (
+                best_start_per_child
+            ),
             "AS_Amount": as_unrounded,
             "WFF_abated": wff,
             "Net_Income": net_income,
@@ -1478,10 +1769,11 @@ def sweep_scenario(
     evaluator: ModelEvaluator,
     scenario: Scenario,
 ) -> dict[int, dict[str, Decimal | str | None]]:
-    required_wages = set(EXPECTED_SAMPLE_WAGES)
-    required_wages.add(1499)
+    required_wages = set(scenario.sampled_wages)
+    if 1500 in required_wages:
+        required_wages.add(1499)
     required_wages.update(
-        wage + 1 for wage in EXPECTED_SAMPLE_WAGES if wage < 1500
+        wage + 1 for wage in scenario.sampled_wages if wage < 1500
     )
     states = {
         wage: evaluator.evaluate_state(scenario, Decimal(wage))
@@ -1489,7 +1781,7 @@ def sweep_scenario(
     }
     baseline = scalar_decimal(states[0], "Net_Income")
     sampled: dict[int, dict[str, Decimal | str | None]] = {}
-    for wage in EXPECTED_SAMPLE_WAGES:
+    for wage in scenario.sampled_wages:
         state: dict[str, Decimal | str | None] = dict(states[wage])
         if wage == 1500:
             current_state = states[1499]
@@ -1791,11 +2083,11 @@ def build_comparison_rows(
     for scenario in scenarios:
         raw_scenario = oracle_by_id[scenario.id]
         sampled_outputs = raw_scenario["sampled_outputs"]
-        if len(sampled_outputs) != len(EXPECTED_SAMPLE_WAGES):
+        if len(sampled_outputs) != len(scenario.sampled_wages):
             raise HarnessError(
                 f"{scenario.id} has {len(sampled_outputs)} oracle points"
             )
-        for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
+        for index, wage in enumerate(scenario.sampled_wages):
             treasury_state = sampled_outputs[index]
             if dec(treasury_state["gross_wage1"]) != Decimal(wage):
                 raise HarnessError(
@@ -2051,8 +2343,16 @@ def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
         for row in rows
         if row.column not in {"hours1", "EMTR"}
     ]
-    if len(net_income_rows) != 32 or len(emtr_rows) != 32:
-        raise HarnessError("comparison summary did not contain 32 NI and EMTR rows")
+    if not net_income_rows or len(net_income_rows) != len(emtr_rows):
+        raise HarnessError(
+            "comparison summary has inconsistent Net Income and EMTR rows"
+        )
+    dollar_outside_cent = [
+        row for row in dollar_rows if row.absolute_delta >= Decimal("0.005")
+    ]
+    dollar_outside_cent_classes = Counter(
+        row.classification for row in dollar_outside_cent
+    )
     maximum_net = max(
         net_income_rows,
         key=lambda row: (
@@ -2072,6 +2372,14 @@ def summary_statistics(rows: Sequence[ComparisonRow]) -> dict[str, Any]:
     return {
         "primary_cells": len(rows),
         "dollar_cells": len(dollar_rows),
+        "dollar_cells_agree_to_cent": (
+            len(dollar_rows) - len(dollar_outside_cent)
+        ),
+        "dollar_cells_outside_cent": len(dollar_outside_cent),
+        "dollar_cells_outside_cent_by_class": {
+            key: dollar_outside_cent_classes.get(key, 0)
+            for key in ("match", "a", "b", "c", "d")
+        },
         "exact_numeric_matches": sum(
             row.absolute_delta == 0 for row in rows
         ),
@@ -2212,7 +2520,7 @@ def build_secondary_rate_rows(
     result: list[dict[str, Any]] = []
     for scenario in scenarios:
         raw = oracle_by_id[scenario.id]
-        for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
+        for index, wage in enumerate(scenario.sampled_wages):
             for column in ("RR", "PTR"):
                 treasury_raw = raw["sampled_outputs"][index][column]
                 rulespec_raw = sweeps[scenario.id][wage][column]
@@ -2290,7 +2598,7 @@ def build_as_diagnostic_rows(
     result: list[dict[str, Any]] = []
     for scenario in scenarios:
         raw = oracle_by_id[scenario.id]
-        for index, wage in enumerate(EXPECTED_SAMPLE_WAGES):
+        for index, wage in enumerate(scenario.sampled_wages):
             state = sweeps[scenario.id][wage]
             before_rounding = scalar_decimal(state, "AS_Amount")
             treasury_host_aligned = scalar_decimal(
@@ -2357,6 +2665,7 @@ def build_diagnostic_rows(
         "net_wage2",
         "family_scheme_income",
         "iwtc_entitlement",
+        "BestStart_Total_naive_per_child_abatement",
         "EMTR_ACC_rounding_component",
         "EMTR_WFF_complete_dollar_component",
     )
@@ -2370,7 +2679,7 @@ def build_diagnostic_rows(
             },
         }
         for scenario in scenarios
-        for wage in EXPECTED_SAMPLE_WAGES
+        for wage in scenario.sampled_wages
     ]
 
 
@@ -2485,17 +2794,15 @@ def markdown_cell(value: Any) -> str:
 
 
 def headline_text(statistics: Mapping[str, Any]) -> str:
-    within = statistics["weekly_net_income_points_within_1_nzd"]
-    total = statistics["weekly_net_income_points"]
-    maximum = statistics["maximum_weekly_net_income_absolute_delta"]
-    emtr_max = statistics["maximum_emtr_absolute_delta_percentage_points"]
+    cent_matches = statistics["dollar_cells_agree_to_cent"]
+    dollar_cells = statistics["dollar_cells"]
+    outside = statistics["dollar_cells_outside_cent_by_class"]
     return (
-        "RuleSpec does not reproduce the pinned BEFU25 dollar levels—"
-        f"only {within} of {total} weekly net-income points are within $1 "
-        f"(maximum gap ${report_number(maximum, 2)})—although all 32 EMTRs "
-        f"are within {report_number(emtr_max, 2)} percentage points, with the "
-        "material level gaps traced mainly to later-enacted rates for 2026/27 "
-        "that post-date the forecast vintage."
+        f"RuleSpec agrees with pinned Treasury to the cent in {cent_matches} "
+        f"of {dollar_cells} dollar cells; cent-level exceptions comprise "
+        f"{outside['b']} named BEFU25-versus-enacted instrument-vintage cells "
+        f"and {outside['c']} documented convention cells, with "
+        f"{outside['a']} remaining encoding bugs and {outside['d']} unexplained."
     )
 
 
@@ -2518,6 +2825,7 @@ def scenario_summary_rows(
         result.append(
             {
                 "scenario_id": scenario.id,
+                "points": len(net_rows),
                 "net_income_within_1": sum(
                     row.absolute_delta <= D1 for row in net_rows
                 ),
@@ -3030,13 +3338,24 @@ def build_audit_artifacts(
     engine_binary: Path,
     treasury_root: Path,
     composition_path: Path,
+    oracle_generator: Path,
+    rscript: Path,
 ) -> tuple[dict[str, str], dict[str, Any]]:
+    regenerated = regenerate_treasury_oracles(
+        rulespec_root=rulespec_root,
+        treasury_root=treasury_root,
+        oracle_generator=oracle_generator,
+        rscript=rscript,
+    )
     oracle, provenance = verify_inputs(
+        regenerated=regenerated,
         rulespec_root=rulespec_root,
         engine_root=engine_root,
         engine_binary=engine_binary,
         treasury_root=treasury_root,
         composition_path=composition_path,
+        oracle_generator=oracle_generator,
+        rscript=rscript,
     )
     with tempfile.TemporaryDirectory(prefix="axiom-emtr-fresh-") as raw_temp:
         temp_root = Path(raw_temp)
@@ -3067,7 +3386,10 @@ def build_audit_artifacts(
             )
 
         scenarios = [
-            Scenario.from_oracle(raw)
+            Scenario.from_oracle(
+                raw,
+                oracle["scenario_provenance"][str(raw["id"])],
+            )
             for raw in oracle["scenarios"]
         ]
         evaluator = ModelEvaluator(engine, compiled)
@@ -3113,7 +3435,13 @@ def build_audit_artifacts(
                     "accommodation_costs": scenario.accommodation_costs,
                     "accommodation_rent": scenario.accommodation_rent,
                     "accommodation_area": scenario.accommodation_area,
+                    "accommodation_boarder": scenario.accommodation_boarder,
+                    "weekly_board_and_lodgings_paid": (
+                        scenario.weekly_board_and_lodgings_paid
+                    ),
                 },
+                "sampled_weekly_wages": scenario.sampled_wages,
+                "provenance": oracle["scenario_provenance"][scenario.id],
             }
             for scenario in scenarios
         ]
@@ -3132,7 +3460,11 @@ def build_audit_artifacts(
                     "start": EXPECTED_PERIOD_START,
                     "end": EXPECTED_PERIOD_END,
                 },
-                "sampled_weekly_wages": EXPECTED_SAMPLE_WAGES,
+                "displayed_weekly_wages": EXPECTED_SAMPLE_WAGES,
+                "sampled_weekly_wages_by_scenario": {
+                    scenario.id: scenario.sampled_wages
+                    for scenario in scenarios
+                },
                 "primary_columns": COMPARISON_COLUMNS,
                 "oracle_match_tolerance": ORACLE_SIX_DECIMAL_TOLERANCE,
             },
@@ -3214,6 +3546,7 @@ def build_audit_artifacts(
         )
         artifacts: dict[str, str] = {
             "REPORT.md": report,
+            EXPANDED_ORACLE_NAME: regenerated.expanded_text,
             "comparison.csv": comparison_csv_text(comparison_rows),
             "comparison.json": json_text(machine_payload),
             "secondary_rates.csv": generic_csv_text(
@@ -3333,6 +3666,16 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         default=DEFAULT_COMPOSITION,
     )
     parser.add_argument(
+        "--oracle-generator",
+        type=Path,
+        default=DEFAULT_ORACLE_GENERATOR,
+    )
+    parser.add_argument(
+        "--rscript",
+        type=Path,
+        default=DEFAULT_RSCRIPT,
+    )
+    parser.add_argument(
         "--output-dir",
         type=Path,
         default=HERE,
@@ -3354,6 +3697,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             engine_binary=engine_binary,
             treasury_root=args.treasury_root,
             composition_path=args.composition,
+            oracle_generator=args.oracle_generator,
+            rscript=args.rscript,
         )
         second, second_summary = build_audit_artifacts(
             rulespec_root=args.rulespec_root,
@@ -3361,6 +3706,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             engine_binary=engine_binary,
             treasury_root=args.treasury_root,
             composition_path=args.composition,
+            oracle_generator=args.oracle_generator,
+            rscript=args.rscript,
         )
         compare_fresh_artifacts(first, second)
         if json_text(summary) != json_text(second_summary):
