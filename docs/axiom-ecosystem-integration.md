@@ -35,7 +35,7 @@ toolchain through explicit boundaries.
 | AI-assisted encoding workflow | `axiom-encode` | Keep NZ RuleSpec modules compatible with the current encoder schema and toolchain pins. |
 | Rule execution and validation | `axiom-rules-engine` | Provide executable NZ RuleSpec and focused expected-output fixtures. |
 | Oracle comparison | `axiom-oracles` | Pin comparison models and record parity findings as non-authoritative checks. |
-| Public docs and app surfaces | `axiom-foundation.org` and `app.axiom-foundation.org` | Provide stable NZ artifacts and coverage status that can be surfaced by the docs/app layer. |
+| Public docs and app surfaces | `axiom.org` and `app.axiom-foundation.org` | Provide stable NZ artifacts and coverage status that can be surfaced by the docs/app layer. |
 | Jurisdiction sibling patterns | `rulespec-us`, `rulespec-uk`, `rulespec-ca` | Match jurisdiction-repo conventions where possible while preserving NZ legal provenance. |
 
 ## Source Authority

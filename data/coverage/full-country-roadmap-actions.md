@@ -19,7 +19,7 @@
 
 ## Why this repo is already NZ-specific
 
-- The roadmap file under [`data/coverage/full-country-roadmap.json`](data/coverage/full-country-roadmap.json) is explicitly scoped to:
+- The roadmap file under `data/coverage/full-country-roadmap.json` is explicitly scoped to:
   - `jurisdiction: nz`
   - `scope: full_country`
 - It mirrors `data/coverage/full-country-backlog.json` and maps every backlog track to concrete local coverage evidence.
