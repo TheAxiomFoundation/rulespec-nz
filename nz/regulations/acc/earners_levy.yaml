@@ -8,7 +8,12 @@ module:
     per week and for self-employed persons who purchase weekly compensation.
     Regulation 8 states that the regulatory levy amounts exclude GST. Inland
     Revenue publishes the PAYE-facing rates and maximum levy amounts including
-    GST.
+    GST. Regulation 4 selects exactly one levy route per person per tax year:
+    the regulation 7 amount for self-employed persons who purchase weekly
+    compensation, otherwise the regulation 6 amount for self-employed persons
+    to whom it applies, otherwise the standard levy;
+    acc_earners_levy_payable_excluding_gst encodes that selection, and the
+    per-regulation components remain exposed for inspection.
   proof_validation:
     required: true
   source_verification:
@@ -343,3 +348,34 @@ rules:
               0
           else:
               acc_self_employed_invoice_acc_levy_amount
+  - name: acc_earners_levy_payable_excluding_gst
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation (Earners' Levy) Regulations 2025 regs 4, 6, and 7
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/7
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_self_employed_purchases_weekly_compensation:
+              acc_weekly_compensation_purchase_levy_excluding_gst
+          elif acc_self_employed_more_than_30_hours_per_week and acc_self_employed_earnings_for_earners_levy < acc_low_self_employed_minimum_earnings:
+              acc_low_self_employed_minimum_levy_excluding_gst
+          else:
+              acc_standard_earners_levy_excluding_gst
