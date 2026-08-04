@@ -1,11 +1,11 @@
 {
-    "generated_at": "2026-06-26",
+    "generated_at": "2026-08-04",
     "jurisdiction": "nz",
     "purpose": "Compact completion scorecard for RuleSpec rule inventory and triangulation",
     "total_modules": 40,
     "modules_with_rules": 36,
     "modules_deferred": 4,
-    "total_rules": 761,
+    "total_rules": 762,
     "total_duplicate_clusters": 5,
     "total_conflicts": 7,
     "resolved_conflicts": 6,
@@ -14,9 +14,16 @@
         "encoded": [
             "nz/regulations/acc/earners_levy.yaml",
             "nz/regulations/health_entitlement_cards/community_services_card/core.yaml",
+            "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning.yaml",
             "nz/regulations/social_security/childcare_assistance/core.yaml",
+            "nz/regulations/student_allowances/core.yaml",
+            "nz/statutes/acc/weekly_compensation.yaml",
             "nz/statutes/child_support/core_formula.yaml",
+            "nz/statutes/citizenship/by_grant.yaml",
+            "nz/statutes/common/residence.yaml",
             "nz/statutes/gst/rate.yaml",
+            "nz/statutes/immigration/residence.yaml",
+            "nz/statutes/income_tax/core/income_interfaces.yaml",
             "nz/statutes/income_tax/core/taxable_income.yaml",
             "nz/statutes/income_tax/credits/individual_credits.yaml",
             "nz/statutes/income_tax/family_scheme/eligibility.yaml",
@@ -31,6 +38,7 @@
             "nz/statutes/new_zealand_superannuation/special_rates.yaml",
             "nz/statutes/parental_leave/paid_parental_leave.yaml",
             "nz/statutes/payroll/deductions.yaml",
+            "nz/statutes/rates_rebates/rates_rebate.yaml",
             "nz/statutes/social_security/accommodation_supplement/core.yaml",
             "nz/statutes/social_security/child_disability_allowance/core.yaml",
             "nz/statutes/social_security/disability_allowance/core.yaml",
@@ -43,15 +51,9 @@
         ],
         "deferred": [
             "nz/policies/common/demographics.yaml",
-            "nz/regulations/student_allowances/core.yaml",
-            "nz/statutes/acc/weekly_compensation.yaml",
-            "nz/statutes/citizenship/by_grant.yaml",
             "nz/statutes/common/relationships.yaml",
-            "nz/statutes/common/residence.yaml",
             "nz/statutes/housing_restructuring/income_related_rent.yaml",
-            "nz/statutes/immigration/residence.yaml",
-            "nz/statutes/pae_ora/health_services.yaml",
-            "nz/statutes/rates_rebates/rates_rebate.yaml"
+            "nz/statutes/pae_ora/health_services.yaml"
         ],
         "blocked": []
     }
