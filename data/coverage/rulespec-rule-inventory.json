@@ -2658,109 +2658,6 @@
       ]
     },
     {
-      "path": "nz/statutes/rates_rebates/rates_rebate.yaml",
-      "surface_ids": [
-        "nz/statutes/rates_rebates/rates_rebate"
-      ],
-      "source_families": [
-        "nz_statutes_rates_rebates_rates_rebate"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_base_excess_threshold",
-          "name": "rr_rates_rebate_base_excess_threshold",
-          "kind": "parameter",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_income_abatement_threshold_standard",
-          "name": "rr_income_abatement_threshold_standard",
-          "kind": "parameter",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_income_abatement_threshold_supergold",
-          "name": "rr_income_abatement_threshold_supergold",
-          "kind": "parameter",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_maximum_rates_rebate_amount",
-          "name": "rr_maximum_rates_rebate_amount",
-          "kind": "parameter",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_dependant_increment",
-          "name": "rr_rates_rebate_dependant_increment",
-          "kind": "parameter",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction_divisor",
-          "name": "rr_rates_rebate_income_reduction_divisor",
-          "kind": "parameter",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_application_is_valid",
-          "name": "rr_rates_rebate_application_is_valid",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_abatement_threshold",
-          "name": "rr_rates_rebate_income_abatement_threshold",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_adjusted_income_abatement_threshold",
-          "name": "rr_rates_rebate_adjusted_income_abatement_threshold",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_household_income",
-          "name": "rr_rates_rebate_household_income",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction",
-          "name": "rr_rates_rebate_income_reduction",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount_before_cap",
-          "name": "rr_rates_rebate_amount_before_cap",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount",
-          "name": "rr_rates_rebate_amount",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        },
-        {
-          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate",
-          "name": "rr_rates_payable_after_rebate",
-          "kind": "derived",
-          "source_family": "rates_rebate"
-        }
-      ]
-    },
-    {
       "path": "nz/statutes/social_security/accommodation_supplement/core.yaml",
       "surface_ids": [
         "nz/statutes/social_security/accommodation_supplement/core"
@@ -5334,6 +5231,109 @@
           "name": "paye_total_deduction",
           "kind": "derived",
           "source_family": "deductions"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/rates_rebates/rates_rebate.yaml",
+      "surface_ids": [
+        "nz/statutes/rates_rebates/rates_rebate"
+      ],
+      "source_families": [
+        "nz_statutes_rates_rebates_rates_rebate"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_base_excess_threshold",
+          "name": "rr_rates_rebate_base_excess_threshold",
+          "kind": "parameter",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_income_abatement_threshold_standard",
+          "name": "rr_income_abatement_threshold_standard",
+          "kind": "parameter",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_income_abatement_threshold_supergold",
+          "name": "rr_income_abatement_threshold_supergold",
+          "kind": "parameter",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_maximum_rates_rebate_amount",
+          "name": "rr_maximum_rates_rebate_amount",
+          "kind": "parameter",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_dependant_increment",
+          "name": "rr_rates_rebate_dependant_increment",
+          "kind": "parameter",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction_divisor",
+          "name": "rr_rates_rebate_income_reduction_divisor",
+          "kind": "parameter",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_application_is_valid",
+          "name": "rr_rates_rebate_application_is_valid",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_abatement_threshold",
+          "name": "rr_rates_rebate_income_abatement_threshold",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_adjusted_income_abatement_threshold",
+          "name": "rr_rates_rebate_adjusted_income_abatement_threshold",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_household_income",
+          "name": "rr_rates_rebate_household_income",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction",
+          "name": "rr_rates_rebate_income_reduction",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount_before_cap",
+          "name": "rr_rates_rebate_amount_before_cap",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount",
+          "name": "rr_rates_rebate_amount",
+          "kind": "derived",
+          "source_family": "rates_rebate"
+        },
+        {
+          "id": "nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate",
+          "name": "rr_rates_payable_after_rebate",
+          "kind": "derived",
+          "source_family": "rates_rebate"
         }
       ]
     }

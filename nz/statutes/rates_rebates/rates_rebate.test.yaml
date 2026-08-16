@@ -85,5 +85,6 @@
     nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_adjusted_income_abatement_threshold: 33710
     nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_income_reduction: 37
     nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_application_is_valid: not_holds
+    nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount_before_cap: 0
     nz:statutes/rates_rebates/rates_rebate#rr_rates_rebate_amount: 0
     nz:statutes/rates_rebates/rates_rebate#rr_rates_payable_after_rebate: 1000
