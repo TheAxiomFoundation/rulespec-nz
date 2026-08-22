@@ -114,17 +114,19 @@
     "GST rate",
     "GST inclusive and exclusive conversions",
     "ACC earners' levy rate",
-    "maximum liable earnings cap"
+    "maximum liable earnings cap",
+    "ACC employee, self-employed, and shareholder-employee liable earnings",
+    "ACC employee deduction timing and pay-date rate selection"
   ],
   "deferred_surfaces": [
     "GST low-value imported goods interface",
     "customs and excise interfaces",
-    "ACC liable income definition beyond earners' levy formulas",
     "weekly compensation and abatement predicates"
   ],
   "notes": [
     "PCO corpus extracts are the legal authority for available GST and ACC regulation citations; IRD pages are agency cross-references for calculation guidance and PAYE-facing rates.",
     "Goods and Services Tax Act 1985 sections 8, 10, and 12 are available in the current normalized PCO provision JSONL files.",
+    "The expanded ACC proof paths resolve through pinned corpus release nz-rulespec-2026-07-25; the compact local provision-file inventory remains limited to its checked-in extracts.",
     "Oracle checks are comparison fixtures only and do not substitute for official source verification."
   ]
 }

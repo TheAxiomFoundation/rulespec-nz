@@ -1,14 +1,14 @@
 format: rulespec/v1
 module:
   summary: |-
-    Accident Compensation (Earners' Levy) Regulations 2025 regulations 4 and 5
-    set the earners' levy rate and maximum earnings cap for the 2025/26,
-    2026/27, and 2027/28 tax years. Regulations 6 and 7 set the special
-    formulas for low-earning self-employed persons who work more than 30 hours
-    per week and for self-employed persons who purchase weekly compensation.
-    Regulation 8 states that the regulatory levy amounts exclude GST. Inland
-    Revenue publishes the PAYE-facing rates and maximum levy amounts including
-    GST.
+    The Accident Compensation Act 2001 sections 6 and 9 to 15 derive an
+    earner's levy earnings base from employee, self-employed, and
+    shareholder-employee earnings. Section 221 and Inland Revenue guidance
+    make the employee deduction at payment time using the rate that applies on
+    the pay date. The Accident Compensation (Earners' Levy) Regulations 2025
+    regulations 4 to 9 set levy rates, maximum liable earnings, special
+    self-employed formulas, GST treatment, and the invoice exemption. The
+    Goods and Services Tax Act 1985 supplies the 15 percent GST factor.
   proof_validation:
     required: true
   source_verification:
@@ -29,14 +29,17 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.45 per $100 of earnings
           - path: versions[1].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.52 per $100 of earnings
           - path: versions[2].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.59 per $100 of earnings
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -47,52 +50,11 @@ rules:
       - effective_from: '2027-04-01'
         formula: |-
           0.0159
-  - name: acc_earners_levy_rate_including_gst
-    kind: parameter
-    dtype: Rate
-    source: Inland Revenue ACC earners' levy rates
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
-          - path: versions[1].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
-          - path: versions[1].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
-          - path: versions[2].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
-          - path: versions[2].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
-    versions:
-      - effective_from: '2025-04-01'
-        formula: |-
-          0.0167
-      - effective_from: '2026-04-01'
-        formula: |-
-          0.0175
-      - effective_from: '2027-04-01'
-        formula: |-
-          0.0183
   - name: acc_earners_levy_maximum_earnings
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 5; Inland Revenue ACC earners' levy rates
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 5
     metadata:
       proof:
         atoms:
@@ -100,26 +62,20 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: |-
+                The maximum amount of earnings, for the purposes of calculating the earners’ levy for the 2025/26 tax year on which an earner must pay an earners’ levy, is $152,790.
           - path: versions[1].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
-          - path: versions[1].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: |-
+                The maximum amount of earnings, for the purposes of calculating the earners’ levy for the 2026/27 tax year on which an earner must pay an earners’ levy, is $156,641.
           - path: versions[2].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
-          - path: versions[2].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: |-
+                The maximum amount of earnings, for the purposes of calculating the earners’ levy for the 2027/28 tax year, and for any later tax year, on which an earner must pay an earners’ levy, is $160,244.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -142,14 +98,17 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+              excerpt: earned less than $49,365.
           - path: versions[1].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+              excerpt: earned less than $50,501.
           - path: versions[2].formula
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+              excerpt: earned less than $51,632.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -171,6 +130,7 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/7
+              excerpt: 1.45 × [(1.25 × a) ÷ 100]
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -187,14 +147,32 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/9
+              excerpt: |-
+                The relevant exempt amount for the purposes of section 244 of the Act is $40.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
           40
-  - name: acc_levy_cents_rounding_scale
+  - name: acc_gst_standard_rate
     kind: parameter
-    dtype: Count
-    source: Inland Revenue ACC earners' levy rates
+    dtype: Rate
+    source: Goods and Services Tax Act 1985 s 8(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+              excerpt: at the rate of 15 % on the supply
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.15
+  - name: acc_earners_levy_rate_including_gst
+    kind: parameter
+    dtype: Rate
+    source: Operational PAYE-facing earners' levy rate, rounded to cents per $100
     metadata:
       proof:
         atoms:
@@ -202,14 +180,751 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.45 per $100 of earnings
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/8
+              excerpt: The amounts of earners’ levies in these regulations are exclusive of any goods and services tax payable on the levy.
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+              excerpt: at the rate of 15 % on the supply
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.52 per $100 of earnings
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/8
+              excerpt: The amounts of earners’ levies in these regulations are exclusive of any goods and services tax payable on the levy.
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+              excerpt: at the rate of 15 % on the supply
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.59 per $100 of earnings
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/8
+              excerpt: The amounts of earners’ levies in these regulations are exclusive of any goods and services tax payable on the levy.
+          - path: versions[2].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+              excerpt: at the rate of 15 % on the supply
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.0167
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.0175
+      - effective_from: '2027-04-01'
+        formula: |-
+          0.0183
+  - name: acc_levy_cents_rounding_scale
+    kind: parameter
+    dtype: Count
+    source: NZD minor-unit scale applied to the levy amount
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.45 per $100 of earnings
     versions:
       - effective_from: '2025-04-01'
         formula: |-
           100
+  - name: acc_rd3b_regular_salary_annual_gross_income_threshold
+    kind: parameter
+    dtype: Rate
+    source: Income Tax Act 2007 s RD 3B(1)(ab)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3b
+              excerpt: |-
+                the person derives less than 66% of their annual gross income as an employee from payments of salary or wages of a regular amount for regular pay periods throughout the income year:
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          0.66
+  - name: acc_employee_section_11_excluded_payments
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 s 11
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any main benefit , veteran's pension, New Zealand superannuation, or schedular payment ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any parental leave payments paid under Part 7A of the Parental Leave and Employment Protection Act 1987 ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any payment paid under the Compensation for Live Organ Donors Act 2016 ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any student allowance established in accordance with regulations made under section 645 of the Education and Training Act 2020 ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any amount allocated to a person or persons, other than the person who is the employee in question, under sections CD 11 , CW 63 , DB 58 , GB 23 , and GB 24 of the Income Tax Act 2007 ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any benefit arising from a employee share scheme under section CE 2 of the Income Tax Act 2007 ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any amount deemed to be a dividend paid by any person, to the person who is the employee in question, under section GB 25 of the Income Tax Act 2007 ; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: any redundancy payment; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: any retiring allowance; or
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any pension from a superannuation scheme, or pension fund, that is not a retirement scheme
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/11
+              excerpt: |-
+                any pension that is paid in the circumstances set out in any of the following provisions:
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_employee_main_benefit_paid
+              + acc_employee_veterans_pension_paid
+              + acc_employee_new_zealand_superannuation_paid
+              + acc_employee_schedular_payment_paid
+              + acc_employee_parental_leave_payment_paid
+              + acc_employee_live_organ_donor_payment_paid
+              + acc_employee_student_allowance_paid
+              + acc_employee_income_allocated_to_other_persons
+              + acc_employee_share_scheme_benefit
+              + acc_employee_deemed_dividend
+              + acc_employee_redundancy_payment
+              + acc_employee_retiring_allowance
+              + acc_employee_non_retirement_scheme_pension
+              + acc_employee_section_11_specified_pension
+          )
+  - name: acc_employee_paye_income_payments_before_statutory_exclusions
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 ss 9 and 11; Income Tax Act 2007 s YA 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/9
+              excerpt: |-
+                Earnings as an employee , in relation to any person and any tax year , means all PAYE income payments of the person for the tax year .
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ya-1
+              excerpt: PAYE income payment is defined in section RD 3 (PAYE income payments)
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/ya-1
+              excerpt: |-
+                salary or wages —
+                a
+                is defined in section RD 5 (Salary or wages):
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_non_shareholder_employee_salary_or_wages_paid_excluding_separately_encoded_components
+              + acc_non_shareholder_employee_extra_paye_income_payments_paid_excluding_separately_encoded_components
+              + acc_employee_first_week_compensation_paid
+              + acc_employee_weekly_compensation_paid
+              + acc_employee_section_11_excluded_payments
+          )
+  - name: acc_spouse_or_partner_service_payments_included
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 s 10
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/10
+              excerpt: |-
+                Earnings as an employee , in relation to any person and any tax year , does not include any amount paid to the person ( person A ) for services he or she performs for his or her spouse or partner ( person B ), as person B's employee or otherwise.
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/10
+              excerpt: |-
+                However, subsection (1) does not apply if person B, in order to calculate his or her income for the purposes of the Income Tax Act 2007 , has made a written application for, and obtained, the Commissioner's consent
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/10
+              excerpt: |-
+                The Corporation may accept that there has been sufficient compliance with subsection (2), and levies are payable accordingly, if—
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_spouse_or_partner_deduction_consent_obtained:
+              acc_spouse_or_partner_service_payments_after_application_receipt
+          elif acc_corporation_accepted_sufficient_spouse_payment_compliance:
+              acc_spouse_or_partner_service_payments_reported_in_accepted_returns
+          else:
+              0
+  - name: acc_employee_earnings_for_earners_levy
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 ss 6 and 9 to 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/6
+              excerpt: earnings as an employee has the meaning set out in sections 9 to 13
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/9
+              excerpt: This section is subject to sections 10 to 13 .
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/12
+              excerpt: |-
+                For the purpose of calculating the Work Account levy payable under section 168 , earnings as an employee does not include any payment of—
+                a
+                first week compensation; or
+                b
+                weekly compensation.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/13
+              excerpt: The Corporation must treat the earnings of a private domestic worker as earnings as an employee.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_employee_paye_income_payments_before_statutory_exclusions
+              - acc_employee_section_11_excluded_payments
+              + acc_spouse_or_partner_service_payments_included
+              + acc_private_domestic_worker_earnings_received
+          )
+  - name: acc_self_employed_earnings_for_earners_levy
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 ss 6 and 14
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/6
+              excerpt: earnings as a self-employed person has the meaning set out in section 14
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/14
+              excerpt: |-
+                means A minus B, A being the amount described in subsection (2) and B being the amount described in subsection (3); and
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/14
+              excerpt: does not include any earnings as an employee or earnings as a shareholder-employee.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/14
+              excerpt: that is dependent on the person's personal exertions.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/14
+              excerpt: |-
+                B is all amounts that the person is allowed as deductions for the purposes of the Income Tax Act 2007 because of the person deriving the income described in subsection (2).
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_self_employed_activity_personal_exertion_income_excluding_employee_and_shareholder_earnings
+              - acc_self_employed_related_income_tax_deductions
+          )
+  - name: acc_person_is_shareholder_employee
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Accident Compensation Act 2001 s 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/6
+              excerpt: shareholder-employee means a natural person who is a shareholder in, and an employee of, a close company
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_person_is_shareholder_of_company
+              and acc_person_is_employee_of_company
+              and acc_company_is_close_company
+          )
+  - name: acc_rd3b_applies_to_shareholder_employee
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s RD 3B(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3b
+              excerpt: |-
+                This section applies for an income year for a person who is a shareholder and an employee of a company that is not a look-through company and is a close company or has 25 or fewer shareholders if the person elects to apply this section and —
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3b
+              excerpt: |-
+                the person does not derive as an employee payments of salary or wages of a regular amount for regular pay periods of 1 month or less throughout the income year:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3b
+              excerpt: |-
+                the person derives less than 66% of their annual gross income as an employee from payments of salary or wages of a regular amount for regular pay periods throughout the income year:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3b
+              excerpt: |-
+                an amount is paid as income that may later be allocated to the person as an employee for the income year.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_person_is_shareholder_of_company
+              and acc_person_is_employee_of_company
+              and not acc_company_is_look_through_company
+              and (
+                  acc_company_is_close_company
+                  or acc_company_has_25_or_fewer_shareholders
+              )
+              and acc_person_elected_rd3b
+              and (
+                  not acc_shareholder_employee_receives_regular_salary_or_wages_for_pay_periods_one_month_or_less_throughout_year
+                  or (
+                      acc_shareholder_employee_regular_salary_or_wages_paid
+                      < (
+                          acc_rd3b_regular_salary_annual_gross_income_threshold
+                          * acc_shareholder_employee_annual_gross_income
+                      )
+                  )
+                  or acc_shareholder_employee_income_paid_that_may_later_be_allocated > 0
+              )
+          )
+  - name: acc_rd3c_applies_to_shareholder_employee
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act 2007 s RD 3C(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3c
+              excerpt: |-
+                This section applies for an income year for a person who is a shareholder and an employee of a company that is not a look-through company and is a close company or has 25 or fewer shareholders if the person elects to apply this section and —
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3c
+              excerpt: |-
+                the person derives as an employee payments of salary or wages of a regular amount for regular pay periods; but
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3c
+              excerpt: |-
+                an amount is paid as income that may later be allocated to the person as an employee for the income year.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_person_is_shareholder_of_company
+              and acc_person_is_employee_of_company
+              and not acc_company_is_look_through_company
+              and (
+                  acc_company_is_close_company
+                  or acc_company_has_25_or_fewer_shareholders
+              )
+              and acc_person_elected_rd3c
+              and acc_shareholder_employee_receives_regular_salary_or_wages_for_regular_pay_periods
+              and acc_shareholder_employee_income_paid_that_may_later_be_allocated > 0
+          )
+  - name: acc_shareholder_employee_rd3b_non_paye_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s RD 3B(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3b
+              excerpt: |-
+                All amounts paid to the person in the income year and in later income years in their capacity as employee of the company are treated as income other than from a PAYE income payment.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_rd3b_applies_to_shareholder_employee:
+              acc_shareholder_employee_all_amounts_paid_in_employee_capacity
+          else:
+              0
+  - name: acc_shareholder_employee_rd3c_paye_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s RD 3C(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3c
+              excerpt: |-
+                All amounts described in subsection (1)﻿(a) paid to the person in the income year and in later income years in their capacity as employee of the company are PAYE income payments.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_rd3c_applies_to_shareholder_employee:
+              acc_shareholder_employee_regular_salary_or_wages_paid
+          else:
+              0
+  - name: acc_shareholder_employee_rd3c_non_paye_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Income Tax Act 2007 s RD 3C(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/rd-3c
+              excerpt: |-
+                All amounts described in subsection (1)﻿(b) paid to the person in the income year and in later income years in their capacity as employee of the company are treated as income other than from a PAYE income payment.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_rd3c_applies_to_shareholder_employee:
+              acc_shareholder_employee_income_paid_that_may_later_be_allocated
+          else:
+              0
+  - name: acc_shareholder_employee_subsection_2_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 s 15(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                all PAYE income payments of the person for the tax year derived from a company of which the person is a shareholder-employee; and
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                all income of the person that is deemed to be income derived otherwise than from PAYE income payments under section RD 3B or RD 3C of the Income Tax Act 2007 .
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                For the purposes of this section, earnings as a shareholder-employee do not include a benefit arising from an employee share scheme under section CE 2 of the Income Tax Act 2007 .
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_person_is_shareholder_employee:
+              (
+                  acc_shareholder_employee_other_company_paye_income_payments_including_share_scheme_benefits_but_excluding_rd3b_and_rd3c
+                  + acc_shareholder_employee_rd3b_non_paye_income
+                  + acc_shareholder_employee_rd3c_paye_income
+                  + acc_shareholder_employee_rd3c_non_paye_income
+                  - acc_shareholder_employee_share_scheme_benefit
+              )
+          else:
+              0
+  - name: acc_shareholder_employee_subsection_3_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 s 15(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                an amount that represents reasonable remuneration for the services that the person provides to the company as an employee of the company in the tax year ; and
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                an amount that represents reasonable remuneration for the services that the person provides as a director of the company in the tax year ; and
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                For the purposes of this section, earnings as a shareholder-employee do not include a benefit arising from an employee share scheme under section CE 2 of the Income Tax Act 2007 .
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_person_is_shareholder_employee:
+              (
+                  acc_corporation_determined_gross_employee_service_remuneration
+                  + acc_corporation_determined_gross_director_service_remuneration
+                  - acc_shareholder_employee_share_scheme_benefit
+              )
+          else:
+              0
+  - name: acc_shareholder_employee_earnings_for_earners_levy
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 ss 6 and 15
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/6
+              excerpt: earnings as a shareholder-employee has the meaning set out in section 15
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                the amount described in subsection (3) (the subsection (3) amount ), if the Corporation decides that the subsection (2) amount is not a reasonable representation of the person's earnings as a shareholder-employee in the tax year .
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_corporation_decides_subsection_2_amount_not_reasonable:
+              acc_shareholder_employee_subsection_3_amount
+          else:
+              acc_shareholder_employee_subsection_2_amount
+  - name: acc_employee_earnings_for_low_self_employed_formula
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 s 15(4); Accident Compensation (Earners' Levy) Regulations 2025 reg 6
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/15
+              excerpt: |-
+                The earnings as an employee of the person as an employee of the company are the amount described in subsection (3)﻿(a)﻿(i).
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+              excerpt: |-
+                where a is the amount of the person’s earnings as an employee in the 2026/27 tax year.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if (
+              acc_person_is_shareholder_employee
+              and acc_corporation_decides_subsection_2_amount_not_reasonable
+          ):
+              (
+                  acc_employee_earnings_for_earners_levy
+                  + acc_corporation_determined_gross_employee_service_remuneration
+              )
+          else:
+              acc_employee_earnings_for_earners_levy
+  - name: acc_earnings_for_earners_levy
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Accident Compensation Act 2001 s 6; Accident Compensation (Earners' Levy) Regulations 2025 reg 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/6
+              excerpt: |-
+                earnings means—
+                a
+                earnings as an employee:
+                b
+                earnings as a self-employed person:
+                c
+                earnings as a shareholder-employee
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: |-
+                for all earners, except those described in paragraphs (b) and (c), $1.52 per $100 of earnings (which means, for self-employed persons, earnings derived or treated as being derived, and for other earners, earnings paid or treated as paid) in that tax year:
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_employee_earnings_for_earners_levy
+              + acc_self_employed_earnings_for_earners_levy
+              + acc_shareholder_employee_earnings_for_earners_levy
+          )
+  - name: acc_earners_levy_rate_including_gst_before_administrative_rounding
+    kind: derived
+    entity: Person
+    dtype: Rate
+    source: Accident Compensation (Earners' Levy) Regulations 2025 reg 8; Goods and Services Tax Act 1985 ss 5, 8, and 10
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/8
+              excerpt: |-
+                The amounts of earners’ levies in these regulations are exclusive of any goods and services tax payable on the levy.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/5
+              excerpt: |-
+                A charge, including a fee or a levy, payable under legislation is deemed to be consideration for a supply of goods and services.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+              excerpt: at the rate of 15 % on the supply
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/10
+              excerpt: |-
+                Subject to this section, the value of a supply of goods and services shall be such amount as, with the addition of the tax charged, is equal to the aggregate of,—
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          acc_earners_levy_rate_excluding_gst * (1 + acc_gst_standard_rate)
   - name: acc_standard_earners_levy_excluding_gst
     kind: derived
     entity: Person
@@ -224,14 +939,19 @@ rules:
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.52 per $100 of earnings
           - path: versions[0].formula
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
+              excerpt: |-
+                The maximum amount of earnings, for the purposes of calculating the earners’ levy for the 2026/27 tax year on which an earner must pay an earners’ levy, is $156,641.
           - path: versions[0].formula
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/8
+              excerpt: |-
+                The amounts of earners’ levies in these regulations are exclusive of any goods and services tax payable on the levy.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -245,7 +965,7 @@ rules:
     dtype: Money
     period: Year
     unit: NZD
-    source: Inland Revenue ACC earners' levy rates
+    source: Accident Compensation (Earners' Levy) Regulations 2025 regs 4, 5, and 8; Goods and Services Tax Act 1985
     metadata:
       proof:
         atoms:
@@ -253,10 +973,24 @@ rules:
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/4
+              excerpt: $1.52 per $100 of earnings
           - path: versions[0].formula
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/5
+              excerpt: |-
+                The maximum amount of earnings, for the purposes of calculating the earners’ levy for the 2026/27 tax year on which an earner must pay an earners’ levy, is $156,641.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/8
+              excerpt: |-
+                The amounts of earners’ levies in these regulations are exclusive of any goods and services tax payable on the levy.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/1985/0141/section/8
+              excerpt: at the rate of 15 % on the supply
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -282,9 +1016,18 @@ rules:
       proof:
         atoms:
           - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+              excerpt: |-
+                worked for an average of more than 30 hours per week, whether or not as an employee; and
+          - path: versions[0].formula
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/6
+              excerpt: |-
+                1.52 × [($50,501 − a) ÷ 100]
+                where a is the amount of the person’s earnings as an employee in the 2026/27 tax year.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -308,9 +1051,18 @@ rules:
       proof:
         atoms:
           - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/7
+              excerpt: |-
+                enters into an agreement with the Corporation under section 209 of the Act to purchase weekly compensation.
+          - path: versions[0].formula
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/7
+              excerpt: |-
+                1.52 × [(1.25 × a) ÷ 100]
+                where a is the agreed level of weekly compensation purchased by the self-employed person under section 209 of the Act adjusted to an annual figure.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -333,9 +1085,21 @@ rules:
       proof:
         atoms:
           - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/9
+              excerpt: |-
+                This regulation applies in respect of any invoice that—
+                a
+                is issued to a self-employed person for the purposes of the Act; and
+                b
+                includes the earners’ levy.
+          - path: versions[0].formula
             kind: formula
             source:
               corpus_citation_path: nz/regulation/regulation/public/2025/0018/regulation/9
+              excerpt: |-
+                The relevant exempt amount for the purposes of section 244 of the Act is $40.
     versions:
       - effective_from: '2025-04-01'
         formula: |-
@@ -343,3 +1107,70 @@ rules:
               0
           else:
               acc_self_employed_invoice_acc_levy_amount
+  - name: acc_earners_levy_deduction_required_at_payment
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Day
+    source: Accident Compensation Act 2001 s 221(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/221
+              excerpt: |-
+                when an employer or a PAYE intermediary for an employer makes a payment to an employee that is included in the earnings of the person as an employee of the employer, the employer or person must, at the time of making that payment, make a deduction in accordance with this section from that amount on account of the levy payable:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/221
+              excerpt: |-
+                when a private domestic worker receives earnings that are earned in that person's capacity as a private domestic worker, the private domestic worker must, at the time of receiving that payment, make a deduction in accordance with this section from that amount on account of the levy payable.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          (
+              acc_employer_or_paye_intermediary_made_employee_earnings_payment
+              or acc_private_domestic_worker_received_earnings_payment
+          )
+  - name: acc_earners_levy_rate_including_gst_on_pay_date
+    kind: derived
+    entity: Payment
+    dtype: Rate
+    period: Day
+    source: Accident Compensation Act 2001 s 221; Inland Revenue Deductions from salary and wages guidance
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2001/0049/section/221
+              excerpt: at the time of making that payment, make a deduction in accordance with this section
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables/block-3
+              excerpt: |-
+                Always use the new rates that apply on the pay date when you calculate deductions from pay.
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables/block-3
+              excerpt: |-
+                The new rate applies if an employee is paid on or after the date a rate change takes effect. Even if your pay period covers dates before and after 1 April, you must deduct at the new rate for that pay period.
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/guidance/ird/paye-deduction-tables/block-6
+              excerpt: |-
+                If your employee does not give you a completed IR330, you need to deduct PAYE at the non-notified rate of 45% plus ACC earners’ levy.
+    versions:
+      - effective_from: '2025-04-01'
+        formula: |-
+          if acc_earners_levy_deduction_required_at_payment:
+              acc_earners_levy_rate_including_gst
+          else:
+              0
