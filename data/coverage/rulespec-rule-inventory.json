@@ -2107,67 +2107,6 @@
       ]
     },
     {
-      "path": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-      "surface_ids": [
-        "nz/statutes/income_tax/withholding/resident_withholding_tax"
-      ],
-      "source_families": [
-        "nz_statutes_income_tax_withholding_resident_withholding_tax"
-      ],
-      "authority": "official_nz_legislation",
-      "source_route": "pco_bulk_xml_extract",
-      "oracle_links": [
-        "nztaxmicrosim",
-        "openfisca-aotearoa",
-        "policyengine-nz"
-      ],
-      "triangulation_status": "inventory_seeded",
-      "rules": [
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_10_5",
-          "name": "rwt_rate_10_5",
-          "kind": "parameter",
-          "source_family": "resident_withholding_tax"
-        },
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_17_5",
-          "name": "rwt_rate_17_5",
-          "kind": "parameter",
-          "source_family": "resident_withholding_tax"
-        },
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_30",
-          "name": "rwt_rate_30",
-          "kind": "parameter",
-          "source_family": "resident_withholding_tax"
-        },
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_33",
-          "name": "rwt_rate_33",
-          "kind": "parameter",
-          "source_family": "resident_withholding_tax"
-        },
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_39",
-          "name": "rwt_rate_39",
-          "kind": "parameter",
-          "source_family": "resident_withholding_tax"
-        },
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate",
-          "name": "rwt_applicable_rate",
-          "kind": "derived",
-          "source_family": "resident_withholding_tax"
-        },
-        {
-          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_withholding_amount",
-          "name": "rwt_withholding_amount",
-          "kind": "derived",
-          "source_family": "resident_withholding_tax"
-        }
-      ]
-    },
-    {
       "path": "nz/statutes/kiwisaver/contributions.yaml",
       "surface_ids": [
         "nz/statutes/kiwisaver/contributions"
@@ -5334,6 +5273,67 @@
           "name": "rr_rates_payable_after_rebate",
           "kind": "derived",
           "source_family": "rates_rebate"
+        }
+      ]
+    },
+    {
+      "path": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
+      "surface_ids": [
+        "nz/statutes/income_tax/withholding/resident_withholding_tax"
+      ],
+      "source_families": [
+        "nz_statutes_income_tax_withholding_resident_withholding_tax"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_10_5",
+          "name": "rwt_rate_10_5",
+          "kind": "parameter",
+          "source_family": "resident_withholding_tax"
+        },
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_17_5",
+          "name": "rwt_rate_17_5",
+          "kind": "parameter",
+          "source_family": "resident_withholding_tax"
+        },
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_30",
+          "name": "rwt_rate_30",
+          "kind": "parameter",
+          "source_family": "resident_withholding_tax"
+        },
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_33",
+          "name": "rwt_rate_33",
+          "kind": "parameter",
+          "source_family": "resident_withholding_tax"
+        },
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_rate_39",
+          "name": "rwt_rate_39",
+          "kind": "parameter",
+          "source_family": "resident_withholding_tax"
+        },
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_applicable_rate",
+          "name": "rwt_applicable_rate",
+          "kind": "derived",
+          "source_family": "resident_withholding_tax"
+        },
+        {
+          "id": "nz:statutes/income_tax/withholding/resident_withholding_tax#rwt_withholding_amount",
+          "name": "rwt_withholding_amount",
+          "kind": "derived",
+          "source_family": "resident_withholding_tax"
         }
       ]
     }
