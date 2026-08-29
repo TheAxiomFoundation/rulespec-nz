@@ -125,6 +125,9 @@ def test_transport_contract_is_exhaustive_and_fail_closed() -> None:
         item["missing"] == "fail_closed"
         for item in cast("list[dict[str, Any]]", inputs["required_target_inputs"])
     )
+    assert (
+        contract["readiness"]["source_release"] == "pending_treasury_corpus_publication"
+    )
 
 
 @pytest.mark.unit

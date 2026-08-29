@@ -5,8 +5,8 @@
   "publication_state": "merged_published_activated",
   "atomic_module_count": 41,
   "proof_atom_count": 1262,
-  "resolved_proof_atom_count": 1237,
-  "blocked_proof_atom_count": 25,
+  "resolved_proof_atom_count": 1225,
+  "blocked_proof_atom_count": 37,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -194,6 +194,96 @@
         "https://www.legislation.govt.nz/act/public/2001/0049/latest/whole.html"
       ],
       "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
+    },
+    {
+      "citation_path": "nz/agency/treasury/budget-2025/working-for-families-abatement-changes",
+      "blocked_proof_atom_count": 7,
+      "affected_module_count": 1,
+      "affected_rule_count": 7,
+      "affected_rules": [
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_baseline_threshold",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_baseline_rate",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_baseline_full_year",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_baseline",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_baseline_total_credit",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_reform_total_credit",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2025_wff_abatement_entitlement_change",
+          "declared_source": "Budget 2025 Working for Families abatement changes"
+        }
+      ],
+      "blocker_kind": "local_official_extract_pending_release",
+      "required_official_source_document": "Treasury Budget 2025 Summary of Initiatives and Inland Revenue signed fiscal recommendation",
+      "official_source_urls": [
+        "https://www.treasury.govt.nz/sites/default/files/2025-05/b25-sum-initiatives.pdf",
+        "https://www.treasury.govt.nz/sites/default/files/2025-09/b25-frs-sig-ird-5143465.pdf"
+      ],
+      "required_release_action": "ingest the hash-pinned official Treasury extracts in axiom-corpus, publish and activate an immutable NZ corpus release containing this text-bearing path, update the selected toolchain release, and validate the direct proof atoms"
+    },
+    {
+      "citation_path": "nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase",
+      "blocked_proof_atom_count": 5,
+      "affected_module_count": 1,
+      "affected_rule_count": 5,
+      "affected_rules": [
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_pre_2026_iwtc_base_annual_amount",
+          "declared_source": "Budget 2026 temporary in-work tax credit increase"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_pre_2026_iwtc_before_abatement",
+          "declared_source": "Budget 2026 temporary in-work tax credit increase"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2026_iwtc_baseline_total_credit",
+          "declared_source": "Budget 2026 temporary in-work tax credit increase"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2026_iwtc_reform_total_credit",
+          "declared_source": "Budget 2026 temporary in-work tax credit increase"
+        },
+        {
+          "module": "nz/policies/budget/official_budget_reform_replication.yaml",
+          "rule": "budget_2026_iwtc_entitlement_change",
+          "declared_source": "Budget 2026 temporary in-work tax credit increase"
+        }
+      ],
+      "blocker_kind": "local_official_extract_pending_release",
+      "required_official_source_document": "Treasury Budget 2026 Summary of Initiatives and Inland Revenue in-work tax credit guidance",
+      "official_source_urls": [
+        "https://www.treasury.govt.nz/sites/default/files/2026-05/b26-sum-initiatives.pdf",
+        "https://www.ird.govt.nz/working-for-families/types/in-work-tax-credit"
+      ],
+      "required_release_action": "ingest the hash-pinned official Treasury extracts in axiom-corpus, publish and activate an immutable NZ corpus release containing this text-bearing path, update the selected toolchain release, and validate the direct proof atoms"
     }
   ]
 }

@@ -221,6 +221,7 @@
   "readiness": {
     "rulespec_computation": "complete",
     "runtime_scalar_smoke": "complete",
+    "source_release": "pending_treasury_corpus_publication",
     "population_input_binding": "pending_population_release",
     "unit_derivation_binding": "runtime_available_adapter_pending",
     "official_operating_cost_bridge": "pending"
