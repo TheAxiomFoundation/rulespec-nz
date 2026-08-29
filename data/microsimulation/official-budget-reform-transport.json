@@ -1,0 +1,228 @@
+{
+  "schema": "axiom/nz-official-budget-reform-transport/1",
+  "id": "nz-official-budget-reform-replication-2026-27",
+  "jurisdiction": "nz",
+  "period": {
+    "period_kind": "tax_year",
+    "start": "2026-04-01",
+    "end": "2027-03-31"
+  },
+  "runtime": {
+    "engine_repository": "TheAxiomFoundation/axiom-rules-engine",
+    "minimum_verified_engine_version": "0.2.2",
+    "verified_engine_commit": "bb4b5684870547756078a62f1866a77c5b56f7f3",
+    "artifact_format_version": 2,
+    "arithmetic": "decimal",
+    "rulespec_module": "nz/policies/budget/official_budget_reform_replication.yaml",
+    "program_spec": "nz/programs/official_budget_reform_replication.yaml",
+    "root_entity": "Family"
+  },
+  "frame_schema": {
+    "entities": [
+      "person",
+      "household",
+      "family"
+    ],
+    "engine_entity_names": {
+      "person": "Person",
+      "household": "Household",
+      "family": "Family"
+    },
+    "structural_columns": {
+      "person": [
+        "person_id",
+        "person_household_id",
+        "person_family_id"
+      ],
+      "household": [
+        "household_id"
+      ],
+      "family": [
+        "family_id",
+        "family_household_id"
+      ]
+    }
+  },
+  "input_contract": {
+    "engine_root_input_count": 21,
+    "required_target_inputs": [
+      {
+        "name": "family_tax_credit_eldest_dependent_child_care_units",
+        "entity": "family",
+        "dtype": "decimal128(18,2)",
+        "source": "Axiom unit derivation or an evidenced population field",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "family_tax_credit_subsequent_dependent_child_care_units",
+        "entity": "family",
+        "dtype": "decimal128(18,2)",
+        "source": "Axiom unit derivation or an evidenced population field",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "family_tax_credit_entitlement_days",
+        "entity": "family",
+        "dtype": "int16",
+        "source": "Evidenced entitlement-period bridge",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "wff_family_scheme_income_for_relationship_period",
+        "entity": "family",
+        "dtype": "decimal128(18,2)",
+        "unit": "NZD",
+        "source": "Family-scheme-income bridge",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "wff_family_credit_abatement_days",
+        "entity": "family",
+        "dtype": "int16",
+        "source": "Evidenced entitlement-period bridge",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "entitled_to_in_work_tax_credit",
+        "entity": "family",
+        "dtype": "bool",
+        "source": "Axiom eligibility module or an evidenced population field",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "in_work_tax_credit_allowed_children_count",
+        "entity": "family",
+        "dtype": "int16",
+        "source": "Axiom unit derivation plus evidenced MC 10 care facts",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "in_work_tax_credit_weekly_periods",
+        "entity": "family",
+        "dtype": "int16",
+        "source": "Evidenced MD 9 earner-period bridge",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "child_tax_credit_for_entitlement_period",
+        "entity": "family",
+        "dtype": "decimal128(18,2)",
+        "unit": "NZD",
+        "source": "Evidenced tax-credit field",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "parental_tax_credit_for_entitlement_period",
+        "entity": "family",
+        "dtype": "decimal128(18,2)",
+        "unit": "NZD",
+        "source": "Evidenced tax-credit field",
+        "missing": "fail_closed"
+      },
+      {
+        "name": "parental_tax_credit_additional_abatement",
+        "entity": "family",
+        "dtype": "decimal128(18,2)",
+        "unit": "NZD",
+        "source": "Evidenced tax-credit field",
+        "missing": "fail_closed"
+      }
+    ],
+    "adapter_padding_defaults": [
+      {
+        "name": "best_start_abatement_days",
+        "value": 0
+      },
+      {
+        "name": "best_start_child_care_fraction",
+        "value": 0
+      },
+      {
+        "name": "best_start_entitlement_days",
+        "value": 0
+      },
+      {
+        "name": "best_start_family_scheme_income_for_relationship_period",
+        "value": 0
+      },
+      {
+        "name": "minimum_family_adjusted_income_tax_liability",
+        "value": 0
+      },
+      {
+        "name": "minimum_family_amount_paid",
+        "value": 0
+      },
+      {
+        "name": "minimum_family_amount_received",
+        "value": 0
+      },
+      {
+        "name": "minimum_family_full_time_earner_weeks",
+        "value": 0
+      },
+      {
+        "name": "minimum_family_scheme_income_attributable_to_full_time_weeks",
+        "value": 0
+      },
+      {
+        "name": "minimum_family_tax_credit_weekly_periods",
+        "value": 0
+      }
+    ],
+    "padding_rule": "Padding exists only because the current dense adapter eagerly requests every input in the imported tax-credits module. None of these ten fields is on either requested reform output's dependency graph. A consumer must not reinterpret the zeros as substantive Best Start or Minimum Family Tax Credit values."
+  },
+  "output_contract": {
+    "requested": [
+      {
+        "name": "budget_2025_wff_abatement_entitlement_change",
+        "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change",
+        "entity": "family",
+        "dtype": "decimal",
+        "unit": "NZD",
+        "population_aggregation": "sum(value * resolve_weights('family'))"
+      },
+      {
+        "name": "budget_2026_iwtc_entitlement_change",
+        "id": "nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change",
+        "entity": "family",
+        "dtype": "decimal",
+        "unit": "NZD",
+        "population_aggregation": "sum(value * resolve_weights('family'))"
+      }
+    ],
+    "formula_owned_excluded_from_dataset": [
+      "budget_2025_wff_abatement_baseline_total_credit",
+      "budget_2025_wff_abatement_reform_total_credit",
+      "budget_2025_wff_abatement_entitlement_change",
+      "budget_2026_iwtc_baseline_total_credit",
+      "budget_2026_iwtc_reform_total_credit",
+      "budget_2026_iwtc_entitlement_change"
+    ]
+  },
+  "weight_contract": {
+    "stored_weight_entity": "household",
+    "stored_weight_column": "household_weight",
+    "family_weight_column_stored": false,
+    "family_weight_resolution": "The frame must call resolve_weights('family'); each family must map to exactly one household and inherit that household's calibrated weight.",
+    "forbid_manual_person_weight_aggregation": true
+  },
+  "official_score_bridge": {
+    "model_measure": "annual family entitlement change",
+    "official_measure": "forecast operating cost change",
+    "like_for_like_status": "bridge_required",
+    "required_adjustments": [
+      "Map tax-year entitlement to New Zealand fiscal-year cash and accrual timing.",
+      "For Budget 2025, keep the official debt-impairment component outside the entitlement model or add it as a separately sourced accounting bridge.",
+      "For Budget 2026, select and record the petrol-price early-termination scenario.",
+      "For Budget 2026, reproduce the official FY2027/28 payment tail separately from the maximum legal entitlement window."
+    ]
+  },
+  "readiness": {
+    "rulespec_computation": "complete",
+    "runtime_scalar_smoke": "complete",
+    "population_input_binding": "pending_population_release",
+    "unit_derivation_binding": "runtime_available_adapter_pending",
+    "official_operating_cost_bridge": "pending"
+  }
+}
