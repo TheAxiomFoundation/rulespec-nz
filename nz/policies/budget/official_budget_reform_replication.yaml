@@ -11,7 +11,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+    corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
 imports:
   - nz:statutes/income_tax/family_scheme/tax_credits
 rules:
@@ -26,7 +26,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -41,7 +41,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -57,7 +57,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
           - path: versions[0].formula
             kind: parameter
             source:
@@ -79,7 +79,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
           - path: versions[0].formula
             kind: formula
             source:
@@ -113,7 +113,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
           - path: versions[0].formula
             kind: formula
             source:
@@ -144,7 +144,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
           - path: versions[0].formula
             kind: formula
             source:
@@ -170,7 +170,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
           - path: versions[0].formula
             kind: formula
             source:
@@ -208,7 +208,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
           - path: versions[0].formula
             kind: formula
             source:
@@ -246,7 +246,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2025/working-for-families-abatement-changes
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -267,7 +267,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
           - path: versions[0].formula
             kind: formula
             source:
@@ -289,7 +289,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
           - path: versions[0].formula
             kind: formula
             source:
@@ -311,7 +311,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
     versions:
       - effective_from: '2026-04-01'
         formula: |-

@@ -196,7 +196,7 @@
       "required_release_action": "replace the broad or structural locator with the exact operative text-bearing provision; do not treat a null-body hierarchy row as proof"
     },
     {
-      "citation_path": "nz/agency/treasury/budget-2025/working-for-families-abatement-changes",
+      "citation_path": "nz/policy/treasury/budget-2025/working-for-families-abatement-changes",
       "blocked_proof_atom_count": 7,
       "affected_module_count": 1,
       "affected_rule_count": 7,
@@ -246,7 +246,7 @@
       "required_release_action": "ingest the hash-pinned official Treasury extracts in axiom-corpus, publish and activate an immutable NZ corpus release containing this text-bearing path, update the selected toolchain release, and validate the direct proof atoms"
     },
     {
-      "citation_path": "nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase",
+      "citation_path": "nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase",
       "blocked_proof_atom_count": 5,
       "affected_module_count": 1,
       "affected_rule_count": 5,

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, cast
 
@@ -17,7 +18,7 @@ PROGRAM = ROOT / "nz/programs/official_budget_reform_replication.yaml"
 CONTRACT = ROOT / "data/microsimulation/official-budget-reform-transport.json"
 SOURCE = (
     ROOT
-    / "data/corpus/provisions/nz/agency/2026-08-29-treasury-official-budget-reforms.jsonl"
+    / "data/corpus/provisions/nz/policy/2026-08-29-treasury-official-budget-reforms.jsonl"
 )
 
 TARGET_INPUTS = {
@@ -154,7 +155,7 @@ def test_transport_contract_has_family_entities_weights_and_outputs() -> None:
 
 
 @pytest.mark.unit
-def test_rule_inventory_routes_the_budget_module_to_the_agency_corpus() -> None:
+def test_rule_inventory_routes_budget_policy_to_official_agency_tables() -> None:
     inventory = _json(ROOT / "data/coverage/rulespec-rule-inventory.json")
     modules = cast("list[dict[str, Any]]", inventory["modules"])
     module = next(
@@ -170,9 +171,11 @@ def test_official_source_extracts_pin_pages_and_hashes() -> None:
         json.loads(line) for line in SOURCE.read_text(encoding="utf-8").splitlines()
     ]
     assert {row["citation_path"] for row in rows} == {
-        "nz/agency/treasury/budget-2025/working-for-families-abatement-changes",
-        "nz/agency/treasury/budget-2026/temporary-in-work-tax-credit-increase",
+        "nz/policy/treasury/budget-2025/working-for-families-abatement-changes",
+        "nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase",
     }
+    assert all(row["jurisdiction"] == "nz" for row in rows)
+    assert all(row["document_class"] == "policy" for row in rows)
     assert rows[0]["source_sha256"]["summary"] == (
         "e6f1e2dcd14665f0728a9f7cf5cff736637ea94152337deb108c18094c9bedec"
     )
@@ -186,6 +189,34 @@ def test_official_source_extracts_pin_pages_and_hashes() -> None:
         "fiscal_recommendation_printed": 14,
     }
     assert rows[1]["source_pages"] == {"summary_pdf": 55, "summary_printed": 49}
+
+
+@pytest.mark.unit
+def test_treasury_policy_citations_remain_pending_corpus_publication() -> None:
+    rows = [
+        json.loads(line) for line in SOURCE.read_text(encoding="utf-8").splitlines()
+    ]
+    paths = {row["citation_path"] for row in rows}
+    module = _yaml(MODULE)
+    assert module["module"]["source_verification"]["corpus_citation_path"] in paths
+    atoms = [
+        atom
+        for rule in module["rules"]
+        for atom in rule["metadata"]["proof"]["atoms"]
+        if "/treasury/" in atom["source"]["corpus_citation_path"]
+    ]
+    assert {atom["source"]["corpus_citation_path"] for atom in atoms} == paths
+    ledger = _json(ROOT / "data/corpus/canonical-provenance-migration-blockers.json")
+    blockers = [
+        entry for entry in ledger["blockers"] if entry["citation_path"] in paths
+    ]
+    assert {entry["citation_path"] for entry in blockers} == paths
+    assert all(
+        entry["blocker_kind"] == "local_official_extract_pending_release"
+        for entry in blockers
+    )
+    assert sum(entry["blocked_proof_atom_count"] for entry in blockers) == len(atoms)
+    assert len(atoms) == 12
 
 
 @pytest.mark.unit
@@ -263,29 +294,24 @@ def test_actual_axiom_runtime_compiles_and_executes_measure_deltas(
     }
     assert set(catalog) == TARGET_INPUTS | PADDING_INPUTS
 
-    family_overrides: dict[str, dict[str, object]] = {
-        "family:wff": {
-            "family_tax_credit_eldest_dependent_child_care_units": 1,
-            "family_tax_credit_subsequent_dependent_child_care_units": 1,
-            "family_tax_credit_entitlement_days": 365,
-            "wff_family_scheme_income_for_relationship_period": 50000,
-            "wff_family_credit_abatement_days": 365,
-        },
-        "family:iwtc": {
-            "family_tax_credit_eldest_dependent_child_care_units": 1,
-            "family_tax_credit_entitlement_days": 365,
-            "wff_family_scheme_income_for_relationship_period": 100000,
-            "wff_family_credit_abatement_days": 365,
-            "entitled_to_in_work_tax_credit": True,
-            "in_work_tax_credit_allowed_children_count": 1,
-            "in_work_tax_credit_weekly_periods": 52,
-        },
+    companion_cases = cast(
+        "list[dict[str, Any]]",
+        yaml.safe_load(MODULE_TEST.read_text()),
+    )
+    families = {
+        f"family:case-{index}": case for index, case in enumerate(companion_cases)
     }
-    interval = {"start": "2026-04-01", "end": "2027-03-31"}
+    assert len(families) == 5
     inputs = []
-    for entity_id, overrides in family_overrides.items():
-        values: dict[str, object] = dict.fromkeys(catalog, 0)
+    queries = []
+    for entity_id, case in families.items():
+        overrides = {
+            name.split("#input.", 1)[1]: value for name, value in case["input"].items()
+        }
+        assert set(overrides) == TARGET_INPUTS
+        values: dict[str, object] = dict.fromkeys(PADDING_INPUTS, 0)
         values.update(overrides)
+        interval = {key: case["period"][key] for key in ("start", "end")}
         inputs.extend(
             {
                 "name": catalog[slot],
@@ -296,17 +322,18 @@ def test_actual_axiom_runtime_compiles_and_executes_measure_deltas(
             }
             for slot, value in values.items()
         )
+        assert set(case["output"]) >= OUTPUT_IDS
+        queries.append(
+            {
+                "entity_id": entity_id,
+                "period": case["period"],
+                "outputs": sorted(case["output"]),
+            },
+        )
     request = {
         "mode": "fast",
         "dataset": {"inputs": inputs, "relations": []},
-        "queries": [
-            {
-                "entity_id": entity_id,
-                "period": {"period_kind": "tax_year", **interval},
-                "outputs": sorted(OUTPUT_IDS),
-            }
-            for entity_id in family_overrides
-        ],
+        "queries": queries,
     }
     run_result = subprocess.run(  # noqa: S603
         [binary, "run-compiled", "--artifact", str(artifact)],
@@ -318,29 +345,13 @@ def test_actual_axiom_runtime_compiles_and_executes_measure_deltas(
     assert run_result.returncode == 0, run_result.stderr
     response = cast("dict[str, Any]", json.loads(run_result.stdout))
     results = {result["entity_id"]: result["outputs"] for result in response["results"]}
-    wff_outputs = results["family:wff"]
-    iwtc_outputs = results["family:iwtc"]
-    assert (
-        wff_outputs[
-            "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change"
-        ]["value"]["value"]
-        == "568.5"
-    )
-    assert (
-        wff_outputs[
-            "nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change"
-        ]["value"]["value"]
-        == "0"
-    )
-    assert (
-        iwtc_outputs[
-            "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change"
-        ]["value"]["value"]
-        == "0"
-    )
-    assert (
-        iwtc_outputs[
-            "nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change"
-        ]["value"]["value"]
-        == "438.5"
-    )
+    assert set(results) == set(families)
+    for entity_id, case in families.items():
+        for output, expected in case["output"].items():
+            actual = results[entity_id][output]["value"]
+            assert actual["kind"] == "decimal", (case["name"], output, actual)
+            assert Decimal(actual["value"]) == Decimal(str(expected)), (
+                case["name"],
+                output,
+                actual,
+            )

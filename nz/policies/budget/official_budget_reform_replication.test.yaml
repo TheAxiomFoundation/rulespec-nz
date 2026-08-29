@@ -22,6 +22,7 @@
     nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_total_credit: 12404
     nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_reform_total_credit: 12972.5
     nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change: 568.5
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change: 0
 
 - name: budget_2026_iwtc_change_respects_wff_abatement_and_credit_floor
   period:
@@ -45,3 +46,80 @@
     nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_baseline_total_credit: 0
     nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_reform_total_credit: 438.5
     nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change: 438.5
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change: 0
+
+- name: fractional_care_units_respect_the_credit_floor
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_eldest_dependent_child_care_units: 0.5
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_subsequent_dependent_child_care_units: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_entitlement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 58000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: false
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0
+  output:
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_total_credit: 0
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_reform_total_credit: 358
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change: 358
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change: 0
+
+- name: partial_year_days_and_qualifying_weeks_prorate_separately
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_eldest_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_subsequent_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_entitlement_days: 73
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 50000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 73
+    nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: true
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 2
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 10
+    nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0
+  output:
+    nz:policies/budget/official_budget_reform_replication#budget_pre_2026_iwtc_before_abatement: 975
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline: 394.2
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_total_credit: 3455.8
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_reform_total_credit: 3569.5
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change: 113.7
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_baseline_total_credit: 3569.5
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_reform_total_credit: 4069.5
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change: 500
+
+- name: four_child_family_preserves_additional_child_iwtc_in_both_worlds
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_eldest_dependent_child_care_units: 1
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_subsequent_dependent_child_care_units: 3
+    nz:statutes/income_tax/family_scheme/tax_credits#input.family_tax_credit_entitlement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_scheme_income_for_relationship_period: 50000
+    nz:statutes/income_tax/family_scheme/tax_credits#input.wff_family_credit_abatement_days: 365
+    nz:statutes/income_tax/family_scheme/tax_credits#input.entitled_to_in_work_tax_credit: true
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_allowed_children_count: 4
+    nz:statutes/income_tax/family_scheme/tax_credits#input.in_work_tax_credit_weekly_periods: 52
+    nz:statutes/income_tax/family_scheme/tax_credits#input.child_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_for_entitlement_period: 0
+    nz:statutes/income_tax/family_scheme/tax_credits#input.parental_tax_credit_additional_abatement: 0
+  output:
+    nz:policies/budget/official_budget_reform_replication#budget_pre_2026_iwtc_before_abatement: 5850
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_total_credit: 31162
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_reform_total_credit: 31730.5
+    nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change: 568.5
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_baseline_total_credit: 31730.5
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_reform_total_credit: 34330.5
+    nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change: 2600
