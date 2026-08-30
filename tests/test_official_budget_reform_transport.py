@@ -100,6 +100,25 @@ def test_rule_module_imports_the_enacted_wff_calculation() -> None:
 
 
 @pytest.mark.unit
+def test_pre_reform_baselines_cite_the_published_amending_act() -> None:
+    module = _yaml(MODULE)
+    rules = {rule["name"]: rule for rule in module["rules"]}
+    for name in (
+        "budget_2025_wff_abatement_baseline_threshold",
+        "budget_2025_wff_abatement_baseline_rate",
+    ):
+        atoms = rules[name]["metadata"]["proof"]["atoms"]
+        assert {
+            atom["source"]["corpus_citation_path"]
+            for atom in atoms
+            if atom["path"] == "versions[0].formula" and atom["kind"] == "parameter"
+        } == {
+            "nz/statute/act/public/2025/0026/section/7",
+            "nz/policy/treasury/budget-2025/working-for-families-abatement-changes",
+        }
+
+
+@pytest.mark.unit
 def test_transport_contract_is_exhaustive_and_fail_closed() -> None:
     contract = _json(CONTRACT)
     runtime = cast("dict[str, Any]", contract["runtime"])

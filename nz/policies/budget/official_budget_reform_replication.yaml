@@ -19,7 +19,7 @@ rules:
     kind: parameter
     dtype: Money
     unit: NZD
-    source: Budget 2025 Working for Families abatement changes; pre-measure threshold
+    source: Taxation (Budget Measures) Act 2025 s 7; Budget 2025 Working for Families abatement changes; pre-measure threshold
     metadata:
       proof:
         atoms:
@@ -27,6 +27,10 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
@@ -34,7 +38,7 @@ rules:
   - name: budget_2025_wff_abatement_baseline_rate
     kind: parameter
     dtype: Rate
-    source: Budget 2025 Working for Families abatement changes; pre-measure rate
+    source: Taxation (Budget Measures) Act 2025 s 7; Budget 2025 Working for Families abatement changes; pre-measure rate
     metadata:
       proof:
         atoms:
@@ -42,6 +46,10 @@ rules:
             kind: parameter
             source:
               corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/7
     versions:
       - effective_from: '2026-04-01'
         formula: |-
