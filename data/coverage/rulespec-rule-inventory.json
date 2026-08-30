@@ -5336,6 +5336,97 @@
           "source_family": "rates_rebate"
         }
       ]
+    },
+    {
+      "path": "nz/policies/budget/official_budget_reform_replication.yaml",
+      "surface_ids": [
+        "nz/policies/budget/official_budget_reform_replication"
+      ],
+      "source_families": [
+        "nz_policies_budget_official_budget_reform_replication"
+      ],
+      "authority": "official_agency_table",
+      "source_route": "official_agency_table",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_threshold",
+          "name": "budget_2025_wff_abatement_baseline_threshold",
+          "kind": "parameter",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_rate",
+          "name": "budget_2025_wff_abatement_baseline_rate",
+          "kind": "parameter",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_pre_2026_iwtc_base_annual_amount",
+          "name": "budget_pre_2026_iwtc_base_annual_amount",
+          "kind": "parameter",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_pre_2026_iwtc_before_abatement",
+          "name": "budget_pre_2026_iwtc_before_abatement",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_full_year",
+          "name": "budget_2025_wff_abatement_baseline_full_year",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline",
+          "name": "budget_2025_wff_abatement_baseline",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_baseline_total_credit",
+          "name": "budget_2025_wff_abatement_baseline_total_credit",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_reform_total_credit",
+          "name": "budget_2025_wff_abatement_reform_total_credit",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2025_wff_abatement_entitlement_change",
+          "name": "budget_2025_wff_abatement_entitlement_change",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_baseline_total_credit",
+          "name": "budget_2026_iwtc_baseline_total_credit",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_reform_total_credit",
+          "name": "budget_2026_iwtc_reform_total_credit",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        },
+        {
+          "id": "nz:policies/budget/official_budget_reform_replication#budget_2026_iwtc_entitlement_change",
+          "name": "budget_2026_iwtc_entitlement_change",
+          "kind": "derived",
+          "source_family": "official_budget_reform_replication"
+        }
+      ]
     }
   ],
   "duplicate_clusters": [

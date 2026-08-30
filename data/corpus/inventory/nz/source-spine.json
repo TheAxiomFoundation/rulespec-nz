@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16",
+  "generated_at": "2026-08-29",
   "jurisdiction": "nz",
   "purpose": "Initial official source spine for full-country NZ RuleSpec coverage.",
   "sources": [
@@ -28,6 +28,14 @@
       "document_classes": ["policy_statement", "bill_commentary", "special_report", "regulatory_impact_statement"],
       "canonical": true,
       "target_tracks": ["tax-personal-income", "family-assistance-wff", "consumption-and-indirect-tax"]
+    },
+    {
+      "id": "treasury",
+      "name": "New Zealand Treasury",
+      "url": "https://www.treasury.govt.nz/",
+      "document_classes": ["budget_summary", "fiscal_recommendation", "fiscal_forecast", "analytical_note"],
+      "canonical": true,
+      "target_tracks": ["tax-personal-income", "family-assistance-wff", "social-security-main-benefits", "housing-assistance", "superannuation"]
     },
     {
       "id": "msd-work-and-income",

@@ -1,0 +1,8 @@
+program: nz/official-budget-reform-replication
+period: 2026-04-01/2027-03-31
+outputs:
+  - budget_2025_wff_abatement_entitlement_change
+  - budget_2026_iwtc_entitlement_change
+scope:
+  nz:
+    - policies/budget/official_budget_reform_replication

@@ -1,0 +1,329 @@
+format: rulespec/v1
+module:
+  summary: |-
+    Counterfactual entitlement comparisons for two official New Zealand Budget
+    measures: the Budget 2025 Working for Families abatement changes and the
+    Budget 2026 temporary in-work tax credit increase. The module imports the
+    enacted Working for Families calculation and holds all non-measure settings
+    fixed. Its outputs are family entitlement changes, not Treasury operating
+    cost estimates; payment timing, impairment, administration, and the Budget
+    2026 petrol-price early-termination condition remain outside this module.
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+imports:
+  - nz:statutes/income_tax/family_scheme/tax_credits
+rules:
+  - name: budget_2025_wff_abatement_baseline_threshold
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Taxation (Budget Measures) Act 2025 s 7; Budget 2025 Working for Families abatement changes; pre-measure threshold
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/7
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          42700
+  - name: budget_2025_wff_abatement_baseline_rate
+    kind: parameter
+    dtype: Rate
+    source: Taxation (Budget Measures) Act 2025 s 7; Budget 2025 Working for Families abatement changes; pre-measure rate
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2025/0026/section/7
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          0.27
+  - name: budget_pre_2026_iwtc_base_annual_amount
+    kind: parameter
+    dtype: Money
+    unit: NZD
+    source: Budget 2026 temporary in-work tax credit increase; pre-measure annual amount
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: nz/statute/act/public/2026/0008/section/105
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          5070
+  - name: budget_pre_2026_iwtc_before_abatement
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2026 temporary in-work tax credit increase; Income Tax Act 2007 s MD 10
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-10
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          if entitled_to_in_work_tax_credit:
+              (
+                  budget_pre_2026_iwtc_base_annual_amount
+                  + (
+                      in_work_tax_credit_additional_child_annual_amount
+                      * (
+                          in_work_tax_credit_relevant_children
+                          - wff_in_work_tax_credit_minimum_children_for_base_amount
+                      )
+                  )
+              ) * max(0, in_work_tax_credit_weekly_periods) / wff_weeks_in_tax_year
+          else:
+              0
+  - name: budget_2025_wff_abatement_baseline_full_year
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2025 Working for Families abatement changes; Income Tax Act 2007 s MD 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-13
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              floor(
+                  max(
+                      0,
+                      wff_family_scheme_income_for_relationship_period
+                      - budget_2025_wff_abatement_baseline_threshold
+                  )
+              )
+              * budget_2025_wff_abatement_baseline_rate
+          )
+  - name: budget_2025_wff_abatement_baseline
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2025 Working for Families abatement changes; Income Tax Act 2007 s MD 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-13
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              budget_2025_wff_abatement_baseline_full_year
+              * max(0, wff_family_credit_abatement_days)
+              / wff_days_in_tax_year
+          )
+  - name: budget_2025_wff_abatement_baseline_total_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2025 Working for Families abatement changes; Income Tax Act 2007 ss MD 1, MD 2, and MD 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              family_tax_credit_before_abatement
+              + (
+                  if entitled_to_in_work_tax_credit:
+                      budget_pre_2026_iwtc_before_abatement
+                  else:
+                      max(0, child_tax_credit_for_entitlement_period)
+              )
+              + parental_tax_credit_before_abatement
+              - budget_2025_wff_abatement_baseline
+              - max(0, parental_tax_credit_additional_abatement)
+          )
+  - name: budget_2025_wff_abatement_reform_total_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2025 Working for Families abatement changes; Income Tax Act 2007 ss MD 1, MD 2, and MD 13
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-1
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-2
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          max(
+              0,
+              family_tax_credit_before_abatement
+              + (
+                  if entitled_to_in_work_tax_credit:
+                      budget_pre_2026_iwtc_before_abatement
+                  else:
+                      max(0, child_tax_credit_for_entitlement_period)
+              )
+              + parental_tax_credit_before_abatement
+              - wff_family_credit_abatement
+              - max(0, parental_tax_credit_additional_abatement)
+          )
+  - name: budget_2025_wff_abatement_entitlement_change
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2025 Working for Families abatement changes
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2025/working-for-families-abatement-changes
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              budget_2025_wff_abatement_reform_total_credit
+              - budget_2025_wff_abatement_baseline_total_credit
+          )
+  - name: budget_2026_iwtc_baseline_total_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2026 temporary in-work tax credit increase; Income Tax Act 2007 ss MD 1, MD 2, and MD 10
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-10
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          budget_2025_wff_abatement_reform_total_credit
+  - name: budget_2026_iwtc_reform_total_credit
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2026 temporary in-work tax credit increase; Income Tax Act 2007 ss MD 1, MD 2, and MD 10
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/statute/act/public/2007/0097/section/md-10
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          abating_wff_tax_credit
+  - name: budget_2026_iwtc_entitlement_change
+    kind: derived
+    entity: Family
+    dtype: Money
+    period: Year
+    unit: NZD
+    source: Budget 2026 temporary in-work tax credit increase
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: nz/policy/treasury/budget-2026/temporary-in-work-tax-credit-increase
+    versions:
+      - effective_from: '2026-04-01'
+        formula: |-
+          (
+              budget_2026_iwtc_reform_total_credit
+              - budget_2026_iwtc_baseline_total_credit
+          )

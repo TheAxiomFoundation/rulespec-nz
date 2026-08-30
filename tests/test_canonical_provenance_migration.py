@@ -37,7 +37,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
     modules = _modules()
     proof_atom_count = 0
 
-    assert len(modules) == 40
+    assert len(modules) == 41
     for relative, payload in modules.items():
         module = payload.get("module")
         assert isinstance(module, dict), relative
@@ -74,7 +74,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                     assert isinstance(source["excerpt"], str)
                     assert source["excerpt"]
 
-    assert proof_atom_count == 1240
+    assert proof_atom_count == 1264
     assert list((ROOT / ".axiom/encoding-manifests").rglob("*.json")) == []
 
 
@@ -87,14 +87,14 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
     )
     assert ledger["release_cut_plan"] == "nz-rulespec-2026-07-20"
     assert ledger["publication_state"] == "merged_published_activated"
-    assert ledger["atomic_module_count"] == len(modules) == 40
-    assert ledger["proof_atom_count"] == 1240
-    assert ledger["resolved_proof_atom_count"] == 1215
-    assert ledger["blocked_proof_atom_count"] == 25
+    assert ledger["atomic_module_count"] == len(modules) == 41
+    assert ledger["proof_atom_count"] == 1264
+    assert ledger["resolved_proof_atom_count"] == 1227
+    assert ledger["blocked_proof_atom_count"] == 37
 
     blockers = ledger["blockers"]
     assert isinstance(blockers, list)
-    assert len(blockers) == 5
+    assert len(blockers) == 7
     blocker_paths = [blocker["citation_path"] for blocker in blockers]
     assert len(blocker_paths) == len(set(blocker_paths))
 
@@ -154,5 +154,5 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
             assert citation_path in proof_paths, (module_path, rule_name, citation_path)
             affected_rule_ids.add((module_path, rule_name))
 
-    assert len(affected_rule_ids) == 17
-    assert blocked_proof_atom_count == ledger["blocked_proof_atom_count"] == 25
+    assert len(affected_rule_ids) == 29
+    assert blocked_proof_atom_count == ledger["blocked_proof_atom_count"] == 37
