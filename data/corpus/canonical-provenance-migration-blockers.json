@@ -5,8 +5,8 @@
   "publication_state": "merged_published_activated",
   "atomic_module_count": 40,
   "proof_atom_count": 1240,
-  "resolved_proof_atom_count": 1215,
-  "blocked_proof_atom_count": 25,
+  "resolved_proof_atom_count": 1226,
+  "blocked_proof_atom_count": 14,
   "blockers": [
     {
       "citation_path": "nz/guidance/acc/loss-of-potential-earnings",
@@ -91,90 +91,6 @@
         "https://www.acc.co.nz/for-providers/supporting-clients/weekly-compensation-calculation"
       ],
       "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/guidance/ird/rwt-rates",
-      "blocked_proof_atom_count": 6,
-      "affected_module_count": 1,
-      "affected_rule_count": 6,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_applicable_rate",
-          "declared_source": "Income Tax Act 2007 subpart RE; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_10_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_17_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_30",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_33",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_39",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        }
-      ],
-      "blocker_kind": "missing_guidance_release_source",
-      "required_official_source_document": "Inland Revenue resident withholding tax rate guidance",
-      "official_source_urls": [
-        "https://www.ird.govt.nz/investing/rwt-resident-withholding-tax",
-        "https://www.ird.govt.nz/investing/rwt-resident-withholding-tax/rwt-rates"
-      ],
-      "required_release_action": "ingest the official guidance as a text-bearing `nz/guidance` artifact in a new immutable NZ corpus release, then validate the affected direct proof atoms"
-    },
-    {
-      "citation_path": "nz/statute/act/public/2007/0097/schedule/1/part/b",
-      "blocked_proof_atom_count": 5,
-      "affected_module_count": 1,
-      "affected_rule_count": 5,
-      "affected_rules": [
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_10_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_17_5",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_30",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_33",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        },
-        {
-          "module": "nz/statutes/income_tax/withholding/resident_withholding_tax.yaml",
-          "rule": "rwt_rate_39",
-          "declared_source": "Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance"
-        }
-      ],
-      "blocker_kind": "missing_exact_provision_or_segmentation",
-      "required_official_source_document": "Income Tax Act 2007",
-      "official_source_urls": [
-        "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html"
-      ],
-      "required_release_action": "identify the exact operative provision and either correct the RuleSpec locator or add the missing text-bearing PCO segmentation to a new immutable NZ corpus release"
     },
     {
       "citation_path": "nz/statute/act/public/2001/0049",
