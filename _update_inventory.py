@@ -58,7 +58,10 @@ def main():
         rules = extract_rule_info(payload, rel_path)
         sv = payload.get("module", {}).get("source_verification", {})
         corpus_path = sv.get("corpus_citation_path")
-        if isinstance(corpus_path, str) and corpus_path:
+        if isinstance(corpus_path, str) and corpus_path.startswith("nz/policy/"):
+            authority = "official_agency_table"
+            source_route = "official_agency_table"
+        elif isinstance(corpus_path, str) and corpus_path:
             authority = "official_nz_legislation"
             source_route = "pco_bulk_xml_extract"
         else:
