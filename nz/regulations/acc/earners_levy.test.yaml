@@ -109,3 +109,53 @@
     nz:regulations/acc/earners_levy#input.acc_self_employed_invoice_acc_levy_amount: 40.01
   output:
     nz:regulations/acc/earners_levy#acc_self_employed_invoice_levy_payable_after_exempt_amount: 40.01
+
+- name: payable_selector_weekly_compensation_route_wins_overlap
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_earnings_for_earners_levy: 0
+    nz:regulations/acc/earners_levy#input.acc_self_employed_more_than_30_hours_per_week: true
+    nz:regulations/acc/earners_levy#input.acc_self_employed_earnings_for_earners_levy: 40000
+    nz:regulations/acc/earners_levy#input.acc_employee_earnings_for_low_self_employed_formula: 10000
+    nz:regulations/acc/earners_levy#input.acc_self_employed_purchases_weekly_compensation: true
+    nz:regulations/acc/earners_levy#input.acc_agreed_weekly_compensation_purchased_annual_amount: 60000
+  output:
+    nz:regulations/acc/earners_levy#acc_low_self_employed_minimum_levy_excluding_gst: 615.6152
+    nz:regulations/acc/earners_levy#acc_weekly_compensation_purchase_levy_excluding_gst: 1140
+    nz:regulations/acc/earners_levy#acc_earners_levy_payable_excluding_gst: 1140
+
+- name: payable_selector_reg6_route_without_weekly_compensation
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_earnings_for_earners_levy: 0
+    nz:regulations/acc/earners_levy#input.acc_self_employed_more_than_30_hours_per_week: true
+    nz:regulations/acc/earners_levy#input.acc_self_employed_earnings_for_earners_levy: 40000
+    nz:regulations/acc/earners_levy#input.acc_employee_earnings_for_low_self_employed_formula: 10000
+    nz:regulations/acc/earners_levy#input.acc_self_employed_purchases_weekly_compensation: false
+    nz:regulations/acc/earners_levy#input.acc_agreed_weekly_compensation_purchased_annual_amount: 0
+  output:
+    nz:regulations/acc/earners_levy#acc_low_self_employed_minimum_levy_excluding_gst: 615.6152
+    nz:regulations/acc/earners_levy#acc_weekly_compensation_purchase_levy_excluding_gst: 0
+    nz:regulations/acc/earners_levy#acc_earners_levy_payable_excluding_gst: 615.6152
+
+- name: payable_selector_standard_route_for_other_earners
+  period:
+    period_kind: tax_year
+    start: '2026-04-01'
+    end: '2027-03-31'
+  input:
+    nz:regulations/acc/earners_levy#input.acc_earnings_for_earners_levy: 100000
+    nz:regulations/acc/earners_levy#input.acc_self_employed_more_than_30_hours_per_week: false
+    nz:regulations/acc/earners_levy#input.acc_self_employed_earnings_for_earners_levy: 0
+    nz:regulations/acc/earners_levy#input.acc_employee_earnings_for_low_self_employed_formula: 0
+    nz:regulations/acc/earners_levy#input.acc_self_employed_purchases_weekly_compensation: false
+    nz:regulations/acc/earners_levy#input.acc_agreed_weekly_compensation_purchased_annual_amount: 0
+  output:
+    nz:regulations/acc/earners_levy#acc_standard_earners_levy_excluding_gst: 1520
+    nz:regulations/acc/earners_levy#acc_earners_levy_payable_excluding_gst: 1520

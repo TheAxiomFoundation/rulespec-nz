@@ -123,6 +123,12 @@
           "name": "acc_self_employed_invoice_levy_payable_after_exempt_amount",
           "kind": "derived",
           "source_family": "earners_levy"
+        },
+        {
+          "id": "nz:regulations/acc/earners_levy#acc_earners_levy_payable_excluding_gst",
+          "name": "acc_earners_levy_payable_excluding_gst",
+          "kind": "derived",
+          "source_family": "earners_levy"
         }
       ]
     },

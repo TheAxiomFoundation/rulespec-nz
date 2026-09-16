@@ -4,8 +4,8 @@
   "release_selector_sha256": "03558a39482d62c876c2189656f69346f2c5bb28b0d99298084f6c03b1783ce7",
   "publication_state": "merged_published_activated",
   "atomic_module_count": 40,
-  "proof_atom_count": 1240,
-  "resolved_proof_atom_count": 1215,
+  "proof_atom_count": 1243,
+  "resolved_proof_atom_count": 1218,
   "blocked_proof_atom_count": 25,
   "blockers": [
     {
