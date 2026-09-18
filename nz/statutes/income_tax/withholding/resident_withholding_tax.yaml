@@ -18,18 +18,20 @@ rules:
   - name: rwt_rate_10_5
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    source: Income Tax Act 2007 schedule 1 part D clause 3; IRD RWT rate guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/d/clause/3
+              excerpt: '| 0.105'
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/rwt-rates
+              corpus_citation_path: nz/guidance/ird/rwt-rates/block-5
+              excerpt: Up to $15,600 10.5%
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -37,18 +39,20 @@ rules:
   - name: rwt_rate_17_5
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    source: Income Tax Act 2007 schedule 1 part D clause 3; IRD RWT rate guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/d/clause/3
+              excerpt: '| 0.175'
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/rwt-rates
+              corpus_citation_path: nz/guidance/ird/rwt-rates/block-5
+              excerpt: $15,601 to $53,500 17.5%
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -56,18 +60,20 @@ rules:
   - name: rwt_rate_30
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    source: Income Tax Act 2007 schedule 1 part D clause 3; IRD RWT rate guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/d/clause/3
+              excerpt: '| 0.300'
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/rwt-rates
+              corpus_citation_path: nz/guidance/ird/rwt-rates/block-5
+              excerpt: $53,501 to $78,100 30%
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -75,18 +81,20 @@ rules:
   - name: rwt_rate_33
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    source: Income Tax Act 2007 schedule 1 part D clause 3; IRD RWT rate guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/d/clause/3
+              excerpt: '| 0.330'
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/rwt-rates
+              corpus_citation_path: nz/guidance/ird/rwt-rates/block-5
+              excerpt: $78,101 to $180,000 33%
     versions:
       - effective_from: '2020-04-01'
         formula: |-
@@ -94,18 +102,20 @@ rules:
   - name: rwt_rate_39
     kind: parameter
     dtype: Rate
-    source: Income Tax Act 2007 schedule 1 part B; IRD RWT rate guidance
+    source: Income Tax Act 2007 schedule 1 part D clause 3; IRD RWT rate guidance
     metadata:
       proof:
         atoms:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/b
+              corpus_citation_path: nz/statute/act/public/2007/0097/schedule/1/part/d/clause/3
+              excerpt: '| 0.390'
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: nz/guidance/ird/rwt-rates
+              corpus_citation_path: nz/guidance/ird/rwt-rates/block-5
+              excerpt: $180,001 and over 39%
     versions:
       - effective_from: '2024-04-01'
         formula: |-
@@ -125,7 +135,8 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: nz/guidance/ird/rwt-rates
+              corpus_citation_path: nz/guidance/ird/rwt-rates/block-4
+              excerpt: If you've given your interest payer your IRD number, you may use the 10.5%, 17.5%, 30%, 33% or 39% rate. This is the amount of tax to be deducted during the year. It should match your income tax rate.
     versions:
       - effective_from: '2024-04-01'
         formula: |-
