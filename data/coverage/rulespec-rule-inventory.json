@@ -2294,12 +2294,6 @@
           "source_family": "core"
         },
         {
-          "id": "nz:statutes/new_zealand_superannuation/core#nz_super_birth_cohort_june_cutoff_month",
-          "name": "nz_super_birth_cohort_june_cutoff_month",
-          "kind": "parameter",
-          "source_family": "core"
-        },
-        {
           "id": "nz:statutes/new_zealand_superannuation/core#nz_super_birth_cohort_cutoff_year_1959",
           "name": "nz_super_birth_cohort_cutoff_year_1959",
           "kind": "parameter",
