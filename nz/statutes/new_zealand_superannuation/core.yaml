@@ -125,21 +125,6 @@ rules:
       - effective_from: '2026-04-01'
         formula: |-
           492.14
-  - name: nz_super_birth_cohort_june_cutoff_month
-    kind: parameter
-    dtype: Count
-    source: New Zealand Superannuation and Retirement Income Act 2001 s 8(4)
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: nz/statute/act/public/2001/0084/section/8
-    versions:
-      - effective_from: '2026-04-01'
-        formula: |-
-          6
   - name: nz_super_birth_cohort_cutoff_year_1959
     kind: parameter
     dtype: Count
@@ -475,7 +460,7 @@ rules:
               nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1959
               or (
                   nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1959
-                  and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                  and nz_super_born_on_or_before_30_june_of_birth_year
               )
           ):
               nz_super_total_time_requirement_10_years
@@ -484,7 +469,7 @@ rules:
                   nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1961
                   or (
                       nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1961
-                      and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                      and nz_super_born_on_or_before_30_june_of_birth_year
                   )
               ):
                   nz_super_total_time_requirement_11_years
@@ -493,7 +478,7 @@ rules:
                       nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1963
                       or (
                           nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1963
-                          and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                          and nz_super_born_on_or_before_30_june_of_birth_year
                       )
                   ):
                       nz_super_total_time_requirement_12_years
@@ -502,7 +487,7 @@ rules:
                           nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1965
                           or (
                               nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1965
-                              and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                              and nz_super_born_on_or_before_30_june_of_birth_year
                           )
                       ):
                           nz_super_total_time_requirement_13_years
@@ -511,7 +496,7 @@ rules:
                               nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1967
                               or (
                                   nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1967
-                                  and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                  and nz_super_born_on_or_before_30_june_of_birth_year
                               )
                           ):
                               nz_super_total_time_requirement_14_years
@@ -520,7 +505,7 @@ rules:
                                   nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1969
                                   or (
                                       nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1969
-                                      and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                      and nz_super_born_on_or_before_30_june_of_birth_year
                                   )
                               ):
                                   nz_super_total_time_requirement_15_years
@@ -529,7 +514,7 @@ rules:
                                       nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1971
                                       or (
                                           nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1971
-                                          and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                          and nz_super_born_on_or_before_30_june_of_birth_year
                                       )
                                   ):
                                       nz_super_total_time_requirement_16_years
@@ -538,7 +523,7 @@ rules:
                                           nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1973
                                           or (
                                               nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1973
-                                              and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                              and nz_super_born_on_or_before_30_june_of_birth_year
                                           )
                                       ):
                                           nz_super_total_time_requirement_17_years
@@ -547,7 +532,7 @@ rules:
                                               nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1975
                                               or (
                                                   nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1975
-                                                  and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                                  and nz_super_born_on_or_before_30_june_of_birth_year
                                               )
                                           ):
                                               nz_super_total_time_requirement_18_years
@@ -556,7 +541,7 @@ rules:
                                                   nz_super_birth_year < nz_super_birth_cohort_cutoff_year_1977
                                                   or (
                                                       nz_super_birth_year <= nz_super_birth_cohort_cutoff_year_1977
-                                                      and nz_super_birth_month <= nz_super_birth_cohort_june_cutoff_month
+                                                      and nz_super_born_on_or_before_30_june_of_birth_year
                                                   )
                                               ):
                                                   nz_super_total_time_requirement_19_years
