@@ -74,7 +74,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                     assert isinstance(source["excerpt"], str)
                     assert source["excerpt"]
 
-    assert proof_atom_count == 1240
+    assert proof_atom_count == 1239
     assert list((ROOT / ".axiom/encoding-manifests").rglob("*.json")) == []
 
 
