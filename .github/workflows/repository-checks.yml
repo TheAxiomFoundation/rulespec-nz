@@ -16,7 +16,7 @@ jobs:
       axiom-corpus-ref: 581d60b4af079be27c1758832814b5623fa8ac19
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
-      run-generated-guard: false
+      run-generated-guard: true
 
 
   roadmap-coverage:
