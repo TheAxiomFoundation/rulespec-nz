@@ -5,10 +5,13 @@ from __future__ import annotations
 import functools
 import json
 import re
+import shutil
+import subprocess
 from collections import Counter
 from functools import cache
 from pathlib import Path
 
+import pytest
 import yaml
 
 
@@ -93,6 +96,22 @@ def iter_repo_files() -> list[Path]:
         if path.is_file():
             files.append(path)
     return sorted(files)
+
+
+def git_output(*args: str, stdin: bytes | None = None, repo: Path = ROOT) -> bytes:
+    git = shutil.which("git")
+    assert git is not None, "git is required for repository layout checks"
+    return subprocess.run(  # noqa: S603 - fixed git argv over a local checkout
+        [git, "-C", str(repo), *args],
+        input=stdin,
+        check=True,
+        capture_output=True,
+    ).stdout
+
+
+def tracked_files() -> list[str]:
+    output = git_output("ls-files", "-z")
+    return sorted(name for name in output.decode("utf-8").split("\0") if name)
 
 
 @cache
@@ -239,6 +258,243 @@ def test_no_obsolete_formula_artifacts() -> None:
     ]
 
     assert obsolete == []
+
+
+# axiom-encode's trusted git wrapper (axiom-encode#1456) refuses any file that
+# carries one of these attributes, so guard-generated aborts before validating.
+WORKTREE_TRANSFORMING_ATTRIBUTES = frozenset(
+    {"crlf", "eol", "filter", "ident", "text", "working-tree-encoding"},
+)
+# `binary` is git's built-in macro for `-diff -merge -text`.
+REFUSED_GITATTRIBUTES_NAMES = WORKTREE_TRANSFORMING_ATTRIBUTES | {"binary"}
+
+
+# git splits attribute lines on these four ASCII characters only (attr.c `blank`).
+GIT_ATTRIBUTE_BLANKS = " \t\r\n"
+GIT_SIMPLE_ESCAPES = frozenset('abfnrtv\\"')
+
+
+def git_attribute_fields(text: str) -> list[str]:
+    return [field for field in re.split(r"[ \t\r\n]+", text) if field]
+
+
+def quoted_pattern_end(text: str) -> int | None:
+    """Return the index of the closing quote if `text` opens a valid C-quoted pattern.
+
+    git unquotes the pattern only when every escape is valid (unquote_c_style:
+    one of the single-character escapes, or three octal digits from 000 to 377);
+    otherwise it reads the line as an unquoted pattern.
+    """
+    index = 1
+    while index < len(text):
+        char = text[index]
+        if char == '"':
+            return index
+        if char == "\\":
+            escape = text[index + 1 : index + 2]
+            if escape in GIT_SIMPLE_ESCAPES:
+                index += 2
+                continue
+            octal = text[index + 1 : index + 4]
+            if re.fullmatch(r"[0-3][0-7][0-7]", octal):
+                index += 4
+                continue
+            return None
+        index += 1
+    return None
+
+
+def gitattributes_line_attributes(line: str) -> list[str]:
+    """Return the attribute tokens that follow the pattern on one line."""
+    text = line.strip(GIT_ATTRIBUTE_BLANKS)
+    if not text or text.startswith("#"):
+        return []
+    if text.startswith('"'):
+        end = quoted_pattern_end(text)
+        if end is not None:
+            return git_attribute_fields(text[end + 1 :])
+    return git_attribute_fields(text)[1:]
+
+
+def gitattributes_file_lines(content: str) -> list[str]:
+    # git skips a UTF-8 byte-order mark at the start of the file only, splits
+    # lines on "\n" alone (Python's splitlines also breaks on U+2028 and others),
+    # and ends a line at its first NUL while still reading the lines after it.
+    return [
+        line.split("\0", 1)[0] for line in content.removeprefix("\ufeff").split("\n")
+    ]
+
+
+def read_gitattributes_lines(path: Path) -> list[str]:
+    # Decode the bytes directly: Path.read_text would turn a lone CR, which git
+    # keeps inside a line, into a line break.
+    return gitattributes_file_lines(path.read_bytes().decode("utf-8"))
+
+
+def refused_gitattributes_tokens(line: str) -> list[str]:
+    """Return the tokens on one line that set or unset a refused attribute.
+
+    `!name` leaves the attribute unspecified, which the wrapper accepts.
+    A macro definition (`[attr]name ...`) is checked like any other line.
+    """
+    return [
+        token
+        for token in gitattributes_line_attributes(line)
+        if not token.startswith("!")
+        and token.removeprefix("-").split("=", 1)[0] in REFUSED_GITATTRIBUTES_NAMES
+    ]
+
+
+@pytest.mark.parametrize(
+    ("line", "expected"),
+    [
+        ("* text=auto eol=lf", ["text=auto", "eol=lf"]),
+        ("*.png binary", ["binary"]),
+        ("*.pdf -text", ["-text"]),
+        ("[ab].png -text", ["-text"]),
+        ('"future image.png" filter=lfs', ["filter=lfs"]),
+        ('"quoted \\"name\\".png" ident', ["ident"]),
+        ("future\\?.png crlf", ["crlf"]),
+        ("[attr]mine -diff -text", ["-text"]),
+        ("*.md working-tree-encoding=UTF-16", ["working-tree-encoding=UTF-16"]),
+        ("*.png -diff -merge", []),
+        ('"notes text eol.md" -diff', []),
+        ('"a \\" text b.md" -diff', []),
+        ('"unterminated -text', ["-text"]),
+        ('"abc\\q text diff=x" -diff', ["text"]),
+        ('"abc\\777 text diff=x" -diff', ["text"]),
+        ('"a\\tb.md" text', ["text"]),
+        ('"a\\101 text b.md" -diff', []),
+        ("\u00a0 text", ["text"]),
+        ("\u2003 text", ["text"]),
+        ("*.md\u2028 text", ["text"]),
+        ("*.md\ttext", ["text"]),
+        ("*.md text=", ["text="]),
+        ("*.md !text !eol", []),
+        ("*.md !binary", []),
+        ("*.md Text", []),
+        ("*.txt textual", []),
+        ("# * text=auto", []),
+        ("", []),
+        ("   ", []),
+        ("*.png", []),
+    ],
+)
+def test_refused_gitattributes_tokens(line: str, expected: list[str]) -> None:
+    assert refused_gitattributes_tokens(line) == expected
+
+
+@pytest.mark.parametrize(
+    ("content", "witness"),
+    [
+        ("* text=auto eol=lf", "notes.md"),
+        ("*.png binary", "image.png"),
+        ("*.pdf -text", "paper.pdf"),
+        ("[ab].png -text", "a.png"),
+        ('"future image.png" filter=lfs', "future image.png"),
+        ("future\\?.png crlf", "future?.png"),
+        ("[attr]mine -diff -text\n*.bin mine", "blob.bin"),
+        ("*.md working-tree-encoding=UTF-16", "notes.md"),
+        ("*.txt ident", "notes.txt"),
+        ("*.png -diff -merge", "image.png"),
+        ('"notes text eol.md" -diff', "notes text eol.md"),
+        ('"a \\" text b.md" -diff', 'a " text b.md'),
+        ('"unterminated -text', '"unterminated'),
+        ('"abc\\q text diff=x" -diff', '"abcq'),
+        ('"abc\\777 text diff=x" -diff', '"abc777'),
+        ('"a\\tb.md" text', "a\tb.md"),
+        ("\u00a0 text", "\u00a0"),
+        ("\u2003 text", "\u2003"),
+        ("*.md\u2028 text", "a.md\u2028"),
+        ('"a\\101 text b.md" -diff', "aA text b.md"),
+        ("\ufeff* text", "notes.md"),
+        ("\ufeff text", "text"),
+        ("*.md -diff\n\ufeff text", "\ufeff"),
+        ('"a\r" text diff="', "a\r"),
+        ("*.future text\0junk", "x.future"),
+        ("*.md -diff\0junk\n* text", "notes.md"),
+        ("*.md\ttext", "notes.md"),
+        ("*.md text=", "notes.md"),
+        ("*.md !binary", "notes.md"),
+        ("*.md Text", "notes.md"),
+        ('"\\052.md" text', "notes.md"),
+        ("*.md !text !eol", "notes.md"),
+        ("*.txt textual", "notes.txt"),
+        ("# * text=auto", "notes.md"),
+    ],
+)
+def test_line_check_agrees_with_git_on_a_matching_path(
+    tmp_path: Path,
+    content: str,
+    witness: str,
+) -> None:
+    """Differential check: the line parser against git's own attribute lookup."""
+    # An empty template keeps a configured init template's info/attributes out.
+    git_output("init", "--quiet", "--template=", repo=tmp_path)
+    (tmp_path / ".gitattributes").write_bytes(f"{content}\n".encode())
+    output = git_output(
+        "-c",
+        "core.attributesFile=/dev/null",
+        "check-attr",
+        "-z",
+        "--all",
+        "--",
+        witness,
+        repo=tmp_path,
+    )
+    reported = set(output.decode("utf-8").split("\0")[1::3])
+    git_refuses = bool(reported & WORKTREE_TRANSFORMING_ATTRIBUTES)
+    line_refuses = any(
+        refused_gitattributes_tokens(line)
+        for line in read_gitattributes_lines(tmp_path / ".gitattributes")
+    )
+
+    assert line_refuses == git_refuses
+
+
+def test_no_gitattributes_line_sets_a_worktree_transforming_attribute() -> None:
+    # Reads every tracked .gitattributes file, so a line is caught before any
+    # file matches it and whatever the shape of its pattern.
+    refused = [
+        f"{name}:{number}: {token}"
+        for name in tracked_files()
+        if Path(name).name == ".gitattributes"
+        for number, line in enumerate(read_gitattributes_lines(ROOT / name), start=1)
+        for token in refused_gitattributes_tokens(line)
+    ]
+
+    assert refused == []
+
+
+def test_no_tracked_file_carries_a_worktree_transforming_attribute() -> None:
+    output = git_output(
+        "-c",
+        "core.attributesFile=/dev/null",
+        "check-attr",
+        "-z",
+        "--stdin",
+        "--all",
+        stdin="\0".join(tracked_files()).encode("utf-8"),
+    )
+    fields = output.decode("utf-8").split("\0")
+    refused = sorted(
+        f"{path}: {attribute}"
+        for path, attribute in zip(fields[0::3], fields[1::3], strict=False)
+        if attribute in WORKTREE_TRANSFORMING_ATTRIBUTES
+    )
+
+    assert refused == []
+
+
+def test_tracked_text_files_use_lf_line_endings() -> None:
+    # With no text/eol attribute, git no longer normalises line endings on commit.
+    carriage_returns = []
+    for name in tracked_files():
+        data = (ROOT / name).read_bytes()
+        if b"\0" not in data and b"\r" in data:
+            carriage_returns.append(name)
+
+    assert carriage_returns == []
 
 
 def test_no_disallowed_roots_or_yaml_fixtures() -> None:
