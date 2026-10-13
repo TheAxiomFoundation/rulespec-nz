@@ -11,6 +11,7 @@ from collections import Counter
 from functools import cache
 from pathlib import Path
 
+import pytest
 import yaml
 
 
@@ -97,11 +98,11 @@ def iter_repo_files() -> list[Path]:
     return sorted(files)
 
 
-def git_output(*args: str, stdin: bytes | None = None) -> bytes:
+def git_output(*args: str, stdin: bytes | None = None, repo: Path = ROOT) -> bytes:
     git = shutil.which("git")
     assert git is not None, "git is required for repository layout checks"
-    return subprocess.run(  # noqa: S603 - fixed git argv over this checkout
-        [git, "-C", str(ROOT), *args],
+    return subprocess.run(  # noqa: S603 - fixed git argv over a local checkout
+        [git, "-C", str(repo), *args],
         input=stdin,
         check=True,
         capture_output=True,
@@ -264,24 +265,130 @@ def test_no_obsolete_formula_artifacts() -> None:
 WORKTREE_TRANSFORMING_ATTRIBUTES = frozenset(
     {"crlf", "eol", "filter", "ident", "text", "working-tree-encoding"},
 )
+# `binary` is git's built-in macro for `-diff -merge -text`.
+REFUSED_GITATTRIBUTES_NAMES = WORKTREE_TRANSFORMING_ATTRIBUTES | {"binary"}
 
 
-def gitattributes_pattern_probes() -> list[str]:
-    # A glob pattern matches its own literal text, so probing each pattern catches
-    # lines that match no tracked file yet (such as `*.png binary`).
-    path = ROOT / ".gitattributes"
-    if not path.exists():
+def gitattributes_line_attributes(line: str) -> list[str]:
+    """Return the attribute tokens that follow the pattern on one line."""
+    text = line.strip()
+    if not text or text.startswith("#"):
         return []
-    probes = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        fields = line.split()
-        if fields and not fields[0].startswith("#"):
-            probes.append(fields[0].lstrip("/"))
-    return probes
+    if text.startswith('"'):
+        # A C-quoted pattern ends at the next unescaped double quote.
+        end = 1
+        while end < len(text) and text[end] != '"':
+            end += 2 if text[end] == "\\" else 1
+        return text[end + 1 :].split()
+    return text.split()[1:]
+
+
+def refused_gitattributes_tokens(line: str) -> list[str]:
+    """Return the tokens on one line that set or unset a refused attribute.
+
+    `!name` leaves the attribute unspecified, which the wrapper accepts.
+    A macro definition (`[attr]name ...`) is checked like any other line.
+    """
+    return [
+        token
+        for token in gitattributes_line_attributes(line)
+        if not token.startswith("!")
+        and token.removeprefix("-").split("=", 1)[0] in REFUSED_GITATTRIBUTES_NAMES
+    ]
+
+
+@pytest.mark.parametrize(
+    ("line", "expected"),
+    [
+        ("* text=auto eol=lf", ["text=auto", "eol=lf"]),
+        ("*.png binary", ["binary"]),
+        ("*.pdf -text", ["-text"]),
+        ("[ab].png -text", ["-text"]),
+        ('"future image.png" filter=lfs', ["filter=lfs"]),
+        ('"quoted \\"name\\".png" ident', ["ident"]),
+        ("future\\?.png crlf", ["crlf"]),
+        ("[attr]mine -diff -text", ["-text"]),
+        ("*.md working-tree-encoding=UTF-16", ["working-tree-encoding=UTF-16"]),
+        ("*.png -diff -merge", []),
+        ('"notes text eol.md" -diff', []),
+        ('"a \\" text b.md" -diff', []),
+        ("*.md !text !eol", []),
+        ("*.txt textual", []),
+        ("# * text=auto", []),
+        ("", []),
+        ("   ", []),
+        ("*.png", []),
+    ],
+)
+def test_refused_gitattributes_tokens(line: str, expected: list[str]) -> None:
+    assert refused_gitattributes_tokens(line) == expected
+
+
+@pytest.mark.parametrize(
+    ("content", "witness"),
+    [
+        ("* text=auto eol=lf", "notes.md"),
+        ("*.png binary", "image.png"),
+        ("*.pdf -text", "paper.pdf"),
+        ("[ab].png -text", "a.png"),
+        ('"future image.png" filter=lfs', "future image.png"),
+        ("future\\?.png crlf", "future?.png"),
+        ("[attr]mine -diff -text\n*.bin mine", "blob.bin"),
+        ("*.md working-tree-encoding=UTF-16", "notes.md"),
+        ("*.txt ident", "notes.txt"),
+        ("*.png -diff -merge", "image.png"),
+        ('"notes text eol.md" -diff', "notes text eol.md"),
+        ('"a \\" text b.md" -diff', 'a " text b.md'),
+        ("*.md !text !eol", "notes.md"),
+        ("*.txt textual", "notes.txt"),
+        ("# * text=auto", "notes.md"),
+    ],
+)
+def test_line_check_agrees_with_git_on_a_matching_path(
+    tmp_path: Path,
+    content: str,
+    witness: str,
+) -> None:
+    """Differential check: the line parser against git's own attribute lookup."""
+    git_output("init", "--quiet", repo=tmp_path)
+    (tmp_path / ".gitattributes").write_text(f"{content}\n", encoding="utf-8")
+    output = git_output(
+        "-c",
+        "core.attributesFile=/dev/null",
+        "check-attr",
+        "-z",
+        "--all",
+        "--",
+        witness,
+        repo=tmp_path,
+    )
+    reported = set(output.decode("utf-8").split("\0")[1::3])
+    git_refuses = bool(reported & WORKTREE_TRANSFORMING_ATTRIBUTES)
+    line_refuses = any(
+        refused_gitattributes_tokens(line) for line in content.splitlines()
+    )
+
+    assert line_refuses == git_refuses
+
+
+def test_no_gitattributes_line_sets_a_worktree_transforming_attribute() -> None:
+    # Reads every tracked .gitattributes file, so a line is caught before any
+    # file matches it and whatever the shape of its pattern.
+    refused = [
+        f"{name}:{number}: {token}"
+        for name in tracked_files()
+        if Path(name).name == ".gitattributes"
+        for number, line in enumerate(
+            (ROOT / name).read_text(encoding="utf-8").splitlines(),
+            start=1,
+        )
+        for token in refused_gitattributes_tokens(line)
+    ]
+
+    assert refused == []
 
 
 def test_no_tracked_file_carries_a_worktree_transforming_attribute() -> None:
-    names = [*tracked_files(), *gitattributes_pattern_probes()]
     output = git_output(
         "-c",
         "core.attributesFile=/dev/null",
@@ -289,7 +396,7 @@ def test_no_tracked_file_carries_a_worktree_transforming_attribute() -> None:
         "-z",
         "--stdin",
         "--all",
-        stdin="\0".join(names).encode("utf-8"),
+        stdin="\0".join(tracked_files()).encode("utf-8"),
     )
     fields = output.decode("utf-8").split("\0")
     refused = sorted(
