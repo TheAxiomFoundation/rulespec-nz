@@ -317,9 +317,18 @@ def gitattributes_line_attributes(line: str) -> list[str]:
 
 
 def gitattributes_file_lines(content: str) -> list[str]:
-    # git skips a UTF-8 byte-order mark at the start of the file only, and splits
-    # lines on "\n" alone (Python's splitlines also breaks on U+2028 and others).
-    return content.removeprefix("\ufeff").split("\n")
+    # git skips a UTF-8 byte-order mark at the start of the file only, splits
+    # lines on "\n" alone (Python's splitlines also breaks on U+2028 and others),
+    # and ends a line at its first NUL while still reading the lines after it.
+    return [
+        line.split("\0", 1)[0] for line in content.removeprefix("\ufeff").split("\n")
+    ]
+
+
+def read_gitattributes_lines(path: Path) -> list[str]:
+    # Decode the bytes directly: Path.read_text would turn a lone CR, which git
+    # keeps inside a line, into a line break.
+    return gitattributes_file_lines(path.read_bytes().decode("utf-8"))
 
 
 def refused_gitattributes_tokens(line: str) -> list[str]:
@@ -401,6 +410,9 @@ def test_refused_gitattributes_tokens(line: str, expected: list[str]) -> None:
         ("\ufeff* text", "notes.md"),
         ("\ufeff text", "text"),
         ("*.md -diff\n\ufeff text", "\ufeff"),
+        ('"a\r" text diff="', "a\r"),
+        ("*.future text\0junk", "x.future"),
+        ("*.md -diff\0junk\n* text", "notes.md"),
         ("*.md\ttext", "notes.md"),
         ("*.md text=", "notes.md"),
         ("*.md !binary", "notes.md"),
@@ -433,7 +445,8 @@ def test_line_check_agrees_with_git_on_a_matching_path(
     reported = set(output.decode("utf-8").split("\0")[1::3])
     git_refuses = bool(reported & WORKTREE_TRANSFORMING_ATTRIBUTES)
     line_refuses = any(
-        refused_gitattributes_tokens(line) for line in gitattributes_file_lines(content)
+        refused_gitattributes_tokens(line)
+        for line in read_gitattributes_lines(tmp_path / ".gitattributes")
     )
 
     assert line_refuses == git_refuses
@@ -446,10 +459,7 @@ def test_no_gitattributes_line_sets_a_worktree_transforming_attribute() -> None:
         f"{name}:{number}: {token}"
         for name in tracked_files()
         if Path(name).name == ".gitattributes"
-        for number, line in enumerate(
-            gitattributes_file_lines((ROOT / name).read_text(encoding="utf-8")),
-            start=1,
-        )
+        for number, line in enumerate(read_gitattributes_lines(ROOT / name), start=1)
         for token in refused_gitattributes_tokens(line)
     ]
 
