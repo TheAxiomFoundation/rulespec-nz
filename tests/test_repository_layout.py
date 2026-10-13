@@ -5,6 +5,8 @@ from __future__ import annotations
 import functools
 import json
 import re
+import shutil
+import subprocess
 from collections import Counter
 from functools import cache
 from pathlib import Path
@@ -93,6 +95,22 @@ def iter_repo_files() -> list[Path]:
         if path.is_file():
             files.append(path)
     return sorted(files)
+
+
+def git_output(*args: str, stdin: bytes | None = None) -> bytes:
+    git = shutil.which("git")
+    assert git is not None, "git is required for repository layout checks"
+    return subprocess.run(  # noqa: S603 - fixed git argv over this checkout
+        [git, "-C", str(ROOT), *args],
+        input=stdin,
+        check=True,
+        capture_output=True,
+    ).stdout
+
+
+def tracked_files() -> list[str]:
+    output = git_output("ls-files", "-z")
+    return sorted(name for name in output.decode("utf-8").split("\0") if name)
 
 
 @cache
@@ -239,6 +257,59 @@ def test_no_obsolete_formula_artifacts() -> None:
     ]
 
     assert obsolete == []
+
+
+# axiom-encode's trusted git wrapper (axiom-encode#1456) refuses any file that
+# carries one of these attributes, so guard-generated aborts before validating.
+WORKTREE_TRANSFORMING_ATTRIBUTES = frozenset(
+    {"crlf", "eol", "filter", "ident", "text", "working-tree-encoding"},
+)
+
+
+def gitattributes_pattern_probes() -> list[str]:
+    # A glob pattern matches its own literal text, so probing each pattern catches
+    # lines that match no tracked file yet (such as `*.png binary`).
+    path = ROOT / ".gitattributes"
+    if not path.exists():
+        return []
+    probes = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        fields = line.split()
+        if fields and not fields[0].startswith("#"):
+            probes.append(fields[0].lstrip("/"))
+    return probes
+
+
+def test_no_tracked_file_carries_a_worktree_transforming_attribute() -> None:
+    names = [*tracked_files(), *gitattributes_pattern_probes()]
+    output = git_output(
+        "-c",
+        "core.attributesFile=/dev/null",
+        "check-attr",
+        "-z",
+        "--stdin",
+        "--all",
+        stdin="\0".join(names).encode("utf-8"),
+    )
+    fields = output.decode("utf-8").split("\0")
+    refused = sorted(
+        f"{path}: {attribute}"
+        for path, attribute in zip(fields[0::3], fields[1::3], strict=False)
+        if attribute in WORKTREE_TRANSFORMING_ATTRIBUTES
+    )
+
+    assert refused == []
+
+
+def test_tracked_text_files_use_lf_line_endings() -> None:
+    # With no text/eol attribute, git no longer normalises line endings on commit.
+    carriage_returns = []
+    for name in tracked_files():
+        data = (ROOT / name).read_bytes()
+        if b"\0" not in data and b"\r" in data:
+            carriage_returns.append(name)
+
+    assert carriage_returns == []
 
 
 def test_no_disallowed_roots_or_yaml_fixtures() -> None:
