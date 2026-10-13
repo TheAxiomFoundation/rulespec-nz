@@ -1,0 +1,62 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: nz/statute/act/public/2018/0032/section/75
+    source_sha256: 0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931
+  summary: MSD may terminate a winter energy payment if satisfied, after reviewing
+    the payment under section 304 ( see also section 309 ), that—
+rules:
+- name: winter_energy_payment_may_be_terminated
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: Social Security Act 2018, section 75 chapeau and paragraphs (a)–(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: nz/statute/act/public/2018/0032/section/75
+          excerpt: MSD may terminate a winter energy payment if satisfied, after reviewing
+            the payment under section 304
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: nz/statute/act/public/2018/0032/section/75
+          excerpt: is required by section 206 to be reduced to the rate payable to
+            long-term hospital patients
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: nz/statute/act/public/2018/0032/section/75
+          excerpt: (even if MSD pays a higher rate under section 206(2))
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: nz/statute/act/public/2018/0032/section/75
+          excerpt: continuing the payment is not consistent with the purpose stated
+            in section 70
+  versions:
+  - effective_from: '0001-01-01'
+    formula: 'winter_energy_payment_reviewed_under_section_304
+
+      and msd_satisfied_qualifying_benefit_requires_long_term_hospital_rate_under_section_206
+
+      and msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70'
+inputs:
+- name: winter_energy_payment_reviewed_under_section_304
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: msd_satisfied_qualifying_benefit_requires_long_term_hospital_rate_under_section_206
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+  entity: Payment
+  dtype: Boolean
+  period: Day
