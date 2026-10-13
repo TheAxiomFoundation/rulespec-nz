@@ -21,6 +21,12 @@ validate_failures:
       fingerprint: sha256:a6763ffc3cfa08798119213d00e4e685f305fc93df6c3f9e91bb23c25d19f38b
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
+  nz/regulations/rma_district_plans/wellington_city/supermarket_zoning.yaml:
+    pending:
+      expires: '2027-01-03'
+      fingerprint: sha256:f2e7d1a4707d0df70fae9729d6ffbc7438ec8efe7693f188cb35d5d5af855f7c
+      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/128
+      owner: '@MaxGhenis'
   nz/statutes/acc/weekly_compensation.yaml:
     active:
       expires: '2027-01-03'
