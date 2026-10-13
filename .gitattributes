@@ -1,13 +1,12 @@
-# Normalise line endings for cross-platform consistency
-* text=auto eol=lf
-
-# Binary files
-*.pyc binary
-*.pyd binary
-*.png binary
-*.jpg binary
-*.ico binary
-*.pdf binary
+# Binary files: no textual diff or merge. The encoder's trusted git wrapper
+# refuses content-transforming attributes (text, eol, crlf, filter, ident,
+# working-tree-encoding), so `binary` (which unsets text) is spelled out.
+*.pyc -diff -merge
+*.pyd -diff -merge
+*.png -diff -merge
+*.jpg -diff -merge
+*.ico -diff -merge
+*.pdf -diff -merge
 
 # Rust build artifacts
 rulespec-nz/target/** linguist-generated=true

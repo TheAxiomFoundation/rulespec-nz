@@ -13,16 +13,11 @@ validate_failures:
   nz/regulations/acc/earners_levy.yaml:
     active:
       expires: '2027-01-03'
-      fingerprint: sha256:34601fe501652a6c5a7699bc3a2e2c92411bf085a8d76bd80bd2d001ddc4e87e
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
-    pending:
-      expires: '2027-01-03'
       fingerprint: sha256:a6763ffc3cfa08798119213d00e4e685f305fc93df6c3f9e91bb23c25d19f38b
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
       owner: '@MaxGhenis'
   nz/regulations/rma_district_plans/wellington_city/supermarket_zoning.yaml:
-    pending:
+    active:
       expires: '2027-01-03'
       fingerprint: sha256:f2e7d1a4707d0df70fae9729d6ffbc7438ec8efe7693f188cb35d5d5af855f7c
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/128
@@ -71,11 +66,6 @@ validate_failures:
       owner: '@MaxGhenis'
   nz/statutes/social_security/winter_energy_payment/core.yaml:
     active:
-      expires: '2027-01-03'
-      fingerprint: sha256:863306c50c4db9cb21cfc9a9719100d806af2d356c48036efda1690262f10731
-      issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
-      owner: '@MaxGhenis'
-    pending:
       expires: '2027-01-03'
       fingerprint: sha256:f696b694ee7fd5b8ef6d3e0cf32084efc4b108d9e8afeb70e84f24ff3054ec35
       issue: https://github.com/TheAxiomFoundation/rulespec-nz/issues/68
