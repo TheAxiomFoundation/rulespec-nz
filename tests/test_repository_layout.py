@@ -275,11 +275,13 @@ def gitattributes_line_attributes(line: str) -> list[str]:
     if not text or text.startswith("#"):
         return []
     if text.startswith('"'):
-        # A C-quoted pattern ends at the next unescaped double quote.
+        # A C-quoted pattern ends at the next unescaped double quote. Without
+        # one, git reads the line as an unquoted pattern, as below.
         end = 1
         while end < len(text) and text[end] != '"':
             end += 2 if text[end] == "\\" else 1
-        return text[end + 1 :].split()
+        if end < len(text):
+            return text[end + 1 :].split()
     return text.split()[1:]
 
 
@@ -312,7 +314,12 @@ def refused_gitattributes_tokens(line: str) -> list[str]:
         ("*.png -diff -merge", []),
         ('"notes text eol.md" -diff', []),
         ('"a \\" text b.md" -diff', []),
+        ('"unterminated -text', ["-text"]),
+        ("*.md\ttext", ["text"]),
+        ("*.md text=", ["text="]),
         ("*.md !text !eol", []),
+        ("*.md !binary", []),
+        ("*.md Text", []),
         ("*.txt textual", []),
         ("# * text=auto", []),
         ("", []),
@@ -339,6 +346,12 @@ def test_refused_gitattributes_tokens(line: str, expected: list[str]) -> None:
         ("*.png -diff -merge", "image.png"),
         ('"notes text eol.md" -diff', "notes text eol.md"),
         ('"a \\" text b.md" -diff', 'a " text b.md'),
+        ('"unterminated -text', '"unterminated'),
+        ("*.md\ttext", "notes.md"),
+        ("*.md text=", "notes.md"),
+        ("*.md !binary", "notes.md"),
+        ("*.md Text", "notes.md"),
+        ('"\\052.md" text', "notes.md"),
         ("*.md !text !eol", "notes.md"),
         ("*.txt textual", "notes.txt"),
         ("# * text=auto", "notes.md"),
