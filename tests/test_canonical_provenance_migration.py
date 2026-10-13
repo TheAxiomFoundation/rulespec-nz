@@ -12,6 +12,10 @@ from scripts.rulespec_layout import atomic_rulespec_paths
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER_PATH = ROOT / "data/corpus/canonical-provenance-migration-blockers.json"
 ALLOWED_SOURCE_VERIFICATION_KEYS = {"corpus_citation_path", "source_sha256"}
+# The blocker ledger records the 40 modules of the nz-rulespec-2026-07-20 cut.
+# Modules added later through signed reviewed-candidate promotion are not in it
+# and must not cite a blocked source.
+POST_CUT_MODULES = frozenset({"nz/statutes/act/public/2018/0032/section/75.yaml"})
 
 
 def _modules() -> dict[str, dict[str, Any]]:
@@ -37,7 +41,8 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
     modules = _modules()
     proof_atom_count = 0
 
-    assert len(modules) == 40
+    assert len(modules) == 41
+    assert set(modules) >= POST_CUT_MODULES
     for relative, payload in modules.items():
         module = payload.get("module")
         assert isinstance(module, dict), relative
@@ -74,7 +79,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                     assert isinstance(source["excerpt"], str)
                     assert source["excerpt"]
 
-    assert proof_atom_count == 1239
+    assert proof_atom_count == 1243
     assert list((ROOT / ".axiom/encoding-manifests").rglob("*.json")) == []
 
 
@@ -87,7 +92,7 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
     )
     assert ledger["release_cut_plan"] == "nz-rulespec-2026-07-20"
     assert ledger["publication_state"] == "merged_published_activated"
-    assert ledger["atomic_module_count"] == len(modules) == 40
+    assert ledger["atomic_module_count"] == len(modules) - len(POST_CUT_MODULES) == 40
     assert ledger["proof_atom_count"] == 1240
     assert ledger["resolved_proof_atom_count"] == 1215
     assert ledger["blocked_proof_atom_count"] == 25
@@ -156,3 +161,19 @@ def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
 
     assert len(affected_rule_ids) == 17
     assert blocked_proof_atom_count == ledger["blocked_proof_atom_count"] == 25
+
+
+def test_post_cut_modules_cite_no_blocked_source() -> None:
+    ledger = json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
+    blocked_paths = {blocker["citation_path"] for blocker in ledger["blockers"]}
+    modules = _modules()
+
+    cited = [
+        (module_path, rule["name"], atom["source"]["corpus_citation_path"])
+        for module_path in sorted(POST_CUT_MODULES)
+        for rule in modules[module_path]["rules"]
+        for atom in _proof_atoms(cast("dict[str, Any]", rule))
+    ]
+
+    assert cited
+    assert [entry for entry in cited if entry[2] in blocked_paths] == []

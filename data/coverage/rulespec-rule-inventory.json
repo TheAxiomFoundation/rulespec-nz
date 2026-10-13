@@ -4026,6 +4026,31 @@
       ]
     },
     {
+      "path": "nz/statutes/act/public/2018/0032/section/75.yaml",
+      "surface_ids": [
+        "nz/statutes/act/public/2018/0032/section/75"
+      ],
+      "source_families": [
+        "nz_statutes_act_public_2018_0032_section_75"
+      ],
+      "authority": "official_nz_legislation",
+      "source_route": "pco_bulk_xml_extract",
+      "oracle_links": [
+        "nztaxmicrosim",
+        "openfisca-aotearoa",
+        "policyengine-nz"
+      ],
+      "triangulation_status": "inventory_seeded",
+      "rules": [
+        {
+          "id": "nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated",
+          "name": "winter_energy_payment_may_be_terminated",
+          "kind": "derived",
+          "source_family": "75"
+        }
+      ]
+    },
+    {
       "path": "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning.yaml",
       "surface_ids": [
         "nz/regulations/rma_district_plans/wellington_city/supermarket_zoning"
