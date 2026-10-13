@@ -1,0 +1,86 @@
+{
+  "applied_files": [
+    {
+      "path": "nz/statutes/act/public/2018/0032/section/75.yaml",
+      "sha256": "2f44fe4f18ae88e4578ef310930476ec18e76f592d0a3c1117e5410e8c8fe37f"
+    },
+    {
+      "path": "nz/statutes/act/public/2018/0032/section/75.test.yaml",
+      "sha256": "c3f53f6f848e8fc58e33a4491e9fe17fd47b5af17a52a54e235d70068b4f03da"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "b3aff428f1e02361bee2b5bc0da17391d95ff63d",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.2185",
+    "version_commit": "b3aff428f1e02361bee2b5bc0da17391d95ff63d"
+  },
+  "axiom_encode_version": "0.2.2185",
+  "citation": "nz/statute/act/public/2018/0032/section/75",
+  "generated_at": "2026-10-13T23:43:22.814619+00:00",
+  "reviewed_rulespec_ref": "a3b2ded3e2bae46923db1059de3d01565dc7424c",
+  "run_id": "38482393294",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "UYKhMrZI0Nh3ymuPQNXEM6+am3NdAb/cl9QQLKqPMbxQ7GunNXC30RbtjetT3LqpKRnh2YJtgk6v4Sdp4xTJDw=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "nz-rulespec-2026-07-25",
+    "corpus_release_content_sha256": "fec362b985739f27910f0e950fc03e298528a42cdff6f694b19c9ed0850c8405",
+    "corpus_release_selector_sha256": "642ce790c1b38cf9224df8450e45340a02e7d5e00c28fcb12dc947f2afa08b43",
+    "corpus_source": "local",
+    "expression_date": "2026-06-16",
+    "generation_input_sha256": "0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931",
+    "provision_file": "data/corpus/provisions/nz/statute/2026-06-16-rulespec-nz-pco.jsonl",
+    "provision_file_sha256": "e18cbb943d3055b93528989afaec4816fd13b4dadc1945a3fde35ffd16a3fd42",
+    "requested_corpus_citation_path": "nz/statute/act/public/2018/0032/section/75",
+    "resolved_corpus_citation_path": "nz/statute/act/public/2018/0032/section/75",
+    "resolved_text_sha256": "0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931",
+    "row": {
+      "body_sha256": "0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931",
+      "citation_path": "nz/statute/act/public/2018/0032/section/75",
+      "document_class": "statute",
+      "expression_date": "2026-06-16",
+      "jurisdiction": "nz",
+      "line_number": 8985,
+      "provision_file": "data/corpus/provisions/nz/statute/2026-06-16-rulespec-nz-pco.jsonl",
+      "provision_file_sha256": "e18cbb943d3055b93528989afaec4816fd13b4dadc1945a3fde35ffd16a3fd42",
+      "record_id": "b1233acc-56b2-5d16-9d94-673f001c9ab1",
+      "source_as_of": "2026-06-16",
+      "source_path": "sources/nz/statute/2026-06-16-rulespec-nz-pco/act/public/2018/0032/wholeof.xml",
+      "version": "2026-06-16-rulespec-nz-pco"
+    },
+    "rulespec_root": "rulespec-nz/nz",
+    "source_as_of": "2026-06-16",
+    "source_sha256": "0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931"
+  },
+  "tool": "axiom-encode promote-reviewed-candidate",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "b3aff428f1e02361bee2b5bc0da17391d95ff63d",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.2185"
+    },
+    "axiom_rules_engine": {
+      "commit": "05eac9d2f89dabe5c6673176260762cef3a58f47",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "eeefd1bd8b0b573b1c6e5125b73faa70275ac2a5c25a9434cc78981000f08986",
+      "pre_apply_file_count": 82,
+      "rulespec_root": "rulespec-nz/nz",
+      "toolchain_contract_sha256": "ab15b0d2c491b86a55282a0bb110143b5406c44e41bf0f475448a6eadc6b3d43",
+      "validation_waiver_set_sha256": "b3dcfd72a0a476cd27600cef9ea2f634e22cf04cd87b80c6f891749ba24ef165"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "b3dcfd72a0a476cd27600cef9ea2f634e22cf04cd87b80c6f891749ba24ef165"
+}
