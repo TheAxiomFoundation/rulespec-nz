@@ -80,7 +80,16 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                     assert source["excerpt"]
 
     assert proof_atom_count == 1243
-    assert list((ROOT / ".axiom/encoding-manifests").rglob("*.json")) == []
+    # Only signed post-cut modules carry an encoder apply manifest, one each,
+    # mirrored under .axiom/encoding-manifests.
+    manifests = sorted(
+        path.relative_to(ROOT).as_posix()
+        for path in (ROOT / ".axiom/encoding-manifests").rglob("*.json")
+    )
+    assert manifests == sorted(
+        f".axiom/encoding-manifests/{Path(module).with_suffix('.json').as_posix()}"
+        for module in POST_CUT_MODULES
+    )
 
 
 def test_provenance_blocker_ledger_matches_direct_rule_proofs() -> None:
