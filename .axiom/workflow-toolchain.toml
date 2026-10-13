@@ -3,6 +3,6 @@
 # Signed corpus release and waiver evidence remain in toolchain.toml.
 # No axiom_compose_ref: axiom-compose stays disabled for this repository.
 [workflow_toolchain]
-axiom_encode_ref = "a9987a4bc6a58e3f0407972f2e5726b7092b9c4b"
+axiom_encode_ref = "630aa73931e5aa87c51d25fe448e38dbcfaed50f"
 axiom_rules_engine_ref = "05eac9d2f89dabe5c6673176260762cef3a58f47"
 axiom_corpus_ref = "581d60b4af079be27c1758832814b5623fa8ac19"
