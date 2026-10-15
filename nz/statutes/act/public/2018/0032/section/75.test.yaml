@@ -1,0 +1,196 @@
+- name: review_selector_positive
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: review_selector_blocking
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: false
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
+- name: hospital_rate_selector_positive
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: hospital_rate_selector_blocking
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : false
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
+- name: purpose_selector_positive
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: purpose_selector_blocking
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : false
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
+- name: review_completed
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: review_not_completed
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: false
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
+- name: commencement_day_all_conditions_satisfied
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: hospital_rate_requirement_established
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: hospital_rate_requirement_not_established
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : false
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
+- name: inconsistency_with_purpose_established
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: holds
+- name: inconsistency_with_purpose_not_established
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-26'
+    end: '2018-11-26'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : false
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
+- name: day_before_commencement
+  period:
+    period_kind: custom
+    name: day
+    start: '2018-11-25'
+    end: '2018-11-25'
+  input:
+    nz:statutes/act/public/2018/0032/section/75#input.payment_reviewed_under_section_304: true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_qualifying_benefit_requires_hospital_rate_under_section_206
+    : true
+    ? nz:statutes/act/public/2018/0032/section/75#input.msd_satisfied_continuing_payment_inconsistent_with_purpose_under_section_70
+    : true
+  output:
+    nz:statutes/act/public/2018/0032/section/75#winter_energy_payment_may_be_terminated: not_holds
