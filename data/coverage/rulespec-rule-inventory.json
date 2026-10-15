@@ -4047,6 +4047,12 @@
           "name": "winter_energy_payment_may_be_terminated",
           "kind": "derived",
           "source_family": "75"
+        },
+        {
+          "id": "nz:statutes/act/public/2018/0032/section/75#commencement_indicator",
+          "name": "commencement_indicator",
+          "kind": "parameter",
+          "source_family": "75"
         }
       ]
     },

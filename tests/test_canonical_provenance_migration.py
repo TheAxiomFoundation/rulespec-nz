@@ -79,7 +79,7 @@ def test_atomic_modules_use_only_singular_fail_closed_provenance() -> None:
                     assert isinstance(source["excerpt"], str)
                     assert source["excerpt"]
 
-    assert proof_atom_count == 1243
+    assert proof_atom_count == 1248
     # Only signed post-cut modules carry an encoder apply manifest, one each,
     # mirrored under .axiom/encoding-manifests.
     manifests = sorted(
