@@ -5,5 +5,5 @@
 [workflow_toolchain]
 axiom_encode_ref = "e0ce1ca9befd45022287675c919db31e83d61850"
 axiom_rules_engine_ref = "05eac9d2f89dabe5c6673176260762cef3a58f47"
-axiom_corpus_ref = "581d60b4af079be27c1758832814b5623fa8ac19"
+axiom_corpus_ref = "b5505bdbf0806c8d1469df3bbc37e4395d9cc0a4"
 shared_workflow_ref = "b36f534e9058f45b378e6e555939e97c597ef4fe"
