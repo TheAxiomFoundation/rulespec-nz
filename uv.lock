@@ -745,6 +745,7 @@ dependencies = [
 dev = [
     { name = "basedpyright" },
     { name = "hypothesis" },
+    { name = "markdown-it-py" },
     { name = "mutmut" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -757,6 +758,7 @@ dev = [
 requires-dist = [
     { name = "basedpyright", marker = "extra == 'dev'", specifier = ">=1.39.6" },
     { name = "hypothesis", marker = "extra == 'dev'", specifier = ">=6.153" },
+    { name = "markdown-it-py", marker = "extra == 'dev'", specifier = ">=4.2" },
     { name = "mutmut", marker = "extra == 'dev'", specifier = ">=3.4" },
     { name = "pydantic", specifier = ">=2.12" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0" },

@@ -15,6 +15,7 @@ basedpyright = ">=1.39.6"
 rust = ">=1.96"
 
 [pypi-dependencies]
+markdown-it-py = ">=4.2"
 mutmut = ">=3.4"
 pytest-xdist = ">=3.8"
 scalene = ">=1.5"
