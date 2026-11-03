@@ -59,22 +59,23 @@ TRACK_ENTRY_FORM = (
 # A registry entry links one track directory directly inside the archive.
 REGISTRY_HREF_RE = re.compile(r"\./tracks/archive/(?P<track_id>[^/?#\\]+)/")
 REGISTRY_HREF_FORM = "./tracks/archive/<id>/, relative to conductor/"
-# A word that may describe a blocker in a status line: anything but a word that
-# denies or clears it, so "archived with no blockers" can't pass for blocked.
-_BLOCKER_WORD = r"(?!(?:no|not|none|without|zero|cleared|resolved)\b)[a-z0-9-]+"
 # The form a registry status line must match in full, ignoring case, for each
-# status an archived track's metadata.json can hold. A bare "archived" doesn't
-# say how review ended, so its line may add either review qualifier.
+# status an archived track's metadata.json can hold. Each form is a fixed phrase,
+# so no added word can deny or clear what the record says. A bare "archived"
+# doesn't say how review ended, so its line may add either review qualifier.
 REGISTRY_STATUS_FORMS = {
     "archived": "archived(?: after clean review| after review remediation)?",
     "archived_after_clean_review": "archived after clean review",
     "archived_after_review_remediation": "archived after review remediation",
-    "archived_blocked": rf"archived with (?:{_BLOCKER_WORD} )+blockers?",
-    "archived_superseded": r"archived superseded by Track \d+",
+    "archived_blocked": "archived with (?:open )?blockers?",
+    "archived_superseded": r"archived superseded by Track (?P<track>\d+)",
     "archived_with_follow_on_blockers": "archived with follow-on blockers",
 }
 # The statuses whose metadata.json must list a blocker. Every other status lists none.
 BLOCKER_STATUSES = frozenset({"archived_blocked", "archived_with_follow_on_blockers"})
+# A superseded track's metadata.json names the archive folder of the track that
+# replaced it, and the status line must give that folder's number.
+SUPERSEDED_BY_RE = re.compile(r"(?P<number>\d+)_[a-z0-9_]+")
 
 EXTERNAL_SCHEMES = frozenset({"http", "https"})
 HTML_LINK_ATTRIBUTES = frozenset({"href", "src"})
@@ -457,18 +458,28 @@ def registry_status_problems(status_line: str, metadata: object) -> list[str]:
     if problem is None and isinstance(metadata, dict):
         status = metadata["status"]
         form = REGISTRY_STATUS_FORMS[status]
-        if re.fullmatch(form, status_line, re.IGNORECASE) is None:
+        match = re.fullmatch(form, status_line, re.IGNORECASE)
+        if match is None:
             problem = (
                 f"metadata.json says {status!r}, so the status must match {form!r}"
             )
+        elif status == "archived_superseded":
+            successor = metadata["superseded_by_track_id"]
+            number = int(successor.split("_", 1)[0])
+            if int(match["track"]) != number:
+                problem = (
+                    f"metadata.json says superseded by {successor!r}, so the "
+                    f"status must name Track {number}"
+                )
     return [] if problem is None else [problem]
 
 
 def metadata_problem(metadata: object) -> str | None:
-    """Return the way a track's metadata.json contradicts itself, or None."""
+    """Return the way a track's metadata.json contradicts itself or falls short."""
     if not isinstance(metadata, dict):
         return f"metadata.json holds a {type(metadata).__name__}, not an object"
     status, blockers = metadata.get("status"), metadata.get("blockers")
+    successor = metadata.get("superseded_by_track_id")
     problem = None
     if "status" not in metadata:
         problem = "metadata.json has no status"
@@ -482,7 +493,30 @@ def metadata_problem(metadata: object) -> str | None:
         problem = f"metadata.json says {status!r} but lists no blockers"
     elif blockers and status not in BLOCKER_STATUSES:
         problem = f"metadata.json lists blockers but says {status!r}, which has none"
+    elif status == "archived_superseded" and not (
+        isinstance(successor, str) and SUPERSEDED_BY_RE.fullmatch(successor)
+    ):
+        problem = (
+            f"metadata.json says {status!r}, but its superseded_by_track_id "
+            f"{successor!r} names no archive folder of the form <n>_<name>"
+        )
     return problem
+
+
+def track_metadata(
+    track_id: str,
+    archive: Path = ARCHIVE_DIR,
+) -> tuple[object, str | None]:
+    """Return a track's parsed metadata.json, or None and why it can't be read."""
+    path = archive / track_id / "metadata.json"
+    if not path.is_file():
+        return None, f"{track_id} has no metadata.json"
+    # Four archived metadata.json files start with a byte-order mark. ValueError
+    # covers both invalid JSON and bytes that aren't UTF-8.
+    try:
+        return json.loads(path.read_text(encoding="utf-8-sig")), None
+    except ValueError as error:
+        return None, f"{track_id}/metadata.json: {error}"
 
 
 @pytest.mark.unit
@@ -616,20 +650,14 @@ def test_registry_status_agrees_with_track_metadata() -> None:
         track_id = registry_track_id(entry.group("href"))
         if track_id is None:
             continue  # test_track_registry_links_resolve_to_existing_directories names it
-        metadata_path = ARCHIVE_DIR / track_id / "metadata.json"
-        if not metadata_path.is_file():
-            problems.append(f"  {entry_name(entry)}: {track_id} has no metadata.json")
-            continue
-        # Four archived metadata.json files start with a byte-order mark.
-        try:
-            metadata = json.loads(metadata_path.read_text(encoding="utf-8-sig"))
-        except json.JSONDecodeError as error:
-            problems.append(f"  {entry_name(entry)}: {track_id}/metadata.json: {error}")
+        metadata, unreadable = track_metadata(track_id)
+        if unreadable is not None:
+            problems.append(f"  {entry_name(entry)}: {unreadable}")
             continue
         line = _line_of(entry.string, entry.start("status"))
         problems.extend(
-            f"  conductor/tracks.md:{line} ({entry.group('title')}): {problem} "
-            f"(it reads {entry.group('status')!r})"
+            f"  conductor/tracks.md:{line} ({entry.group('title')}): "
+            f"{track_id}/{problem}"
             for problem in registry_status_problems(entry.group("status"), metadata)
         )
     assert not problems, "\n".join(
@@ -656,11 +684,44 @@ def test_registry_status_agrees_with_track_metadata() -> None:
             None,
         ),
         (
-            "archived with host toolchain coverage blocker",
+            "archived with open blockers",
             {"status": "archived_blocked", "blockers": ["toolchain"]},
             None,
         ),
-        ("archived superseded by Track 3", {"status": "archived_superseded"}, None),
+        (
+            "Archived With Blocker",
+            {"status": "archived_blocked", "blockers": ["toolchain"]},
+            None,
+        ),
+        (
+            "archived superseded by Track 3",
+            {
+                "status": "archived_superseded",
+                "superseded_by_track_id": "03_income_tax_rates",
+            },
+            None,
+        ),
+        (
+            "archived superseded by Track 39",
+            {
+                "status": "archived_superseded",
+                "superseded_by_track_id": "03_income_tax_rates",
+            },
+            "so the status must name Track 3",
+        ),
+        (
+            "archived superseded by Track 3",
+            {"status": "archived_superseded"},
+            "names no archive folder",
+        ),
+        (
+            "archived superseded by Track 3",
+            {
+                "status": "archived_superseded",
+                "superseded_by_track_id": "income_tax_rates",
+            },
+            "names no archive folder",
+        ),
         ("archived after review remediation", {"status": "archived"}, None),
         (
             "archived after clean review",
@@ -729,3 +790,62 @@ def test_registry_status_problems_name_each_disagreement(
     else:
         (problem,) = problems
         assert expected in problem, (expected, problem)
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize(
+    "status_line",
+    [
+        "archived with no blockers",
+        "archived without blockers",
+        "archived with zero blockers",
+        "archived with 0 blockers",
+        "archived with cleared blockers",
+        "archived with resolved blockers",
+        "archived with now-resolved blockers",
+        "archived with fixed blockers",
+        "archived with closed blockers",
+        "archived with nonexistent blockers",
+        "archived with notable blockers",
+        "archived with host toolchain coverage blocker",
+        "archived with open blockers, all cleared",
+        "archived with open blockers<!-- none remain -->",
+    ],
+)
+def test_blocked_status_refuses_any_word_outside_its_phrase(status_line: str) -> None:
+    """A blocked record's line says its blockers remain, in the fixed phrase only."""
+    metadata = {"status": "archived_blocked", "blockers": ["open"]}
+    (problem,) = registry_status_problems(status_line, metadata)
+    assert "so the status must match" in problem, problem
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize(
+    ("content", "expected"),
+    [
+        (None, "01_track has no metadata.json"),
+        (b"{", "01_track/metadata.json: Expecting property name"),
+        (b"\xff{}", "01_track/metadata.json: 'utf-8' codec can't decode"),
+    ],
+)
+def test_track_metadata_names_a_file_it_cannot_read(
+    tmp_path: Path,
+    content: bytes | None,
+    expected: str,
+) -> None:
+    folder = tmp_path / "01_track"
+    folder.mkdir()
+    if content is not None:
+        (folder / "metadata.json").write_bytes(content)
+    metadata, unreadable = track_metadata("01_track", tmp_path)
+    assert metadata is None
+    assert unreadable is not None, unreadable
+    assert unreadable.startswith(expected), unreadable
+
+
+@pytest.mark.unit
+def test_track_metadata_reads_past_a_byte_order_mark(tmp_path: Path) -> None:
+    folder = tmp_path / "01_track"
+    folder.mkdir()
+    (folder / "metadata.json").write_bytes(b'\xef\xbb\xbf{"status": "archived"}')
+    assert track_metadata("01_track", tmp_path) == ({"status": "archived"}, None)

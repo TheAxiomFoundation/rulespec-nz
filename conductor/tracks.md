@@ -120,7 +120,7 @@ No active tracks.
 *Link: [./tracks/archive/13_openfisca_aotearoa_rule_incorporation/](./tracks/archive/13_openfisca_aotearoa_rule_incorporation/)*
 
 ## Track 1: Rust Core & Apache Arrow Integration (`rulespec-nz`)
-*Status: archived with host toolchain coverage blocker*
+*Status: archived with open blockers*
 *Link: [./tracks/archive/01_rust_core_arrow/](./tracks/archive/01_rust_core_arrow/)*
 
 ## Track 2: OpenFisca Parsing & Transpilation Adapter
