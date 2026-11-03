@@ -5,16 +5,20 @@ import posixpath
 import re
 from collections import Counter
 from html.parser import HTMLParser
+from itertools import pairwise
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, Literal, NamedTuple
 from urllib.parse import unquote, urlsplit
 
 import pytest
 from markdown_it import MarkdownIt
+from markdown_it.parser_inline import ParserInline
+from markdown_it.rules_inline import StateInline
 
 
 if TYPE_CHECKING:
     from markdown_it.token import Token
+    from markdown_it.utils import EnvType
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +35,11 @@ TRACK_ENTRY_RE = re.compile(
     r"\*Status: (?P<status>.+?)\*\n"
     r"\*Link: \[(?P<label>.+?)\]\((?P<href>.+?)\)\*",
     re.MULTILINE,
+)
+TRACK_HEADING_PREFIXES = ("Track ", "Legacy Track:")
+TRACK_ENTRY_FORM = (
+    "## Track <n>: <title>, then *Status: <status>*, "
+    "then *Link: [./tracks/archive/<id>/](./tracks/archive/<id>/)*"
 )
 # A registry entry links one track directory directly inside the archive.
 REGISTRY_HREF_RE = re.compile(r"\./tracks/archive/(?P<track_id>[^/?#\\]+)/")
@@ -52,9 +61,23 @@ HTML_UNCHECKED_URL_ATTRIBUTES = frozenset(
         "xlink:href",
     },
 )
+# Browsers trim C0 controls and spaces from both ends of an attribute URL.
+URL_TRIM = "".join(map(chr, range(0x21)))
 # Once the parser has consumed every link it can read, a square bracket or a
-# tag-like "<" left in plain text marks link syntax that it could not read.
-UNPARSED_LINK_RE = re.compile(r"[\[\]]|<\S")
+# tag-like "<" left in Markdown text marks link syntax that it could not read.
+UNPARSED_LINK_RE = re.compile(r"[\[\]]|<[^\s>]*>|<[A-Za-z/!?]")
+# GitHub shows Markdown inside raw HTML as text, so only link shapes count there.
+HTML_TEXT_LINK_RE = re.compile(r"\]\(|\]\[|^\s*\[[^\]]+\]:", re.MULTILINE)
+# GitHub's GFM 0.29, markdown-it-py's CommonMark 0.31 and browsers disagree on
+# declarations, CDATA and processing instructions, so the test refuses them.
+HTML_UNPARSABLE_RE = re.compile(r"<!(?!--)|<\?")
+# GFM 0.29 opens a raw HTML block at <source>; CommonMark 0.31 does not.
+GFM_ONLY_HTML_BLOCK_RE = re.compile(
+    r"^ {0,3}</?source(?:[\s/>]|$)",
+    re.IGNORECASE | re.MULTILINE,
+)
+# GitHub turns a bare email address into a mailto: link.
+BARE_EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 
 
 class Link(NamedTuple):
@@ -72,6 +95,44 @@ class Unparsed(NamedTuple):
     reason: str
 
 
+class Registry(NamedTuple):
+    """The registry entries GitHub renders, and track headings outside one."""
+
+    entries: list[re.Match[str]]
+    stray_heading_lines: list[int]
+
+
+class _OffsetInlineState(StateInline):
+    """Record where each inline token starts in its block's source text."""
+
+    def pushPending(self) -> Token:  # noqa: N802 - markdown-it's method name
+        token = super().pushPending()
+        token.meta["offset"] = self.pos
+        return token
+
+    def push(self, ttype: str, tag: str, nesting: Literal[-1, 0, 1]) -> Token:
+        token = super().push(ttype, tag, nesting)
+        token.meta["offset"] = self.pos
+        return token
+
+
+class _OffsetParserInline(ParserInline):
+    """Parse inline content with _OffsetInlineState."""
+
+    def parse(
+        self,
+        src: str,
+        md: MarkdownIt,
+        env: EnvType,
+        tokens: list[Token],
+    ) -> list[Token]:
+        state = _OffsetInlineState(src, md, env, tokens)
+        self.tokenize(state)
+        for rule in self.ruler2.getRules(""):
+            rule(state)
+        return state.tokens
+
+
 class _HtmlLinkCollector(HTMLParser):
     """Collect href and src values, and leftover link syntax, from raw HTML."""
 
@@ -87,7 +148,8 @@ class _HtmlLinkCollector(HTMLParser):
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         for name, value in attrs:
             if name in HTML_LINK_ATTRIBUTES and value is not None:
-                self.links.append(Link(self._line(), f"HTML <{tag} {name}>", value))
+                form = f"HTML <{tag} {name}>"
+                self.links.append(Link(self._line(), form, value.strip(URL_TRIM)))
             elif name in HTML_LINK_ATTRIBUTES | HTML_UNCHECKED_URL_ATTRIBUTES:
                 self.unparsed.append(
                     Unparsed(
@@ -97,15 +159,34 @@ class _HtmlLinkCollector(HTMLParser):
                 )
 
     def handle_data(self, data: str) -> None:
-        match = UNPARSED_LINK_RE.search(data)
+        match = HTML_TEXT_LINK_RE.search(data)
         if match is not None:
             line = self._line() + data.count("\n", 0, match.start())
             self.unparsed.append(
                 Unparsed(
                     line,
-                    "link syntax inside raw HTML, which GitHub shows as text",
+                    "Markdown link syntax inside raw HTML, which GitHub shows as text",
                 ),
             )
+
+
+def _markdown_parser() -> MarkdownIt:
+    # The commonmark preset's maxNesting of 20 silently drops deeper content.
+    parser = MarkdownIt(
+        "commonmark",
+        {"inline_definitions": True, "maxNesting": 10_000},
+    ).enable("table")
+    # Keep escapes and entities as text_special tokens, which are literal text.
+    parser.disable("text_join")
+    offset_inline = _OffsetParserInline()
+    offset_inline.ruler = parser.inline.ruler
+    offset_inline.ruler2 = parser.inline.ruler2
+    parser.inline = offset_inline
+    return parser
+
+
+def _line_of(text: str, offset: int) -> int:
+    return text.count("\n", 0, offset) + 1
 
 
 def _first_line(token: Token) -> int:
@@ -115,18 +196,44 @@ def _first_line(token: Token) -> int:
 
 def _html_links(html: str, first_line: int) -> tuple[list[Link], list[Unparsed]]:
     collector = _HtmlLinkCollector(first_line)
+    unparsable = HTML_UNPARSABLE_RE.search(html)
+    if unparsable is not None:
+        collector.unparsed.append(
+            Unparsed(
+                first_line + html.count("\n", 0, unparsable.start()),
+                "an HTML declaration, CDATA section or processing instruction",
+            ),
+        )
     collector.feed(html)
+    leftover = collector.rawdata.lstrip()
+    if leftover.startswith("<"):
+        collector.unparsed.append(
+            Unparsed(
+                first_line + html.count("\n", 0, len(html) - len(leftover)),
+                "an HTML tag or comment left open at the end of the block",
+            ),
+        )
     collector.close()
     return collector.links, collector.unparsed
+
+
+def _text_problems(text: str, line: int) -> list[Unparsed]:
+    problems: list[Unparsed] = []
+    if UNPARSED_LINK_RE.search(text):
+        problems.append(Unparsed(line, "link syntax the parser could not read"))
+    if BARE_EMAIL_RE.search(text):
+        problems.append(Unparsed(line, "a bare email address, which GitHub links"))
+    return problems
 
 
 def _inline_links(token: Token) -> tuple[list[Link], list[Unparsed]]:
     links: list[Link] = []
     unparsed: list[Unparsed] = []
-    line = _first_line(token)
     # Link text can't hold another link, so brackets inside it are only text.
     link_depth = 0
     for child in token.children or []:
+        offset = child.meta.get("offset", 0)
+        line = _first_line(token) + token.content.count("\n", 0, offset)
         if child.type == "link_open":
             link_depth += 1
             form = "autolink" if child.markup == "autolink" else "Markdown link"
@@ -139,17 +246,16 @@ def _inline_links(token: Token) -> tuple[list[Link], list[Unparsed]]:
             html_links, html_unparsed = _html_links(child.content, line)
             links += html_links
             unparsed += html_unparsed
-        elif (
-            child.type == "text"
-            and link_depth == 0
-            and UNPARSED_LINK_RE.search(child.content)
-        ):
-            unparsed.append(Unparsed(line, "link syntax the parser could not read"))
-        # Each soft or hard break inside a paragraph starts a new source line.
-        line += child.content.count("\n")
-        if child.type in {"softbreak", "hardbreak"}:
-            line += 1
+        elif child.type == "text" and link_depth == 0:
+            unparsed += _text_problems(child.content, line)
     return links, unparsed
+
+
+def _definition_links(token: Token) -> tuple[list[Link], list[Unparsed]]:
+    line = _first_line(token)
+    if str(token.meta["label"]).startswith("^"):
+        return [], [Unparsed(line, "a GFM footnote, which the test cannot parse")]
+    return [Link(line, "link reference definition", str(token.meta["url"]))], []
 
 
 def extract_links(markdown: str) -> tuple[list[Link], list[Unparsed]]:
@@ -159,21 +265,18 @@ def extract_links(markdown: str) -> tuple[list[Link], list[Unparsed]]:
     without a title or ``<...>`` destination, reference-style links and their
     definitions, autolinks, images, and the href or src of raw HTML.
     """
-    parser = MarkdownIt("commonmark", {"inline_definitions": True}).enable("table")
     links: list[Link] = []
-    unparsed: list[Unparsed] = []
-    for token in parser.parse(markdown):
+    unparsed = [
+        Unparsed(_line_of(markdown, match.start()), "a <source> line")
+        for match in GFM_ONLY_HTML_BLOCK_RE.finditer(markdown)
+    ]
+    for token in _markdown_parser().parse(markdown):
         if token.type == "inline":
             found, unreadable = _inline_links(token)
         elif token.type == "html_block":
             found, unreadable = _html_links(token.content, _first_line(token))
         elif token.type == "definition":
-            definition = Link(
-                _first_line(token),
-                "link reference definition",
-                str(token.meta["url"]),
-            )
-            found, unreadable = [definition], []
+            found, unreadable = _definition_links(token)
         else:
             continue
         links += found
@@ -219,12 +322,37 @@ def tracks_sections() -> tuple[str, str]:
     return active, archived
 
 
-def track_entries() -> list[re.Match[str]]:
-    return list(TRACK_ENTRY_RE.finditer(TRACKS_PATH.read_text(encoding="utf-8")))
+def track_registry() -> Registry:
+    """Return the entries GitHub renders, skipping copies in raw HTML or code.
+
+    An entry counts only if GitHub renders its heading as a heading and its
+    link as a link. Any rendered track heading outside an entry is stray.
+    """
+    text = TRACKS_PATH.read_text(encoding="utf-8")
+    rendered_links = {
+        (link.line, link.target)
+        for link in extract_links(text)[0]
+        if link.form == "Markdown link"
+    }
+    headings = {
+        _first_line(opening)
+        for opening, inline in pairwise(_markdown_parser().parse(text))
+        if opening.type == "heading_open"
+        and opening.tag == "h2"
+        and inline.content.startswith(TRACK_HEADING_PREFIXES)
+    }
+    entries = [
+        entry
+        for entry in TRACK_ENTRY_RE.finditer(text)
+        if _line_of(text, entry.start()) in headings
+        and (_line_of(text, entry.start("href")), entry.group("href")) in rendered_links
+    ]
+    stray = headings - {_line_of(text, entry.start()) for entry in entries}
+    return Registry(entries, sorted(stray))
 
 
 def entry_name(entry: re.Match[str]) -> str:
-    line = entry.string.count("\n", 0, entry.start("href")) + 1
+    line = _line_of(entry.string, entry.start("href"))
     return f"conductor/tracks.md:{line} ({entry.group('title')})"
 
 
@@ -246,10 +374,15 @@ def test_archived_tracks_are_not_listed_as_active() -> None:
 
 @pytest.mark.unit
 def test_track_registry_links_resolve_to_existing_directories() -> None:
-    entries = track_entries()
-    assert entries, "No track registry entries parsed from conductor/tracks.md"
+    registry = track_registry()
+    assert registry.entries, "No track registry entries parsed from conductor/tracks.md"
+    assert not registry.stray_heading_lines, (
+        "Each track heading in conductor/tracks.md must start a registry entry of "
+        f"the form {TRACK_ENTRY_FORM}; these lines don't: "
+        f"{', '.join(map(str, registry.stray_heading_lines))}"
+    )
     archive = ARCHIVE_DIR.resolve()
-    for entry in entries:
+    for entry in registry.entries:
         name, href = entry_name(entry), entry.group("href")
         assert href == entry.group("label"), (
             f"{name}: the link text must repeat the link target {href!r}"
@@ -274,7 +407,7 @@ def test_every_archived_track_has_exactly_one_registry_entry() -> None:
     archived = sorted(child.name for child in ARCHIVE_DIR.iterdir() if child.is_dir())
     assert archived, "No track directories found in conductor/tracks/archive/"
     entry_counts = Counter(
-        registry_track_id(entry.group("href")) for entry in track_entries()
+        registry_track_id(entry.group("href")) for entry in track_registry().entries
     )
     missing = [track_id for track_id in archived if entry_counts[track_id] == 0]
     repeated = [track_id for track_id in archived if entry_counts[track_id] > 1]
@@ -294,13 +427,14 @@ def test_every_link_in_tracks_resolves_inside_repo_from_conductor() -> None:
     lines = text.splitlines()
     links, unparsed = extract_links(text)
     unreadable = [
-        f"  line {spot.line}: {spot.reason}: {lines[spot.line - 1].strip()}"
+        f"  line {spot.line}: {spot.reason}: "
+        + (lines[spot.line - 1].strip() if 0 < spot.line <= len(lines) else "")
         for spot in unparsed
     ]
     assert not unreadable, "\n".join(
         [
             "conductor/tracks.md holds link syntax the test cannot parse; fix the "
-            "link, or wrap literal brackets in backticks:",
+            "link, or escape literal brackets with a backslash:",
             *unreadable,
         ],
     )
