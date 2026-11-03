@@ -111,4 +111,6 @@ def test_track_11_is_removed_from_active_index() -> None:
     tracks = (ROOT / "conductor" / "tracks.md").read_text(encoding="utf-8")
     active, archived = tracks.split("## Archived Tracks", maxsplit=1)
     assert "Track 11" not in active
-    assert "conductor/tracks/archive/11_upstream_pr_workflows" in archived
+    track_11_link = "./tracks/archive/11_upstream_pr_workflows/"
+    assert f"]({track_11_link})" in archived
+    assert (ROOT / "conductor" / track_11_link).is_dir()

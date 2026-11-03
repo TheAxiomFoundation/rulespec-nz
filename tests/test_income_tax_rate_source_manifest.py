@@ -193,4 +193,6 @@ def test_legacy_tax_rate_ingest_track_is_archived_as_track3_context() -> None:
     assert "nz_ingest_tax_rate_20260619" in superseded_ids
     assert "conductor/tracks/archive/nz_ingest_tax_rate_20260619/" in superseded_paths
     assert not (ROOT / "conductor/tracks/nz_ingest_tax_rate_20260619").exists()
-    assert "conductor/tracks/archive/nz_ingest_tax_rate_20260619/" in tracks_index
+    legacy_link = "./tracks/archive/nz_ingest_tax_rate_20260619/"
+    assert f"]({legacy_link})" in tracks_index
+    assert (ROOT / "conductor" / legacy_link).is_dir()

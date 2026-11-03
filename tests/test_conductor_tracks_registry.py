@@ -9,6 +9,9 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 TRACKS_PATH = ROOT / "conductor" / "tracks.md"
+# GitHub resolves relative Markdown links against the file that holds them, so
+# every link in tracks.md must resolve from conductor/, not the repository root.
+TRACKS_LINK_BASE = TRACKS_PATH.parent
 TRACKS_DIR = ROOT / "conductor" / "tracks"
 ARCHIVE_DIR = TRACKS_DIR / "archive"
 
@@ -18,6 +21,7 @@ TRACK_ENTRY_RE = re.compile(
     r"\*Link: \[(?P<label>.+?)\]\((?P<href>.+?)\)\*",
     re.MULTILINE,
 )
+MARKDOWN_LINK_RE = re.compile(r"\[[^\]]*\]\((?P<href>[^)\s]+)\)")
 
 
 def tracks_sections() -> tuple[str, str]:
@@ -41,11 +45,32 @@ def test_archived_tracks_are_not_listed_as_active() -> None:
 
 @pytest.mark.unit
 def test_track_registry_links_resolve_to_existing_directories() -> None:
-    for entry in track_entries():
+    entries = track_entries()
+    assert entries, "No track registry entries parsed from conductor/tracks.md"
+    for entry in entries:
         href = entry.group("href")
         assert href == entry.group("label")
-        target = (ROOT / href).resolve()
+        assert href.startswith("./tracks/archive/"), (
+            f"Track registry link is not file-relative to conductor/: {href}"
+        )
+        target = (TRACKS_LINK_BASE / href).resolve()
         assert target.is_dir(), f"Missing track registry target: {href}"
+        assert target.is_relative_to(ARCHIVE_DIR.resolve())
+
+
+@pytest.mark.unit
+def test_every_relative_link_in_tracks_resolves_from_conductor() -> None:
+    hrefs = [
+        match.group("href")
+        for match in MARKDOWN_LINK_RE.finditer(TRACKS_PATH.read_text(encoding="utf-8"))
+    ]
+    relative = [
+        href for href in hrefs if "://" not in href and not href.startswith("#")
+    ]
+    assert relative, "No relative links parsed from conductor/tracks.md"
+    for href in relative:
+        target = (TRACKS_LINK_BASE / href.split("#", 1)[0]).resolve()
+        assert target.exists(), f"Link in conductor/tracks.md does not resolve: {href}"
 
 
 @pytest.mark.unit
