@@ -95,9 +95,18 @@ No active tracks.
 *Status: archived after clean review*
 *Link: [./tracks/archive/25_social_security_main_benefits/](./tracks/archive/25_social_security_main_benefits/)*
 
+## Track 24: ACC levies and income support surfaces
+*Status: archived after clean review*
+*Link: [./tracks/archive/24_acc_levies_income_supports/](./tracks/archive/24_acc_levies_income_supports/)*
+
 ## Track 23: Income Interfaces
 *Status: archived after clean review*
 *Link: [./tracks/archive/23_income_interfaces/](./tracks/archive/23_income_interfaces/)*
+
+## Track 19: Repo Hardening and Source Readiness
+*Status: archived after clean review*
+*Link: [./tracks/archive/19_repo_hardening_and_source_readiness/](./tracks/archive/19_repo_hardening_and_source_readiness/)*
+
 ## Track 18: RuleSpec Rule Inventory and Triangulation
 *Status: archived after clean review*
 *Link: [./tracks/archive/18_rulespec_rule_inventory_triangulation/](./tracks/archive/18_rulespec_rule_inventory_triangulation/)*
