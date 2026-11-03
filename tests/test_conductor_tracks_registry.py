@@ -59,17 +59,22 @@ TRACK_ENTRY_FORM = (
 # A registry entry links one track directory directly inside the archive.
 REGISTRY_HREF_RE = re.compile(r"\./tracks/archive/(?P<track_id>[^/?#\\]+)/")
 REGISTRY_HREF_FORM = "./tracks/archive/<id>/, relative to conductor/"
-# The phrase a registry status line must carry for each status an archived
-# track's metadata.json can hold. A bare "archived" adds nothing, so any archived
-# status line agrees with it.
-REGISTRY_STATUS_PHRASES = {
-    "archived": "archived",
+# A word that may describe a blocker in a status line: anything but a word that
+# denies or clears it, so "archived with no blockers" can't pass for blocked.
+_BLOCKER_WORD = r"(?!(?:no|not|none|without|zero|cleared|resolved)\b)[a-z0-9-]+"
+# The form a registry status line must match in full, ignoring case, for each
+# status an archived track's metadata.json can hold. A bare "archived" doesn't
+# say how review ended, so its line may add either review qualifier.
+REGISTRY_STATUS_FORMS = {
+    "archived": "archived(?: after clean review| after review remediation)?",
     "archived_after_clean_review": "archived after clean review",
     "archived_after_review_remediation": "archived after review remediation",
-    "archived_blocked": "blocker",
-    "archived_superseded": "archived superseded",
+    "archived_blocked": rf"archived with (?:{_BLOCKER_WORD} )+blockers?",
+    "archived_superseded": r"archived superseded by Track \d+",
     "archived_with_follow_on_blockers": "archived with follow-on blockers",
 }
+# The statuses whose metadata.json must list a blocker. Every other status lists none.
+BLOCKER_STATUSES = frozenset({"archived_blocked", "archived_with_follow_on_blockers"})
 
 EXTERNAL_SCHEMES = frozenset({"http", "https"})
 HTML_LINK_ATTRIBUTES = frozenset({"href", "src"})
@@ -442,28 +447,42 @@ def registry_track_id(href: str) -> str | None:
     return match.group("track_id")
 
 
-def registry_status_problems(
-    status_line: str,
-    metadata: dict[str, object],
-) -> list[str]:
-    """Return each way a registry status line misstates its track's metadata.json."""
-    problems: list[str] = []
-    status = metadata.get("status")
-    phrase = REGISTRY_STATUS_PHRASES.get(status) if isinstance(status, str) else None
-    if phrase is None:
-        problems.append(
-            f"metadata.json status {status!r} has no phrase in REGISTRY_STATUS_PHRASES",
+def registry_status_problems(status_line: str, metadata: object) -> list[str]:
+    """Return the way a registry status line misstates its track's metadata.json.
+
+    The list holds one problem at most. A metadata.json that contradicts itself
+    comes back alone, because no status line can agree with it.
+    """
+    problem = metadata_problem(metadata)
+    if problem is None and isinstance(metadata, dict):
+        status = metadata["status"]
+        form = REGISTRY_STATUS_FORMS[status]
+        if re.fullmatch(form, status_line, re.IGNORECASE) is None:
+            problem = (
+                f"metadata.json says {status!r}, so the status must match {form!r}"
+            )
+    return [] if problem is None else [problem]
+
+
+def metadata_problem(metadata: object) -> str | None:
+    """Return the way a track's metadata.json contradicts itself, or None."""
+    if not isinstance(metadata, dict):
+        return f"metadata.json holds a {type(metadata).__name__}, not an object"
+    status, blockers = metadata.get("status"), metadata.get("blockers")
+    problem = None
+    if "status" not in metadata:
+        problem = "metadata.json has no status"
+    elif not isinstance(status, str) or status not in REGISTRY_STATUS_FORMS:
+        problem = (
+            f"metadata.json status {status!r} has no form in REGISTRY_STATUS_FORMS"
         )
-    elif phrase not in status_line:
-        problems.append(
-            f"metadata.json says {status!r}, so the status must say {phrase!r}",
-        )
-    names_blocker = "blocker" in status_line
-    if metadata.get("blockers") and not names_blocker:
-        problems.append("metadata.json lists blockers, so the status must name them")
-    if names_blocker and not metadata.get("blockers"):
-        problems.append("the status names a blocker, but metadata.json lists none")
-    return problems
+    elif blockers is not None and not isinstance(blockers, list):
+        problem = f"metadata.json blockers must be a list, not {blockers!r}"
+    elif status in BLOCKER_STATUSES and not blockers:
+        problem = f"metadata.json says {status!r} but lists no blockers"
+    elif blockers and status not in BLOCKER_STATUSES:
+        problem = f"metadata.json lists blockers but says {status!r}, which has none"
+    return problem
 
 
 @pytest.mark.unit
@@ -602,7 +621,11 @@ def test_registry_status_agrees_with_track_metadata() -> None:
             problems.append(f"  {entry_name(entry)}: {track_id} has no metadata.json")
             continue
         # Four archived metadata.json files start with a byte-order mark.
-        metadata = json.loads(metadata_path.read_text(encoding="utf-8-sig"))
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8-sig"))
+        except json.JSONDecodeError as error:
+            problems.append(f"  {entry_name(entry)}: {track_id}/metadata.json: {error}")
+            continue
         line = _line_of(entry.string, entry.start("status"))
         problems.extend(
             f"  conductor/tracks.md:{line} ({entry.group('title')}): {problem} "
@@ -625,38 +648,84 @@ def test_registry_status_agrees_with_track_metadata() -> None:
         (
             "archived after clean review",
             {"status": "archived_after_clean_review", "blockers": []},
-            [],
+            None,
         ),
+        (
+            "Archived After Clean Review",
+            {"status": "archived_after_clean_review"},
+            None,
+        ),
+        (
+            "archived with host toolchain coverage blocker",
+            {"status": "archived_blocked", "blockers": ["toolchain"]},
+            None,
+        ),
+        ("archived superseded by Track 3", {"status": "archived_superseded"}, None),
+        ("archived after review remediation", {"status": "archived"}, None),
         (
             "archived after clean review",
             {"status": "archived_with_follow_on_blockers", "blockers": ["open"]},
-            ["so the status must say", "so the status must name them"],
+            "so the status must match",
         ),
         (
-            "archived after clean review",
-            {"status": "archived", "blockers": ["open"]},
-            ["so the status must name them"],
+            "archived with no blockers",
+            {"status": "archived_blocked", "blockers": ["open"]},
+            "so the status must match",
+        ),
+        (
+            "archived after clean review; blockers cleared",
+            {"status": "archived_blocked", "blockers": ["open"]},
+            "so the status must match",
+        ),
+        (
+            "archived after clean review<!-- archived with follow-on blockers -->",
+            {"status": "archived_with_follow_on_blockers", "blockers": ["open"]},
+            "so the status must match",
         ),
         (
             "archived with a blocker",
             {"status": "archived"},
-            ["but metadata.json lists none"],
+            "so the status must match",
         ),
         (
             "archived after clean review",
             {"status": "archived_after_review_remediation"},
-            ["so the status must say"],
+            "so the status must match",
         ),
-        ("archived", {"status": "archived_pending"}, ["has no phrase"]),
-        ("archived", {"status": ["archived"]}, ["has no phrase"]),
+        (
+            "archived after clean review",
+            {"status": "archived", "blockers": ["open"]},
+            "lists blockers but says 'archived'",
+        ),
+        (
+            "archived with follow-on blockers",
+            {"status": "archived_with_follow_on_blockers", "blockers": []},
+            "but lists no blockers",
+        ),
+        (
+            "archived blocked",
+            {"status": "archived_blocked"},
+            "but lists no blockers",
+        ),
+        (
+            "archived",
+            {"status": "archived", "blockers": "none"},
+            "blockers must be a list",
+        ),
+        ("archived", {"status": "archived_pending"}, "has no form"),
+        ("archived", {"status": ["archived"]}, "has no form"),
+        ("archived", {"blockers": []}, "has no status"),
+        ("archived", ["archived"], "holds a list, not an object"),
     ],
 )
 def test_registry_status_problems_name_each_disagreement(
     status_line: str,
-    metadata: dict[str, object],
-    expected: list[str],
+    metadata: object,
+    expected: str | None,
 ) -> None:
     problems = registry_status_problems(status_line, metadata)
-    assert len(problems) == len(expected), problems
-    for problem, fragment in zip(problems, expected, strict=True):
-        assert fragment in problem, (fragment, problem)
+    if expected is None:
+        assert problems == []
+    else:
+        (problem,) = problems
+        assert expected in problem, (expected, problem)
