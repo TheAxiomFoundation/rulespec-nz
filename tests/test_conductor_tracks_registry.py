@@ -36,10 +36,12 @@ TRACK_ENTRY_RE = re.compile(
     r"\*Link: \[(?P<label>.+?)\]\((?P<href>.+?)\)\*",
     re.MULTILINE,
 )
-TRACK_HEADING_PREFIXES = ("Track ", "Legacy Track:")
+# Any heading whose rendered text starts like a track heading, at any level.
+TRACK_HEADING_RE = re.compile(r"(?:legacy\s+)?track\b", re.IGNORECASE)
 TRACK_ENTRY_FORM = (
-    "## Track <n>: <title>, then *Status: <status>*, "
-    "then *Link: [./tracks/archive/<id>/](./tracks/archive/<id>/)*"
+    "## Track <n>: <title>, then *Status: <status>*, then "
+    "*Link: [./tracks/archive/<id>/](./tracks/archive/<id>/)*, with no <...>, "
+    "no title and no further line in the entry's paragraph"
 )
 # A registry entry links one track directory directly inside the archive.
 REGISTRY_HREF_RE = re.compile(r"\./tracks/archive/(?P<track_id>[^/?#\\]+)/")
@@ -78,6 +80,11 @@ GFM_ONLY_HTML_BLOCK_RE = re.compile(
 )
 # GitHub turns a bare email address into a mailto: link.
 BARE_EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+# A browser keeps an encoded / or \ inside one path segment.
+ENCODED_SEPARATOR_RE = re.compile(r"%(?:2f|5c)", re.IGNORECASE)
+CONTROL_CHARACTER_RE = re.compile(r"[\x00-\x1f\x7f]")
+# Paths that exist in a checkout but never in the Git tree GitHub serves.
+UNTRACKED_PATH_PARTS = frozenset({".git", "__pycache__"})
 
 
 class Link(NamedTuple):
@@ -99,7 +106,7 @@ class Registry(NamedTuple):
     """The registry entries GitHub renders, and track headings outside one."""
 
     entries: list[re.Match[str]]
-    stray_heading_lines: list[int]
+    stray_headings: list[str]
 
 
 class _OffsetInlineState(StateInline):
@@ -146,8 +153,18 @@ class _HtmlLinkCollector(HTMLParser):
         return self.first_line + self.getpos()[0] - 1
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        # html.unescape silently drops references to control characters, which a
+        # browser keeps, so the test refuses numeric references in a URL tag.
+        raw_tag = self.get_starttag_text() or ""
         for name, value in attrs:
-            if name in HTML_LINK_ATTRIBUTES and value is not None:
+            if name in HTML_LINK_ATTRIBUTES and "&#" in raw_tag:
+                self.unparsed.append(
+                    Unparsed(
+                        self._line(),
+                        "a numeric character reference in a URL tag",
+                    ),
+                )
+            elif name in HTML_LINK_ATTRIBUTES and value is not None:
                 form = f"HTML <{tag} {name}>"
                 self.links.append(Link(self._line(), form, value.strip(URL_TRIM)))
             elif name in HTML_LINK_ATTRIBUTES | HTML_UNCHECKED_URL_ATTRIBUTES:
@@ -294,22 +311,37 @@ def link_problem(target: str) -> str | None:
         if parts.scheme in EXTERNAL_SCHEMES and parts.netloc:
             return None
         return "has a scheme or host the test cannot check; use http(s) or a path"
-    path = unquote(parts.path)
-    if not path:
+    if not parts.path:
         # A bare #fragment or ?query points back at tracks.md itself.
         return None
-    return _path_problem(path)
+    return _path_problem(parts.path)
 
 
-def _path_problem(path: str) -> str | None:
+def _path_syntax_problem(raw_path: str, path: str) -> str | None:
+    if ENCODED_SEPARATOR_RE.search(raw_path):
+        return "encodes / or \\ as %2F or %5C, which a browser keeps in one segment"
+    if CONTROL_CHARACTER_RE.search(path):
+        return "holds a control character"
     if path.startswith("/") or "\\" in path:
         return "must be a /-separated path relative to conductor/, with no leading /"
+    return None
+
+
+def _path_problem(raw_path: str) -> str | None:
+    path = unquote(raw_path)
+    syntax_problem = _path_syntax_problem(raw_path, path)
+    if syntax_problem is not None:
+        return syntax_problem
     # GitHub turns a path that climbs above the repository root into a broken
     # URL, even if it climbs back in, so check the path before symlinks resolve.
     lexical = posixpath.normpath(posixpath.join(TRACKS_LINK_BASE_NAME, path))
     resolved = (TRACKS_LINK_BASE / path).resolve()
     if lexical.split("/", 1)[0] == ".." or not resolved.is_relative_to(ROOT):
         return f"leaves the repository (it resolves to {resolved})"
+    if UNTRACKED_PATH_PARTS.intersection(lexical.split("/")):
+        return "names a path that Git never tracks"
+    if resolved == ARCHIVE_DIR.resolve():
+        return "names the archive root; link one track directory inside it"
     if not resolved.exists():
         return "names nothing that exists, relative to conductor/"
     return None
@@ -334,21 +366,43 @@ def track_registry() -> Registry:
         for link in extract_links(text)[0]
         if link.form == "Markdown link"
     }
-    headings = {
-        _first_line(opening)
-        for opening, inline in pairwise(_markdown_parser().parse(text))
-        if opening.type == "heading_open"
-        and opening.tag == "h2"
-        and inline.content.startswith(TRACK_HEADING_PREFIXES)
-    }
+    tokens = _markdown_parser().parse(text)
+    # Map each track heading's line to its rendered text, at any heading level.
+    headings: dict[int, str] = {}
+    # Lines in the paragraph that follows each track heading.
+    paragraph_lines: dict[int, int] = {}
+    for index, (opening, inline) in enumerate(pairwise(tokens)):
+        title = _rendered_text(inline)
+        if opening.type != "heading_open" or not TRACK_HEADING_RE.match(title):
+            continue
+        line = _first_line(opening)
+        headings[line] = title
+        following = tokens[index + 3] if index + 3 < len(tokens) else None
+        if following is not None and following.type == "paragraph_open":
+            assert following.map is not None
+            paragraph_lines[line] = following.map[1] - following.map[0]
     entries = [
         entry
         for entry in TRACK_ENTRY_RE.finditer(text)
-        if _line_of(text, entry.start()) in headings
+        if (heading_line := _line_of(text, entry.start())) in headings
+        and paragraph_lines.get(heading_line) == 2
         and (_line_of(text, entry.start("href")), entry.group("href")) in rendered_links
     ]
-    stray = headings - {_line_of(text, entry.start()) for entry in entries}
-    return Registry(entries, sorted(stray))
+    counted = {_line_of(text, entry.start()) for entry in entries}
+    stray = [
+        f"line {line} ({title})"
+        for line, title in sorted(headings.items())
+        if line not in counted
+    ]
+    return Registry(entries, stray)
+
+
+def _rendered_text(inline: Token) -> str:
+    return "".join(
+        child.content
+        for child in inline.children or []
+        if child.type in {"text", "text_special", "code_inline"}
+    )
 
 
 def entry_name(entry: re.Match[str]) -> str:
@@ -376,10 +430,10 @@ def test_archived_tracks_are_not_listed_as_active() -> None:
 def test_track_registry_links_resolve_to_existing_directories() -> None:
     registry = track_registry()
     assert registry.entries, "No track registry entries parsed from conductor/tracks.md"
-    assert not registry.stray_heading_lines, (
+    assert not registry.stray_headings, (
         "Each track heading in conductor/tracks.md must start a registry entry of "
-        f"the form {TRACK_ENTRY_FORM}; these lines don't: "
-        f"{', '.join(map(str, registry.stray_heading_lines))}"
+        f"the form {TRACK_ENTRY_FORM}. These headings don't: "
+        f"{'; '.join(registry.stray_headings)}"
     )
     archive = ARCHIVE_DIR.resolve()
     for entry in registry.entries:
