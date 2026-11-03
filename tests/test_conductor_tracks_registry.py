@@ -68,14 +68,15 @@ REGISTRY_STATUS_FORMS = {
     "archived_after_clean_review": "archived after clean review",
     "archived_after_review_remediation": "archived after review remediation",
     "archived_blocked": "archived with (?:open )?blockers?",
-    "archived_superseded": r"archived superseded by Track (?P<track>\d+)",
+    "archived_superseded": "archived superseded by Track (?P<track>[0-9]{1,4})",
     "archived_with_follow_on_blockers": "archived with follow-on blockers",
 }
 # The statuses whose metadata.json must list a blocker. Every other status lists none.
 BLOCKER_STATUSES = frozenset({"archived_blocked", "archived_with_follow_on_blockers"})
 # A superseded track's metadata.json names the archive folder of the track that
-# replaced it, and the status line must give that folder's number.
-SUPERSEDED_BY_RE = re.compile(r"(?P<number>\d+)_[a-z0-9_]+")
+# replaced it, and the status line must give that folder's number. Both numbers
+# take one to four ASCII digits, so no huge or non-ASCII number reaches int().
+SUPERSEDED_BY_RE = re.compile(r"(?P<number>[0-9]{1,4})_[a-z0-9_]+")
 
 EXTERNAL_SCHEMES = frozenset({"http", "https"})
 HTML_LINK_ATTRIBUTES = frozenset({"href", "src"})
@@ -384,13 +385,15 @@ def tracks_sections() -> tuple[str, str]:
     return active, archived
 
 
-def track_registry() -> Registry:
+def track_registry(text: str | None = None) -> Registry:
     """Return the entries GitHub renders, skipping copies in raw HTML or code.
 
     An entry counts only if GitHub renders its heading as a heading and its
     link as a link. Any rendered track heading outside an entry is stray.
+    `text` defaults to conductor/tracks.md.
     """
-    text = TRACKS_PATH.read_text(encoding="utf-8")
+    if text is None:
+        text = TRACKS_PATH.read_text(encoding="utf-8")
     rendered_links = {
         (link.line, link.target)
         for link in extract_links(text)[0]
@@ -643,14 +646,17 @@ def test_archived_track_metadata_matches_folder_ids() -> None:
         assert "archived" in metadata["status"].lower()
 
 
-@pytest.mark.unit
-def test_registry_status_agrees_with_track_metadata() -> None:
+def registry_status_report(
+    registry: Registry,
+    archive: Path = ARCHIVE_DIR,
+) -> list[str]:
+    """Return a line for each entry whose status disagrees with its metadata.json."""
     problems: list[str] = []
-    for entry in track_registry().entries:
+    for entry in registry.entries:
         track_id = registry_track_id(entry.group("href"))
         if track_id is None:
             continue  # test_track_registry_links_resolve_to_existing_directories names it
-        metadata, unreadable = track_metadata(track_id)
+        metadata, unreadable = track_metadata(track_id, archive)
         if unreadable is not None:
             problems.append(f"  {entry_name(entry)}: {unreadable}")
             continue
@@ -660,6 +666,12 @@ def test_registry_status_agrees_with_track_metadata() -> None:
             f"{track_id}/{problem}"
             for problem in registry_status_problems(entry.group("status"), metadata)
         )
+    return problems
+
+
+@pytest.mark.unit
+def test_registry_status_agrees_with_track_metadata() -> None:
+    problems = registry_status_report(track_registry())
     assert not problems, "\n".join(
         [
             "Each registry status in conductor/tracks.md must agree with the status "
@@ -721,6 +733,45 @@ def test_registry_status_agrees_with_track_metadata() -> None:
                 "superseded_by_track_id": "income_tax_rates",
             },
             "names no archive folder",
+        ),
+        pytest.param(
+            "archived superseded by Track " + "9" * 4301,
+            {"status": "archived_superseded", "superseded_by_track_id": "39_successor"},
+            "so the status must match",
+            id="line-track-number-of-4301-digits",
+        ),
+        pytest.param(
+            "archived superseded by Track \uff13\uff19",
+            {"status": "archived_superseded", "superseded_by_track_id": "39_successor"},
+            "so the status must match",
+            id="line-track-number-in-fullwidth-digits",
+        ),
+        pytest.param(
+            "archived superseded by Track 39",
+            {
+                "status": "archived_superseded",
+                "superseded_by_track_id": "9" * 4301 + "_successor",
+            },
+            "names no archive folder",
+            id="successor-number-of-4301-digits",
+        ),
+        pytest.param(
+            "archived superseded by Track 39",
+            {
+                "status": "archived_superseded",
+                "superseded_by_track_id": "\u0663\u0669_successor",
+            },
+            "names no archive folder",
+            id="successor-number-in-arabic-indic-digits",
+        ),
+        pytest.param(
+            "archived superseded by Track 39",
+            {
+                "status": "archived_superseded",
+                "superseded_by_track_id": "39_Successor-Track",
+            },
+            "names no archive folder",
+            id="successor-name-outside-lowercase-words",
         ),
         ("archived after review remediation", {"status": "archived"}, None),
         (
@@ -806,6 +857,8 @@ def test_registry_status_problems_name_each_disagreement(
         "archived with fixed blockers",
         "archived with closed blockers",
         "archived with nonexistent blockers",
+        "archived with not blockers",
+        "archived with none blockers",
         "archived with notable blockers",
         "archived with host toolchain coverage blocker",
         "archived with open blockers, all cleared",
@@ -841,6 +894,29 @@ def test_track_metadata_names_a_file_it_cannot_read(
     assert metadata is None
     assert unreadable is not None, unreadable
     assert unreadable.startswith(expected), unreadable
+
+
+@pytest.mark.unit
+def test_registry_status_report_names_each_records_folder(tmp_path: Path) -> None:
+    text = (
+        "## Track 1: Blocked\n"
+        "*Status: archived after clean review*\n"
+        "*Link: [./tracks/archive/01_blocked/](./tracks/archive/01_blocked/)*\n"
+        "\n"
+        "## Track 2: Missing\n"
+        "*Status: archived*\n"
+        "*Link: [./tracks/archive/02_missing/](./tracks/archive/02_missing/)*\n"
+    )
+    (tmp_path / "01_blocked").mkdir()
+    (tmp_path / "01_blocked" / "metadata.json").write_text(
+        '{"status": "archived_blocked", "blockers": ["open"]}',
+        encoding="utf-8",
+    )
+    assert registry_status_report(track_registry(text), tmp_path) == [
+        "  conductor/tracks.md:2 (Track 1: Blocked): 01_blocked/metadata.json says "
+        "'archived_blocked', so the status must match 'archived with (?:open )?blockers?'",
+        "  conductor/tracks.md:7 (Track 2: Missing): 02_missing has no metadata.json",
+    ]
 
 
 @pytest.mark.unit
