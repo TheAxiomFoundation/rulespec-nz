@@ -124,17 +124,26 @@ def _inline_links(token: Token) -> tuple[list[Link], list[Unparsed]]:
     links: list[Link] = []
     unparsed: list[Unparsed] = []
     line = _first_line(token)
+    # Link text can't hold another link, so brackets inside it are only text.
+    link_depth = 0
     for child in token.children or []:
         if child.type == "link_open":
+            link_depth += 1
             form = "autolink" if child.markup == "autolink" else "Markdown link"
             links.append(Link(line, form, str(child.attrs["href"])))
+        elif child.type == "link_close":
+            link_depth -= 1
         elif child.type == "image":
             links.append(Link(line, "image", str(child.attrs["src"])))
         elif child.type == "html_inline":
             html_links, html_unparsed = _html_links(child.content, line)
             links += html_links
             unparsed += html_unparsed
-        elif child.type == "text" and UNPARSED_LINK_RE.search(child.content):
+        elif (
+            child.type == "text"
+            and link_depth == 0
+            and UNPARSED_LINK_RE.search(child.content)
+        ):
             unparsed.append(Unparsed(line, "link syntax the parser could not read"))
         # Each soft or hard break inside a paragraph starts a new source line.
         line += child.content.count("\n")
@@ -174,7 +183,10 @@ def extract_links(markdown: str) -> tuple[list[Link], list[Unparsed]]:
 
 def link_problem(target: str) -> str | None:
     """Say why ``target`` does not resolve inside the repo from conductor/."""
-    parts = urlsplit(target)
+    try:
+        parts = urlsplit(target)
+    except ValueError as error:
+        return f"is not a URL the test can parse ({error})"
     if parts.scheme or parts.netloc:
         if parts.scheme in EXTERNAL_SCHEMES and parts.netloc:
             return None
