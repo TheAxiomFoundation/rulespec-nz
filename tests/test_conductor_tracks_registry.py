@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import posixpath
 import re
 from collections import Counter
@@ -11,6 +12,18 @@ from typing import TYPE_CHECKING, Literal, NamedTuple
 from urllib.parse import unquote, urlsplit
 
 import pytest
+
+
+# The shared validate-rulespec workflow sets RULESPEC_VALIDATION_MODE and installs
+# only pytest and pyyaml before it runs this suite, so the module skips there.
+# Everywhere else, including the pixi quality job, a missing markdown-it-py fails
+# the import, so the guard can't go quiet.
+if os.environ.get("RULESPEC_VALIDATION_MODE"):
+    pytest.importorskip(
+        "markdown_it",
+        reason="the shared validate workflow installs no dev dependency",
+    )
+
 from markdown_it import MarkdownIt
 from markdown_it.parser_inline import ParserInline
 from markdown_it.rules_inline import StateInline
