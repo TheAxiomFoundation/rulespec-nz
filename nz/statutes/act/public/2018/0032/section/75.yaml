@@ -1,7 +1,8 @@
 format: rulespec/v1
 module:
-  summary: MSD may terminate a winter energy payment if satisfied, after reviewing
-    the payment under section 304 ( see also section 309 ), that—
+  summary: MSD may terminate a winter energy payment after a section 304 review if
+    the qualifying benefit rate is required to be reduced to the long-term hospital-patient
+    rate and continuing the payment is inconsistent with section 70’s purpose.
   source_verification:
     corpus_citation_path: nz/statute/act/public/2018/0032/section/75
     source_sha256: 0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931
@@ -65,7 +66,7 @@ rules:
           excerpt: continuing the payment is not consistent with the purpose stated
             in section 70
   versions:
-  - effective_from: '2018-11-26'
+  - effective_from: '0001-01-01'
     formula: 'commencement_indicator == 1
 
       and payment_reviewed_under_section_304
@@ -97,6 +98,6 @@ rules:
           excerpt: This Act comes into force on 26 November 2018
   versions:
   - effective_from: '0001-01-01'
-    formula: '0'
+    formula: "0"
   - effective_from: '2018-11-26'
-    formula: '1'
+    formula: "1"
