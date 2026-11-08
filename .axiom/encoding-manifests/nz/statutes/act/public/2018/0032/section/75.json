@@ -2,37 +2,45 @@
   "applied_files": [
     {
       "path": "nz/statutes/act/public/2018/0032/section/75.yaml",
-      "sha256": "7f399eae94bec28e57ed2d6df1418b4558fa468957db26f11e52bb47465c427d"
+      "sha256": "1b6f7f00263e706f7ec56e8d429a7b24afe1862bb7a31626e167928ff7e374e8"
     },
     {
       "path": "nz/statutes/act/public/2018/0032/section/75.test.yaml",
-      "sha256": "1e7dc283bdf6be7afdf6d23865176be3ce6f9e5ca39a7c78ad2018ec74633d61"
+      "sha256": "f829576232d00534897817650c778ad7dbebf8c4a59d43d9626f0325869607ab"
     }
   ],
   "axiom_encode_git": {
-    "commit": "e0ce1ca9befd45022287675c919db31e83d61850",
+    "commit": "b21bceb6a3054670e265b205fa6951a73e907492",
     "dirty_tracked": false,
     "identity_source": "trusted-runtime-attestation",
     "root": "/opt/axiom-verification/python/runtime-attestation.json",
-    "version": "0.2.2196",
-    "version_commit": "e0ce1ca9befd45022287675c919db31e83d61850"
+    "version": "0.2.2345",
+    "version_commit": "b21bceb6a3054670e265b205fa6951a73e907492"
   },
-  "axiom_encode_version": "0.2.2196",
+  "axiom_encode_version": "0.2.2345",
+  "backend": "openai",
   "citation": "nz/statute/act/public/2018/0032/section/75",
-  "generated_at": "2026-10-15T09:24:41.669257+00:00",
-  "reviewed_rulespec_ref": "163ac0d304db9ef5bb5771c93e1c84ef7f78ce97",
-  "run_id": "38678166960",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-6-luna/nz-statute-act-public-2018-0032-section-75/workspace/context-manifest.json",
+  "context_manifest_sha256": "b14c36fd62d266df4829ffd6f81a6d5dceb00d6326b6793d87438cdef925a8a4",
+  "generated_at": "2026-11-08T19:04:15.261624+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-6-luna/statutes/act/public/2018/0032/section/75.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "1b6f7f00263e706f7ec56e8d429a7b24afe1862bb7a31626e167928ff7e374e8",
+  "generation_prompt_sha256": "854b78dda618c6cf9e2ce46e54e3bed48f7419ac04488028d81573c2ecf1e109",
+  "model": "gpt-6-luna",
+  "run_id": "41f410c0",
+  "runner": "openai-gpt-6-luna",
   "schema_version": "axiom-encode/applied-rulespec/v5",
   "signature": {
     "algorithm": "ed25519-domain-v1",
     "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
-    "value": "egDv2I61wXj+HfVmVm5gHOLyN4Obz6C+9rnlMi1om/OjOzCmU9zdeGOmCoFOJ9/nc0sGKErtOinV/86tV3K5DA=="
+    "value": "kmCoa0citIH1c64zDyOtI/fqBRr+rMnwoPyAsQRCBFbtD+lqp69fE/viQB1G7BP17VYEHuA+H9ZEC/tugjCPAg=="
   },
   "source_attestation": {
     "component_rows": [],
-    "corpus_release": "nz-rulespec-2026-07-25",
-    "corpus_release_content_sha256": "fec362b985739f27910f0e950fc03e298528a42cdff6f694b19c9ed0850c8405",
-    "corpus_release_selector_sha256": "642ce790c1b38cf9224df8450e45340a02e7d5e00c28fcb12dc947f2afa08b43",
+    "corpus_release": "nz-rulespec-2026-10-23-amendment-markers",
+    "corpus_release_content_sha256": "4b9ae58eb2fe55dd12d8ee9526c13fff0b75c122251ab4dbcaa40ff04dee7bc2",
+    "corpus_release_selector_sha256": "314abe777b37aadbe0e8848c7ae059d357a1d00aeb9aed340f61fb6e2c166051",
     "corpus_source": "local",
     "expression_date": "2026-06-16",
     "generation_input_sha256": "0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931",
@@ -59,27 +67,29 @@
     "source_as_of": "2026-06-16",
     "source_sha256": "0e8ec0d1ea48b7dc90a55d801754c7008171848fc5b138e966b97235857bc931"
   },
-  "tool": "axiom-encode promote-reviewed-candidate",
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-6-luna/nz-statute-act-public-2018-0032-section-75.json",
+  "trace_sha256": "b0a2b3ac711d65036b17cbf276ecbc31eb40512fbf681db5e7696b1392166411",
   "validation_execution": {
     "axiom_encode": {
-      "commit": "e0ce1ca9befd45022287675c919db31e83d61850",
+      "commit": "b21bceb6a3054670e265b205fa6951a73e907492",
       "identity_source": "trusted-runtime-attestation",
       "repository": "github.com/TheAxiomFoundation/axiom-encode",
-      "version": "0.2.2196"
+      "version": "0.2.2345"
     },
     "axiom_rules_engine": {
-      "commit": "05eac9d2f89dabe5c6673176260762cef3a58f47",
+      "commit": "363c6a6c56f7ad130996b63f7a09cfd4c3d9b021",
       "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
     },
     "policy_pre_apply": {
       "pre_apply_content_sha256": "1a4393a9cb6a1821fa61a7a313fa870688bc824b5b63f4577bc9e63917d3949c",
       "pre_apply_file_count": 82,
       "rulespec_root": "rulespec-nz/nz",
-      "toolchain_contract_sha256": "ab15b0d2c491b86a55282a0bb110143b5406c44e41bf0f475448a6eadc6b3d43",
+      "toolchain_contract_sha256": "ebc6abe16bb0357ebfee1631862f9af94fb46f4c7830653ecf40ab9133aefeb8",
       "validation_waiver_set_sha256": "b3dcfd72a0a476cd27600cef9ea2f634e22cf04cd87b80c6f891749ba24ef165"
     },
     "rulespec_dependencies": [],
-    "rulespec_scope": "full_checkout",
+    "rulespec_scope": "active_jurisdiction_and_country_ancestors",
     "schema": "axiom-encode/apply-validation-execution/v2"
   },
   "validation_waiver_set_sha256": "b3dcfd72a0a476cd27600cef9ea2f634e22cf04cd87b80c6f891749ba24ef165"
