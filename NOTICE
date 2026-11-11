@@ -5,9 +5,28 @@ Axiom Foundation — RuleSpec corpus licensing
   International license (CC BY 4.0) — see LICENSE.
 - Incidental tooling and scripts (CI harnesses, runners, conversion utilities)
   are licensed under the Apache License 2.0 — see LICENSE-CODE.
-- The statutes, regulations, and other government documents these files encode
-  are edicts of government and remain in the public domain. No license is
-  claimed over the law itself.
+- We claim no rights in the statutes, regulations, and other government
+  documents these files encode. Neither license above covers them, or any of
+  their text that these files reproduce. "Source material" below cites the law
+  on their status.
 
 Suggested attribution: "Axiom Foundation RuleSpec corpus (CC BY 4.0),
 https://github.com/TheAxiomFoundation"
+
+Source material
+
+- No copyright exists in Bills introduced into the House of Representatives,
+  Acts, regulations, or judgments of any court or tribunal (Copyright Act
+  1994, s.27(1)).
+- The Crown is the first owner of copyright in other works that people it
+  employs or engages make (s.26(1)). Unless it indicates otherwise, Inland
+  Revenue licenses its Crown copyright material under CC BY 4.0, provided you
+  reproduce it accurately, do not use it in a derogatory manner or a
+  misleading context, acknowledge its source and copyright status, and comply
+  with the other licence terms
+  (https://www.ird.govt.nz/about-this-site/conditions-of-use/copyright). Some
+  files in this repository reproduce Inland Revenue material. Its source is
+  Inland Revenue (ird.govt.nz), and unless Inland Revenue indicates otherwise,
+  it is Crown copyright material that Inland Revenue licenses under CC BY 4.0.
+- The Wellington City District Plan text in
+  data/sources/nz/wellington-city-council/ comes from Wellington City Council.
