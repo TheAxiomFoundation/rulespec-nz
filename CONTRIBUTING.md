@@ -58,10 +58,12 @@ This repository uses two licenses (see `NOTICE`):
 - Encodings, companion test cases, parameter values, and provenance metadata
   use the Creative Commons Attribution 4.0 International license (CC BY 4.0),
   in `LICENSE`.
-- Tooling and scripts (CI harnesses, runners, conversion utilities) use the
-  Apache License 2.0, in `LICENSE-CODE`.
+- Incidental tooling and scripts (CI harnesses, runners, conversion utilities)
+  use the Apache License 2.0, in `LICENSE-CODE`.
 
 By contributing, you agree to license your contribution under the license that
-covers the files it adds or changes: CC BY 4.0 for encodings and data, and
-Apache 2.0 for tooling and scripts. Neither license covers the legislation or
-government material these files encode; `NOTICE` describes its status.
+covers the files it adds or changes: CC BY 4.0 for encodings, companion test
+cases, parameter values, and provenance metadata, and Apache 2.0 for tooling
+and scripts. Neither license covers the legislation or government material
+these files encode, or any of its text that these files reproduce; `NOTICE`
+describes its status.
