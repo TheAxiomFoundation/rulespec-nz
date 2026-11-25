@@ -53,4 +53,7 @@ This project follows the Conductor context-driven development lifecycle:
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the Apache License 2.0.
+By contributing, you dedicate your contributions to encodings, companion tests,
+parameter values and provenance metadata to the public domain under CC0 1.0
+(see `LICENSE` and `NOTICE`), and you license your contributions to tooling and
+scripts under the Apache License 2.0 (see `LICENSE-CODE`).
